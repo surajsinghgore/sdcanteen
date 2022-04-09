@@ -1,0 +1,531 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.top_mini_header {
+    z-index: 99;
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 55px;
+    background-color: #fff;
+    position: sticky;
+}
+
+/* logo style */
+.top_mini_header #logo {
+    float: left;
+    width: 22%;
+    height: 55px;
+    /* background-color:red ; */
+}
+
+.top_mini_header #logo img {
+    width: 130px;
+    height: 55px;
+}
+
+/* search bar style */
+.top_mini_header #searchbar {
+    margin-left: 8%;
+    width: 40%;
+    float: left;
+    height: 55px;
+
+}
+
+.top_mini_header #searchbar .fa-search {
+
+    position: absolute;
+    top: 31%;
+    left: 31%;
+    color: rgb(255, 94, 0);
+    font-size: 18px;
+}
+
+.top_mini_header #searchbar input {
+    outline: none;
+    width: 90%;
+    height: 40px;
+    padding-left: 9%;
+    font-size: 18px;
+    margin-top: 1.3%;
+    border: 2px solid rgb(117, 117, 117);
+    border-radius: 2px;
+    transition: all 0.6s;
+}
+
+
+
+.top_mini_header #searchbar input:focus {
+    border: 2px solid rgb(240, 77, 2);
+    border-radius: 30px;
+
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@500&display=swap');
+
+/* shop */
+.top_mini_header #shop {
+    width: 30%;
+    float: left;
+
+    height: 55px;
+}
+
+.top_mini_header #shop li {
+    list-style: none;
+    color: red;
+    display: inline-block;
+    height: 55px;
+    text-align: center;
+    margin-left: 3%;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 17px;
+    line-height: 55px;
+    cursor: pointer;
+}
+
+.top_mini_header #shop #c-icon {
+
+    margin-top: 3%;
+    padding-right: 5px;
+    color: rgb(255, 94, 0);
+}
+
+.top_mini_header #shop a {
+    text-decoration: none;
+    color: rgb(255, 0, 0);
+}
+
+.top_mini_header #shop #c-icon #order {
+    color: gray;
+    font-size: 17px;
+
+
+
+}
+
+.top_mini_header #shop .fa-circle-user {
+    font-size: 30px;
+    padding-left: 5px;
+    color: black;
+}
+
+.top_mini_header #shop #user {
+    color: rgb(109, 109, 109);
+    padding-left: 10px;
+    padding-right: 12px;
+}
+
+
+.top_mini_header #shop .fa-bag-shopping {
+    font-size: 34px;
+    margin-top: 5px;
+}
+
+.top_mini_header #shop #show:hover {
+    color: black;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* pages */
+.top_mini_header .pages {
+    transform: translateX(999%);
+    z-index: 97;
+    position: fixed;
+    top: 1%;
+    margin-top: 3.6%;
+    left: 0;
+    display: flex;
+    width: 100%;
+    height: 380px;
+    background-color: white;
+    transition: all 0.5s;
+}
+
+
+/* top rated page */
+.top_mini_header .pages .toprated {
+    width: 33%;
+    height: 380px;
+}
+
+.top_mini_header .pages .toprated .toprateimg {
+    width: 80%;
+    margin-left: 7%;
+    margin-top: 8%;
+    height: 80%;
+    overflow: hidden;
+
+}
+
+.top_mini_header .pages .toprated .toprateimg img {
+    width: 100%;
+
+    filter: blur(1px);
+    transition: all 0.6s;
+}
+
+.top_mini_header .pages .toprated .toprateimg:hover img {
+    filter: blur(0px);
+    transform: scale(1.3);
+
+}
+
+.top_mini_header .pages .toprated button {
+    position: absolute;
+    top: 16%;
+    left: 3%;
+    width: 140px;
+    height: 40px;
+    border: none;
+    border-radius: 5px;
+    background-color: #fff;
+    transition: all 0.6s;
+
+}
+
+
+
+.top_mini_header .pages .toprated button a {
+    text-decoration: none;
+    font-size: 20px;
+    color: black;
+    transition: all 0.6s;
+}
+
+.top_mini_header .pages .toprated button:hover {
+    background-color: red;
+    color: white;
+}
+
+.top_mini_header .pages .toprated button:hover a {
+
+    color: white;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@200&display=swap');
+
+/* canteen page */
+.top_mini_header .pages .canteen {
+    width: 22%;
+    height: 380px;
+    text-align: center;
+
+    padding-top: 1%;
+}
+
+.top_mini_header .pages .canteen h1,
+.top_mini_header .pages .coffee h1,
+.top_mini_header .pages .additional h1 {
+    font-family: 'Barlow', sans-serif;
+    font-size: 22px;
+    margin-top: 7%;
+    color: rgb(78, 78, 78);
+}
+
+.top_mini_header .pages .canteen hr,
+.top_mini_header .pages .coffee hr,
+.top_mini_header .pages .additional hr {
+    width: 30%;
+    margin-top: 3%;
+    margin-left: 35%;
+    border: 1px solid red;
+    margin-bottom: 4%;
+}
+
+.top_mini_header .pages .canteen li,
+.top_mini_header .pages .coffee li,
+.top_mini_header .pages .additional li {
+    list-style: none;
+    display: block;
+
+    width: 100%;
+    height: 40px;
+    margin-top: 2%;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=PT+Sans+Narrow&display=swap');
+
+.top_mini_header .pages .canteen li a,
+.top_mini_header .pages .coffee li a,
+.top_mini_header .pages .additional li a {
+    text-decoration: none;
+    line-height: 40px;
+    font-size: 17px;
+    color: rgb(102, 102, 101);
+    font-family: 'PT Sans Narrow',
+        sans-serif;
+}
+
+.top_mini_header .pages .canteen li:hover a,
+.top_mini_header .pages .coffee li:hover a,
+.top_mini_header .pages .additional li:hover a {
+    color: rgb(255, 94, 0);
+}
+
+
+
+.top_mini_header .pages .coffee {
+    width: 22%;
+    height: 380px;
+    text-align: center;
+
+    padding-top: 1%;
+
+}
+
+.top_mini_header .pages .additional {
+    width: 22%;
+    height: 380px;
+    text-align: center;
+
+    padding-top: 1%;
+}
+
+
+.top_mini_header .pages #active {
+    color: rgb(255, 94, 0);
+}
+
+
+
+
+.swiper {
+    width: 100%;
+    height: 100%;
+}
+
+.swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+
+    /* Center slide text vertically */
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
+
+.swiper-slide img {
+    display: block;
+    width: 100%;
+    height: auto;
+    /* object-fit: cover; */
+}
+
+.swiper {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#imgs {
+    width: 100%;
+    height: 540px;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+#quotes {
+    position: absolute;
+    top: 35%;
+    left: 15%;
+    color: rgb(255, 255, 255);
+    width: 70%;
+    margin-left: 0%;
+    font-size: 45px;
+    font-family: 'Roboto',
+        sans-serif;
+    text-transform: capitalize;
+    font-weight: 800;
+    text-shadow: 0px 0px 30px rgb(73, 82, 0);
+}
+
+
+
+/* food types */
+.foodtype {
+    width: 100%;
+    height: 340px;
+
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Anek+Odia:wght@300&display=swap');
+
+.foodtype h2 {
+    font-size: 30px;
+    font-family: 'Anek Odia',
+        sans-serif;
+    padding-top: 5%;
+    margin-left: 10%;
+}
+
+.foodtype .card {
+    width: 150px;
+    float: left;
+    margin-left: 2%;
+    height: 200px;
+    text-align: center;
+    margin-top: 2%;
+}
+
+
+.foodtype .card img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    transform: rotate(0deg);
+    transition: all 0.6s;
+}
+
+.foodtype .card:hover img {
+    transform: rotate(360deg);
+}
+
+.foodtype .card a {
+    text-decoration: none;
+}
+
+.foodtype .card p {
+    font-size: 22px;
+
+    padding-top: 2%;
+    color: rgb(87, 87, 87);
+    transition: all 0.6s;
+}
+
+.foodtype .card:hover p {
+    color: rgb(240, 98, 3);
+}
+
+
+
+
+
+
+/* footer */
+.footer {
+    width: 100%;
+    height: 500px;
+    overflow: hidden;
+    background-color: black;
+}
+
+
+
+.footer .follow {
+    width: 100%;
+    padding-top: 5%;
+    height: 100px;
+    text-align: center;
+
+}
+
+.footer .follow h1 {
+    font-family: Arial, Helvetica, sans-serif;
+    color: white;
+    font-size: 24px;
+}
+
+.footer .follow li {
+    display: inline-block;
+    width: 40px;
+    margin-top: 1%;
+    margin-left: 2%;
+    text-align: center;
+    list-style: none;
+    height: 40px;
+    border: 2px solid white;
+    transition: all 0.6s;
+}
+
+.footer .follow li:hover {
+    border: 2px solid red;
+    transform: translateY(-10%);
+}
+
+.footer .follow li a {
+    text-decoration: none;
+}
+
+.footer .follow li i {
+    font-size: 20px;
+    line-height: 40px;
+    color: white;
+    transform: rotate(0deg);
+    transition: all 0.6s;
+}
+
+.footer .follow li:hover i {
+    color: red;
+    transform: rotate(30deg);
+}
+
+
+
+.footer hr {
+    margin-top: 5%;
+    width: 100%;
+    border: 0.1px solid blue;
+}
+
+.footer .made {
+    margin-top: 5%;
+    width: 100%;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Anek+Bangla:wght@500&display=swap');
+
+.footer .made p {
+
+
+    width: 55%;
+    float: left;
+    padding-left: 25%;
+    font-size: 20px;
+    text-align: center;
+
+}
+
+.footer .made p a {
+    text-decoration: none;
+    font-family: 'Anek Bangla',
+        sans-serif;
+    color: white;
+    transition: all 0.6s;
+}
+
+.footer .made p a:hover {
+    color: red;
+}
+
+.footer .made h2 {
+    float: left;
+    padding-top: 1%;
+    user-select: none;
+    font-size: 14px;
+    color: rgb(155, 155, 155);
+}
