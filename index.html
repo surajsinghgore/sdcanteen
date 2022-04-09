@@ -32,10 +32,13 @@
         <li><a href=""> <i class="fa-solid fa-bowl-food" id="c-icon"> </i><span id="order">Order Now</span></a></li>
         <li id="show" onmouseenter="fire()">Pages <i class="fa-solid fa-caret-down"></i></li>
 
-        <li><i class="fa-solid fa-circle-user"> </i><span id="user">Hii ,User</span><i
+        <li id="showUser"><i class="fa-solid fa-circle-user"> </i><span id="user">Hii ,User</span><i
                 class="fa-solid fa-caret-down"></i></li>
-        <li><i class="fa-solid fa-bag-shopping"></i></li>
+        <li id="cartIcon"><i class="fa-solid fa-bag-shopping"></i></li>
     </div>
+
+
+
     <!-- hide page -->
     <div class="pages" id="pages">
         <div class="toprated">
@@ -79,7 +82,48 @@
             <li><a href="">Order Details</a></li>
         </div>
     </div>
+
+
+
+    <!-- user options -->
+    <div class="user-option" id="user-option">
+        <a href="">
+            <li> <i class="fa-solid fa-paste"></i>
+
+                <p>Past Order</p>
+            </li>
+        </a>
+
+        <a href="">
+            <li> <i class="fa-solid fa-user"></i>
+
+                <p>Account Info</p>
+            </li>
+        </a>
+        <a href="">
+            <li><i class="fa-solid fa-right-from-bracket"></i>
+                <p>Log Out</p>
+            </li>
+        </a>
+    </div>
+
+
+
+
+
+
+    <!-- cart list -->
+    <div class="cart-list" id="cart-list">
+        <h1>Your Order</h1>
+        <div class="items">
+
+        </div>
+        <button>Proceed To Checkout</button>
+    </div>
 </div>
+
+
+
 
 
 
