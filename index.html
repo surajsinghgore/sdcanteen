@@ -17,178 +17,222 @@
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 </head>
 
-<body>
-
-    <div class="top_mini_header">
-        <div id="logo">
-            <img src="img/logo.png" alt="">
-        </div>
-        <div id="searchbar">
-            <i class="fa fa-search" aria-hidden="true" id="s-icon"></i>
-            <input type="search" name="search" id="" placeholder="Pizza, Burger, Chinese">
-
-        </div>
-
-
-        <div id="shop">
-            <li><a href=""> <i class="fa-solid fa-bowl-food" id="c-icon"> </i><span id="order">Order Now</span></a></li>
-            <li id="show" onmouseenter="fire()">Pages <i class="fa-solid fa-caret-down"></i></li>
-
-            <li><i class="fa-solid fa-circle-user"> </i><span id="user">Hii ,User</span><i
-                    class="fa-solid fa-caret-down"></i></li>
-            <li><i class="fa-solid fa-bag-shopping"></i></li>
-        </div>
-        <!-- hide page -->
-        <div class="pages" id="pages">
-            <div class="toprated">
-                <div class="toprateimg">
-                    <img src="img/12.jpg" alt="12 jpg">
-                    <button><a href=""> Top Rated</a></button>
-                </div>
-            </div>
-
-            <div class="canteen">
-                <h1>Canteen Pages</h1>
-                <hr>
-                <li><a href="">Menu List</a></li>
-                <li><a href="">Top Foods</a></li>
-                <li><a href="">Buy food</a></li>
-                <li><a href="">Food Rating</a></li>
-                <li><a href="">Cold drinks and juice</a></li>
-            </div>
-
-
-            <div class="coffee">
-                <h1>Coffee Pages</h1>
-                <hr>
-                <li><a href="">Menu List</a></li>
-                <li><a href="">Hot Coffee</a></li>
-                <li><a href="">Buy Coffee</a></li>
-                <li><a href="">Cold Coffee</a></li>
-                <li><a href="">Fast Food</a></li>
-            </div>
-
-
-
-            <div class="additional">
-                <h1>Additional Pages</h1>
-                <hr>
-                <li><a href="" id="active">Home</a></li>
-                <li><a href="">About Us</a></li>
-                <li><a href="">Gallery</a></li>
-                <li><a href="">Contact Us</a></li>
-                <li><a href="">Login/Sign Up</a></li>
-                <li><a href="">Order Details</a></li>
-            </div>
-        </div>
+<div class="top_mini_header">
+    <div id="logo">
+        <img src="img/logo.png" alt="">
     </div>
-
-
-
-    <!-- image slider -->
-    <div class="swiper mySwiper">
-        <div class="swiper-wrapper">
-            <div class="swiper-slide">
-                <img src="img/1.jpg" alt="" id="imgs" />
-                <p id="quotes">After a good dinner one can forgive anybody, even one's own
-                    relations.</p>
-            </div>
-            <div class="swiper-slide"> <img src="img/3.jpg" alt="" id="imgs" />
-                <p id="quotes">All you need is love. But a little chocolate now and then doesn't
-                    hurt.</p>
-            </div>
-            <div class="swiper-slide"> <img src="img/4.jpg" alt="" id="imgs" />
-                <p id="quotes">There is no love sincerer than the love of food.</p>
-            </div>
-            <div class="swiper-slide"> <img src="img/5.jpg" alt="" id="imgs" />
-                <p id="quotes">Part of the secret of success in life is to eat what you like and let the food fight it
-                    out
-                    inside.</p>
-            </div>
-            <div class="swiper-slide"> <img src="img/6.jpg" id="imgs" />
-                <p id="quotes">The main facts in human life are five: birth, food, sleep, love and death.</p>
-            </div>
-
-        </div>
-        <div class="swiper-button-next"></div>
-        <div class="swiper-button-prev"></div>
+    <div id="searchbar">
+        <i class="fa fa-search" aria-hidden="true" id="s-icon"></i>
+        <input type="search" name="search" id="" placeholder="Pizza, Burger, Chinese">
 
     </div>
 
 
+    <div id="shop">
+        <li><a href=""> <i class="fa-solid fa-bowl-food" id="c-icon"> </i><span id="order">Order Now</span></a></li>
+        <li id="show" onmouseenter="fire()">Pages <i class="fa-solid fa-caret-down"></i></li>
 
-
-    <!-- BROWSE BY FOOD TYPE -->
-    <div class="foodtype">
-        <h2>Browse Food By Type</h2>
-        <div class="card" style="margin-left: 8%;">
-            <a href="">
-                <img src="img/7.jpg" alt="">
-                <p>Italian</p>
-            </a> </div>
-        <div class="card">
-            <a href="">
-                <img src="img/8.jpg" alt="">
-                <p>Thai</p>
-            </a> </div>
-        <div class="card">
-            <a href="">
-                <img src="img/9.jpeg" alt="">
-                <p>Chinese</p>
-            </a> </div>
-        <div class="card">
-            <a href="">
-                <img src="img/10.jpg" alt="">
-                <p>North Indian</p>
-            </a> </div>
-        <div class="card">
-            <a href="">
-                <img src="img/11.jpg" alt="">
-                <p>South Indian</p>
-            </a> </div>
-        <div class="card">
-            <a href="">
-                <img src="img/12.webp" alt="">
-                <p>Japanese</p>
-            </a> </div>
+        <li><i class="fa-solid fa-circle-user"> </i><span id="user">Hii ,User</span><i
+                class="fa-solid fa-caret-down"></i></li>
+        <li><i class="fa-solid fa-bag-shopping"></i></li>
     </div>
-
-
-
-
-
-
-
-
-
-
-    <div class="footer">
-
-
-        <div class="follow">
-            <h1>Follow us</h1>
-            <li><a href=""><i class="fa-brands fa-facebook-f" title="Facebook"></i></a></li>
-            <li><a href=""><i class="fa-brands fa-twitter" title="Twitter"></i></a></li>
-            <li><a href=""><i class="fa-brands fa-instagram" title="Instagram"></i></a></li>
-            <li><a href=""><i class="fa-brands fa-youtube" title="Youtube"></i></a></li>
-            <li><a href=""><i class="fa-brands fa-pinterest-p" title="Pinterset"></i></a></li>
+    <!-- hide page -->
+    <div class="pages" id="pages">
+        <div class="toprated">
+            <div class="toprateimg">
+                <img src="img/12.jpg" alt="12 jpg">
+                <button><a href=""> Top Rated</a></button>
+            </div>
         </div>
-        <hr />
-        <div class="made">
-            <p> <a href=""> Made with Real ❤️ prpwebsites</a> </p>
-            <h2>© Prpwebsites - 2022 | All Right Reserved</h2>
+
+        <div class="canteen">
+            <h1>Canteen Pages</h1>
+            <hr>
+            <li><a href="">Menu List</a></li>
+            <li><a href="">Top Foods</a></li>
+            <li><a href="">Buy food</a></li>
+            <li><a href="">Food Rating</a></li>
+            <li><a href="">Cold drinks and juice</a></li>
+        </div>
+
+
+        <div class="coffee">
+            <h1>Coffee Pages</h1>
+            <hr>
+            <li><a href="">Menu List</a></li>
+            <li><a href="">Hot Coffee</a></li>
+            <li><a href="">Buy Coffee</a></li>
+            <li><a href="">Cold Coffee</a></li>
+            <li><a href="">Fast Food</a></li>
+        </div>
+
+
+
+        <div class="additional">
+            <h1>Additional Pages</h1>
+            <hr>
+            <li><a href="index.html" id="active">Home</a></li>
+            <li><a href="">About Us</a></li>
+            <li><a href="">Gallery</a></li>
+            <li><a href="">Contact Us</a></li>
+            <li><a href="">Login/Sign Up</a></li>
+            <li><a href="">Order Details</a></li>
         </div>
     </div>
+</div>
 
 
-    <!-- Swiper JS -->
-    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 
-    <!-- Initialize Swiper -->
-    <script src="/js/home.js">
+<!-- image slider -->
+<div class="swiper mySwiper">
+    <div class="swiper-wrapper">
+        <div class="swiper-slide">
+            <img src="img/1.jpg" alt="" id="imgs" />
+            <p id="quotes">After a good dinner one can forgive anybody, even one's own
+                relations.</p>
+        </div>
+        <div class="swiper-slide"> <img src="img/3.jpg" alt="" id="imgs" />
+            <p id="quotes">All you need is love. But a little chocolate now and then doesn't
+                hurt.</p>
+        </div>
+        <div class="swiper-slide"> <img src="img/4.jpg" alt="" id="imgs" />
+            <p id="quotes">There is no love sincerer than the love of food.</p>
+        </div>
+        <div class="swiper-slide"> <img src="img/5.jpg" alt="" id="imgs" />
+            <p id="quotes">Part of the secret of success in life is to eat what you like and let the food fight it
+                out
+                inside.</p>
+        </div>
+        <div class="swiper-slide"> <img src="img/6.jpg" id="imgs" />
+            <p id="quotes">The main facts in human life are five: birth, food, sleep, love and death.</p>
+        </div>
 
-    </script>
-    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    </div>
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+
+</div>
+
+
+
+
+<!-- BROWSE BY FOOD TYPE -->
+<div class="foodtype">
+    <h2>Browse Food By Type</h2>
+    <div class="card" style="margin-left: 8%;">
+        <a href="">
+            <img src="img/7.jpg" alt="">
+            <p>Italian</p>
+        </a> </div>
+    <div class="card">
+        <a href="">
+            <img src="img/8.jpg" alt="">
+            <p>Thai</p>
+        </a> </div>
+    <div class="card">
+        <a href="">
+            <img src="img/9.jpeg" alt="">
+            <p>Chinese</p>
+        </a> </div>
+    <div class="card">
+        <a href="">
+            <img src="img/10.jpg" alt="">
+            <p>North Indian</p>
+        </a> </div>
+    <div class="card">
+        <a href="">
+            <img src="img/11.jpg" alt="">
+            <p>South Indian</p>
+        </a> </div>
+    <div class="card">
+        <a href="">
+            <img src="img/12.webp" alt="">
+            <p>Japanese</p>
+        </a> </div>
+</div>
+
+
+
+
+
+
+
+
+
+<!-- image slider -->
+<div class="swiper1 mySwiper1">
+    <div class="swiper-wrapper">
+        <div class="swiper-slide"> <img src="img/3.jpg" alt=""></div>
+        <div class="swiper-slide"><img src="img/4.jpg" alt=""></div>
+        <div class="swiper-slide"><img src="img/5.jpg" alt=""></div>
+        <div class="swiper-slide"><img src="img/6.jpg" alt=""></div>
+        <div class="swiper-slide"><img src="img/7.jpg" alt=""></div>
+        <div class="swiper-slide"><img src="img/8.jpg" alt=""></div>
+        <div class="swiper-slide"><img src="img/9.jpg" alt=""></div>
+        <div class="swiper-slide"><img src="img/10.jpg" alt=""></div>
+        <div class="swiper-slide"><img src="img/3.jpg" alt=""></div>
+
+
+
+    </div>
+</div>
+<!-- footer -->
+<div class="footer">
+
+
+    <div class="follow">
+        <h1>Follow us</h1>
+        <li><a href=""><i class="fa-brands fa-facebook-f" title="Facebook"></i></a></li>
+        <li><a href=""><i class="fa-brands fa-twitter" title="Twitter"></i></a></li>
+        <li><a href=""><i class="fa-brands fa-instagram" title="Instagram"></i></a></li>
+        <li><a href=""><i class="fa-brands fa-youtube" title="Youtube"></i></a></li>
+        <li><a href=""><i class="fa-brands fa-pinterest-p" title="Pinterset"></i></a></li>
+    </div>
+    <hr />
+    <div class="made">
+        <p> <a href=""> Made with Real ❤️ prpwebsites</a> </p>
+        <h2>© Prpwebsites - 2022 | All Right Reserved</h2>
+    </div>
+</div>
+
+<!-- footer
+                    <div class="footer">
+
+
+                        <div class="follow">
+                            <h1>Follow us</h1>
+                            <li><a href=""><i class="fa-brands fa-facebook-f" title="Facebook"></i></a></li>
+                            <li><a href=""><i class="fa-brands fa-twitter" title="Twitter"></i></a></li>
+                            <li><a href=""><i class="fa-brands fa-instagram" title="Instagram"></i></a></li>
+                            <li><a href=""><i class="fa-brands fa-youtube" title="Youtube"></i></a></li>
+                            <li><a href=""><i class="fa-brands fa-pinterest-p" title="Pinterset"></i></a></li>
+                        </div>
+                        <hr />
+                        <div class="made">
+                            <p> <a href=""> Made with Real ❤️ prpwebsites</a> </p>
+                            <h2>© Prpwebsites - 2022 | All Right Reserved</h2>
+                        </div>
+                    </div> -->
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Swiper JS -->
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+<!-- Initialize Swiper -->
+<script src="/js/home.js">
+
+</script>
+<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
 
 </body>
 

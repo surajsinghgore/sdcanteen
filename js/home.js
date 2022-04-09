@@ -27,3 +27,19 @@
       pages.style.transform = "translateX(999%)";
 
   })
+
+
+
+
+
+  var swiper = new Swiper(".mySwiper1", {
+      slidesPerView: 3,
+      spaceBetween: 1,
+      slidesPerGroup: 3,
+      loop: true,
+      loopFillGroupWithBlank: true,
+      pagination: {
+          el: ".swiper-pagination",
+          clickable: true,
+      },
+  });
