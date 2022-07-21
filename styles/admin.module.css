@@ -1,0 +1,186 @@
+.admin {
+  position: relative;
+  top: 0%;
+  left: 0;
+  width: 100%;
+  display: flex;
+  height: auto;
+  background-color: rgb(255, 255, 255);
+}
+
+/* left panel*/
+
+.leftPanel {
+  width: 21.1%;
+  height: 625px;
+  background-color: #e9e9e9;
+  overflow: hidden;
+}
+.leftPanel .logo_img {
+  width: 100%;
+  height: auto;
+  margin-top: 6%;
+  margin-left: 2%;
+}
+.leftPanel .menu_Links{
+  width: 100%;
+  height: 492px;
+  padding-top: 2%;
+  margin-top: 4%;
+  overflow: hidden;
+  overflow-y: auto;
+  padding-bottom: 10%;
+}
+
+
+/* curstom scroll bar */
+
+.leftPanel .menu_Links::-webkit-scrollbar {
+  width: 7px;
+}
+
+/* Track */
+.leftPanel .menu_Links::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+ 
+/* Handle */
+.leftPanel .menu_Links::-webkit-scrollbar-thumb {
+  background: #888; 
+}
+
+/* Handle on hover */
+.leftPanel .menu_Links::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
+
+
+
+.leftPanel .menu_Links li {
+position: relative;
+  list-style: none;
+  width: 92%;
+  height: auto;
+  margin-left: 8%;
+ display: block;
+  margin-bottom:1%;
+user-select: none;
+ cursor: pointer;
+ z-index: 99;
+}
+
+
+.leftPanel .menu_Links li .styles{
+position: relative;
+  list-style: none;
+  width: 100%;
+  height: 60px;
+  border-top-left-radius: 60px;
+  border-bottom-left-radius: 60px;
+ display: block;
+ background: none;
+ transition: all 0.3s;
+}
+
+.leftPanel .menu_Links li .styles1{
+position: relative;
+  list-style: none;
+  width: 100%;
+  height: 60px;
+  border-top-left-radius: 60px;
+  border-bottom-left-radius: 60px;
+ display: block;
+ background: none;
+ background-color: #fff;
+ transition: all 0.3s;
+}
+
+
+.leftPanel .menu_Links li:hover .styles{
+background-color: #fff;
+}
+.leftPanel .menu_Links li .icon {
+  color: rgb(11, 209, 235);
+  font-size: 30px;
+  width: auto;
+  padding-top: 5%;
+  float: left;
+ z-index: 1;
+
+  margin-left: 10%;
+}
+
+.leftPanel .menu_Links li .title {
+  color: rgb(233, 43, 43);
+  font-size: 20px;
+  padding-top: 5%;
+  float: left;
+ z-index: 1;
+ 
+  font-weight: 600;
+  width: 60%;
+  padding-left: 10%;
+}
+
+.leftPanel .menu_Links li .arrows {
+  float: left;
+  padding-left: 10%;
+  height: auto;
+  padding-top: 19%;
+  position: relative;
+ z-index: 1;
+
+}
+
+
+.leftPanel .menu_Links li  .arrows .top{
+position: absolute;
+top: 35%;
+left: 30%;
+font-size: 20px;
+}
+.leftPanel .menu_Links li  .arrows .bottom{
+display: none;
+position: absolute;
+top: 35%;
+
+left: 30%;
+font-size: 20px;
+}
+
+.leftPanel .menu_Links li ul{
+clear: both;
+margin-bottom: 1%;
+background-color: red;
+ height: auto;
+ display: none;
+ background: none;
+}
+
+.leftPanel .menu_Links li ul li{
+display: block;
+background: none;
+padding-top: 1%;
+font-size: 16px;
+color: rgb(44, 44, 44);
+width: 100%;
+font-weight: 600;
+transition: all 0.6s;
+
+
+
+  width: 70%;
+  padding: 0% 4% 9% 5%;
+  height: auto;
+  margin-left: 10%;
+margin-top: 0%;
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+}
+.leftPanel .menu_Links li ul li:hover{
+color: #0998d0;
+cursor: pointer;
+}
+.leftPanel .menu_Links li ul li:hover .leftPanel .menu_Links li{
+background: none;
+}
