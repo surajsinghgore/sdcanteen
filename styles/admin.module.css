@@ -23,7 +23,7 @@
   margin-left: 2%;
 }
 .leftPanel .menu_Links{
-  width: 100%;
+  width: 104%;
   height: 492px;
   padding-top: 2%;
   margin-top: 4%;
@@ -33,26 +33,28 @@
 }
 
 
-/* curstom scroll bar */
 
-.leftPanel .menu_Links::-webkit-scrollbar {
-  width: 7px;
-}
 
-/* Track */
-.leftPanel .menu_Links::-webkit-scrollbar-track {
-  background: #f1f1f1; 
+/* scrollbar hide */
+.leftPanel .menu_Links * {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE 10+ */
 }
- 
-/* Handle */
-.leftPanel .menu_Links::-webkit-scrollbar-thumb {
-  background: #888; 
-}
+  .leftPanel .menu_Links::-webkit-scrollbar-track {
+    -webkit-box-shadow: none !important;
+    background-color: transparent;
+  }
+  .leftPanel .menu_Links::-webkit-scrollbar {
+    width: 3px !important;
+    background-color: transparent;
+  }
+  .leftPanel .menu_Links::-webkit-scrollbar-thumb {
+    background-color: transparent;
+  }
 
-/* Handle on hover */
-.leftPanel .menu_Links::-webkit-scrollbar-thumb:hover {
-  background: #555; 
-}
+
+
+
 
 
 

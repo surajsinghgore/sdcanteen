@@ -1,0 +1,192 @@
+.rightSideBar{
+width: 79.9%;
+height: 625px;
+background-color:rgb(255, 255, 255);
+overflow: hidden;
+overflow-y: auto;
+
+padding-bottom: 5%;
+}
+
+
+/* scrollbar hide */
+
+
+/* scrollbar hide */
+.rightSideBar * {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE 10+ */
+}
+  .rightSideBar::-webkit-scrollbar-track {
+    -webkit-box-shadow: none !important;
+    background-color: transparent;
+  }
+  .rightSideBar::-webkit-scrollbar {
+    width: 3px !important;
+    background-color: transparent;
+  }
+  .rightSideBar::-webkit-scrollbar-thumb {
+    background-color: transparent;
+  }
+
+
+
+
+
+/* top header */
+.topHeader{
+position: fixed;
+width: 100%;
+display: flex;
+background-color: #fff;
+height: 90px;
+}
+.topHeader .heading_section{
+width: 40%;
+display: flex;
+}
+.topHeader .heading_section i{
+font-size: 50px;
+padding-top: 2%;
+color: rgb(251, 154, 42);
+padding-left: 8%;
+}
+.topHeader .heading_section h1{
+font-size: 30px;
+padding-left: 8%;
+padding-top: 0%;
+color: rgb(28, 28, 28);
+
+
+}
+/* BreadCrumbs */
+
+.BreadCrumbs{
+width: 100%;
+height: 50px;
+margin-top: 10%;
+padding-left: 5%;
+padding-top: 1%;
+}
+
+
+
+/* form */
+
+.Form{
+margin-left: 5%;
+width: 90%;
+height: auto;
+padding-bottom: 3%;
+border-radius: 5px;
+box-shadow: 2px 1px 20px 1px rgb(204, 204, 204);
+}
+
+.Form .heading{
+width: 100%;
+box-sizing: border-box;
+height: 70px;
+border-bottom: 3px solid rgb(179, 179, 179);
+}
+.Form .heading h1{
+font-size: 19px;
+padding-left: 2%;
+line-height: 70px;
+color: rgb(87, 87, 87);
+}
+
+.Form .form_element{
+width: 100%;
+height: auto;
+padding-bottom: 2%;
+}
+
+
+.Form .form_element li{
+width: 450px;
+float: left;
+margin-top: 1%;
+list-style: none;
+margin-left: 2%;
+height: auto;
+}
+.Form .form_element li p span{
+color: red;
+font-size: 22px;
+}
+.Form .form_element li p{
+width: 100%;
+font-size: 20px;
+padding-left: 4%;
+}
+
+.Form .form_element li input{
+width: 80%;
+height: 40px;
+outline: none;
+padding-left: 2%;
+font-size: 20px;
+border: 1px solid rgb(178, 178, 178);
+margin-left: 4%;
+}
+
+
+.Form .form_element li select{
+width: 80%;
+text-align: center;
+height: 40px;
+cursor: pointer;
+outline: none;
+padding-left: 2%;
+font-size: 20px;
+border: 1px solid rgb(178, 178, 178);
+margin-left: 4%;
+margin-bottom: 1%;
+}
+.Form .form_element li input[type=number]::-webkit-inner-spin-button, 
+.Form .form_element li input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
+
+.Form .form_element li input:focus{
+border:1px solid red
+}
+
+
+
+
+.Form .form_element li .preview_photo h1{font-size: 20px;padding-left: 5%;padding-top: 5%;}
+.Form .form_element li .preview_photo{
+width: 370px;
+height: 320px;
+margin-top: 5%;
+
+color: red;
+margin-left: 4%;
+overflow: hidden;
+margin-bottom: 5%;
+background-color: rgb(235, 235, 235);
+}
+.Form .form_element li .preview_photo img{width: 100%;height: 100%;
+display: none;
+padding-left: 0%;padding-top: 0%;}
+.Form .form_element button{
+width: 300px;
+height: 50px;
+color: white;
+border-radius: 5px;
+cursor: pointer;
+font-size: 22px;
+border: none;
+background-color: rgb(246, 48, 48);
+margin-top: 2%;
+margin-left: 5%;
+transition: all 0.3s;
+}
+.Form .form_element button:hover{
+background-color: rgb(41, 39, 39);
+color: white;
+box-shadow: 0px 0px 32px 2px rgb(227, 94, 6);
+}
