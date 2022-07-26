@@ -1,13 +1,24 @@
-import React from "react";
+import React,{useEffect,useState} from "react";
 import Styles from "../../styles/admin.module.css";
 import Head from "next/head";
 import AdminLeftMenu from "../Components/AdminLeftMenu";
+import LoadingBar from 'react-top-loading-bar';
 
 
 const index = () => {
+ const [progress, setProgress] = useState(0);
+useEffect(()=>{
 
+setProgress(100);
+},[])
   return (
     <div className={Styles.admin}>
+     <LoadingBar
+        color='rgb(255 82 0)'
+        height={3.5}
+        progress={progress}
+          transitionTime={100}
+      />
       <Head>
         <meta name="viewport" content="width=device-width, user-scalable=no" />
         <title>SD CANTEEN | Admin Dashboard</title>

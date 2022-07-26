@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Styles from "../../styles/admin.module.css";
 import StyleFood from "../../styles/AddFood.module.css";
 import Head from "next/head";
@@ -7,9 +7,13 @@ import PathNavigate from '../Components/PathNavigate';
 import AdminRightInnerHeader from '../Components/AdminRightInnerHeader';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import router from 'next/router'
+import LoadingBar from 'react-top-loading-bar';
 
  
 function AddFoodCategories() {
+ const [progress, setProgress] = useState(0);
+
 const [FoodCategoryName,setFoodCategoryName]=useState('');
 const addCategory=async(e)=>{
 // if food field is empty
@@ -89,10 +93,27 @@ pauseOnHover: true,
 draggable: true,
 progress: undefined,
 });
+setTimeout(RedirectFunction,1000);
+function RedirectFunction(){
+  router.push('/admin/AllFoodCategories')
+}
+
 setFoodCategoryName('');
 }
+
+useEffect(()=>{
+
+setProgress(100);
+},[])
+
   return (
     <div className={Styles.admin}>
+    <LoadingBar
+        color='rgb(255 82 0)'
+        height={3.5}
+        progress={progress}
+          transitionTime={100}
+      />
      <Head>
         <meta name="viewport" content="width=device-width, user-scalable=no" />
         <title>SD CANTEEN | ADD FOOD CATEGORIES</title>

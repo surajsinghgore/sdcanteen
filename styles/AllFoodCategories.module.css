@@ -1,0 +1,175 @@
+.ListView{
+width: 100%;
+height: auto;
+}
+
+.ListView .addCategory{
+width: 100%;
+height: 40px;
+}
+.ListView .addCategory button{
+width: 30%;
+border: none;
+outline: none;
+background-color: rgb(218, 10, 76);
+margin-left: 35%;
+height: 35px;
+cursor: pointer;
+font-size: 20px;
+border-radius: 4px;
+color: white;
+transition: all 0.3s;
+}
+
+.ListView .addCategory button:hover{
+box-shadow:  0px 0px 12px 2px rgb(215, 215, 215);
+
+}
+
+.ListView .Subtop{
+display: flex;
+width: 100%;
+height: 70px;
+padding-top: 3%;
+}
+.ListView .Subtop .showData input::-webkit-outer-spin-button,
+.ListView .Subtop .showData input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.ListView .Subtop .showData{
+width: 40%;
+margin-left: 5%;
+font-size: 20px;
+}
+.ListView .Subtop .showData input{
+width: 13%;
+margin-left: 6%;
+outline: none;
+text-align: center;
+font-size: 18px;
+height: 30px;
+border: 1px solid rgb(220, 220, 220);
+transition: all 0.3s;
+}
+.ListView .Subtop .showData input:focus{
+border: 1px solid rgb(253, 76, 76);
+
+}
+
+.ListView .Subtop .searchBar{
+width: 60%;
+}
+
+.ListView .Subtop .searchBar input{
+width: 60%;
+margin-top: -4%;
+margin-left:35%;
+height: 40px;
+outline: none;
+font-size: 20px;
+padding-left: 2%;
+border: 1px solid rgb(220, 220, 220);
+transition: all 0.3s;
+}
+.ListView .Subtop .searchBar input:focus{
+border: 1px solid rgb(253, 76, 76);
+
+}
+
+.ListView .Subtop .searchBar input[type=search]::-ms-clear {  display: none; width : 0; height: 0; }
+.ListView .Subtop .searchBar input[type=search]::-ms-reveal {  display: none; width : 0; height: 0; }
+.ListView .Subtop .searchBar input[type="search"]::-webkit-search-decoration,
+.ListView .Subtop .searchBar input[type="search"]::-webkit-search-cancel-button,
+.ListView .Subtop .searchBar input[type="search"]::-webkit-search-results-button,
+.ListView .Subtop .searchBar input[type="search"]::-webkit-search-results-decoration { display: none; }
+
+
+
+
+.ListView .ListData{
+width: 100%;
+height: auto;
+}
+.ListView .ListData .Heading{
+margin-top: 6%;
+display: flex;
+list-style: none;
+width: 90%;
+margin-left: 5%;
+text-align: center;
+border-bottom: 2px solid rgb(219, 219, 219);
+}
+.ListView .ListData .Heading li{
+
+width: 50%;
+font-size: 22px;
+height: 50px;
+font-weight: 600;
+}
+
+.ListView .ListData .DataLists{
+position: relative;
+}
+.ListView .ListData .DataList{
+user-select: none;
+display: flex;
+list-style: none;
+width: 90%;
+margin-left: 5%;
+padding-top: 1%;
+text-align: center;
+border-bottom: 1px solid rgb(219, 219, 219);
+}
+.ListView .ListData .DataList li{
+width: 50%;
+font-size: 20px;
+height: 40px;
+
+}
+.ListView .ListData .DataList .cursor_icon{
+color: rgb(66, 66, 66);
+cursor: pointer;
+font-size: 24px;
+z-index: -1;
+}
+.ListView .ListData .DataLists .DropDown{
+position: absolute;
+right:24.5%;
+top: 85%;
+z-index: 99;
+
+width: 180px;
+height: auto;
+border-radius: 10px;
+box-shadow: 0px 0px 12px 2px rgb(197, 197, 197);
+background-color: rgb(255, 255, 255);
+overflow: hidden;
+padding-top: 1%;
+padding-bottom: 1%;
+
+}
+.ListView .ListData .DataLists .DropDown li{
+list-style: none;
+width: 100%;
+font-size: 19px;
+padding-bottom: 3%;
+padding-top: 4%;
+
+cursor: pointer;
+transition: all 0.3s;
+}
+.ListView .ListData .DataLists .DropDown li i{
+padding-right: 10%;
+padding-left: 15%;
+}
+.ListView .ListData .DataLists .DropDown li:hover{
+background-color: rgb(244, 244, 244);
+}
+
+.ListView .ListData .DataLists .DropDown .Update{
+color: rgb(20, 157, 216);
+}
+.ListView .ListData .DataLists .DropDown .delete{
+color: rgb(243, 42, 42);
+}

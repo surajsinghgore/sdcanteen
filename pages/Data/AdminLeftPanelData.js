@@ -59,7 +59,7 @@ path:"/admin/AddFood",
 },
 {
 title:"Manage Food Categories",
-path:"/admin/AddFoodCategory",
+path:"/admin/AllFoodCategories",
 },
 ]
 },
