@@ -5,7 +5,8 @@ import styles from '../styles/Home.module.css'
 export default function Home() {
   return (
     <div className={styles.container}>
-    <h1>welcome to home</h1>
+<h1>home</h1>
     </div>
   )
 }
+ 

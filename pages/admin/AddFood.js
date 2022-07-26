@@ -5,30 +5,30 @@ import Head from "next/head";
 import AdminLeftMenu from "../Components/AdminLeftMenu";
 import PathNavigate from '../Components/PathNavigate';
 import AdminRightInnerHeader from '../Components/AdminRightInnerHeader';
-import demo from '../../public/demo.jpeg';
+import demo from '../../public/demo.jpg';
 import Image from 'next/image';
+
 import { useState } from 'react';
+
 export default function AddFood() {
 
+
+const [imgs,setImgs]=useState(demo);                  
 const [showImage,setShowImage]=useState(true);
-
-  var loadFile = function(e) {
+const handleChange=async(e)=>{
   if(e.target.files[0]){
-  let file=e.target.files[0];
-    var output = document.getElementById('output');
-    output.src = URL.createObjectURL(file);
-    output.onload = function() {
+var file = e.target.files[0];
+  let url=await URL.createObjectURL(file);
+  setImgs(url);
     setShowImage(false);
-    document.getElementById('output').style.display="block";
-
-      URL.revokeObjectURL(output.src) // free memory
-    }
-      }
-      else{
+  }
+  else{
     setShowImage(true);
-    document.getElementById('output').style.display="none";
-      }
-  };
+  }
+
+}
+
+  
   return (
   <div className={Styles.admin}>
       <Head>
@@ -44,11 +44,11 @@ const [showImage,setShowImage]=useState(true);
       </Head>
 
       {/* left panel bar */}
-     <AdminLeftMenu state='food'/>
+     <AdminLeftMenu />
 
       {/* right bar */}
       <div className={StyleFood.rightSideBar}>
-      <AdminRightInnerHeader />
+      <AdminRightInnerHeader title="Add Food Page"/>
       <PathNavigate mainSection="Admin" mainSectionURL="/admin" subsection="" subsectionURL="" innerSubjection="ADD FOOD" innerSubjectionURL="/admin/AddFood" />
       
 
@@ -82,15 +82,15 @@ const [showImage,setShowImage]=useState(true);
 </li>
 <li>
 <p>Uploard Food Photo <span>*</span></p>
-<input type="file" name="photo" accept="image/*" id="photoFood" onChange={loadFile}/>
+{/* <input type="file" name="photo" accept="image/*" id="photoFood" onChange={loadFile}/> */}
+<input type="file" name="photo"  id="photoFood" onChange={handleChange}/>
 
 </li>
 <li>
 <p>Photo Realtime Preview</p>
-<div className={StyleFood.preview_photo} id="preview">
-{(showImage)? <h1>please uploard Image</h1>:''}
+<div className={StyleFood.preview_photo}  >
+{(showImage)? <h1>please uploard Image</h1>:<Image src={imgs} alt='' id='output' width={600} height={600} />}
 
-<img src="" alt="" id="output"/>
 </div>
 </li>
 <button> ADD FOOD</button>

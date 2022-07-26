@@ -10,7 +10,7 @@ export default function AdminRightInnerHeader(props) {
     
     <BiCurrentLocation />
     </i>
-    <h1>Add Food Page</h1>
+    <h1>{props.title}</h1>
     </div>
 
     {/* alert */}

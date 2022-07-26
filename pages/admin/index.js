@@ -21,7 +21,7 @@ const index = () => {
       </Head>
 
       {/* left panel bar */}
-     <AdminLeftMenu state="dashboard"/>
+     <AdminLeftMenu/>
 
       {/* right bar */}
     </div>
