@@ -1,30 +1,35 @@
-import React,{ useEffect, useState } from 'react'
+import React,{ useContext, useEffect, useState } from 'react'
 import FoodStyles from "../../styles/AllFoodCategories.module.css";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import router from 'next/router'
 import { AiOutlineMenu } from "react-icons/ai";
 import { AiOutlineDelete } from "react-icons/ai";
 import { FaRegEdit } from "react-icons/fa";
 import { AiOutlineCloseSquare } from "react-icons/ai";
 
-
+import {AllContext} from '../context/AllContext';
 
 
 function FoodAllCategoryComponent({data,ind}) {
+
+const {updateFoodCategories}=useContext(AllContext);
+
 const [show,setShow]=useState(false);
 
 const showSubMenu=()=>{
 setShow(true);
+
+
 }
 // update
 const UpdateCategory=async(id)=>{
-console.log(id);
+updateFoodCategories(id);
+router.push('/admin/UpdateFoodCategory')
 }
 
 // delete
 const deleteCategory=async(id)=>{
-console.log(id)
 let res=await fetch('http://localhost:3000/api/DeleteFoodCategory',{
     method: "DELETE",
     headers:{
@@ -81,7 +86,7 @@ progress: undefined,
 }
 
   return (
-       <div className={FoodStyles.DataLists}>
+       <div className={FoodStyles.DataLists} key={ind}>
 <div className={FoodStyles.DataList}>
 <li>{data.FoodCategoryName}</li>
 {(show)? 

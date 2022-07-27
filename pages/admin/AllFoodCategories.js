@@ -12,13 +12,14 @@ import Link from 'next/link';
 import 'react-toastify/dist/ReactToastify.css';
 import LoadingBar from 'react-top-loading-bar';
 
+import { IoIosAddCircleOutline } from 'react-icons/io';
 function AllFoodCategories() {
  const [progress, setProgress] = useState(0);
 const [search,setSearch]=useState('');
 const [data,setData]=useState([]);
 const [data1,setData1]=useState([]);
 
-const[dataLength,setDataLength]=useState(5);
+const[dataLength,setDataLength]=useState(10);
 
 useEffect(()=>{
 
@@ -30,7 +31,7 @@ await setData1(datas.data)
 setProgress(100);
 }
 dataFetch()
-},[])
+})
 
 const Searchs=async(e)=>{
 setSearch(e.target.value);
@@ -78,7 +79,7 @@ setData(data1);
 
 <div className={FoodStyles.ListView}>
 <div className={FoodStyles.addCategory}>
-<Link href="/admin/AddFoodCategory"><button>Click Here To Add Food Category</button></Link>
+<Link href="/admin/AddFoodCategory"><button><i><IoIosAddCircleOutline /></i>  Add New Food Category</button></Link>
 </div>
 <div className={FoodStyles.Subtop}>
 <div className={FoodStyles.showData}>

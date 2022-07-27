@@ -1,5 +1,3 @@
-
-import mongoose from 'mongoose';
 import DbConnection from '../Middleware/DbConnection';
 import FoodCategory from '../Schema/FoodCategorySchema';
 
@@ -29,7 +27,7 @@ if(!FoodCategoryName){
     }
     else{
       let data=await FoodCategory.findByIdAndUpdate(_id, { FoodCategoryName: FoodCategoryName });
- res.status(201).json({data,status:"201"})
+ res.status(201).json({message:"Successfully Updated",status:"201"})
     }
   
 
