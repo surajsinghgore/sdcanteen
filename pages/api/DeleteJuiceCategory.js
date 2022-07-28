@@ -1,9 +1,9 @@
 
 import DbConnection from '../Middleware/DbConnection';
-import FoodCategory from '../Schema/FoodCategorySchema';
+import JuiceCategorySchema from '../Schema/JuicesCategorySchema';
 
 
-export default async function  DeleteFoodCategory(req,res) {
+export default async function  DeleteJuiceCategory(req,res) {
 
 
 if(req.method=='DELETE'){
@@ -19,10 +19,10 @@ if(!_id){
 }
 
 // match weather same Food name is not entered 
-    let match=await FoodCategory.findById(_id)
+     let match=await JuiceCategorySchema.findById(_id)
 
     if(match){
-        await FoodCategory.findByIdAndDelete(_id);
+        await JuiceCategorySchema.findByIdAndDelete(_id);
  res.status(201).json({message:"successfully Deleted",status:"201"})
     }
     else{

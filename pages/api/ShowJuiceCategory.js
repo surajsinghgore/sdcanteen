@@ -1,14 +1,14 @@
 
 import DbConnection from '../Middleware/DbConnection';
-import FoodCategory from '../Schema/FoodCategorySchema';
+import JuiceCategorySchema from '../Schema/JuicesCategorySchema';
 
-export default async function  ShowFoodCategory(req,res) {
+export default async function  ShowJuiceCategory(req,res) {
 
 
 if(req.method=='GET'){
 try {
 DbConnection();
-    let data=await FoodCategory.find();
+    let data=await JuiceCategorySchema.find();
 res.status(201).json({data,status:"201"})
 } catch (error) {
 console.log(error)

@@ -13,7 +13,7 @@ import {AllContext} from '../context/AllContext';
 
  
 function UpdateFoodCategory() {
-const {filterAllFoodCategoriesData,updateFoodCategories}=useContext(AllContext);
+const {filterAllFoodCategoriesData}=useContext(AllContext);
 
 
  const [progress, setProgress] = useState(0);
@@ -94,6 +94,7 @@ function RedirectFunction(){
 
 useEffect(()=>{
  if(filterAllFoodCategoriesData){
+ console.log(filterAllFoodCategoriesData)
 setFoodCategoryName(filterAllFoodCategoriesData[0].FoodCategoryName)
  }
 setProgress(100);

@@ -1,4 +1,4 @@
-import React,{ useContext, useEffect, useState } from 'react'
+import React,{   useState ,useContext} from 'react'
 import FoodStyles from "../../styles/AllFoodCategories.module.css";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -7,13 +7,12 @@ import { AiOutlineMenu } from "react-icons/ai";
 import { AiOutlineDelete } from "react-icons/ai";
 import { FaRegEdit } from "react-icons/fa";
 import { AiOutlineCloseSquare } from "react-icons/ai";
-
 import {AllContext} from '../context/AllContext';
 
 
 function FoodAllCategoryComponent({data,ind}) {
+const {deletes,setDeletes}=useContext(AllContext);
 
-const {updateFoodCategories}=useContext(AllContext);
 
 const [show,setShow]=useState(false);
 
@@ -37,7 +36,7 @@ let res=await fetch('http://localhost:3000/api/DeleteFoodCategory',{
         
     },
     body: JSON.stringify({
-        id
+        _id:id
     })
 })
 
@@ -71,6 +70,7 @@ progress: undefined,
 });
 return 0;
 }
+setDeletes(!deletes)
 setShow(false);
 toast.success(`${dataRes.message}`, {
 position: "bottom-right",

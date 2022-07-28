@@ -1,5 +1,5 @@
 
-import mongoose from 'mongoose';
+
 import DbConnection from '../Middleware/DbConnection';
 import FoodCategory from '../Schema/FoodCategorySchema';
 
@@ -11,7 +11,7 @@ try {
 DbConnection();
    let foodName=req.body.FoodCategoryName;
     if(!foodName){
-res.status(402).json({message:'Please Enter Food Name',status:"402"})
+res.status(402).json({message:'Please Enter Food Category Name',status:"402"})
     
     }
     // matching dublicate problem

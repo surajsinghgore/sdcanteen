@@ -7,45 +7,35 @@ const AllContext=createContext();
 const Provider=({children})=>{
 
 // useState
-const [allFoodCategoriesData,setAllFoodCategoriesData]=useState([]);
-const [filterAllFoodCategoriesData,setFilterAllFoodCategoriesData]=useState([]);
-const [updateFoodCategoryID,setUpdateFoodCategoryID]=useState('');
+
+const [filterAllFoodCategoriesData,setFilterAllFoodCategoriesData]=useState(['']);
+const [deletes,setDeletes]=useState(false);
 
 
 // Functions
 
-// ! fetch all food data
-const FetchAllFoodCategories=async()=>{
-let ress=await fetch('http://localhost:3000/api/ShowFoodCategory');
-let datas=await ress.json();
-await setAllFoodCategoriesData(datas.data)
-}
 
 
 
 
 const updateFoodCategories=async(id)=>{
-setUpdateFoodCategoryID(id);
+
 let ress=await fetch('http://localhost:3000/api/ShowFoodCategory');
 let datas=await ress.json();
-await setAllFoodCategoriesData(datas.data);
-let newData=[];
-newData=allFoodCategoriesData.filter((item)=>{
-return item._id.includes(id)
-})
-setFilterAllFoodCategoriesData(newData);
+let d=datas.data;
+let dd=d.filter((item)=>{
+
+return item._id==id})
+await setFilterAllFoodCategoriesData(dd)
+
 }
 return (<AllContext.Provider value={{
 // useState
-allFoodCategoriesData,
-updateFoodCategoryID,
-setUpdateFoodCategoryID,
 filterAllFoodCategoriesData,
-
+deletes,setDeletes,
 
 
 // functiond
-FetchAllFoodCategories,
 updateFoodCategories
 }}>{children}</AllContext.Provider>)
 }
