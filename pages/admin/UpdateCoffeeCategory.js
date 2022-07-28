@@ -12,12 +12,12 @@ import LoadingBar from 'react-top-loading-bar';
 import {AllContext} from '../context/AllContext';
 
  
-function UpdateFoodCategory() {
+function UpdateCoffeeCategory() {
 const {filterAllFoodCategoriesData}=useContext(AllContext);
 
 
  const [progress, setProgress] = useState(0);
- const [FoodCategoryName, setFoodCategoryName] = useState('');
+ const [CoffeeCategoryName, setCoffeeCategoryName] = useState('');
 
 
 
@@ -25,20 +25,20 @@ const {filterAllFoodCategoriesData}=useContext(AllContext);
 
 const updateFoodCategory=async()=>{
 
-let res=await fetch('http://localhost:3000/api/UpdateFoodCategory',{
+let res=await fetch('http://localhost:3000/api/UpdateCoffeeCategory',{
     method: "POST",
     headers:{
         "Content-type": "application/json",
         
     },
     body: JSON.stringify({
-        _id:filterAllFoodCategoriesData,FoodCategoryName
+        _id:filterAllFoodCategoriesData,CoffeeCategoryName
     })
 })
 
 let dataRes=await res.json();
-if(!FoodCategoryName){
-toast.warn('Please Enter Somethig In Food Category Name Field', {
+if(!CoffeeCategoryName){
+toast.warn('Please Enter Somethig In Coffee Category Name Field', {
 position: "bottom-right",
 autoClose: 5000,
 hideProgressBar: false,
@@ -88,13 +88,13 @@ progress: undefined,
 
 setTimeout(RedirectFunction,1000);
 function RedirectFunction(){
-  router.push('/admin/AllFoodCategories')
+  router.push('/admin/AllCoffeeCategory')
 }
 }
 
 useEffect(()=>{
  if(filterAllFoodCategoriesData){
-setFoodCategoryName(filterAllFoodCategoriesData[0].FoodCategoryName)
+setCoffeeCategoryName(filterAllFoodCategoriesData[0].CoffeeCategoryName)
  }
 setProgress(100);
 },[filterAllFoodCategoriesData])
@@ -109,7 +109,7 @@ setProgress(100);
       />
      <Head>
         <meta name="viewport" content="width=device-width, user-scalable=no" />
-        <title>SD CANTEEN | UPDATE FOOD CATEGORIES</title>
+        <title>SD CANTEEN | UPDATE COFFEE CATEGORIES</title>
         <meta name="description" content="sd canteen website" />
         <meta name="author" content="suraj singh" />
         <meta
@@ -122,7 +122,7 @@ setProgress(100);
      {/* right bar */}
       <div className={StyleFood.rightSideBar}>
       <AdminRightInnerHeader title="Add Food Categories" />
-      <PathNavigate mainSection="Admin" mainSectionURL="/admin" subsection="" subsectionURL="" innerSubjection="UPDATE FOOD CATEGORIES" innerSubjectionURL="/admin/UpdateFoodCategory" />
+      <PathNavigate mainSection="Admin" mainSectionURL="/admin" subsection="" subsectionURL="" innerSubjection="UPDATE COFFEE CATEGORIES" innerSubjectionURL="/admin/UpdateCoffeeCategory" />
       
 
       {/* form add food */}
@@ -133,8 +133,8 @@ setProgress(100);
 </div>
 <div className={StyleFood.form_element}>
 <li style={{width:"90%"}}>
-<p>Enter Food Category Name <span>*</span></p>
-<input type="text" name="foodName" style={{width:"95%"}} onChange={(e)=>setFoodCategoryName(e.target.value)} value={FoodCategoryName}/>
+<p>Enter Coffee Category Name <span>*</span></p>
+<input type="text" name="foodName" style={{width:"95%"}} onChange={(e)=>setCoffeeCategoryName(e.target.value)} value={CoffeeCategoryName}/>
 </li>
 
 
@@ -161,4 +161,4 @@ pauseOnHover
   )
 }
 
-export default UpdateFoodCategory
+export default UpdateCoffeeCategory

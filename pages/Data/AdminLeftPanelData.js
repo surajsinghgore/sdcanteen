@@ -92,13 +92,12 @@ path:"/admin/AddCoffee",
 },
 {
 title:"Manage Coffee Categories",
-path:"/admin/AddCoffee",
+path:"/admin/AllCoffeeCategory",
 },
 ]
 },
 
 // drinks
-// coffee
 {
 id:4,
 title:"Drinks",
@@ -125,7 +124,7 @@ path:"/admin/AddDrinks",
 },
 {
 title:"Manage Drinks Categories",
-path:"/admin/AddDrinks",
+path:"/admin/AllDrinkCategory",
 },
 ]
 },
@@ -158,7 +157,7 @@ path:"/admin/AddJuices",
 },
 {
 title:"Manage Juices Categories",
-path:"/admin/AddJuices",
+path:"/admin/AllJuiceCategory",
 },
 ]
 },

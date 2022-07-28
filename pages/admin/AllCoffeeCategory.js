@@ -6,7 +6,7 @@ import Head from "next/head";
 import AdminLeftMenu from "../Components/AdminLeftMenu";
 import PathNavigate from "../Components/PathNavigate";
 import AdminRightInnerHeader from "../Components/AdminRightInnerHeader";
-import FoodAllCategoryComponent from "../Components/FoodAllCategoryComponent";
+import CoffeeAllCategoryComponent from "../Components/CoffeeAllCategoryComponent";
 import Link from "next/link";
 import LoadingBar from "react-top-loading-bar";
 import { IoIosAddCircleOutline } from "react-icons/io";
@@ -14,7 +14,7 @@ import { IoIosAddCircleOutline } from "react-icons/io";
 
 import {AllContext} from '../context/AllContext';
 
-function AllFoodCategories() {
+function AllCoffeeCategories() {
 const {deletes}=useContext(AllContext);
 
   const [progress, setProgress] = useState(0);
@@ -26,7 +26,7 @@ const {deletes}=useContext(AllContext);
 
   useEffect(() => {
     async function dataFetch() {
-      let ress = await fetch("http://localhost:3000/api/ShowFoodCategory");
+      let ress = await fetch("http://localhost:3000/api/ShowCoffeeCategory");
       let datas = await ress.json();
       await setData(datas.data);
       await setData1(datas.data);
@@ -40,7 +40,7 @@ const {deletes}=useContext(AllContext);
     setSearch(e.target.value);
 
     let datass = await data1.filter((item) => {
-      return item.FoodCategoryName.toLowerCase().includes(
+      return item.CoffeeCategoryName.toLowerCase().includes(
         search.toLocaleLowerCase()
       );
     });
@@ -61,7 +61,7 @@ const {deletes}=useContext(AllContext);
       />
       <Head>
         <meta name="viewport" content="width=device-width, user-scalable=no" />
-        <title>SD CANTEEN | MANAGE FOOD CATEGORIES</title>
+        <title>SD CANTEEN | MANAGE COFFEE CATEGORIES</title>
         <meta name="description" content="sd canteen website" />
         <meta name="author" content="suraj singh" />
         <meta
@@ -76,24 +76,24 @@ const {deletes}=useContext(AllContext);
 
       {/* right bar */}
       <div className={StyleFood.rightSideBar}>
-        <AdminRightInnerHeader title="Food Categories Manage" />
+        <AdminRightInnerHeader title="Coffee Categories Manage" />
         <PathNavigate
           mainSection="Admin"
           mainSectionURL="/admin"
           subsection=""
           subsectionURL=""
-          innerSubjection="MANAGE FOOD CATEGORIES"
-          innerSubjectionURL="/admin/AllFoodCategories"
+          innerSubjection="MANAGE COFFEE CATEGORIES"
+          innerSubjectionURL="/admin/AllCoffeeCategory"
         />
 
         <div className={FoodStyles.ListView}>
           <div className={FoodStyles.addCategory}>
-            <Link href="/admin/AddFoodCategory">
+            <Link href="/admin/AddCoffeeCategory">
               <button>
                 <i>
                   <IoIosAddCircleOutline />
                 </i>{" "}
-                Add New Food Category
+                Add New Coffee Category
               </button>
             </Link>
           </div>
@@ -121,20 +121,18 @@ const {deletes}=useContext(AllContext);
 
           <div className={FoodStyles.ListData}>
             <div className={FoodStyles.Heading}>
-              <li>Food Categories Name</li>
+              <li>Coffee Categories Name</li>
               <li>Action</li>
             </div>
 
             {data.slice(0, parseInt(dataLength)).map((item, index) => {
-              return (
-               
-                  <FoodAllCategoryComponent
-                    data={item}
-                    ind={index}
-                    key={index}
-                  />
-                
-              );
+              return(
+              <CoffeeAllCategoryComponent
+                    data={item} ind={index}
+                    key={index} />
+              )  
+                 
+        
             })}
           </div>
         </div>
@@ -143,4 +141,4 @@ const {deletes}=useContext(AllContext);
   );
 }
 
-export default AllFoodCategories;
+export default AllCoffeeCategories;

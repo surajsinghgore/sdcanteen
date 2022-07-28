@@ -10,8 +10,8 @@ import { AiOutlineCloseSquare } from "react-icons/ai";
 import {AllContext} from '../context/AllContext';
 
 
-function FoodAllCategoryComponent({data,ind}) {
-const {deletes,setDeletes,updateFoodCategories}=useContext(AllContext);
+function CoffeeAllCategoryComponent({data,ind}) {
+const {deletes,setDeletes,updateCoffeeCategories}=useContext(AllContext);
 
 
 const [show,setShow]=useState(false);
@@ -23,13 +23,13 @@ setShow(true);
 }
 // update
 const UpdateCategory=async(id)=>{
-updateFoodCategories(id);
-router.push('/admin/UpdateFoodCategory')
+updateCoffeeCategories(id);
+router.push('/admin/UpdateCoffeeCategory')
 }
 
 // delete
 const deleteCategory=async(id)=>{
-let res=await fetch('http://localhost:3000/api/DeleteFoodCategory',{
+let res=await fetch('http://localhost:3000/api/DeleteCoffeeCategory',{
     method: "DELETE",
     headers:{
         "Content-type": "application/json",
@@ -88,7 +88,7 @@ progress: undefined,
   return (
        <div className={FoodStyles.DataLists} key={ind}>
 <div className={FoodStyles.DataList}>
-<li>{data.FoodCategoryName}</li>
+<li>{data.CoffeeCategoryName}</li>
 {(show)? 
 <li><AiOutlineCloseSquare className={FoodStyles.cursor_icon} onClick={()=>setShow(!show)}/></li>
 : 
@@ -116,4 +116,4 @@ pauseOnHover
   )
 }
 
-export default FoodAllCategoryComponent
+export default CoffeeAllCategoryComponent

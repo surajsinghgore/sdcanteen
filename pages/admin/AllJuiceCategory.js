@@ -6,15 +6,13 @@ import Head from "next/head";
 import AdminLeftMenu from "../Components/AdminLeftMenu";
 import PathNavigate from "../Components/PathNavigate";
 import AdminRightInnerHeader from "../Components/AdminRightInnerHeader";
-import FoodAllCategoryComponent from "../Components/FoodAllCategoryComponent";
+import JuiceAllCategoryComponent from "../Components/JuiceAllCategoryComponent";
 import Link from "next/link";
 import LoadingBar from "react-top-loading-bar";
 import { IoIosAddCircleOutline } from "react-icons/io";
-
-
 import {AllContext} from '../context/AllContext';
 
-function AllFoodCategories() {
+function AllJuiceCategories() {
 const {deletes}=useContext(AllContext);
 
   const [progress, setProgress] = useState(0);
@@ -26,7 +24,7 @@ const {deletes}=useContext(AllContext);
 
   useEffect(() => {
     async function dataFetch() {
-      let ress = await fetch("http://localhost:3000/api/ShowFoodCategory");
+      let ress = await fetch("http://localhost:3000/api/ShowJuiceCategory");
       let datas = await ress.json();
       await setData(datas.data);
       await setData1(datas.data);
@@ -40,7 +38,7 @@ const {deletes}=useContext(AllContext);
     setSearch(e.target.value);
 
     let datass = await data1.filter((item) => {
-      return item.FoodCategoryName.toLowerCase().includes(
+      return item.JuiceCategoryName.toLowerCase().includes(
         search.toLocaleLowerCase()
       );
     });
@@ -61,7 +59,7 @@ const {deletes}=useContext(AllContext);
       />
       <Head>
         <meta name="viewport" content="width=device-width, user-scalable=no" />
-        <title>SD CANTEEN | MANAGE FOOD CATEGORIES</title>
+        <title>SD CANTEEN | MANAGE JUICE CATEGORIES</title>
         <meta name="description" content="sd canteen website" />
         <meta name="author" content="suraj singh" />
         <meta
@@ -76,24 +74,24 @@ const {deletes}=useContext(AllContext);
 
       {/* right bar */}
       <div className={StyleFood.rightSideBar}>
-        <AdminRightInnerHeader title="Food Categories Manage" />
+        <AdminRightInnerHeader title="Juice Categories Manage" />
         <PathNavigate
           mainSection="Admin"
           mainSectionURL="/admin"
           subsection=""
           subsectionURL=""
-          innerSubjection="MANAGE FOOD CATEGORIES"
-          innerSubjectionURL="/admin/AllFoodCategories"
+          innerSubjection="MANAGE JUICE CATEGORIES"
+          innerSubjectionURL="/admin/AllJuiceCategory"
         />
 
         <div className={FoodStyles.ListView}>
           <div className={FoodStyles.addCategory}>
-            <Link href="/admin/AddFoodCategory">
+            <Link href="/admin/AddJuiceCategory">
               <button>
                 <i>
                   <IoIosAddCircleOutline />
                 </i>{" "}
-                Add New Food Category
+                Add New Juice Category
               </button>
             </Link>
           </div>
@@ -121,19 +119,19 @@ const {deletes}=useContext(AllContext);
 
           <div className={FoodStyles.ListData}>
             <div className={FoodStyles.Heading}>
-              <li>Food Categories Name</li>
+              <li>Juice Categories Name</li>
               <li>Action</li>
             </div>
 
             {data.slice(0, parseInt(dataLength)).map((item, index) => {
               return (
-               
-                  <FoodAllCategoryComponent
+             
+                  <JuiceAllCategoryComponent
                     data={item}
                     ind={index}
                     key={index}
                   />
-                
+              
               );
             })}
           </div>
@@ -143,4 +141,4 @@ const {deletes}=useContext(AllContext);
   );
 }
 
-export default AllFoodCategories;
+export default AllJuiceCategories;
