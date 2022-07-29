@@ -43,11 +43,11 @@ close: <IoIosArrowDown />,
 subMenu:[
 {
 title:"Add Food",
-path:"/admin/AddFood",
+path:"/admin/AddFoodItem",
 },
 {
 title:"Update Food",
-path:"/admin/AddFood",
+path:"/admin/UpdateFoodItem",
 },
 {
 title:"Delete Food",
@@ -55,7 +55,7 @@ path:"/admin/AddFood",
 },
 {
 title:"View Food",
-path:"/admin/AddFood",
+path:"/admin/ShowFoodItem",
 },
 {
 title:"Manage Food Categories",

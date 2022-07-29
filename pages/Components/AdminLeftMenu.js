@@ -7,7 +7,8 @@ import Image from "next/image";
 
 
 
-function AdminLeftMenu(props) {
+function AdminLeftMenu() {
+
   return (
     <div className={Styles.leftPanel}>
       <div className={Styles.logo_img}>
@@ -21,3 +22,6 @@ function AdminLeftMenu(props) {
 }
 
 export default AdminLeftMenu
+
+
+

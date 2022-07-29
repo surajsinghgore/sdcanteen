@@ -12,13 +12,13 @@ import LoadingBar from "react-top-loading-bar";
 import { IoIosAddCircleOutline } from "react-icons/io";
 import {AllContext} from '../context/AllContext';
 
-function AllDrinkCategories() {
+function AllDrinkCategories({datas}) {
 const {deletes}=useContext(AllContext);
 
   const [progress, setProgress] = useState(0);
   const [search, setSearch] = useState("");
-  const [data, setData] = useState([]);
-  const [data1, setData1] = useState([]);
+  const [data, setData] = useState(datas);
+  const [data1, setData1] = useState(datas);
 
   const [dataLength, setDataLength] = useState(10);
 
@@ -142,3 +142,15 @@ const {deletes}=useContext(AllContext);
 }
 
 export default AllDrinkCategories;
+
+
+export async function getServerSideProps(context) {
+ let ress = await fetch("http://localhost:3000/api/ShowDrinkCategory");
+      let data = await ress.json();
+      let datas = await data.data;
+
+
+  return {
+    props: {datas},
+  }
+}

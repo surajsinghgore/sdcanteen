@@ -10,30 +10,34 @@ import FoodAllCategoryComponent from "../Components/FoodAllCategoryComponent";
 import Link from "next/link";
 import LoadingBar from "react-top-loading-bar";
 import { IoIosAddCircleOutline } from "react-icons/io";
-
-
 import {AllContext} from '../context/AllContext';
 
-function AllFoodCategories() {
+
+
+
+
+function AllFoodCategories({datas}) {
+
 const {deletes}=useContext(AllContext);
 
-  const [progress, setProgress] = useState(0);
   const [search, setSearch] = useState("");
-  const [data, setData] = useState([]);
-  const [data1, setData1] = useState([]);
+  const [progress, setProgress] = useState(0);
+  const [data, setData] = useState(datas);
+  const [data1, setData1] = useState(datas);
 
   const [dataLength, setDataLength] = useState(10);
 
   useEffect(() => {
-    async function dataFetch() {
-      let ress = await fetch("http://localhost:3000/api/ShowFoodCategory");
-      let datas = await ress.json();
-      await setData(datas.data);
-      await setData1(datas.data);
-      setProgress(100);
-    }
+          async function dataFetch() {
+let ress = await fetch("http://localhost:3000/api/ShowFoodCategory");
+      let data = await ress.json();
+      let datass = await data.data;
+setData(datass)
+setData1(datass)
+   }
     dataFetch();
-  }, [deletes]);
+setProgress(100);
+  },[deletes]);
 
   // search bar working
   const Searchs = async (e) => {
@@ -144,3 +148,19 @@ const {deletes}=useContext(AllContext);
 }
 
 export default AllFoodCategories;
+
+
+
+
+
+
+export async function getServerSideProps(context) {
+ let ress = await fetch("http://localhost:3000/api/ShowFoodCategory");
+      let data = await ress.json();
+      let datas = await data.data;
+
+
+  return {
+    props: {datas},
+  }
+}

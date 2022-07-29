@@ -7,30 +7,45 @@ import PathNavigate from '../Components/PathNavigate';
 import AdminRightInnerHeader from '../Components/AdminRightInnerHeader';
 import demo from '../../public/demo.jpg';
 import Image from 'next/image';
+import LoadingBar from "react-top-loading-bar";
+import 'react-toastify/dist/ReactToastify.css';
+import { useState ,useEffect} from 'react';
 
-import { useState } from 'react';
+export default function AddFoodItem({datas}) {
 
-export default function AddFood() {
-
-
+  const [progress, setProgress] = useState(0);
+  const [data, setData] = useState([]);
+  // form datas
+const [FoodName,setFoodName]=useState('');                  
+const [Price,setPrice]=useState('');                  
+const [Qtys,setQtys]=useState('');                  
+const [Category,setCategory]=useState('');                                  
 const [imgs,setImgs]=useState(demo);                  
-const [showImage,setShowImage]=useState(true);
-const handleChange=async(e)=>{
-  if(e.target.files[0]){
-var file = e.target.files[0];
-  let url=await URL.createObjectURL(file);
-  setImgs(url);
-    setShowImage(false);
-  }
-  else{
-    setShowImage(true);
-  }
 
-}
+ useEffect(() => {
+  dataFetch();
+    async function dataFetch() {
 
+       await setData(datas);
+      console.log(data)
+    await setFoodName(data[1].FoodName)
+    await setPrice(data[0].Price)
+    await setQtys(data[0].Qty)
+await setImgs(data[0].Image);
+await setCategory(data[0].Category);
+      setProgress(100);
+    }
+
+  },[]);
   
   return (
   <div className={Styles.admin}>
+    <LoadingBar
+        color="rgb(255 82 0)"
+        height={3.5}
+        progress={progress}
+        transitionTime={100}
+      />
       <Head>
         <meta name="viewport" content="width=device-width, user-scalable=no" />
         <title>SD CANTEEN | ADD FOOD</title>
@@ -61,43 +76,47 @@ var file = e.target.files[0];
 <div className={StyleFood.form_element}>
 <li>
 <p>Enter Food Name <span>*</span></p>
-<input type="text" name="foodName" />
+<input type="text" name="foodName" value={FoodName} />
 </li>
 <li>
 <p>Enter Food Price <span>*</span></p>
-<input type="number" name="foodPrice" />
+<input type="number" name="foodPrice" value={Price} />
 </li>
 
 <li>
 <p>Enter Food Qty</p>
-<input type="number" name="foodQty" />
+<input type="text" name="foodQty" value={Qtys} />
 </li>
 
 <li>
 <p>Enter Food Category</p>
-<select name="foodcategory">
-<option value="dosha">dosha</option>
-<option value="pasta">pasta</option>
-</select>
-</li>
-<li>
-<p>Uploard Food Photo <span>*</span></p>
-{/* <input type="file" name="photo" accept="image/*" id="photoFood" onChange={loadFile}/> */}
-<input type="file" name="photo"  id="photoFood" onChange={handleChange}/>
+<select name="foodcategory" >
+<option value={Category}>{Category}</option>
 
+</select>
 </li>
 <li>
 <p>Photo Realtime Preview</p>
 <div className={StyleFood.preview_photo}  >
-{(showImage)? <h1>please uploard Image</h1>:<Image src={imgs} alt='' id='output' width={600} height={600} />}
-
+<Image src={imgs} alt='' id='output' width={600} height={600} />
 </div>
 </li>
-<button> ADD FOOD</button>
-
 </div>
 </div>
       </div>
+
     </div>
   )
+}
+
+
+export async function getServerSideProps(context) {
+ let ress = await fetch("http://localhost:3000/api/ShowFoodItem");
+      let data = await ress.json();
+      let datas = await data.data;
+
+
+  return {
+    props: {datas},
+  }
 }

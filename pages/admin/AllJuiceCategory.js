@@ -12,14 +12,13 @@ import LoadingBar from "react-top-loading-bar";
 import { IoIosAddCircleOutline } from "react-icons/io";
 import {AllContext} from '../context/AllContext';
 
-function AllJuiceCategories() {
+function AllJuiceCategories({datas}) {
 const {deletes}=useContext(AllContext);
 
   const [progress, setProgress] = useState(0);
   const [search, setSearch] = useState("");
-  const [data, setData] = useState([]);
-  const [data1, setData1] = useState([]);
-
+  const [data, setData] = useState(datas);
+  const [data1, setData1] = useState(datas);
   const [dataLength, setDataLength] = useState(10);
 
   useEffect(() => {
@@ -142,3 +141,16 @@ const {deletes}=useContext(AllContext);
 }
 
 export default AllJuiceCategories;
+
+
+
+export async function getServerSideProps(context) {
+ let ress = await fetch("http://localhost:3000/api/ShowJuiceCategory");
+      let data = await ress.json();
+      let datas = await data.data;
+
+
+  return {
+    props: {datas},
+  }
+}
