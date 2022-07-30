@@ -11,6 +11,7 @@ import LoadingBar from "react-top-loading-bar";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useState ,useEffect} from 'react';
+import router from 'next/router'
 
 export default function AddFoodItem() {
 
@@ -24,12 +25,13 @@ const [Category,setCategory]=useState('');
 const [Images,setImages]=useState('');                  
 const [imgs,setImgs]=useState(demo);                  
 const [showImage,setShowImage]=useState(true);
-
+const [files,setFiles]=useState('');
 
 // images handle
 const handleChange=async(e)=>{
   if(e.target.files[0]){
 var file = e.target.files[0];
+setFiles(file)
   let url=await URL.createObjectURL(file);
   setImgs(url);
   setImages(url)
@@ -82,20 +84,22 @@ progress: undefined,
 });
 return 0;
 }
-const res=await fetch('http://localhost:3000/api/AddFoodItem',{
-    method: "POST",
-    headers:{
-        "Content-type": "application/json",
-        
-    },
-    body: JSON.stringify({
-        FoodName:FoodName,Price:Price,Qty:Qtys,Category:Category,Image:Images
-    })
-});
-let data=await res.json();
-// sesver error
-if(data.status=='501'){
-toast.error(`${data.message}`, {
+
+const data=new FormData();
+data.append('FoodName',FoodName)
+data.append('Price',Price);
+data.append('Qty',Qtys)
+data.append('Category',Category)
+data.append('Image',files);
+
+   let res=await fetch('http://localhost:3000/api/AddFoodItem',{
+           method: 'POST',    
+    body: data
+  })
+           let datas=await res.json(); 
+
+if(datas.status=='501'){
+toast.error(`${datas.message}`, {
 position: "bottom-right",
 autoClose: 5000,
 hideProgressBar: false,
@@ -107,8 +111,8 @@ progress: undefined,
 return 0;
 }
 // dublicate error message
-if(data.status=='400'){
-toast.warn(`${data.message}`, {
+if(datas.status=='400'){
+toast.warn(`${datas.message}`, {
 position: "bottom-right",
 autoClose: 5000,
 hideProgressBar: false,
@@ -120,7 +124,7 @@ progress: undefined,
 return 0;
 }
 
-
+if(datas.status=='201'){
 toast.success(`${FoodName} is Successfully Added`, {
 position: "bottom-right",
 autoClose: 5000,
@@ -131,6 +135,11 @@ draggable: true,
 progress: undefined,
 });
 
+setTimeout(RedirectFunction,1000);
+function RedirectFunction(){
+  router.push('/admin/ShowFoodItem')
+}
+}
 }
  useEffect(() => {
     async function dataFetch() {

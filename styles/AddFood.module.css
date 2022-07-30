@@ -38,6 +38,7 @@ padding-bottom: 5%;
 position: fixed;
 width: 100%;
 display: flex;
+z-index: 99;
 background-color: #fff;
 height: 90px;
 }
