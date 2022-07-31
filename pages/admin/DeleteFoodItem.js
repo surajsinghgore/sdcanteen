@@ -6,19 +6,22 @@ import Head from "next/head";
 import AdminLeftMenu from "../Components/AdminLeftMenu";
 import PathNavigate from '../Components/PathNavigate';
 import AdminRightInnerHeader from '../Components/AdminRightInnerHeader';
-
+import { AiFillDelete } from 'react-icons/ai';
 import Image from 'next/image';
 import 'react-toastify/dist/ReactToastify.css';
 import { useState ,useEffect} from 'react';
-export default function AddFoodItem({datas}) {
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
+export default function DeleteFoodItem({datas}) {
 
+const[useEffectCall,setUseEffectCall]=useState(false);
 const [foodNameSearch,setFoodNameSearch]=useState('')
 const [categorySearch,setCategorySearch]=useState('')
   const [data, setData] = useState([]);
 
-const [fetchData,setFetchData]=useState(datas);
-const [demmyData,setDummyData]=useState(datas);
+const [fetchData,setFetchData]=useState([]);
+const [demmyData,setDummyData]=useState([]);
 
 
 // filter using food name
@@ -50,8 +53,93 @@ setFetchData(demmyData)
 
 }
 
- useEffect(() => {
 
+
+
+
+// deleting item
+  const DeleteFoodItems=async(item)=>{
+  if(!item._id){
+  toast.warn('Please Provide Correct Id Of Item', {
+position: "bottom-right",
+autoClose: 5000,
+hideProgressBar: false,
+closeOnClick: true,
+pauseOnHover: true,
+draggable: true,
+progress: undefined,
+});
+return 0;
+  }
+    if(!item.Image){
+  toast.warn('Please Provide Correct Image Of Item', {
+position: "bottom-right",
+autoClose: 5000,
+hideProgressBar: false,
+closeOnClick: true,
+pauseOnHover: true,
+draggable: true,
+progress: undefined,
+});
+return 0;
+  }
+ let res=await fetch('http://localhost:3000/api/DeleteFoodItem',{
+  method: "DELETE",
+    headers:{
+        "Content-type": "application/json",
+        
+    },
+    body: JSON.stringify({
+        _id:item._id,imagePath:item.Image
+    })
+ })
+
+
+let data=await res.json();
+if(data.status=='501'){
+toast.error(`${data.message}`, {
+position: "bottom-right",
+autoClose: 5000,
+hideProgressBar: false,
+closeOnClick: true,
+pauseOnHover: true,
+draggable: true,
+progress: undefined,
+});
+return 0;
+}
+
+if(data.status=='400'){
+toast.warn(`${data.message}`, {
+position: "bottom-right",
+autoClose: 5000,
+hideProgressBar: false,
+closeOnClick: true,
+pauseOnHover: true,
+draggable: true,
+progress: undefined,
+});
+return 0;
+}
+if(data.status=='201'){
+
+toast.success(`Food Item Successfully Deleted`, {
+position: "bottom-right",
+autoClose: 5000,
+hideProgressBar: false,
+closeOnClick: true,
+pauseOnHover: true,
+draggable: true,
+progress: undefined,
+});
+setUseEffectCall(!useEffectCall);
+  }
+  }
+  
+
+
+   useEffect(() => {
+console.log('ff')
  async function dataFetch() {
       let ress = await fetch("http://localhost:3000/api/ShowFoodCategory");
       let datas = await ress.json();
@@ -59,14 +147,23 @@ setFetchData(demmyData)
     }
  dataFetch();
 
-  },[]);
-  
+
+ async function dataCategoryFetch() {
+      let ress = await fetch("http://localhost:3000/api/ShowFoodItem");
+      let datas = await ress.json();
+      await setFetchData(datas.data)
+   await setDummyData(datas.data)
+
+    }
+ dataCategoryFetch();
+
+  },[useEffectCall]);
   return (
   <div className={Styles.admin}>
    
       <Head>
         <meta name="viewport" content="width=device-width, user-scalable=no" />
-        <title>SD CANTEEN | ADD FOOD</title>
+        <title>SD CANTEEN | DELETE FOOD ITEM</title>
         <meta name="description" content="sd canteen website" />
         <meta name="author" content="suraj singh" />
         <meta
@@ -81,8 +178,8 @@ setFetchData(demmyData)
 
       {/* right bar */}
       <div className={StyleFood.rightSideBar}>
-      <AdminRightInnerHeader title="Food Item Page"/>
-      <PathNavigate mainSection="Admin" mainSectionURL="/admin" subsection="" subsectionURL="" innerSubjection="SHOW FOOD" innerSubjectionURL="/admin/ShowFoodItem" />
+      <AdminRightInnerHeader title="Delete Food Item Page"/>
+      <PathNavigate mainSection="Admin" mainSectionURL="/admin" subsection="" subsectionURL="" innerSubjection="DELETE FOOD ITEM" innerSubjectionURL="/admin/DeleteFoodItem" />
       
 
       {/* form add food */}
@@ -111,8 +208,8 @@ return(
 <li className={ShowStyles.Image_Section}>Item Photo</li>
 <li className={ShowStyles.Item_Name}>Food Name</li>
 <li className={ShowStyles.Item_Price}>Price</li>
-<li className={ShowStyles.Item_Qty}>Qty</li>
 <li className={ShowStyles.Item_Category}>Category</li>
+<li className={ShowStyles.Item_Qty}>Action</li>
 </div>
 
 
@@ -122,8 +219,8 @@ return(
 <li className={ShowStyles.Image_Section}><Image src={`/../public/FoodItemImages/${item.Image}`} alt={item.Image} height="550" width="800" loading="lazy"/></li>
 <li className={ShowStyles.Item_Name}><p>{item.FoodName}</p></li>
 <li className={ShowStyles.Item_Price}><p>{item.Price}</p></li>
-<li className={ShowStyles.Item_Qty}><p>{item.Qty}</p></li>
 <li className={ShowStyles.Item_Category}><p>{item.Category}</p></li>
+<li className={ShowStyles.Item_Qty}><p style={{color:'red',cursor:"pointer",fontSize:"24px"}} title="Click To Delete"><AiFillDelete onClick={()=>DeleteFoodItems(item)}/></p></li>
 </div>
 )
 })}
@@ -134,7 +231,17 @@ return(
 
 
       </div>
-
+        <ToastContainer
+position="bottom-right"
+autoClose={5000}
+hideProgressBar={false}
+newestOnTop={false}
+closeOnClick
+rtl={false}
+pauseOnFocusLoss
+draggable
+pauseOnHover
+/>
     </div>
   )
 }

@@ -8,7 +8,6 @@ import AdminRightInnerHeader from '../Components/AdminRightInnerHeader';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import router from 'next/router'
-import LoadingBar from 'react-top-loading-bar';
 import {AllContext} from '../context/AllContext';
 
  
@@ -16,7 +15,6 @@ function UpdateCoffeeCategory() {
 const {filterAllFoodCategoriesData}=useContext(AllContext);
 
 
- const [progress, setProgress] = useState(0);
  const [CoffeeCategoryName, setCoffeeCategoryName] = useState('');
 
 
@@ -96,17 +94,11 @@ useEffect(()=>{
  if(filterAllFoodCategoriesData){
 setCoffeeCategoryName(filterAllFoodCategoriesData[0].CoffeeCategoryName)
  }
-setProgress(100);
 },[filterAllFoodCategoriesData])
 
   return (
     <div className={Styles.admin}>
-    <LoadingBar
-        color='rgb(255 82 0)'
-        height={3.5}
-        progress={progress}
-          transitionTime={100}
-      />
+
      <Head>
         <meta name="viewport" content="width=device-width, user-scalable=no" />
         <title>SD CANTEEN | UPDATE COFFEE CATEGORIES</title>

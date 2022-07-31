@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, {  useState } from 'react'
 import Styles from "../../styles/admin.module.css";
 import StyleFood from "../../styles/AddFood.module.css";
 import Head from "next/head";
@@ -8,11 +8,10 @@ import AdminRightInnerHeader from '../Components/AdminRightInnerHeader';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import router from 'next/router'
-import LoadingBar from 'react-top-loading-bar';
+
 
  
 function AddCoffeeCategories() {
- const [progress, setProgress] = useState(0);
 
 const [CoffeeCategory,setCoffeeCategory]=useState('');
 const addCategory=async(e)=>{
@@ -101,19 +100,10 @@ function RedirectFunction(){
 setCoffeeCategory('');
 }
 
-useEffect(()=>{
-
-setProgress(100);
-},[])
 
   return (
     <div className={Styles.admin}>
-    <LoadingBar
-        color='rgb(255 82 0)'
-        height={3.5}
-        progress={progress}
-          transitionTime={100}
-      />
+   
      <Head>
         <meta name="viewport" content="width=device-width, user-scalable=no" />
         <title>SD CANTEEN | ADD COFFEE CATEGORIES</title>

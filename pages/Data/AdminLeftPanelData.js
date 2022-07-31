@@ -51,7 +51,7 @@ path:"/admin/UpdateFoodItem",
 },
 {
 title:"Delete Food",
-path:"/admin/AddFood",
+path:"/admin/DeleteFoodItem",
 },
 {
 title:"View Food",

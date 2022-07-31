@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useContext} from 'react'
 import Styles from "../../styles/admin.module.css";
 import ShowStyles from "../../styles/ShowFoodItem.module.css";
 import StyleFood from "../../styles/AddFood.module.css";
@@ -6,19 +6,24 @@ import Head from "next/head";
 import AdminLeftMenu from "../Components/AdminLeftMenu";
 import PathNavigate from '../Components/PathNavigate';
 import AdminRightInnerHeader from '../Components/AdminRightInnerHeader';
-
+import { FiEdit } from 'react-icons/fi';
 import Image from 'next/image';
 import 'react-toastify/dist/ReactToastify.css';
 import { useState ,useEffect} from 'react';
-export default function AddFoodItem({datas}) {
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import router from 'next/router'
+import {AllContext} from '../context/AllContext';
 
 
+export default function UpdateFoodItem({datas}) {
+const {updateFoodItem}=useContext(AllContext);
 const [foodNameSearch,setFoodNameSearch]=useState('')
 const [categorySearch,setCategorySearch]=useState('')
   const [data, setData] = useState([]);
 
-const [fetchData,setFetchData]=useState(datas);
-const [demmyData,setDummyData]=useState(datas);
+const [fetchData,setFetchData]=useState([]);
+const [demmyData,setDummyData]=useState([]);
 
 
 // filter using food name
@@ -50,8 +55,16 @@ setFetchData(demmyData)
 
 }
 
- useEffect(() => {
 
+
+// update food
+const UpdateFoodItems=async(_id)=>{
+updateFoodItem(_id);
+router.push('/admin/UpdateItemForm')
+
+}
+
+   useEffect(() => {
  async function dataFetch() {
       let ress = await fetch("http://localhost:3000/api/ShowFoodCategory");
       let datas = await ress.json();
@@ -59,14 +72,23 @@ setFetchData(demmyData)
     }
  dataFetch();
 
+
+ async function dataCategoryFetch() {
+      let ress = await fetch("http://localhost:3000/api/ShowFoodItem");
+      let datas = await ress.json();
+      await setFetchData(datas.data)
+   await setDummyData(datas.data)
+
+    }
+ dataCategoryFetch();
+
   },[]);
-  
   return (
   <div className={Styles.admin}>
    
       <Head>
         <meta name="viewport" content="width=device-width, user-scalable=no" />
-        <title>SD CANTEEN | ADD FOOD</title>
+        <title>SD CANTEEN | UPDATE FOOD ITEM</title>
         <meta name="description" content="sd canteen website" />
         <meta name="author" content="suraj singh" />
         <meta
@@ -81,8 +103,8 @@ setFetchData(demmyData)
 
       {/* right bar */}
       <div className={StyleFood.rightSideBar}>
-      <AdminRightInnerHeader title="Food Item Page"/>
-      <PathNavigate mainSection="Admin" mainSectionURL="/admin" subsection="" subsectionURL="" innerSubjection="SHOW FOOD" innerSubjectionURL="/admin/ShowFoodItem" />
+      <AdminRightInnerHeader title="Update Food Item Page"/>
+      <PathNavigate mainSection="Admin" mainSectionURL="/admin" subsection="" subsectionURL="" innerSubjection="UPDATE FOOD ITEM" innerSubjectionURL="/admin/UpdateFoodItem" />
       
 
       {/* form add food */}
@@ -111,8 +133,8 @@ return(
 <li className={ShowStyles.Image_Section}>Item Photo</li>
 <li className={ShowStyles.Item_Name}>Food Name</li>
 <li className={ShowStyles.Item_Price}>Price</li>
-<li className={ShowStyles.Item_Qty}>Qty</li>
 <li className={ShowStyles.Item_Category}>Category</li>
+<li className={ShowStyles.Item_Qty}>Action</li>
 </div>
 
 
@@ -122,8 +144,8 @@ return(
 <li className={ShowStyles.Image_Section}><Image src={`/../public/FoodItemImages/${item.Image}`} alt={item.Image} height="550" width="800" loading="lazy"/></li>
 <li className={ShowStyles.Item_Name}><p>{item.FoodName}</p></li>
 <li className={ShowStyles.Item_Price}><p>{item.Price}</p></li>
-<li className={ShowStyles.Item_Qty}><p>{item.Qty}</p></li>
 <li className={ShowStyles.Item_Category}><p>{item.Category}</p></li>
+<li className={ShowStyles.Item_Qty}><p style={{color:'blue',cursor:"pointer",fontSize:"24px"}} title="Click To Update"><FiEdit onClick={()=>UpdateFoodItems(item._id)}/></p></li>
 </div>
 )
 })}
@@ -134,7 +156,17 @@ return(
 
 
       </div>
-
+        <ToastContainer
+position="bottom-right"
+autoClose={5000}
+hideProgressBar={false}
+newestOnTop={false}
+closeOnClick
+rtl={false}
+pauseOnFocusLoss
+draggable
+pauseOnHover
+/>
     </div>
   )
 }

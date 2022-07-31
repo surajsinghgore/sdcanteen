@@ -2,6 +2,8 @@ import DbConnection from '../Middleware/DbConnection';
 import FoodItemSchema from '../Schema/FoodItemSchema';
 import nextConnect from 'next-connect'
 import Path from 'path'
+var fs = require('fs');
+
 const handler = nextConnect();
 
 import multer from 'multer';
@@ -44,32 +46,25 @@ handler.use(uploard.single('Image'));
 handler.post(async(req,res)=>{
 try{
 DbConnection();
+  let _id = req.body._id;
+const oldImage=req.body.oldImage;
 const Image=req.file.filename;
-let FoodName=req.body.FoodName;
-let Price=req.body.Price;
-let Qty=req.body.Qty;
-let Category=req.body.Category;
 
+if(!_id){
+res.status(400).json({message:"Please Provide Id"});
+}
+if(!oldImage){
+res.status(400).json({message:"Please Provide Old Image"});
+}
 if(!Image){
 res.status(400).json({message:"Please Enter Item Image"});
 }
-else if(!FoodName){
-res.status(400).json({message:"Please Enter Food Name"});
-}
-else if(!Price){
-res.status(400).json({message:"Please Enter Price Of Item"});
-}
+var filePath =`./public/FoodItemImages/${oldImage}`; 
 
-let Items=new FoodItemSchema({
-    FoodName,
-    Price ,
-    Qty,
-    Category,
-    Image,
-})
-let ress=await Items.save();
+
+ let ress=await FoodItemSchema.findByIdAndUpdate(_id,{Image:Image});
 if(ress){
-
+ await fs.unlinkSync(filePath)
 res.status(201).json({ress,status:"201"})
 }
 }
@@ -85,7 +80,7 @@ res.status(501).json({message:"Internal Server Error",status:"201"})
 
 })
 
-handler.use(uploard.single('Image'));
+
 
 
 export default handler

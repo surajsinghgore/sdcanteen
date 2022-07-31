@@ -9,8 +9,10 @@ const Provider=({children})=>{
 // useState
 
 const [filterAllFoodCategoriesData,setFilterAllFoodCategoriesData]=useState(['']);
-const [deletes,setDeletes]=useState(false);
+const [filterFoodItemsData,setFilterFoodItemsData]=useState([]);
 
+const [deletes,setDeletes]=useState(false);
+let datass=[];
 
 // Functions
 
@@ -55,27 +57,35 @@ await setFilterAllFoodCategoriesData(dd)
 }
 
 const updateJuiceCategories=async(id)=>{
-
 let ress=await fetch('http://localhost:3000/api/ShowJuiceCategory');
 let datas=await ress.json();
 let d=datas.data;
 let dd=d.filter((item)=>{
-
 return item._id==id})
-await setFilterAllFoodCategoriesData(dd)
+await setFilterFoodItemsData(dd)
 
+}
+
+const updateFoodItem=async(id)=>{
+let ress=await fetch('http://localhost:3000/api/ShowFoodItem');
+let datas=await ress.json();
+let d=datas.data;
+let dd=await d.filter((item)=>{
+return item._id==id})
+ setFilterFoodItemsData(dd)
 }
 return (<AllContext.Provider value={{
 // useState
 filterAllFoodCategoriesData,
 deletes,setDeletes,
-
+filterFoodItemsData,
 
 // functiond
 updateFoodCategories,
 updateCoffeeCategories,
 updateDrinkCategories,
-updateJuiceCategories
+updateJuiceCategories,
+updateFoodItem
 }}>{children}</AllContext.Provider>)
 }
 

@@ -8,7 +8,6 @@ import PathNavigate from "../Components/PathNavigate";
 import AdminRightInnerHeader from "../Components/AdminRightInnerHeader";
 import CoffeeAllCategoryComponent from "../Components/CoffeeAllCategoryComponent";
 import Link from "next/link";
-import LoadingBar from "react-top-loading-bar";
 import { IoIosAddCircleOutline } from "react-icons/io";
 
 
@@ -17,7 +16,6 @@ import {AllContext} from '../context/AllContext';
 function AllCoffeeCategories({datas}) {
 const {deletes}=useContext(AllContext);
 
-  const [progress, setProgress] = useState(0);
   const [search, setSearch] = useState("");
   const [data, setData] = useState(datas);
   const [data1, setData1] = useState(datas);
@@ -30,7 +28,7 @@ const {deletes}=useContext(AllContext);
       let datas = await ress.json();
       await setData(datas.data);
       await setData1(datas.data);
-      setProgress(100);
+    
     }
     dataFetch();
   }, [deletes]);
@@ -53,12 +51,7 @@ const {deletes}=useContext(AllContext);
 
   return (
     <div className={Styles.admin}>
-      <LoadingBar
-        color="rgb(255 82 0)"
-        height={3.5}
-        progress={progress}
-        transitionTime={100}
-      />
+      
       <Head>
         <meta name="viewport" content="width=device-width, user-scalable=no" />
         <title>SD CANTEEN | MANAGE COFFEE CATEGORIES</title>

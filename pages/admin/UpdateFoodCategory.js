@@ -8,7 +8,6 @@ import AdminRightInnerHeader from '../Components/AdminRightInnerHeader';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import router from 'next/router'
-import LoadingBar from 'react-top-loading-bar';
 import {AllContext} from '../context/AllContext';
 
  
@@ -96,17 +95,11 @@ useEffect(()=>{
  if(filterAllFoodCategoriesData){
 setFoodCategoryName(filterAllFoodCategoriesData[0].FoodCategoryName)
  }
-setProgress(100);
 },[filterAllFoodCategoriesData])
 
   return (
     <div className={Styles.admin}>
-    <LoadingBar
-        color='rgb(255 82 0)'
-        height={3.5}
-        progress={progress}
-          transitionTime={100}
-      />
+
      <Head>
         <meta name="viewport" content="width=device-width, user-scalable=no" />
         <title>SD CANTEEN | UPDATE FOOD CATEGORIES</title>

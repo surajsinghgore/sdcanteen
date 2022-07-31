@@ -8,7 +8,6 @@ import PathNavigate from "../Components/PathNavigate";
 import AdminRightInnerHeader from "../Components/AdminRightInnerHeader";
 import FoodAllCategoryComponent from "../Components/FoodAllCategoryComponent";
 import Link from "next/link";
-import LoadingBar from "react-top-loading-bar";
 import { IoIosAddCircleOutline } from "react-icons/io";
 import {AllContext} from '../context/AllContext';
 
@@ -21,7 +20,6 @@ function AllFoodCategories({datas}) {
 const {deletes}=useContext(AllContext);
 
   const [search, setSearch] = useState("");
-  const [progress, setProgress] = useState(0);
   const [data, setData] = useState(datas);
   const [data1, setData1] = useState(datas);
 
@@ -36,7 +34,6 @@ setData(datass)
 setData1(datass)
    }
     dataFetch();
-setProgress(100);
   },[deletes]);
 
   // search bar working
@@ -57,12 +54,7 @@ setProgress(100);
 
   return (
     <div className={Styles.admin}>
-      <LoadingBar
-        color="rgb(255 82 0)"
-        height={3.5}
-        progress={progress}
-        transitionTime={100}
-      />
+  
       <Head>
         <meta name="viewport" content="width=device-width, user-scalable=no" />
         <title>SD CANTEEN | MANAGE FOOD CATEGORIES</title>
