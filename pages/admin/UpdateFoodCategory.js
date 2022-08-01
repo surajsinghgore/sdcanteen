@@ -9,8 +9,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import router from 'next/router'
 import {AllContext} from '../context/AllContext';
-
- 
+let HOST=process.env.NEXT_PUBLIC_API_URL;
 function UpdateFoodCategory() {
 const {filterAllFoodCategoriesData}=useContext(AllContext);
 
@@ -24,7 +23,7 @@ const {filterAllFoodCategoriesData}=useContext(AllContext);
 
 const updateFoodCategory=async()=>{
 
-let res=await fetch('http://localhost:3000/api/UpdateFoodCategory',{
+let res=await fetch(`${HOST}/api/UpdateFoodCategory`,{
     method: "POST",
     headers:{
         "Content-type": "application/json",

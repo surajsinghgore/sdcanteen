@@ -9,6 +9,7 @@ import AdminRightInnerHeader from "../Components/AdminRightInnerHeader";
 import CoffeeAllCategoryComponent from "../Components/CoffeeAllCategoryComponent";
 import Link from "next/link";
 import { IoIosAddCircleOutline } from "react-icons/io";
+let HOST=process.env.NEXT_PUBLIC_API_URL;
 
 
 import {AllContext} from '../context/AllContext';
@@ -24,7 +25,7 @@ const {deletes}=useContext(AllContext);
 
   useEffect(() => {
     async function dataFetch() {
-      let ress = await fetch("http://localhost:3000/api/ShowCoffeeCategory");
+      let ress = await fetch(`${HOST}/api/ShowCoffeeCategory`);
       let datas = await ress.json();
       await setData(datas.data);
       await setData1(datas.data);
@@ -139,7 +140,7 @@ export default AllCoffeeCategories;
 
 
 export async function getServerSideProps(context) {
- let ress = await fetch("http://localhost:3000/api/ShowCoffeeCategory");
+ let ress = await fetch(`${HOST}/api/ShowCoffeeCategory`);
       let data = await ress.json();
       let datas = await data.data;
 

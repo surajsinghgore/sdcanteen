@@ -11,7 +11,7 @@ import { useState ,useEffect} from 'react';
 import router from 'next/router'
 import {AllContext} from '../context/AllContext';
 import Link from "next/link";
-
+let HOST=process.env.NEXT_PUBLIC_API_URL;
 export default function UpdateItemForm() {
 const {filterFoodItemsData}=useContext(AllContext);
 
@@ -30,7 +30,7 @@ const [Category,setCategory]=useState();
  setCategory(filterFoodItemsData[0].Category)
  }
     async function dataFetch() {
-      let ress = await fetch("http://localhost:3000/api/ShowFoodCategory");
+      let ress = await fetch(`${HOST}/api/ShowFoodCategory`);
       let datas = await ress.json();
       await setData(datas.data);
     }
@@ -69,7 +69,7 @@ return 0;
 
 
 
-   let response=await fetch('http://localhost:3000/api/UpdateFoodItem',{
+   let response=await fetch(`${HOST}/api/UpdateFoodItem`,{
         method:"POST",
           headers:{
         "Content-type": "application/json",

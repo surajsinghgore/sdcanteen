@@ -7,6 +7,7 @@ import PathNavigate from '../Components/PathNavigate';
 import AdminRightInnerHeader from '../Components/AdminRightInnerHeader';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+let HOST=process.env.NEXT_PUBLIC_API_URL;
 import { useState } from 'react';
 import router from 'next/router'
 import {AllContext} from '../context/AllContext';
@@ -49,7 +50,7 @@ progress: undefined,
 });
 return 0;
 }
-   let response=await fetch('http://localhost:3000/api/UpdateFoodImage',{
+   let response=await fetch(`${HOST}/api/UpdateFoodImage`,{
            method: 'POST',    
     body: dataImage
   })

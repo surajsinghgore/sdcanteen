@@ -1,5 +1,5 @@
 import React, { createContext, useState } from 'react'
-
+let HOST=process.env.NEXT_PUBLIC_API_URL;
 const AllContext=createContext();
 
 
@@ -8,7 +8,7 @@ const Provider=({children})=>{
 
 // useState
 
-const [filterAllFoodCategoriesData,setFilterAllFoodCategoriesData]=useState(['']);
+const [filterAllFoodCategoriesData,setFilterAllFoodCategoriesData]=useState([]);
 const [filterFoodItemsData,setFilterFoodItemsData]=useState([]);
 
 const [deletes,setDeletes]=useState(false);
@@ -22,7 +22,7 @@ let datass=[];
 
 const updateFoodCategories=async(id)=>{
 
-let ress=await fetch('http://localhost:3000/api/ShowFoodCategory');
+let ress=await fetch(`${HOST}/api/ShowFoodCategory`);
 let datas=await ress.json();
 let d=datas.data;
 let dd=d.filter((item)=>{
@@ -34,7 +34,7 @@ await setFilterAllFoodCategoriesData(dd)
 
 const updateCoffeeCategories=async(id)=>{
 
-let ress=await fetch('http://localhost:3000/api/ShowCoffeeCategory');
+let ress=await fetch(`${HOST}/api/ShowCoffeeCategory`);
 let datas=await ress.json();
 let d=datas.data;
 let dd=d.filter((item)=>{
@@ -46,7 +46,7 @@ await setFilterAllFoodCategoriesData(dd)
 
 const updateDrinkCategories=async(id)=>{
 
-let ress=await fetch('http://localhost:3000/api/ShowDrinkCategory');
+let ress=await fetch(`${HOST}/api/ShowDrinkCategory`);
 let datas=await ress.json();
 let d=datas.data;
 let dd=d.filter((item)=>{
@@ -57,17 +57,16 @@ await setFilterAllFoodCategoriesData(dd)
 }
 
 const updateJuiceCategories=async(id)=>{
-let ress=await fetch('http://localhost:3000/api/ShowJuiceCategory');
+let ress=await fetch(`${HOST}/api/ShowJuiceCategory`);
 let datas=await ress.json();
 let d=datas.data;
 let dd=d.filter((item)=>{
 return item._id==id})
-await setFilterFoodItemsData(dd)
-
+await setFilterAllFoodCategoriesData(dd)
 }
 
 const updateFoodItem=async(id)=>{
-let ress=await fetch('http://localhost:3000/api/ShowFoodItem');
+let ress=await fetch(`${HOST}/api/ShowFoodItem`);
 let datas=await ress.json();
 let d=datas.data;
 let dd=await d.filter((item)=>{

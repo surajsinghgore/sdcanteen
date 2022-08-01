@@ -8,7 +8,7 @@ import { AiOutlineDelete } from "react-icons/ai";
 import { FaRegEdit } from "react-icons/fa";
 import { AiOutlineCloseSquare } from "react-icons/ai";
 import {AllContext} from '../context/AllContext';
-
+let HOST=process.env.NEXT_PUBLIC_API_URL;
 
 function JuiceAllCategoryComponent({data,ind}) {
 const {deletes,setDeletes,updateJuiceCategories}=useContext(AllContext);
@@ -29,7 +29,7 @@ router.push('/admin/UpdateJuiceCategory')
 
 // delete
 const deleteCategory=async(id)=>{
-let res=await fetch('http://localhost:3000/api/DeleteJuiceCategory',{
+let res=await fetch(`${HOST}/api/DeleteJuiceCategory`,{
     method: "DELETE",
     headers:{
         "Content-type": "application/json",

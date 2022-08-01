@@ -10,7 +10,7 @@ import FoodAllCategoryComponent from "../Components/FoodAllCategoryComponent";
 import Link from "next/link";
 import { IoIosAddCircleOutline } from "react-icons/io";
 import {AllContext} from '../context/AllContext';
-
+let HOST=process.env.NEXT_PUBLIC_API_URL;
 
 
 
@@ -27,7 +27,7 @@ const {deletes}=useContext(AllContext);
 
   useEffect(() => {
           async function dataFetch() {
-let ress = await fetch("http://localhost:3000/api/ShowFoodCategory");
+let ress = await fetch(`${HOST}/api/ShowFoodCategory`);
       let data = await ress.json();
       let datass = await data.data;
 setData(datass)
@@ -147,7 +147,7 @@ export default AllFoodCategories;
 
 
 export async function getServerSideProps(context) {
- let ress = await fetch("http://localhost:3000/api/ShowFoodCategory");
+ let ress = await fetch(`${HOST}/api/ShowFoodCategory`);
       let data = await ress.json();
       let datas = await data.data;
 

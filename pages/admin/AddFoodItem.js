@@ -11,6 +11,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useState ,useEffect} from 'react';
 import router from 'next/router'
+let HOST=process.env.NEXT_PUBLIC_API_URL;
 
 export default function AddFoodItem() {
   const [data, setData] = useState([]);
@@ -89,7 +90,7 @@ data.append('Qty',Qtys)
 data.append('Category',Category)
 data.append('Image',files);
 
-   let res=await fetch('http://localhost:3000/api/AddFoodItem',{
+   let res=await fetch(`${HOST}/api/AddFoodItem`,{
            method: 'POST',    
     body: data
   })
@@ -155,7 +156,7 @@ function RedirectFunction(){
 }
  useEffect(() => {
     async function dataFetch() {
-      let ress = await fetch("http://localhost:3000/api/ShowFoodCategory");
+      let ress = await fetch(`${HOST}/api/ShowFoodCategory`);
       let datas = await ress.json();
       await setData(datas.data);
   

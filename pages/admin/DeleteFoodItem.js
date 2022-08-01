@@ -12,7 +12,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useState ,useEffect} from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+let HOST=process.env.NEXT_PUBLIC_API_URL;
 export default function DeleteFoodItem({datas}) {
 
 const[useEffectCall,setUseEffectCall]=useState(false);
@@ -83,7 +83,7 @@ progress: undefined,
 });
 return 0;
   }
- let res=await fetch('http://localhost:3000/api/DeleteFoodItem',{
+ let res=await fetch(`${HOST}/api/DeleteFoodItem`,{
   method: "DELETE",
     headers:{
         "Content-type": "application/json",
@@ -141,7 +141,7 @@ setUseEffectCall(!useEffectCall);
    useEffect(() => {
 console.log('ff')
  async function dataFetch() {
-      let ress = await fetch("http://localhost:3000/api/ShowFoodCategory");
+      let ress = await fetch(`${HOST}/api/ShowFoodCategory`);
       let datas = await ress.json();
       await setData(datas.data);
     }
@@ -149,7 +149,7 @@ console.log('ff')
 
 
  async function dataCategoryFetch() {
-      let ress = await fetch("http://localhost:3000/api/ShowFoodItem");
+      let ress = await fetch(`${HOST}/api/ShowFoodItem`);
       let datas = await ress.json();
       await setFetchData(datas.data)
    await setDummyData(datas.data)
@@ -248,7 +248,7 @@ pauseOnHover
 
 
 export async function getServerSideProps(context) {
- let ress=await fetch("http://localhost:3000/api/ShowFoodItem");
+ let ress=await fetch(`${HOST}/api/ShowFoodItem`);
       let data = await ress.json();
       let datas = await data.data;
 

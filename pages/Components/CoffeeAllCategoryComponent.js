@@ -9,7 +9,7 @@ import { FaRegEdit } from "react-icons/fa";
 import { AiOutlineCloseSquare } from "react-icons/ai";
 import {AllContext} from '../context/AllContext';
 
-
+let HOST=process.env.NEXT_PUBLIC_API_URL;
 function CoffeeAllCategoryComponent({data,ind}) {
 const {deletes,setDeletes,updateCoffeeCategories}=useContext(AllContext);
 
@@ -29,7 +29,7 @@ router.push('/admin/UpdateCoffeeCategory')
 
 // delete
 const deleteCategory=async(id)=>{
-let res=await fetch('http://localhost:3000/api/DeleteCoffeeCategory',{
+let res=await fetch(`${HOST}/api/DeleteCoffeeCategory`,{
     method: "DELETE",
     headers:{
         "Content-type": "application/json",

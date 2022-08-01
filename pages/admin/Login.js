@@ -11,7 +11,7 @@ import USerProfile from '../../public/admin/loginProfile.png';
 const Login = () => {
 const [secret,setSecret]=useState("");
 const [password,setPassword]=useState("");
-
+let HOST=process.env.NEXT_PUBLIC_API_URL;
 
 const LoginFunction=async(e)=>{
 e.preventDefault();
@@ -45,7 +45,7 @@ return 0;
 }
 
 // send request to server
-const res=await fetch('http://localhost:3000/api/AdminLogin',{
+const res=await fetch(`${HOST}/api/AdminLogin`,{
    method:"POST",
     headers:{
         "Content-type": "application/json",

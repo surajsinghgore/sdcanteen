@@ -6,7 +6,7 @@ import Head from "next/head";
 import AdminLeftMenu from "../Components/AdminLeftMenu";
 import PathNavigate from '../Components/PathNavigate';
 import AdminRightInnerHeader from '../Components/AdminRightInnerHeader';
-
+let HOST=process.env.NEXT_PUBLIC_API_URL;
 import Image from 'next/image';
 import 'react-toastify/dist/ReactToastify.css';
 import { useState ,useEffect} from 'react';
@@ -48,17 +48,18 @@ setFetchData(demmyData)
 }
 
 
+
 }
 
- useEffect(() => {
 
+ useEffect(() => {
  async function dataFetch() {
-      let ress = await fetch("http://localhost:3000/api/ShowFoodCategory");
-      let datas = await ress.json();
-      await setData(datas.data);
+      let response = await fetch(`${HOST}/api/ShowFoodCategory`);
+      let dataCategory = await response.json();
+       console.log(response)
+      await setData(dataCategory.data);
     }
  dataFetch();
-
   },[]);
   
   return (
@@ -141,7 +142,7 @@ return(
 
 
 export async function getServerSideProps(context) {
- let ress=await fetch("http://localhost:3000/api/ShowFoodItem");
+ let ress=await fetch(`${HOST}/api/ShowFoodItem`);
       let data = await ress.json();
       let datas = await data.data;
 

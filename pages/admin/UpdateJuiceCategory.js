@@ -9,6 +9,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import router from 'next/router'
 import {AllContext} from '../context/AllContext';
+let HOST=process.env.NEXT_PUBLIC_API_URL;
 
  
 function UpdateJuiceCategory() {
@@ -16,12 +17,9 @@ const {filterAllFoodCategoriesData}=useContext(AllContext);
  const [JuiceCategoryName, setJuiceCategoryName] = useState('');
 
 
-
-
-
 const updateFoodCategory=async()=>{
 
-let res=await fetch('http://localhost:3000/api/UpdateJuiceCategory',{
+let res=await fetch(`${HOST}/api/UpdateJuiceCategory`,{
     method: "POST",
     headers:{
         "Content-type": "application/json",
@@ -90,8 +88,10 @@ function RedirectFunction(){
 
 useEffect(()=>{
  if(filterAllFoodCategoriesData){
+
 setJuiceCategoryName(filterAllFoodCategoriesData[0].JuiceCategoryName)
  }
+
 },[filterAllFoodCategoriesData])
 
   return (

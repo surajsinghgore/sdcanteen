@@ -8,6 +8,7 @@ import AdminRightInnerHeader from '../Components/AdminRightInnerHeader';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import router from 'next/router'
+let HOST=process.env.NEXT_PUBLIC_API_URL;
 
 function AddDrinkCategories() {
 
@@ -27,7 +28,7 @@ progress: undefined,
 return 0;
 }
 
-const res=await fetch('http://localhost:3000/api/AddDrinkCategory',{
+const res=await fetch(`${HOST}/api/AddDrinkCategory`,{
     method: "POST",
     headers:{
         "Content-type": "application/json",
