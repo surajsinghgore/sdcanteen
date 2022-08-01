@@ -1,10 +1,13 @@
 import DbConnection from "../Middleware/DbConnection";
 import CoffeeCategorySchema from "../Schema/CoffeeCategorySchema";
+import VerifyAdmin from './MiddlewareAdminVerify';
 
 export default async function AddFoodCategory(req, res) {
   if (req.method == "POST") {
     try {
       DbConnection();
+await VerifyAdmin(req,res)
+
       let _id = req.body._id;
       let CoffeeCategoryName = req.body.CoffeeCategoryName;
 

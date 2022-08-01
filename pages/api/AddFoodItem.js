@@ -1,6 +1,8 @@
 import DbConnection from '../Middleware/DbConnection';
 import FoodItemSchema from '../Schema/FoodItemSchema';
 import nextConnect from 'next-connect'
+import VerifyAdmin from './MiddlewareAdminVerify';
+
 import Path from 'path'
 const handler = nextConnect();
 
@@ -44,6 +46,7 @@ handler.use(uploard.single('Image'));
 handler.post(async(req,res)=>{
 try{
 DbConnection();
+await VerifyAdmin(req,res)
 const Image=req.file.filename;
 let FoodName=req.body.FoodName;
 let Price=req.body.Price;

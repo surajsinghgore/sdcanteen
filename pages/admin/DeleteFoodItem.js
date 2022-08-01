@@ -87,7 +87,7 @@ return 0;
   method: "DELETE",
     headers:{
         "Content-type": "application/json",
-        
+          "admintoken":localStorage.getItem('admintoken')
     },
     body: JSON.stringify({
         _id:item._id,imagePath:item.Image
@@ -139,7 +139,6 @@ setUseEffectCall(!useEffectCall);
 
 
    useEffect(() => {
-console.log('ff')
  async function dataFetch() {
       let ress = await fetch(`${HOST}/api/ShowFoodCategory`);
       let datas = await ress.json();
@@ -216,7 +215,7 @@ return(
 {fetchData.slice(0,15).map((item,index)=>{
 return(
 <div className={ShowStyles.card} key={index}>
-<li className={ShowStyles.Image_Section}><Image src={`/../public/FoodItemImages/${item.Image}`} alt={item.Image} height="550" width="800" loading="lazy"/></li>
+<li className={ShowStyles.Image_Section}><Image src={`/FoodItemImages/${item.Image}`} alt={item.Image} height="550" width="800" loading="lazy"/></li>
 <li className={ShowStyles.Item_Name}><p>{item.FoodName}</p></li>
 <li className={ShowStyles.Item_Price}><p>{item.Price}</p></li>
 <li className={ShowStyles.Item_Category}><p>{item.Category}</p></li>

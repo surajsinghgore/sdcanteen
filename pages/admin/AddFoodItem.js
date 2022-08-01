@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useState,useEffect} from 'react'
 import Styles from "../../styles/admin.module.css";
 import StyleFood from "../../styles/AddFood.module.css";
 import Head from "next/head";
@@ -9,7 +9,6 @@ import demo from '../../public/demo.jpg';
 import Image from 'next/image';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useState ,useEffect} from 'react';
 import router from 'next/router'
 let HOST=process.env.NEXT_PUBLIC_API_URL;
 
@@ -91,12 +90,29 @@ data.append('Category',Category)
 data.append('Image',files);
 
    let res=await fetch(`${HOST}/api/AddFoodItem`,{
-           method: 'POST',    
+           method: 'POST',  headers:{
+         "admintoken":localStorage.getItem('admintoken')
+    },   
     body: data
   })
 
 
-
+if(data.status=='403'){
+toast.error('Please Login With Admin Credentials', {
+position: "bottom-right",
+autoClose: 5000,
+hideProgressBar: false,
+closeOnClick: true,
+pauseOnHover: true,
+draggable: true,
+progress: undefined,
+});
+setTimeout(RedirectFunction,1000);
+function RedirectFunction(){
+  router.push('/admin/Login')
+}
+return 0;
+}
   if(res.status===500){
 toast.error('Only JPG , PNG , JPEG Images are Allowed To Upload', {
 position: "bottom-right",
@@ -155,6 +171,9 @@ function RedirectFunction(){
 }
 }
  useEffect(() => {
+ if(!localStorage.getItem('admintoken')){
+ router.push('/admin/Login')
+}
     async function dataFetch() {
       let ress = await fetch(`${HOST}/api/ShowFoodCategory`);
       let datas = await ress.json();

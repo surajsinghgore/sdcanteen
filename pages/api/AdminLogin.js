@@ -11,9 +11,7 @@ let OriginalSecretAdminLoginId=process.env.OriginalSecretAdminLoginId;
 let OriginalPasswordAdminLogin=process.env.OriginalPasswordAdminLogin;
 try{
 const {secret,password}=req.body;
-let data={
-secret:secret,
-}
+
 if(OriginalSecretAdminLoginId!==secret){
 return res.status(401).json({status:"401",message:"Incorrect secret ID"});
 }
@@ -22,6 +20,12 @@ return res.status(401).json({status:"401",message:"Incorrect Password"});
 }
 
 if((OriginalSecretAdminLoginId==secret)&&(OriginalPasswordAdminLogin==password)){
+
+
+let data={
+secret:secret
+
+}
 const token = jwt.sign(data, JWT_SECRET,{ expiresIn: '2h' });
 return res.status(201).json({status:"201",message:"successfully login",token:token})
 }

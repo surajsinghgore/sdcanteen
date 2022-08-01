@@ -54,9 +54,13 @@ setFetchData(demmyData)
 
  useEffect(() => {
  async function dataFetch() {
-      let response = await fetch(`${HOST}/api/ShowFoodCategory`);
+      let response = await fetch(`${HOST}/api/ShowFoodCategory`,{
+      method:"GET",
+      headers:{
+      "admintoken":localStorage.getItem('admintoken')
+      }
+      });
       let dataCategory = await response.json();
-       console.log(response)
       await setData(dataCategory.data);
     }
  dataFetch();
@@ -120,7 +124,7 @@ return(
 {fetchData.slice(0,15).map((item,index)=>{
 return(
 <div className={ShowStyles.card} key={index}>
-<li className={ShowStyles.Image_Section}><Image src={`/../public/FoodItemImages/${item.Image}`} alt={item.Image} height="550" width="800" loading="lazy"/></li>
+<li className={ShowStyles.Image_Section}><Image src={`/FoodItemImages/${item.Image}`} alt={item.Image} height="550" width="800" loading="lazy"/></li>
 <li className={ShowStyles.Item_Name}><p>{item.FoodName}</p></li>
 <li className={ShowStyles.Item_Price}><p>{item.Price}</p></li>
 <li className={ShowStyles.Item_Qty}><p>{item.Qty}</p></li>

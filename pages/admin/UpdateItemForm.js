@@ -67,12 +67,45 @@ return 0;
 
 
 
+// matching Weather Data Change OR Not
+let FOODNAMESAME=filterFoodItemsData.filter((item)=>{
+return item.FoodName==FoodName
+})
 
+let PRICESAME=filterFoodItemsData.filter((item)=>{
+return item.Price==Price
+})
+let QTYSAME=filterFoodItemsData.filter((item)=>{
+return item.Qty==Qtys
+})
+let CATEGORYSAME=filterFoodItemsData.filter((item)=>{
+return item.Category==Category
+})
+
+if(!FOODNAMESAME.length==0){
+if(!PRICESAME.length==0){
+if(!QTYSAME.length==0){
+if(!CATEGORYSAME.length==0){
+toast.warn('Same Data Is Not Allowed To Update, Please Update Food Item Records', {
+position: "bottom-right",
+autoClose: 5000,
+hideProgressBar: false,
+closeOnClick: true,
+pauseOnHover: true,
+draggable: true,
+progress: undefined,
+});
+return 0;
+}
+}
+}
+}
 
    let response=await fetch(`${HOST}/api/UpdateFoodItem`,{
         method:"POST",
           headers:{
         "Content-type": "application/json",
+          "admintoken":localStorage.getItem('admintoken')
         
     },
     body: JSON.stringify({
@@ -95,7 +128,6 @@ progress: undefined,
 return 0;
 }
 
-// dublicate error message
 if(datas.status=='400'){
 toast.warn(`${datas.message}`, {
 position: "bottom-right",

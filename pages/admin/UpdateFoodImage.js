@@ -15,7 +15,7 @@ import Link from "next/link";
 import Image from 'next/image';
 export default function UpdateFoodImage() {
 const {filterFoodItemsData}=useContext(AllContext);     
-const [imgs,setImgs]=useState(`/../public/FoodItemImages/${filterFoodItemsData[0].Image}`);                  
+const [imgs,setImgs]=useState(`/FoodItemImages/${filterFoodItemsData[0].Image}`);                  
 const [files,setFiles]=useState('');
 
 // images handle
@@ -51,7 +51,7 @@ progress: undefined,
 return 0;
 }
    let response=await fetch(`${HOST}/api/UpdateFoodImage`,{
-           method: 'POST',    
+           method: 'POST',  headers:{  "admintoken":localStorage.getItem('admintoken')},  
     body: dataImage
   })
 

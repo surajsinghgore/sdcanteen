@@ -24,12 +24,23 @@ const {filterAllFoodCategoriesData}=useContext(AllContext);
 
 
 const updateFoodCategory=async()=>{
-
+if(!DrinkCategoryName){
+toast.warn('Please Enter Somethig In Drink Category Name Field', {
+position: "bottom-right",
+autoClose: 5000,
+hideProgressBar: false,
+closeOnClick: true,
+pauseOnHover: true,
+draggable: true,
+progress: undefined,
+});
+return 0;
+}
 let res=await fetch(`${HOST}/api/UpdateDrinksCategory`,{
     method: "POST",
     headers:{
         "Content-type": "application/json",
-        
+             "admintoken":localStorage.getItem('admintoken')
     },
     body: JSON.stringify({
         _id:filterAllFoodCategoriesData,DrinkCategoryName
@@ -37,8 +48,9 @@ let res=await fetch(`${HOST}/api/UpdateDrinksCategory`,{
 })
 
 let dataRes=await res.json();
-if(!DrinkCategoryName){
-toast.warn('Please Enter Somethig In Drink Category Name Field', {
+
+if(dataRes.status=='403'){
+toast.error('Please Login With Admin Credentials', {
 position: "bottom-right",
 autoClose: 5000,
 hideProgressBar: false,

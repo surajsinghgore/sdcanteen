@@ -1,7 +1,6 @@
 
 import DbConnection from '../Middleware/DbConnection';
 import DrinkCategorySchema from '../Schema/DrinksCategorySchema';
-
 export default async function  ShowDrinksCategory(req,res) {
 
 

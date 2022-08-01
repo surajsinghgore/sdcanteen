@@ -103,7 +103,7 @@ progress: undefined,
 
 
 // redirect to admin page after successfully login
-localStorage.setItem('token',data.token);
+localStorage.setItem('admintoken',data.token);
 setTimeout(myGreeting, 1200);
 function myGreeting() {
   router.push('/admin')

@@ -14,7 +14,7 @@ function UpdateFoodCategory() {
 const {filterAllFoodCategoriesData}=useContext(AllContext);
 
 
- const [progress, setProgress] = useState(0);
+
  const [FoodCategoryName, setFoodCategoryName] = useState('');
 
 
@@ -22,12 +22,24 @@ const {filterAllFoodCategoriesData}=useContext(AllContext);
 
 
 const updateFoodCategory=async()=>{
+if(!FoodCategoryName){
+toast.warn('Please Enter Somethig In Food Category Name Field', {
+position: "bottom-right",
+autoClose: 5000,
+hideProgressBar: false,
+closeOnClick: true,
+pauseOnHover: true,
+draggable: true,
+progress: undefined,
+});
+return 0;
+}
 
 let res=await fetch(`${HOST}/api/UpdateFoodCategory`,{
     method: "POST",
     headers:{
         "Content-type": "application/json",
-        
+         "admintoken":localStorage.getItem('admintoken')
     },
     body: JSON.stringify({
         _id:filterAllFoodCategoriesData,FoodCategoryName
@@ -35,8 +47,9 @@ let res=await fetch(`${HOST}/api/UpdateFoodCategory`,{
 })
 
 let dataRes=await res.json();
-if(!FoodCategoryName){
-toast.warn('Please Enter Somethig In Food Category Name Field', {
+
+ if(dataRes.status=='403'){
+toast.error('Please Login With Admin Credentials', {
 position: "bottom-right",
 autoClose: 5000,
 hideProgressBar: false,

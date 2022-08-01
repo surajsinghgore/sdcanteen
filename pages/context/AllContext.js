@@ -12,9 +12,6 @@ const [filterAllFoodCategoriesData,setFilterAllFoodCategoriesData]=useState([]);
 const [filterFoodItemsData,setFilterFoodItemsData]=useState([]);
 
 const [deletes,setDeletes]=useState(false);
-let datass=[];
-
-// Functions
 
 
 

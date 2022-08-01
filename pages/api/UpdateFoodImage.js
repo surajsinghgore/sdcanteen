@@ -1,6 +1,8 @@
 import DbConnection from '../Middleware/DbConnection';
 import FoodItemSchema from '../Schema/FoodItemSchema';
 import nextConnect from 'next-connect'
+import VerifyAdmin from './MiddlewareAdminVerify';
+
 import Path from 'path'
 var fs = require('fs');
 
@@ -46,6 +48,8 @@ handler.use(uploard.single('Image'));
 handler.post(async(req,res)=>{
 try{
 DbConnection();
+await VerifyAdmin(req,res)
+
   let _id = req.body._id;
 const oldImage=req.body.oldImage;
 const Image=req.file.filename;

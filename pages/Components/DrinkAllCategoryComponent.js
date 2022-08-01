@@ -33,7 +33,7 @@ let res=await fetch(`${HOST}/api/DeleteDrinkCategory`,{
     method: "DELETE",
     headers:{
         "Content-type": "application/json",
-        
+         "admintoken":localStorage.getItem('admintoken')
     },
     body: JSON.stringify({
         _id:id
@@ -42,7 +42,18 @@ let res=await fetch(`${HOST}/api/DeleteDrinkCategory`,{
 
 let dataRes=await res.json();
 
-
+ if(dataRes.status=='403'){
+toast.error('Please Login With Admin Credentials', {
+position: "bottom-right",
+autoClose: 5000,
+hideProgressBar: false,
+closeOnClick: true,
+pauseOnHover: true,
+draggable: true,
+progress: undefined,
+});
+return 0;
+}
 if(dataRes.status=='400'){
 toast.warn(`${dataRes.message}`, {
 position: "bottom-right",

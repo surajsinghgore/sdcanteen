@@ -2,13 +2,14 @@
 
 import DbConnection from '../Middleware/DbConnection';
 import DrinkCategorySchema from '../Schema/DrinksCategorySchema';
-
+import VerifyAdmin from './MiddlewareAdminVerify';
 export default async function  AddDrinkCategory(req,res) {
 
 
 if(req.method=='POST'){
 try {
 DbConnection();
+await VerifyAdmin(req,res)
    let DrinkCategoryName=req.body.DrinkCategoryName;
     if(!DrinkCategoryName){
 res.status(402).json({message:'Please Enter Drink Category Name',status:"402"})

@@ -1,6 +1,7 @@
 
 import DbConnection from '../Middleware/DbConnection';
 import JuiceCategorySchema from '../Schema/JuicesCategorySchema';
+import VerifyAdmin from './MiddlewareAdminVerify';
 
 
 export default async function  DeleteJuiceCategory(req,res) {
@@ -9,6 +10,8 @@ export default async function  DeleteJuiceCategory(req,res) {
 if(req.method=='DELETE'){
 try {
 DbConnection();
+await VerifyAdmin(req,res)
+
 let _id=req.body._id;
 
 

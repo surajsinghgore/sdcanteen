@@ -1,14 +1,16 @@
-
-
+import VerifyAdmin from './MiddlewareAdminVerify';
 import DbConnection from '../Middleware/DbConnection';
 import FoodCategory from '../Schema/FoodCategorySchema';
 
+
+
+// handler.use();
 export default async function  AddFoodCategory(req,res) {
-
-
 if(req.method=='POST'){
 try {
 DbConnection();
+
+await VerifyAdmin(req,res)
    let foodName=req.body.FoodCategoryName;
     if(!foodName){
 res.status(402).json({message:'Please Enter Food Category Name',status:"402"})
@@ -26,6 +28,7 @@ FoodCategoryName:foodName
 await data.save();
 res.status(201).json({message:"succesully added",status:"201"})
 } catch (error) {
+console.log(error)
  res.status(501).json({message:error,status:'501'})
 
 }

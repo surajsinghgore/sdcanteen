@@ -1,5 +1,5 @@
 
-
+import VerifyAdmin from './MiddlewareAdminVerify';
 import DbConnection from '../Middleware/DbConnection';
 import CoffeeCategorySchema from '../Schema/CoffeeCategorySchema';
 
@@ -9,6 +9,7 @@ export default async function  AddCoffeeCategory(req,res) {
 if(req.method=='POST'){
 try {
 DbConnection();
+await VerifyAdmin(req,res)
    let CoffeeCategoryName=req.body.CoffeeCategoryName;
     if(!CoffeeCategoryName){
 res.status(402).json({message:'Please Enter Coffee Category Name',status:"402"})

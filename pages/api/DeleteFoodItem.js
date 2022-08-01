@@ -1,4 +1,4 @@
-
+import VerifyAdmin from './MiddlewareAdminVerify';
 import DbConnection from '../Middleware/DbConnection';
 import FoodItemSchema from '../Schema/FoodItemSchema';
 var fs = require('fs');
@@ -8,6 +8,8 @@ if(req.method=='DELETE'){
 try {
 console.log(req.body)
 DbConnection();
+await VerifyAdmin(req,res)
+
 let _id=req.body._id;
 let imagePath=req.body.imagePath;
 var filePath =`./public/FoodItemImages/${imagePath}`; 

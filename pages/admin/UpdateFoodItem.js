@@ -141,7 +141,7 @@ return(
 {fetchData.slice(0,15).map((item,index)=>{
 return(
 <div className={ShowStyles.card} key={index}>
-<li className={ShowStyles.Image_Section}><Image src={`/../public/FoodItemImages/${item.Image}`} alt={item.Image} height="550" width="800" loading="lazy"/></li>
+<li className={ShowStyles.Image_Section}><Image src={`/FoodItemImages/${item.Image}`} alt={item.Image} height="550" width="800" loading="lazy"/></li>
 <li className={ShowStyles.Item_Name}><p>{item.FoodName}</p></li>
 <li className={ShowStyles.Item_Price}><p>{item.Price}</p></li>
 <li className={ShowStyles.Item_Category}><p>{item.Category}</p></li>

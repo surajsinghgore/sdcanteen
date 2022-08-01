@@ -8,6 +8,7 @@ export default async function  ShowFoodCategory(req,res) {
 if(req.method=='GET'){
 try {
 DbConnection();
+
     let data=await FoodCategory.find();
 res.status(201).json({data,status:"201"})
 } catch (error) {

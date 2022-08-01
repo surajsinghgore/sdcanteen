@@ -10,16 +10,17 @@ import CoffeeAllCategoryComponent from "../Components/CoffeeAllCategoryComponent
 import Link from "next/link";
 import { IoIosAddCircleOutline } from "react-icons/io";
 let HOST=process.env.NEXT_PUBLIC_API_URL;
+import router from 'next/router'
 
 
 import {AllContext} from '../context/AllContext';
 
-function AllCoffeeCategories({datas}) {
+function AllCoffeeCategories() {
 const {deletes}=useContext(AllContext);
 
   const [search, setSearch] = useState("");
-  const [data, setData] = useState(datas);
-  const [data1, setData1] = useState(datas);
+  const [data, setData] = useState([]);
+  const [data1, setData1] = useState([]);
 
   const [dataLength, setDataLength] = useState(10);
 
@@ -27,6 +28,7 @@ const {deletes}=useContext(AllContext);
     async function dataFetch() {
       let ress = await fetch(`${HOST}/api/ShowCoffeeCategory`);
       let datas = await ress.json();
+    
       await setData(datas.data);
       await setData1(datas.data);
     
@@ -50,6 +52,12 @@ const {deletes}=useContext(AllContext);
     }
   };
 
+useEffect(()=>{
+
+if(!localStorage.getItem('admintoken')){
+ router.push('/admin/Login')
+}
+},[])
   return (
     <div className={Styles.admin}>
       
@@ -130,7 +138,7 @@ const {deletes}=useContext(AllContext);
             })}
           </div>
         </div>
-      </div>
+      </div>          
     </div>
   );
 }
@@ -139,13 +147,3 @@ export default AllCoffeeCategories;
 
 
 
-export async function getServerSideProps(context) {
- let ress = await fetch(`${HOST}/api/ShowCoffeeCategory`);
-      let data = await ress.json();
-      let datas = await data.data;
-
-
-  return {
-    props: {datas},
-  }
-}

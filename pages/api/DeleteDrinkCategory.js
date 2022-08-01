@@ -2,6 +2,7 @@
 import DbConnection from '../Middleware/DbConnection';
 import DrinkCategorySchema from '../Schema/DrinksCategorySchema';
 
+import VerifyAdmin from './MiddlewareAdminVerify';
 
 export default async function  DeleteDrinkCategory(req,res) {
 
@@ -9,6 +10,7 @@ export default async function  DeleteDrinkCategory(req,res) {
 if(req.method=='DELETE'){
 try {
 DbConnection();
+await VerifyAdmin(req,res)
 let _id=req.body._id;
 
 

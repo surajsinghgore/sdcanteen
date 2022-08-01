@@ -8,7 +8,6 @@ export default async function AddFoodItem(req,res) {
 if(req.method=='GET'){
 try {
 DbConnection();
-
 let data=await FoodItemSchema.find();
 res.status(201).json({data,status:"201"})
 } catch (error) {

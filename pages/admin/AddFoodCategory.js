@@ -1,4 +1,4 @@
-import React, {  useState } from 'react'
+import React, {  useEffect, useState } from 'react'
 import Styles from "../../styles/admin.module.css";
 import StyleFood from "../../styles/AddFood.module.css";
 import Head from "next/head";
@@ -32,7 +32,7 @@ const res=await fetch(`${HOST}/api/AddFoodCategory`,{
     method: "POST",
     headers:{
         "Content-type": "application/json",
-        
+        "admintoken":localStorage.getItem('admintoken')
     },
     body: JSON.stringify({
         FoodCategoryName
@@ -42,6 +42,22 @@ let data=await res.json();
 
 // server error
 // dublicate error message
+if(data.status=='403'){
+toast.error('Please Login With Admin Credentials', {
+position: "bottom-right",
+autoClose: 5000,
+hideProgressBar: false,
+closeOnClick: true,
+pauseOnHover: true,
+draggable: true,
+progress: undefined,
+});
+setTimeout(RedirectFunction,1000);
+function RedirectFunction(){
+  router.push('/admin/Login')
+}
+return 0;
+}
 if(data.status=='501'){
 toast.error(`${data.message}`, {
 position: "bottom-right",
@@ -99,7 +115,12 @@ function RedirectFunction(){
 setFoodCategoryName('');
 }
 
+useEffect(()=>{
 
+if(!localStorage.getItem('admintoken')){
+ router.push('/admin/Login')
+}
+},[])
 
   return (
     <div className={Styles.admin}>
