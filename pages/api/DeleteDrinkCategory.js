@@ -1,9 +1,7 @@
 
-import DbConnection from '../Middleware/DbConnection';
-import DrinkCategorySchema from '../Schema/DrinksCategorySchema';
-
-import VerifyAdmin from './MiddlewareAdminVerify';
-
+import DbConnection from './Middleware/DbConnection';
+import DrinkCategorySchema from './Schema/DrinksCategorySchema';
+import VerifyAdmin from './Middleware/MiddlewareAdminVerify';
 export default async function  DeleteDrinkCategory(req,res) {
 
 

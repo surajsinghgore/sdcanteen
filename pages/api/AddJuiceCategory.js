@@ -1,8 +1,7 @@
 
-import VerifyAdmin from './MiddlewareAdminVerify';
-
-import DbConnection from '../Middleware/DbConnection';
-import JuiceCategorySchema from '../Schema/JuicesCategorySchema';
+import VerifyAdmin from './Middleware/MiddlewareAdminVerify';
+import DbConnection from './Middleware/DbConnection';
+import JuiceCategorySchema from './Schema/JuicesCategorySchema';
 
 export default async function  AddJuiceCategory(req,res) {
 

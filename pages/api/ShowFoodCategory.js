@@ -1,6 +1,6 @@
 
-import DbConnection from '../Middleware/DbConnection';
-import FoodCategory from '../Schema/FoodCategorySchema';
+import DbConnection from './Middleware/DbConnection';
+import FoodCategory from './Schema/FoodCategorySchema';
 
 export default async function  ShowFoodCategory(req,res) {
 

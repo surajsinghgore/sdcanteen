@@ -38,6 +38,7 @@ setData1(datass)
     dataFetch();
   },[deletes]);
 
+
   // search bar working
   const Searchs = async (e) => {
     setSearch(e.target.value);
@@ -81,14 +82,7 @@ if(!localStorage.getItem('admintoken')){
       {/* right bar */}
       <div className={StyleFood.rightSideBar}>
         <AdminRightInnerHeader title="Food Categories Manage" />
-        <PathNavigate
-          mainSection="Admin"
-          mainSectionURL="/admin"
-          subsection=""
-          subsectionURL=""
-          innerSubjection="MANAGE FOOD CATEGORIES"
-          innerSubjectionURL="/admin/AllFoodCategories"
-        />
+          <PathNavigate mainSection="Admin" mainSectionURL="/admin" subsection="" subsectionURL="/admin/AllFoodCategories" current="FOOD CATEGORY" />
 
         <div className={FoodStyles.ListView}>
           <div className={FoodStyles.addCategory}>
@@ -122,16 +116,13 @@ if(!localStorage.getItem('admintoken')){
               />
             </div>
           </div>
-
-          <div className={FoodStyles.ListData}>
+             <div className={FoodStyles.ListData}>
             <div className={FoodStyles.Heading}>
               <li>Food Categories Name</li>
               <li>Action</li>
             </div>
-
-            {data.slice(0, parseInt(dataLength)).map((item, index) => {
+{(data.length!=0)?<>{data.slice(0, parseInt(dataLength)).map((item, index) => {
               return (
-               
                   <FoodAllCategoryComponent
                     data={item}
                     ind={index}
@@ -139,8 +130,9 @@ if(!localStorage.getItem('admintoken')){
                   />
                 
               );
-            })}
-          </div>
+            })} </>: <h1 style={{fontSize:"20px",textAlign:"Center",color:"rgb(79, 79, 79)",marginTop:"3%"}}>SORRY NO ITEM FOUND</h1>}
+           
+          </div>        
         </div>
       </div>
            

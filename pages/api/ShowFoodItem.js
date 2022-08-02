@@ -1,5 +1,5 @@
-import DbConnection from '../Middleware/DbConnection';
-import FoodItemSchema from '../Schema/FoodItemSchema';
+import DbConnection from './Middleware/DbConnection';
+import FoodItemSchema from './Schema/FoodItemSchema';
 
 
 export default async function AddFoodItem(req,res) {

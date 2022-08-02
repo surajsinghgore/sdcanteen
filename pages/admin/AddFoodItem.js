@@ -204,12 +204,12 @@ function RedirectFunction(){
       {/* right bar */}
       <div className={StyleFood.rightSideBar}>
       <AdminRightInnerHeader title="Add Food Page"/>
-      <PathNavigate mainSection="Admin" mainSectionURL="/admin" subsection="" subsectionURL="" innerSubjection="ADD FOOD" innerSubjectionURL="/admin/AddFood" />
+      <PathNavigate mainSection="Admin" mainSectionURL="/admin" subsection="" subsectionURL="/admin/ShowFoodItem" current="ADD FOOD ITEM"/>
       
 
       {/* form add food */}
 
-<div className={StyleFood.Form}>
+<div className={StyleFood.Form} style={{marginTop:"0.5%"}}>
 <div className={StyleFood.heading}>
 <h1>Enter New Food Item For Website</h1>
 </div>

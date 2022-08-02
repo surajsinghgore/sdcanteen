@@ -1,6 +1,6 @@
-import VerifyAdmin from './MiddlewareAdminVerify';
-import DbConnection from '../Middleware/DbConnection';
-import FoodItemSchema from '../Schema/FoodItemSchema';
+import VerifyAdmin from './Middleware/MiddlewareAdminVerify';
+import DbConnection from './Middleware/DbConnection';
+import FoodItemSchema from './Schema/FoodItemSchema';
 var fs = require('fs');
 
 export default async function DeleteFodItem(req,res) {

@@ -132,8 +132,7 @@ function RedirectFunction(){
       {/* right bar */}
       <div className={StyleFood.rightSideBar}>
       <AdminRightInnerHeader title="Update Food Item Image"/>
-      <PathNavigate mainSection="Admin" mainSectionURL="/admin" subsection="" subsectionURL="" innerSubjection="UPDATE FOOD IMAGE" innerSubjectionURL="/admin/UpdateFoodImage" />
-      
+       <PathNavigate mainSection="Admin" mainSectionURL="/admin" subsection="Update Food Item" subsectionURL="/admin/UpdateFoodItem" current="UPDATE FOOD ITEM IMAGE" />
 
       {/* form add food */}
 

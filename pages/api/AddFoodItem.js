@@ -1,7 +1,7 @@
-import DbConnection from '../Middleware/DbConnection';
-import FoodItemSchema from '../Schema/FoodItemSchema';
+import DbConnection from './Middleware/DbConnection';
+import FoodItemSchema from './Schema/FoodItemSchema';
+import VerifyAdmin from './Middleware/MiddlewareAdminVerify';
 import nextConnect from 'next-connect'
-import VerifyAdmin from './MiddlewareAdminVerify';
 
 import Path from 'path'
 const handler = nextConnect();

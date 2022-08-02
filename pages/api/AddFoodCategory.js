@@ -1,6 +1,6 @@
-import VerifyAdmin from './MiddlewareAdminVerify';
-import DbConnection from '../Middleware/DbConnection';
-import FoodCategory from '../Schema/FoodCategorySchema';
+import VerifyAdmin from './Middleware/MiddlewareAdminVerify';
+import DbConnection from './Middleware/DbConnection';
+import FoodCategory from './Schema/FoodCategorySchema';
 
 
 

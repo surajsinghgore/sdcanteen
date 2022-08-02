@@ -3,6 +3,7 @@ import '../styles/globals.css'
 import {Provider} from './context/AllContext';
 import LoadingBar from "react-top-loading-bar";
 import { useRouter } from 'next/router';
+   
 
 function MyApp({ Component, pageProps }) {
 const router=useRouter();

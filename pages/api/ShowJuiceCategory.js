@@ -1,6 +1,6 @@
 
-import DbConnection from '../Middleware/DbConnection';
-import JuiceCategorySchema from '../Schema/JuicesCategorySchema';
+import DbConnection from './Middleware/DbConnection';
+import JuiceCategorySchema from './Schema/JuicesCategorySchema';
 
 export default async function  ShowJuiceCategory(req,res) {
 

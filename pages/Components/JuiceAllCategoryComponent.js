@@ -9,6 +9,9 @@ import { FaRegEdit } from "react-icons/fa";
 import { AiOutlineCloseSquare } from "react-icons/ai";
 import {AllContext} from '../context/AllContext';
 let HOST=process.env.NEXT_PUBLIC_API_URL;
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css';
+
 
 function JuiceAllCategoryComponent({data,ind}) {
 const {deletes,setDeletes,updateJuiceCategories}=useContext(AllContext);
@@ -29,6 +32,15 @@ router.push('/admin/UpdateJuiceCategory')
 
 // delete
 const deleteCategory=async(id)=>{
+
+
+ confirmAlert({
+      title: 'Confirm to Delete',
+      message: 'Are you sure to Delete this Juice Category ?',
+      buttons: [
+        {
+          label: 'Yes',
+          onClick: async () => {
 let res=await fetch(`${HOST}/api/DeleteJuiceCategory`,{
     method: "DELETE",
     headers:{
@@ -93,6 +105,16 @@ draggable: true,
 progress: undefined,
 });
 
+
+
+}
+        },
+        {
+          label: 'No',
+          onClick: () => {}
+        }
+      ]
+    });
 
 }
 

@@ -1,6 +1,6 @@
 
-import DbConnection from '../Middleware/DbConnection';
-import CoffeeCategorySchema from '../Schema/CoffeeCategorySchema';
+import DbConnection from './Middleware/DbConnection';
+import CoffeeCategorySchema from './Schema/CoffeeCategorySchema';
 
 export default async function  ShowCoffeeCategory(req,res) {
 

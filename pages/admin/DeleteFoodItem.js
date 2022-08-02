@@ -13,8 +13,14 @@ import { useState ,useEffect} from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 let HOST=process.env.NEXT_PUBLIC_API_URL;
-export default function DeleteFoodItem({datas}) {
+import { confirmAlert } from 'react-confirm-alert'; 
+import 'react-confirm-alert/src/react-confirm-alert.css'; 
 
+
+
+
+
+export default function DeleteFoodItem({datas}) {
 const[useEffectCall,setUseEffectCall]=useState(false);
 const [foodNameSearch,setFoodNameSearch]=useState('')
 const [categorySearch,setCategorySearch]=useState('')
@@ -59,6 +65,17 @@ setFetchData(demmyData)
 
 // deleting item
   const DeleteFoodItems=async(item)=>{
+
+
+    confirmAlert({
+      title: 'Confirm to Delete',
+      message: 'Are you sure to delete this food item ?',
+      buttons: [
+        {
+          label: 'Yes',
+          onClick: async() =>{
+          
+          
   if(!item._id){
   toast.warn('Please Provide Correct Id Of Item', {
 position: "bottom-right",
@@ -134,6 +151,20 @@ progress: undefined,
 });
 setUseEffectCall(!useEffectCall);
   }
+          } 
+
+
+          
+        },
+        {
+          label: 'No',
+          onClick: () => {}
+        }
+      ]
+    });
+
+
+
   }
   
 
@@ -178,12 +209,11 @@ setUseEffectCall(!useEffectCall);
       {/* right bar */}
       <div className={StyleFood.rightSideBar}>
       <AdminRightInnerHeader title="Delete Food Item Page"/>
-      <PathNavigate mainSection="Admin" mainSectionURL="/admin" subsection="" subsectionURL="" innerSubjection="DELETE FOOD ITEM" innerSubjectionURL="/admin/DeleteFoodItem" />
-      
+       <PathNavigate mainSection="Admin" mainSectionURL="/admin" subsection="" subsectionURL="/admin/ShowFoodItem" current="DELETE FOOD ITEM" />
 
       {/* form add food */}
 
-<div className={ShowStyles.display_List}>
+<div className={ShowStyles.display_List} style={{marginTop:"0.5%"}}>
 <div className={ShowStyles.top}>
 <div className={ShowStyles.deatils}>
 <h1>All Food Items</h1>
@@ -211,7 +241,7 @@ return(
 <li className={ShowStyles.Item_Qty}>Action</li>
 </div>
 
-
+{(fetchData.length!=0)?<>
 {fetchData.slice(0,15).map((item,index)=>{
 return(
 <div className={ShowStyles.card} key={index}>
@@ -223,6 +253,7 @@ return(
 </div>
 )
 })}
+</>: <h1 style={{fontSize:"20px",textAlign:"Center",color:"rgb(79, 79, 79)",marginTop:"3%"}}>SORRY NO ITEM FOUND</h1>}
 
 </div>
 

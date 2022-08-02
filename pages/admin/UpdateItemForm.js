@@ -180,8 +180,9 @@ function RedirectFunction(){
       {/* right bar */}
       <div className={StyleFood.rightSideBar}>
       <AdminRightInnerHeader title="Update Food Item Page"/>
-      <PathNavigate mainSection="Admin" mainSectionURL="/admin" subsection="" subsectionURL="" innerSubjection="ADD FOOD" innerSubjectionURL="/admin/AddFood" />
+        <PathNavigate mainSection="Admin" mainSectionURL="/admin" subsection="Update Food Item" subsectionURL="/admin/UpdateFoodItem" current="UPDATE FOOD ITEM GENERAL DATA" />
       
+
 
       {/* form add food */}
 

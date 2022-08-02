@@ -127,8 +127,7 @@ setFoodCategoryName(filterAllFoodCategoriesData[0].FoodCategoryName)
      {/* right bar */}
       <div className={StyleFood.rightSideBar}>
       <AdminRightInnerHeader title="Add Food Categories" />
-      <PathNavigate mainSection="Admin" mainSectionURL="/admin" subsection="" subsectionURL="" innerSubjection="UPDATE FOOD CATEGORIES" innerSubjectionURL="/admin/UpdateFoodCategory" />
-      
+    <PathNavigate mainSection="Admin" mainSectionURL="/admin" subsection="Food Category" subsectionURL="/admin/AllFoodCategories" current="UPDATE FOOD CATEGORY" />
 
       {/* form add food */}
 

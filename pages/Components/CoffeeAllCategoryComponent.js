@@ -8,6 +8,9 @@ import { AiOutlineDelete } from "react-icons/ai";
 import { FaRegEdit } from "react-icons/fa";
 import { AiOutlineCloseSquare } from "react-icons/ai";
 import {AllContext} from '../context/AllContext';
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css';
+
 
 let HOST=process.env.NEXT_PUBLIC_API_URL;
 function CoffeeAllCategoryComponent({data,ind}) {
@@ -29,6 +32,16 @@ router.push('/admin/UpdateCoffeeCategory')
 
 // delete
 const deleteCategory=async(id)=>{
+
+
+ confirmAlert({
+      title: 'Confirm to Delete',
+      message: 'Are you sure to Delete this Coffee Category ?',
+      buttons: [
+        {
+          label: 'Yes',
+          onClick: async () => {
+
 let res=await fetch(`${HOST}/api/DeleteCoffeeCategory`,{
     method: "DELETE",
     headers:{
@@ -92,6 +105,18 @@ pauseOnHover: true,
 draggable: true,
 progress: undefined,
 });
+
+
+
+}
+        },
+        {
+          label: 'No',
+          onClick: () => {}
+        }
+      ]
+    });
+
 
 
 }

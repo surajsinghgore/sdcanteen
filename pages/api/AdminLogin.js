@@ -26,7 +26,7 @@ let data={
 secret:secret
 
 }
-const token = jwt.sign(data, JWT_SECRET,{ expiresIn: '2h' });
+const token = jwt.sign(data, JWT_SECRET,{ expiresIn: '1h' });
 return res.status(201).json({status:"201",message:"successfully login",token:token})
 }
 }

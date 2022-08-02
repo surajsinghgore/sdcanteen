@@ -79,14 +79,8 @@ if(!localStorage.getItem('admintoken')){
       {/* right bar */}
       <div className={StyleFood.rightSideBar}>
         <AdminRightInnerHeader title="Coffee Categories Manage" />
-        <PathNavigate
-          mainSection="Admin"
-          mainSectionURL="/admin"
-          subsection=""
-          subsectionURL=""
-          innerSubjection="MANAGE COFFEE CATEGORIES"
-          innerSubjectionURL="/admin/AllCoffeeCategory"
-        />
+        <PathNavigate mainSection="Admin" mainSectionURL="/admin" subsection="" subsectionURL="/admin/AllCoffeeCategory" current="COFFEE CATEGORY" />
+
 
         <div className={FoodStyles.ListView}>
           <div className={FoodStyles.addCategory}>
@@ -127,7 +121,7 @@ if(!localStorage.getItem('admintoken')){
               <li>Action</li>
             </div>
 
-            {data.slice(0, parseInt(dataLength)).map((item, index) => {
+       {(data.length!=0)?<>     {data.slice(0, parseInt(dataLength)).map((item, index) => {
               return(
               <CoffeeAllCategoryComponent
                     data={item} ind={index}
@@ -135,7 +129,7 @@ if(!localStorage.getItem('admintoken')){
               )  
                  
         
-            })}
+            })}</>: <h1 style={{fontSize:"20px",textAlign:"Center",color:"rgb(79, 79, 79)",marginTop:"3%"}}>SORRY NO ITEM FOUND</h1>}
           </div>
         </div>
       </div>          

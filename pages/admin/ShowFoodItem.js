@@ -87,12 +87,11 @@ setFetchData(demmyData)
       {/* right bar */}
       <div className={StyleFood.rightSideBar}>
       <AdminRightInnerHeader title="Food Item Page"/>
-      <PathNavigate mainSection="Admin" mainSectionURL="/admin" subsection="" subsectionURL="" innerSubjection="SHOW FOOD" innerSubjectionURL="/admin/ShowFoodItem" />
-      
+   <PathNavigate mainSection="Admin" mainSectionURL="/admin" subsection="" subsectionURL="/admin/ShowFoodItem" current="SHOW FOOD ITEM" />
 
       {/* form add food */}
 
-<div className={ShowStyles.display_List}>
+<div className={ShowStyles.display_List} style={{marginTop:"0.5%"}}>
 <div className={ShowStyles.top}>
 <div className={ShowStyles.deatils}>
 <h1>All Food Items</h1>
@@ -120,7 +119,7 @@ return(
 <li className={ShowStyles.Item_Category}>Category</li>
 </div>
 
-
+{(fetchData.length!=0)?<>
 {fetchData.slice(0,15).map((item,index)=>{
 return(
 <div className={ShowStyles.card} key={index}>
@@ -132,6 +131,9 @@ return(
 </div>
 )
 })}
+</>: <h1 style={{fontSize:"20px",textAlign:"Center",color:"rgb(79, 79, 79)",marginTop:"3%"}}>SORRY NO ITEM FOUND</h1>}
+
+
 
 </div>
 

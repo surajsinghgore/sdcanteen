@@ -1,7 +1,6 @@
-
-import VerifyAdmin from './MiddlewareAdminVerify';
-import DbConnection from '../Middleware/DbConnection';
-import CoffeeCategorySchema from '../Schema/CoffeeCategorySchema';
+import VerifyAdmin from './Middleware/MiddlewareAdminVerify';
+import DbConnection from './Middleware/DbConnection';
+import CoffeeCategorySchema from './Schema/CoffeeCategorySchema';
 
 export default async function  AddCoffeeCategory(req,res) {
 

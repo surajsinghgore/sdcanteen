@@ -1,7 +1,7 @@
 
-import DbConnection from '../Middleware/DbConnection';
-import JuiceCategorySchema from '../Schema/JuicesCategorySchema';
-import VerifyAdmin from './MiddlewareAdminVerify';
+import DbConnection from './Middleware/DbConnection';
+import JuiceCategorySchema from './Schema/JuicesCategorySchema';
+import VerifyAdmin from './Middleware/MiddlewareAdminVerify';
 
 
 export default async function  DeleteJuiceCategory(req,res) {

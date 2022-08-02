@@ -1,7 +1,7 @@
-import DbConnection from '../Middleware/DbConnection';
-import FoodItemSchema from '../Schema/FoodItemSchema';
+import DbConnection from './Middleware/DbConnection';
+import FoodItemSchema from './Schema/FoodItemSchema';
 import nextConnect from 'next-connect'
-import VerifyAdmin from './MiddlewareAdminVerify';
+import VerifyAdmin from './Middleware/MiddlewareAdminVerify';
 
 import Path from 'path'
 var fs = require('fs');

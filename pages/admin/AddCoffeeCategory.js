@@ -145,8 +145,8 @@ if(!localStorage.getItem('admintoken')){
      {/* right bar */}
       <div className={StyleFood.rightSideBar}>
       <AdminRightInnerHeader title="Add Food Categories" />
-      <PathNavigate mainSection="Admin" mainSectionURL="/admin" subsection="" subsectionURL="" innerSubjection="ADD COFFEE CATEGORIES" innerSubjectionURL="/admin/AddCoffeeCategory" />
-      
+  <PathNavigate mainSection="Admin" mainSectionURL="/admin" subsection="Coffee Category" subsectionURL="/admin/AllCoffeeCategory" current="ADD COFFEE CATEGORY" />
+
 
       {/* form add food */}
 

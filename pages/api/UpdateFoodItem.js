@@ -1,7 +1,6 @@
-import DbConnection from '../Middleware/DbConnection';
-import FoodItemSchema from '../Schema/FoodItemSchema';
-import VerifyAdmin from './MiddlewareAdminVerify';
-
+import DbConnection from './Middleware/DbConnection';
+import FoodItemSchema from './Schema/FoodItemSchema';
+import VerifyAdmin from './Middleware/MiddlewareAdminVerify';
 export default async function AddFoodCategory(req, res) {
   if (req.method == "POST") {
     try {

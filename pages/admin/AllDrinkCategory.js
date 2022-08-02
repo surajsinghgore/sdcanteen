@@ -77,15 +77,7 @@ if(!localStorage.getItem('admintoken')){
       {/* right bar */}
       <div className={StyleFood.rightSideBar}>
         <AdminRightInnerHeader title="Drink Categories Manage" />
-        <PathNavigate
-          mainSection="Admin"
-          mainSectionURL="/admin"
-          subsection=""
-          subsectionURL=""
-          innerSubjection="MANAGE DRINK CATEGORIES"
-          innerSubjectionURL="/admin/AllDrinkCategory"
-        />
-
+        <PathNavigate mainSection="Admin" mainSectionURL="/admin" subsection="" subsectionURL="/admin/AllDrinkCategory" current="DRINK CATEGORY" />
         <div className={FoodStyles.ListView}>
           <div className={FoodStyles.addCategory}>
             <Link href="/admin/AddDrinkCategory">
@@ -125,7 +117,7 @@ if(!localStorage.getItem('admintoken')){
               <li>Action</li>
             </div>
 
-            {data.slice(0, parseInt(dataLength)).map((item, index) => {
+         {(data.length!=0)?<>   {data.slice(0, parseInt(dataLength)).map((item, index) => {
               return (
              
                   <DrinkAllCategoryComponent
@@ -136,6 +128,8 @@ if(!localStorage.getItem('admintoken')){
               
               );
             })}
+</>: <h1 style={{fontSize:"20px",textAlign:"Center",color:"rgb(79, 79, 79)",marginTop:"3%"}}>SORRY NO ITEM FOUND</h1>}
+
           </div>
         </div>
       </div>           
