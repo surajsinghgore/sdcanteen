@@ -1,21 +1,24 @@
-import React, { useEffect, useState ,useContext} from "react";
+import React, { useEffect, useState, useContext } from "react";
 import Styles from "../../styles/admin.module.css";
 import StyleFood from "../../styles/AddFood.module.css";
 import FoodStyles from "../../styles/AllFoodCategories.module.css";
-import Head from "next/head";
+import HeadTag from "../Components/Head";
+
 import AdminLeftMenu from "../Components/AdminLeftMenu";
 import PathNavigate from "../Components/PathNavigate";
 import AdminRightInnerHeader from "../Components/AdminRightInnerHeader";
 import DrinkAllCategoryComponent from "../Components/DrinkAllCategoryComponent";
 import Link from "next/link";
 import { IoIosAddCircleOutline } from "react-icons/io";
-import {AllContext} from '../context/AllContext';
-let HOST=process.env.NEXT_PUBLIC_API_URL;
-import router from 'next/router'
-function AllDrinkCategories() {
-const {deletes}=useContext(AllContext);
+import { AllContext } from "../context/AllContext";
+let HOST = process.env.NEXT_PUBLIC_API_URL;
+import router from "next/router";
 
- 
+
+
+function AllDrinkCategory() {
+  const { deletes } = useContext(AllContext);
+
   const [search, setSearch] = useState("");
   const [data, setData] = useState([]);
   const [data1, setData1] = useState([]);
@@ -26,10 +29,9 @@ const {deletes}=useContext(AllContext);
     async function dataFetch() {
       let ress = await fetch(`${HOST}/api/ShowDrinkCategory`);
       let datas = await ress.json();
-     
+
       await setData(datas.data);
       await setData1(datas.data);
-
     }
     dataFetch();
   }, [deletes]);
@@ -50,26 +52,14 @@ const {deletes}=useContext(AllContext);
     }
   };
 
-useEffect(()=>{
-
-if(!localStorage.getItem('admintoken')){
- router.push('/admin/Login')
-}
-},[])
+  useEffect(() => {
+    if (!localStorage.getItem("admintoken")) {
+      router.push("/admin/Login");
+    }
+  }, []);
   return (
     <div className={Styles.admin}>
-     
-      <Head>
-        <meta name="viewport" content="width=device-width, user-scalable=no" />
-        <title>SD CANTEEN | MANAGE DRINK CATEGORIES</title>
-        <meta name="description" content="sd canteen website" />
-        <meta name="author" content="suraj singh" />
-        <meta
-          keyword=""
-          content="sd canteen, sd college,admin login,admin dash board"
-        />
-        <link rel="icon" href="/favicon.png" />
-      </Head>
+      <HeadTag title="All Drink Category" />
 
       {/* left panel bar */}
       <AdminLeftMenu />
@@ -77,7 +67,13 @@ if(!localStorage.getItem('admintoken')){
       {/* right bar */}
       <div className={StyleFood.rightSideBar}>
         <AdminRightInnerHeader title="Drink Categories Manage" />
-        <PathNavigate mainSection="Admin" mainSectionURL="/admin" subsection="" subsectionURL="/admin/AllDrinkCategory" current="DRINK CATEGORY" />
+        <PathNavigate
+          mainSection="Admin"
+          mainSectionURL="/admin"
+          subsection=""
+          subsectionURL="/admin/AllDrinkCategory"
+          current="DRINK CATEGORY"
+        />
         <div className={FoodStyles.ListView}>
           <div className={FoodStyles.addCategory}>
             <Link href="/admin/AddDrinkCategory">
@@ -117,25 +113,36 @@ if(!localStorage.getItem('admintoken')){
               <li>Action</li>
             </div>
 
-         {(data.length!=0)?<>   {data.slice(0, parseInt(dataLength)).map((item, index) => {
-              return (
-             
-                  <DrinkAllCategoryComponent
-                    data={item}
-                    ind={index}
-                    key={index}
-                  />
-              
-              );
-            })}
-</>: <h1 style={{fontSize:"20px",textAlign:"Center",color:"rgb(79, 79, 79)",marginTop:"3%"}}>SORRY NO ITEM FOUND</h1>}
-
+            {data.length != 0 ? (
+              <>
+                {" "}
+                {data.slice(0, parseInt(dataLength)).map((item, index) => {
+                  return (
+                    <DrinkAllCategoryComponent
+                      data={item}
+                      ind={index}
+                      key={index}
+                    />
+                  );
+                })}
+              </>
+            ) : (
+              <h1
+                style={{
+                  fontSize: "20px",
+                  textAlign: "Center",
+                  color: "rgb(79, 79, 79)",
+                  marginTop: "3%",
+                }}
+              >
+                SORRY NO ITEM FOUND
+              </h1>
+            )}
           </div>
         </div>
-      </div>           
+      </div>
     </div>
   );
 }
 
-export default AllDrinkCategories;
-
+export default AllDrinkCategory;

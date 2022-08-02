@@ -76,19 +76,19 @@ close: <IoIosArrowDown />,
 subMenu:[
 {
 title:"Add Coffee",
-path:"/admin/AddCoffee",
+path:"/admin/AddCoffeeItem",
 },
 {
 title:"Update Coffee",
-path:"/admin/AddCoffee",
+path:"/admin/UpdateCoffeeItem",
 },
 {
 title:"Delete Coffee",
-path:"/admin/AddCoffee",
+path:"/admin/DeleteCoffeeItem",
 },
 {
 title:"View Coffee",
-path:"/admin/AddCoffee",
+path:"/admin/ShowCoffeeItem",
 },
 {
 title:"Manage Coffee Categories",
@@ -108,19 +108,19 @@ close: <IoIosArrowDown />,
 subMenu:[
 {
 title:"Add Drinks",
-path:"/admin/AddDrinks",
+path:"/admin/AddDrinkItem",
 },
 {
 title:"Update Drinks",
-path:"/admin/AddDrinks",
+path:"/admin/UpdateDrinkItem",
 },
 {
 title:"Delete Drinks",
-path:"/admin/AddDrinks",
+path:"/admin/DeleteDrinkItem",
 },
 {
 title:"View Drinks",
-path:"/admin/AddDrinks",
+path:"/admin/ShowDrinkItem",
 },
 {
 title:"Manage Drinks Categories",
@@ -141,19 +141,19 @@ close: <IoIosArrowDown />,
 subMenu:[
 {
 title:"Add Juices",
-path:"/admin/AddJuices",
+path:"/admin/AddJuiceItem",
 },
 {
 title:"Update Juices",
-path:"/admin/AddJuices",
+path:"/admin/UpdateJuiceItem",
 },
 {
 title:"Delete Juices",
-path:"/admin/AddJuices",
+path:"/admin/DeleteJuiceItem",
 },
 {
 title:"View Juices",
-path:"/admin/AddJuices",
+path:"/admin/ShowJuiceItem",
 },
 {
 title:"Manage Juices Categories",

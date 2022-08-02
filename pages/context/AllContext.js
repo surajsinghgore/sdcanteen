@@ -10,6 +10,9 @@ const Provider=({children})=>{
 
 const [filterAllFoodCategoriesData,setFilterAllFoodCategoriesData]=useState([]);
 const [filterFoodItemsData,setFilterFoodItemsData]=useState([]);
+const [filterCoffeeItemsData,setFilterCoffeeItemsData]=useState([]);
+const [filterDrinkItemsData,setFilterDrinkItemsData]=useState([]);
+const [filterJuiceItemsData,setFilterJuiceItemsData]=useState([]);
 
 const [deletes,setDeletes]=useState(false);
 
@@ -70,18 +73,51 @@ let dd=await d.filter((item)=>{
 return item._id==id})
  setFilterFoodItemsData(dd)
 }
+
+
+const updateCoffeeItem=async(id)=>{
+let ress=await fetch(`${HOST}/api/ShowCoffeeItem`);
+let datas=await ress.json();
+let d=datas.data;
+let dd=await d.filter((item)=>{
+return item._id==id})
+ setFilterCoffeeItemsData(dd)
+}
+
+const updateDrinkItem=async(id)=>{
+let ress=await fetch(`${HOST}/api/ShowDrinkItem`);
+let datas=await ress.json();
+let d=datas.data;
+let dd=await d.filter((item)=>{
+return item._id==id})
+ setFilterDrinkItemsData(dd)
+}
+const updateJuiceItem=async(id)=>{
+let ress=await fetch(`${HOST}/api/ShowJuiceItem`);
+let datas=await ress.json();
+let d=datas.data;
+let dd=await d.filter((item)=>{
+return item._id==id})
+ setFilterJuiceItemsData(dd)
+}
 return (<AllContext.Provider value={{
 // useState
 filterAllFoodCategoriesData,
 deletes,setDeletes,
 filterFoodItemsData,
+filterCoffeeItemsData,
+filterDrinkItemsData,
+filterJuiceItemsData,
 
 // functiond
 updateFoodCategories,
 updateCoffeeCategories,
 updateDrinkCategories,
 updateJuiceCategories,
-updateFoodItem
+updateFoodItem,
+updateCoffeeItem,
+updateDrinkItem,
+updateJuiceItem,
 }}>{children}</AllContext.Provider>)
 }
 

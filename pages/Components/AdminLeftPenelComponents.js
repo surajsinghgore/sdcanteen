@@ -1,31 +1,37 @@
 import React from 'react'
 import Styles from "../../styles/admin.module.css";
 import Link from "next/link";
-
+import router from 'next/router'
 
 import { useState } from 'react';
 import { useEffect } from 'react';
 
 function AdminLeftPenelComponents({item}) {
 
-
 const [show,setShow]=useState(false);
 const [open,setOpen]=useState(false);
 
- 
+
 
  useEffect(()=>{
-
 if(open){
 setShow(true);
+
+ if(item.title=='Logout'){
+localStorage.removeItem('admintoken')
+setTimeout(RedirectFunction,10);
+function RedirectFunction(){
+  router.push('/admin/Login')
+}
+}
 }
 else{
 setShow(false);
-
 }
+
  },[open])
   return (
-        <li key={item.id} onClick={()=>setOpen(!open)}>  
+        <li key={item.id} onClick={()=>setOpen(!open)} id="clicked">  
           <div className={(show)?Styles.styles1:Styles.styles}>
             <div className={Styles.icon}>
             {item.icon}

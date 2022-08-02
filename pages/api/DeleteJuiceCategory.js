@@ -1,48 +1,41 @@
+import DbConnection from "./Middleware/DbConnection";
+import JuiceCategorySchema from "./Schema/JuicesCategorySchema";
+import VerifyAdmin from "./Middleware/MiddlewareAdminVerify";
 
-import DbConnection from './Middleware/DbConnection';
-import JuiceCategorySchema from './Schema/JuicesCategorySchema';
-import VerifyAdmin from './Middleware/MiddlewareAdminVerify';
+export default async function DeleteJuiceCategory(req, res) {
+  if (req.method == "DELETE") {
+    try {
+      DbConnection();
+      await VerifyAdmin(req, res);
 
+      let _id = req.body._id;
 
-export default async function  DeleteJuiceCategory(req,res) {
+      // not get id
+      if (!_id) {
+        return res
+          .status(400)
+          .json({ message: "Not Match With This Id", status: "400" });
+      }
 
+      // match weather same Food name is not entered
+      let match = await JuiceCategorySchema.findById(_id);
 
-if(req.method=='DELETE'){
-try {
-DbConnection();
-await VerifyAdmin(req,res)
-
-let _id=req.body._id;
-
-
-// not get id
-if(!_id){
- return res.status(400).json({message:'Not Match With This Id',status:'400'})
-
-}
-
-// match weather same Food name is not entered 
-     let match=await JuiceCategorySchema.findById(_id)
-
-    if(match){
+      if (match) {
         await JuiceCategorySchema.findByIdAndDelete(_id);
- res.status(201).json({message:"successfully Deleted",status:"201"})
+        res
+          .status(201)
+          .json({ message: "successfully Deleted", status: "201" });
+      } else {
+        res
+          .status(400)
+          .json({
+            message: "Sorry This Id Is Not Match In Database",
+            status: "400",
+          });
+      }
+    } catch (error) {
+      console.log(error);
+      res.status(501).json({ message: error, status: "501" });
     }
-    else{
- res.status(400).json({message:"Sorry This Id Is Not Match In Database",status:"400"})
-    }
-} catch (error) {
-console.log(error)
- res.status(501).json({message:error,status:'501'})
-
-}
-
-
-
-
-
-
-}
-
-
+  }
 }

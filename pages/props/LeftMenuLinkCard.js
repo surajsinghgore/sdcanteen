@@ -1,8 +1,4 @@
 import React from 'react'
-
-// /mainName dashboard
-// menuName = dashboard_menu
-// url /dashboard
 export default function LeftMenuLinkCard(props) {
   return (
       <li onClick={() => enableLinks("dashboard")}>
