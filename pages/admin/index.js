@@ -1,21 +1,15 @@
 import React from "react";
 import Styles from "../../styles/admin.module.css";
-import HeadTag from '../Components/Head';
-import AdminLeftMenu from "../Components/AdminLeftMenu";
-
-
+import HeadTag from "../../Components/Head";
+import AdminLeftMenu from "../../Components/AdminLeftMenu";
 
 const index = () => {
-
-
   return (
     <div className={Styles.admin}>
-    
-<HeadTag title="Admin"/>
-
+      <HeadTag title="Admin" />
 
       {/* left panel bar */}
-     <AdminLeftMenu/>
+      <AdminLeftMenu />
 
       {/* right bar */}
     </div>

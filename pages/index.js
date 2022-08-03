@@ -1,12 +1,19 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
+import React from "react";
+import Styles from "../styles/admin.module.css";
+import HeadTag from "../Components/Head";
+import AdminLeftMenu from "../Components/AdminLeftMenu";
 
-export default function Home() {
+const Home = () => {
   return (
-    <div className={styles.container}>
-<h1>home</h1>
+    <div className={Styles.admin}>
+      <HeadTag title="Admin" />
+
+      {/* left panel bar */}
+      <AdminLeftMenu />
+
+      {/* right bar */}
     </div>
-  )
-}
- 
+  );
+};
+
+export default Home;

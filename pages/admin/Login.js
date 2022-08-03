@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Image from "next/image";
-import HeadTag from "../Components/Head";
+import HeadTag from "../../Components/Head";
 import styles from "../../styles/Login.module.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";

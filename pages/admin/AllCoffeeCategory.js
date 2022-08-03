@@ -2,18 +2,16 @@ import React, { useEffect, useState, useContext } from "react";
 import Styles from "../../styles/admin.module.css";
 import StyleFood from "../../styles/AddFood.module.css";
 import FoodStyles from "../../styles/AllFoodCategories.module.css";
-import HeadTag from "../Components/Head";
-import AdminLeftMenu from "../Components/AdminLeftMenu";
-import PathNavigate from "../Components/PathNavigate";
-import AdminRightInnerHeader from "../Components/AdminRightInnerHeader";
-import CoffeeAllCategoryComponent from "../Components/CoffeeAllCategoryComponent";
+import HeadTag from "../../Components/Head";
+import AdminLeftMenu from "../../Components/AdminLeftMenu";
+import PathNavigate from "../../Components/PathNavigate";
+import AdminRightInnerHeader from "../../Components/AdminRightInnerHeader";
+import CoffeeAllCategoryComponent from "../../Components/CoffeeAllCategoryComponent";
 import Link from "next/link";
 import { IoIosAddCircleOutline } from "react-icons/io";
 let HOST = process.env.NEXT_PUBLIC_API_URL;
 import router from "next/router";
-
-import { AllContext } from "../context/AllContext";
-
+import { AllContext } from "../../context/AllContext";
 function AllCoffeeCategory() {
   const { deletes } = useContext(AllContext);
 

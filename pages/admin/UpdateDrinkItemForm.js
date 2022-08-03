@@ -1,15 +1,14 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import Styles from "../../styles/admin.module.css";
 import StyleFood from "../../styles/AddFood.module.css";
-import HeadTag from "../Components/Head";
-import AdminLeftMenu from "../Components/AdminLeftMenu";
-import PathNavigate from "../Components/PathNavigate";
-import AdminRightInnerHeader from "../Components/AdminRightInnerHeader";
+import HeadTag from "../../Components/Head";
+import AdminLeftMenu from "../../Components/AdminLeftMenu";
+import PathNavigate from "../../Components/PathNavigate";
+import AdminRightInnerHeader from "../../Components/AdminRightInnerHeader";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useState, useEffect } from "react";
 import router from "next/router";
-import { AllContext } from "../context/AllContext";
+import { AllContext } from "../../context/AllContext";
 import Link from "next/link";
 let HOST = process.env.NEXT_PUBLIC_API_URL;
 
@@ -22,6 +21,7 @@ export default function UpdateDrinkItemForm() {
   const [Price, setPrice] = useState();
   const [Qtys, setQtys] = useState();
   const [Category, setCategory] = useState();
+  const [subCategory, setSubCategory] = useState('');
 
   useEffect(() => {
     if (filterDrinkItemsData) {
@@ -29,6 +29,7 @@ export default function UpdateDrinkItemForm() {
       setPrice(filterDrinkItemsData[0].Price);
       setQtys(filterDrinkItemsData[0].Qty);
       setCategory(filterDrinkItemsData[0].Category);
+         setSubCategory(filterDrinkItemsData[0].Category)
     }
     async function dataFetch() {
       let ress = await fetch(`${HOST}/api/ShowDrinkCategory`);
@@ -237,8 +238,8 @@ export default function UpdateDrinkItemForm() {
                 value={Category}
                 onChange={(e) => setCategory(e.target.value)}
               >
-                <option value={filterDrinkItemsData[0].Category}>
-                  {filterDrinkItemsData[0].Category}
+                <option value={subCategory}>
+                 {subCategory}
                 </option>
                 {data.map((item, index) => {
                   return (
@@ -267,3 +268,4 @@ export default function UpdateDrinkItemForm() {
     </div>
   );
 }
+

@@ -1,4 +1,4 @@
-import StyleFood from "../../styles/AddFood.module.css";
+import StyleFood from "../styles/AddFood.module.css";
 import { BiCurrentLocation } from 'react-icons/bi';
 
 export default function AdminRightInnerHeader(props) {

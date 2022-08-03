@@ -1,6 +1,6 @@
 import React,{useEffect, useState} from 'react'
 import '../styles/globals.css'
-import {Provider} from './context/AllContext';
+import {Provider} from '../context/AllContext';
 import LoadingBar from "react-top-loading-bar";
 import { useRouter } from 'next/router';
    
@@ -24,6 +24,7 @@ setProgress(80)
 setProgress(90)
 setProgress(100)
 })
+ // eslint-disable-next-line react-hooks/exhaustive-deps
 },[])
 
 

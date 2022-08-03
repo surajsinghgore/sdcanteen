@@ -1,21 +1,21 @@
-import React, { useContext } from "react";
+import React, { useContext , useState, useEffect} from "react";
 import Styles from "../../styles/admin.module.css";
 import ShowStyles from "../../styles/ShowFoodItem.module.css";
 import StyleFood from "../../styles/AddFood.module.css";
-import HeadTag from "../Components/Head";
-import AdminLeftMenu from "../Components/AdminLeftMenu";
-import PathNavigate from "../Components/PathNavigate";
-import AdminRightInnerHeader from "../Components/AdminRightInnerHeader";
+import HeadTag from "../../Components/Head";
+import AdminLeftMenu from "../../Components/AdminLeftMenu";
+import PathNavigate from "../../Components/PathNavigate";
+import AdminRightInnerHeader from "../../Components/AdminRightInnerHeader";
 import { FiEdit } from "react-icons/fi";
 import Image from "next/image";
 import "react-toastify/dist/ReactToastify.css";
-import { useState, useEffect } from "react";
 import router from "next/router";
-import { AllContext } from "../context/AllContext";
+import { AllContext } from "../../context/AllContext";
 let HOST = process.env.NEXT_PUBLIC_API_URL;
 
 export default function UpdateCoffeeItem() {
   const { updateCoffeeItem } = useContext(AllContext);
+  
   const [coffeeNameSearch, setCoffeeNameSearch] = useState("");
   const [categorySearch, setCategorySearch] = useState("");
   const [data, setData] = useState([]);
@@ -58,6 +58,9 @@ export default function UpdateCoffeeItem() {
     router.push("/admin/UpdateCoffeeItemForm");
   };
 
+  
+  
+  
   useEffect(() => {
     async function dataFetch() {
       let ress = await fetch(`${HOST}/api/ShowCoffeeCategory`);
@@ -194,12 +197,3 @@ export default function UpdateCoffeeItem() {
   );
 }
 
-export async function getServerSideProps(context) {
-  let ress = await fetch(`${HOST}/api/ShowCoffeeItem`);
-  let data = await ress.json();
-  let datas = await data.data;
-
-  return {
-    props: { datas },
-  };
-}

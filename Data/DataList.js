@@ -1,4 +1,3 @@
-import React from 'react';
 
 import { MdOutlineDashboard } from "react-icons/md";
 import { IoIosArrowForward } from "react-icons/io";
@@ -13,7 +12,7 @@ import { BiDetail } from "react-icons/bi";
 
 
 
-const LeftPanelData=[
+const DataList=[
 // dashboard
 {
 id:1,
@@ -218,4 +217,5 @@ icon: <BiLogOut />,
 
 ]
 
-export default LeftPanelData;
+
+export default DataList;

@@ -1,5 +1,5 @@
 import React,{   useState ,useContext} from 'react'
-import FoodStyles from "../../styles/AllFoodCategories.module.css";
+import FoodStyles from "../styles/AllFoodCategories.module.css";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import router from 'next/router'
@@ -7,14 +7,14 @@ import { AiOutlineMenu } from "react-icons/ai";
 import { AiOutlineDelete } from "react-icons/ai";
 import { FaRegEdit } from "react-icons/fa";
 import { AiOutlineCloseSquare } from "react-icons/ai";
-import {AllContext} from '../context/AllContext';
+import { AllContext } from "../context/AllContext";
 let HOST=process.env.NEXT_PUBLIC_API_URL;
- 
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 
-function FoodAllCategoryComponent({data,ind}) {
-const {deletes,setDeletes,updateFoodCategories}=useContext(AllContext);
+
+function JuiceAllCategoryComponent({data,ind}) {
+const {deletes,setDeletes,updateJuiceCategories}=useContext(AllContext);
 
 
 const [show,setShow]=useState(false);
@@ -26,28 +26,26 @@ setShow(true);
 }
 // update
 const UpdateCategory=async(id)=>{
-updateFoodCategories(id);
-router.push('/admin/UpdateFoodCategory')
+updateJuiceCategories(id);
+router.push('/admin/UpdateJuiceCategory')
 }
 
 // delete
 const deleteCategory=async(id)=>{
- 
+
 
  confirmAlert({
       title: 'Confirm to Delete',
-      message: 'Are you sure to delete this food category ?.',
+      message: 'Are you sure to Delete this Juice Category ?',
       buttons: [
         {
           label: 'Yes',
           onClick: async () => {
-          
-          
-let res=await fetch(`${HOST}/api/DeleteFoodCategory`,{
+let res=await fetch(`${HOST}/api/DeleteJuiceCategory`,{
     method: "DELETE",
     headers:{
         "Content-type": "application/json",
-           "admintoken":localStorage.getItem('admintoken')
+         "admintoken":localStorage.getItem('admintoken')
     },
     body: JSON.stringify({
         _id:id
@@ -107,8 +105,9 @@ draggable: true,
 progress: undefined,
 });
 
-          
-          }
+
+
+}
         },
         {
           label: 'No',
@@ -117,14 +116,12 @@ progress: undefined,
       ]
     });
 
-
-
 }
 
   return (
        <div className={FoodStyles.DataLists} key={ind}>
 <div className={FoodStyles.DataList}>
-<li>{data.FoodCategoryName}</li>
+<li>{data.JuiceCategoryName}</li>
 {(show)? 
 <li><AiOutlineCloseSquare className={FoodStyles.cursor_icon} onClick={()=>setShow(!show)}/></li>
 : 
@@ -152,4 +149,4 @@ pauseOnHover
   )
 }
 
-export default FoodAllCategoryComponent
+export default JuiceAllCategoryComponent

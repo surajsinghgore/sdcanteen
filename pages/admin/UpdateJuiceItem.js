@@ -1,20 +1,19 @@
-import React, { useContext } from "react";
+import React, { useContext,useState, useEffect  } from "react";
 import Styles from "../../styles/admin.module.css";
 import ShowStyles from "../../styles/ShowFoodItem.module.css";
 import StyleFood from "../../styles/AddFood.module.css";
-import HeadTag from "../Components/Head";
-import AdminLeftMenu from "../Components/AdminLeftMenu";
-import PathNavigate from "../Components/PathNavigate";
-import AdminRightInnerHeader from "../Components/AdminRightInnerHeader";
+import HeadTag from "../../Components/Head";
+import AdminLeftMenu from "../../Components/AdminLeftMenu";
+import PathNavigate from "../../Components/PathNavigate";
+import AdminRightInnerHeader from "../../Components/AdminRightInnerHeader";
 import { FiEdit } from "react-icons/fi";
 import Image from "next/image";
 import "react-toastify/dist/ReactToastify.css";
-import { useState, useEffect } from "react";
 import router from "next/router";
-import { AllContext } from "../context/AllContext";
+import { AllContext } from "../../context/AllContext";
 let HOST = process.env.NEXT_PUBLIC_API_URL;
 
-export default function UpdateJuiceItem() {
+ function UpdateJuiceItem() {
   const { updateJuiceItem } = useContext(AllContext);
   const [juiceNameSearch, setJuiceNameSearch] = useState("");
   const [categorySearch, setCategorySearch] = useState("");
@@ -203,3 +202,5 @@ export async function getServerSideProps(context) {
     props: { datas },
   };
 }
+
+export default  UpdateJuiceItem;

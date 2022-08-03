@@ -1,27 +1,26 @@
-import React, { useContext } from "react";
+import React, { useContext ,useState, useEffect} from "react";
 import Styles from "../../styles/admin.module.css";
 import StyleFood from "../../styles/AddFood.module.css";
-import HeadTag from "../Components/Head";
-import AdminLeftMenu from "../Components/AdminLeftMenu";
-import PathNavigate from "../Components/PathNavigate";
-import AdminRightInnerHeader from "../Components/AdminRightInnerHeader";
+import HeadTag from "../../Components/Head";
+import AdminLeftMenu from "../../Components/AdminLeftMenu";
+import PathNavigate from "../../Components/PathNavigate";
+import AdminRightInnerHeader from "../../Components/AdminRightInnerHeader";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useState, useEffect } from "react";
 import router from "next/router";
-import { AllContext } from "../context/AllContext";
+import { AllContext } from "../../context/AllContext";
 import Link from "next/link";
 let HOST = process.env.NEXT_PUBLIC_API_URL;
 
-export default function UpdateCoffeeItemForm() {
+ function UpdateCoffeeItemForm() {
   const { filterCoffeeItemsData } = useContext(AllContext);
 
-  const [data, setData] = useState([]);
-  // form ates
-  const [CoffeeName, setCoffeeName] = useState();
-  const [Price, setPrice] = useState();
-  const [Qtys, setQtys] = useState();
-  const [Category, setCategory] = useState();
+  const [data, setData] = useState(['']);
+  const [CoffeeName, setCoffeeName] = useState('');
+  const [Price, setPrice] = useState('');
+  const [Qtys, setQtys] = useState('');
+  const [Category, setCategory] = useState('');
+  const [subCategory, setSubCategory] = useState('');
 
   useEffect(() => {
     if (filterCoffeeItemsData) {
@@ -29,6 +28,7 @@ export default function UpdateCoffeeItemForm() {
       setPrice(filterCoffeeItemsData[0].Price);
       setQtys(filterCoffeeItemsData[0].Qty);
       setCategory(filterCoffeeItemsData[0].Category);
+      setSubCategory(filterCoffeeItemsData[0].Category)
     }
     async function dataFetch() {
       let ress = await fetch(`${HOST}/api/ShowCoffeeCategory`);
@@ -237,16 +237,18 @@ export default function UpdateCoffeeItemForm() {
                 value={Category}
                 onChange={(e) => setCategory(e.target.value)}
               >
-                <option value={filterCoffeeItemsData[0].Category}>
-                  {filterCoffeeItemsData[0].Category}
+              <option value={subCategory}>
+                 {subCategory}
                 </option>
-                {data.map((item, index) => {
+                
+                {(data)? <>{data.map((item, index) => {
                   return (
                     <option value={item.CoffeeCategoryName} key={index}>
                       {item.CoffeeCategoryName}
                     </option>
                   );
-                })}
+                })}</>:''}
+             
               </select>
             </li>
             <button onClick={updateItems}> UPDATE COFFEE</button>
@@ -267,3 +269,5 @@ export default function UpdateCoffeeItemForm() {
     </div>
   );
 }
+
+export default UpdateCoffeeItemForm

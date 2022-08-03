@@ -1,26 +1,27 @@
-import React, { useContext } from "react";
+import React, { useContext,useState ,useEffect} from "react";
 import Styles from "../../styles/admin.module.css";
 import StyleFood from "../../styles/AddFood.module.css";
-import HeadTag from "../Components/Head";
-import AdminLeftMenu from "../Components/AdminLeftMenu";
-import PathNavigate from "../Components/PathNavigate";
-import AdminRightInnerHeader from "../Components/AdminRightInnerHeader";
+import HeadTag from "../../Components/Head";
+import AdminLeftMenu from "../../Components/AdminLeftMenu";
+import PathNavigate from "../../Components/PathNavigate";
+import AdminRightInnerHeader from "../../Components/AdminRightInnerHeader";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 let HOST = process.env.NEXT_PUBLIC_API_URL;
-import { useState } from "react";
 import router from "next/router";
-import { AllContext } from "../context/AllContext";
+import { AllContext } from "../../context/AllContext";
 import Link from "next/link";
 import Image from "next/image";
 
 export default function UpdateFoodImage() {
   const { filterFoodItemsData } = useContext(AllContext);
-  const [imgs, setImgs] = useState(
-    `/FoodItemImages/${filterFoodItemsData[0].Image}`
-  );
+  const [imgs, setImgs] = useState('');
   const [files, setFiles] = useState("");
-
+useEffect(()=>{
+if(filterFoodItemsData){
+setImgs(`/CoffeeItemImages/${filterFoodItemsData[0].Image}`)
+}
+},[filterFoodItemsData])
   // images handle
   const handleChange = async (e) => {
     if (e.target.files[0]) {
@@ -186,3 +187,4 @@ export default function UpdateFoodImage() {
     </div>
   );
 }
+

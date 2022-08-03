@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from "react";
 import Styles from "../../styles/admin.module.css";
 import StyleFood from "../../styles/AddFood.module.css";
-import AdminLeftMenu from "../Components/AdminLeftMenu";
-import PathNavigate from "../Components/PathNavigate";
-import AdminRightInnerHeader from "../Components/AdminRightInnerHeader";
+import AdminLeftMenu from "../../Components/AdminLeftMenu";
+import PathNavigate from "../../Components/PathNavigate";
+import AdminRightInnerHeader from "../../Components/AdminRightInnerHeader";
+import HeadTag from "../../Components/Head";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import router from "next/router";
-import HeadTag from "../Components/Head";
 let HOST = process.env.NEXT_PUBLIC_API_URL;
 
-function AddCoffeeCategory() {
+export default function AddCoffeeCategory() {
   const [CoffeeCategory, setCoffeeCategory] = useState("");
   const addCategory = async (e) => {
     if (!CoffeeCategory) {
@@ -173,4 +173,3 @@ function AddCoffeeCategory() {
   );
 }
 
-export default AddCoffeeCategory;

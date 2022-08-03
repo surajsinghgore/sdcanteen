@@ -1,18 +1,19 @@
-import React, { useContext } from "react";
+import React, { useContext,useState, useEffect } from "react";
 import Styles from "../../styles/admin.module.css";
 import StyleFood from "../../styles/AddFood.module.css";
-import HeadTag from "../Components/Head";
-import AdminLeftMenu from "../Components/AdminLeftMenu";
-import PathNavigate from "../Components/PathNavigate";
-import AdminRightInnerHeader from "../Components/AdminRightInnerHeader";
+import HeadTag from "../../Components/Head";
+import AdminLeftMenu from "../../Components/AdminLeftMenu";
+import PathNavigate from "../../Components/PathNavigate";
+import AdminRightInnerHeader from "../../Components/AdminRightInnerHeader";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useState, useEffect } from "react";
 import router from "next/router";
-import { AllContext } from "../context/AllContext";
+import { AllContext } from "../../context/AllContext";
 import Link from "next/link";
 let HOST = process.env.NEXT_PUBLIC_API_URL;
-export default function UpdateFoodItemForm() {
+
+
+ function UpdateFoodItemForm() {
   const { filterFoodItemsData } = useContext(AllContext);
 
   const [data, setData] = useState([]);
@@ -21,6 +22,7 @@ export default function UpdateFoodItemForm() {
   const [Price, setPrice] = useState();
   const [Qtys, setQtys] = useState();
   const [Category, setCategory] = useState();
+  const [subCategory, setSubCategory] = useState('');
 
   useEffect(() => {
     if (filterFoodItemsData) {
@@ -28,6 +30,8 @@ export default function UpdateFoodItemForm() {
       setPrice(filterFoodItemsData[0].Price);
       setQtys(filterFoodItemsData[0].Qty);
       setCategory(filterFoodItemsData[0].Category);
+         setSubCategory(filterFoodItemsData[0].Category)
+
     }
     async function dataFetch() {
       let ress = await fetch(`${HOST}/api/ShowFoodCategory`);
@@ -236,8 +240,8 @@ export default function UpdateFoodItemForm() {
                 value={Category}
                 onChange={(e) => setCategory(e.target.value)}
               >
-                <option value={filterFoodItemsData[0].Category}>
-                  {filterFoodItemsData[0].Category}
+                  <option value={subCategory}>
+                 {subCategory}
                 </option>
                 {data.map((item, index) => {
                   return (
@@ -266,3 +270,6 @@ export default function UpdateFoodItemForm() {
     </div>
   );
 }
+
+
+export default  UpdateFoodItemForm;

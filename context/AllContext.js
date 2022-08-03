@@ -108,8 +108,6 @@ filterFoodItemsData,
 filterCoffeeItemsData,
 filterDrinkItemsData,
 filterJuiceItemsData,
-
-// functiond
 updateFoodCategories,
 updateCoffeeCategories,
 updateDrinkCategories,

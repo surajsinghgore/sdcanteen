@@ -1,17 +1,14 @@
 import React,{useEffect} from 'react'
-import AdminLeftPenelComponents from '../Components/AdminLeftPenelComponents';
-import DataList from '../Data/AdminLeftPanelData';
-import Styles from "../../styles/admin.module.css";
-import logo from "../../public/logo.png";
+import AdminLeftPenelComponents from './AdminLeftPenelComponents';
+import Styles from "../styles/admin.module.css";
+import logo from "../public/logo.png";
 import Image from "next/image";
+import DataList from '../Data/DataList'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import router from 'next/router'
 let HOST=process.env.NEXT_PUBLIC_API_URL;
-
-
-function AdminLeftMenu() {
-
+export default function AdminLeftMenu() {
 const VerifyAdminLogin=async()=>{
 const res=await fetch(`${HOST}/api/VerifyAdminLogin`,{
     method: "GET",
@@ -44,7 +41,7 @@ return 0;
 }
 useEffect(()=>{
 VerifyAdminLogin()
-
+ // eslint-disable-next-line react-hooks/exhaustive-deps
 },[])
   return (
     <div className={Styles.leftPanel}>
@@ -69,7 +66,7 @@ pauseOnHover
   )
 }
 
-export default AdminLeftMenu
+
 
 
 
