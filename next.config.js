@@ -3,9 +3,5 @@ const nextConfig = {
   swcMinify: true,
 
 }
-module.exports = {
-    devIndicators: {
-        buildActivity: false
-    }
-}
+
 module.exports = nextConfig

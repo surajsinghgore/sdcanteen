@@ -5,7 +5,7 @@ export default function HeadTag(props) {
   <>
  <Head>
         <meta name="viewport" content="width=device-width, user-scalable=no" />
-        <title>SD CANTEEN | {props.title}</title>
+        <title>{`SD CANTEEN | ${props.title}`}</title>
         <meta name="description" content="sd canteen website" />
         <meta name="author" content="suraj singh" />
         <meta

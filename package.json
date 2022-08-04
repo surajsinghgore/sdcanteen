@@ -4,11 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build && next export",
-    "start": "next start -H 0.0.0.0 -p $PORT",
-    "start:dev":"next start",
-    "start:prod":"next start -p 80",
-    "export":"next build && next export"
+    "build": "next build",
+    "start": "next start"
   },
   "dependencies": {
     "@emotion/react": "^11.9.3",
@@ -19,8 +16,7 @@
     "multer": "^1.4.5-lts.1",
     "next": "12.2.2",
     "next-connect": "^0.13.0",
-    "next-optimized-images": "^2.6.2",
-    "react": "^17.0.2",
+    "react": "18.2.0",
     "react-confirm-alert": "^3.0.6",
     "react-dom": "18.2.0",
     "react-icons": "^4.4.0",
