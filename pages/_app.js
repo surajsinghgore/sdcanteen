@@ -3,7 +3,7 @@ import '../styles/globals.css'
 import {Provider} from '../context/AllContext';
 import LoadingBar from "react-top-loading-bar";
 import { useRouter } from 'next/router';
-   
+import { CartProvider } from "react-use-cart"; 
 
 function MyApp({ Component, pageProps }) {
 const router=useRouter();
@@ -37,7 +37,11 @@ setProgress(100)
         progress={progress}
         transitionTime={100}
       />  
-<Provider><Component {...pageProps} /></Provider>
+<Provider>
+<CartProvider>
+<Component {...pageProps} />
+</CartProvider>
+</Provider>
   </>)
 }
 

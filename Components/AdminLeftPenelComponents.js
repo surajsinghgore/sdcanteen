@@ -13,7 +13,7 @@ setShow(true);
 localStorage.removeItem('admintoken')
 setTimeout(RedirectFunction,10);
 function RedirectFunction(){
-  router.push('/admin/Login')
+  router.push('/')
 }
 }
 }

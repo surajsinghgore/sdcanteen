@@ -31,7 +31,7 @@ pauseOnHover: true,
 draggable: true,
 progress: undefined,
 });
-setTimeout(RedirectFunction,1000);
+setTimeout(RedirectFunction,10);
 function RedirectFunction(){
   router.push('/admin/Login')
 }

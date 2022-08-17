@@ -1,18 +1,27 @@
-import React from "react";
 import Styles from "../styles/admin.module.css";
 import HeadTag from "../Components/Head";
-import AdminLeftMenu from "../Components/AdminLeftMenu";
+import Header from "../Components/Header";
+import Footer from "../Components/Footer";
+import Carousel from "../Components/Carousel";
 
 const Home = () => {
-  return (
+  return (<>
     <div className={Styles.admin}>
-      <HeadTag title="Admin" />
+      <HeadTag title="Home" />
+   <Header />
 
-      {/* left panel bar */}
-      <AdminLeftMenu />
+   {/* crousel */}
+   <Carousel />
 
-      {/* right bar */}
+
+
+
+
+
+
     </div>
+   <Footer />
+    </>
   );
 };
 

@@ -15,3 +15,551 @@ a {
   box-sizing: border-box;
 }
 
+
+
+/* header */
+
+header{
+z-index: 99;
+position: relative;
+position: fixed;
+display: flex;
+width: 100%;
+height: 70px;
+background-color: #ffffff;
+}
+/* header .logo */
+header .logo{
+width: auto;
+margin-left: 3%;
+padding-top: 0.5%;
+cursor: pointer;
+}
+
+/* search */
+header .search{
+position: relative;
+width: 50%;
+}
+header .search i{
+position: absolute;
+top: 26%;
+color: rgb(255, 0, 0);
+font-size: 25px;
+left: 23%;
+}
+
+header .search input{
+margin-left: 20%;
+width: 70%;
+margin-top: 2%;
+height: 40px;
+text-transform: uppercase;
+border: 2px solid rgb(243, 11, 11);
+padding-left: 10%;
+outline: none;
+font-size: 18px;
+color: rgb(255, 111, 0);
+transition: all 0.3s;
+}
+
+/* not item inside search */
+#searchHeading{
+text-align: center;
+font-weight: 400;
+cursor: text;
+font-size: 18px;
+color: rgb(255, 111, 0);
+}
+header .search input[type="search"]::-webkit-search-decoration,
+header .search input[type="search"]::-webkit-search-cancel-button,
+header .search input[type="search"]::-webkit-search-results-button,
+header .search input[type="search"]::-webkit-search-results-decoration {
+  -webkit-appearance:none;
+}
+header .search input:focus{
+
+border: 2px solid rgb(243, 11, 11);
+
+}
+header .search .suggestion{
+display: none;
+position: absolute;
+top: 74%;
+left: 20%;
+z-index: 99;
+height: 165px;
+overflow: hidden;
+text-transform: uppercase;
+width: 70%;
+border: 2px solid rgb(243, 11, 11);
+background-color: #fff;
+box-shadow: 0px 7px 10px 1px rgb(46, 46, 46);
+}
+
+
+
+
+header .search .suggestion li{
+position: relative;
+display: block;
+text-align: center;
+font-size: 19px;
+padding-bottom: 1%;
+margin: 0.4% 0% 1% 0%;
+cursor: pointer;
+padding-top: 1%;
+font-weight: 400;
+color: rgb(255, 111, 0);
+transition: all 0.3s;
+}
+header .search .suggestion .fixed{
+position: absolute;
+top: 25%;
+left: 5%;
+}
+
+
+header .search .suggestion li:hover{
+background-color: rgb(243, 243, 243);
+border-radius: 60px;
+}
+/* links */
+header .links{
+position: relative;
+list-style: none;
+display: flex;
+width: 33%;
+}
+header .links li{
+position: relative;
+margin-right: 2%;
+width: auto;
+cursor: pointer;
+height: 70px;
+margin-left: 1%;
+
+}
+
+
+header .links  #user{
+display: flex;
+height: 70px;
+position: relative;
+width: 180px;
+}
+header .links #user img{
+border-radius: 60px;
+}
+
+header .links #login{
+display: flex;
+height: 70px;
+position: relative;
+width: 180px;
+}
+
+
+
+
+
+
+
+header .links li i{
+font-size: 22px;
+color: rgb(255, 98, 0);
+line-height: 70px;
+cursor: pointer;
+}
+header .links li .heading{
+color: rgb(255, 98, 0);
+font-weight: 600;
+font-size: 19px;
+
+}
+header .links li #heading1{
+position: absolute;
+top: -35%;
+left: 40%;
+color: rgb(255, 98, 0);
+font-weight: 600;
+font-size: 19px;
+margin-top: 27%;
+}
+header .links li #heading2{
+position: absolute;
+top: -38%;
+left: 40%;
+color: rgb(255, 98, 0);
+font-weight: 600;
+font-size: 19px;
+margin-top: 27%;
+}
+header .links .cart{
+position: absolute;
+top: 20%;
+right: 1%;
+color: rgb(255, 0, 0);
+font-size: 35px;
+cursor: pointer;
+}
+
+header .links #count{
+position: absolute;
+top: 0%;
+right: -10%;
+border-radius: 60px;
+width: 50%;
+text-align: center;
+background-color: rgb(0, 0, 0);
+color: rgb(255, 255, 255);
+font-size: 12px;
+}
+
+
+/* header page */
+header .pages{
+position: absolute;
+top:100.2%;
+left: 0;
+display: flex;
+width: 80%;
+height: auto;
+padding-bottom: 2%;
+margin-left: 10%;
+background-color: #fff;
+display: none;
+}
+
+header .pages .page{
+width: 25%;
+list-style: none;
+}
+
+header .pages .page h1{
+font-size: 20px;
+padding-left: 16%;
+margin-bottom: 8%;
+font-weight: 700;
+color: rgb(0, 0, 0);
+}
+
+header .pages .page li{
+font-size: 18px;
+margin-top: 5%;
+z-index: 98;
+font-weight: 600;
+color: rgb(66, 66, 66);
+padding-left: 16%;
+transition: all 0.2s;
+}
+header .pages .page li:hover{
+color: red;
+padding-left: 18%;
+}
+
+
+/* clinetOption */
+header .clinetOption{
+position: absolute;
+display: none;
+top: 100.2%;
+right: 2.2%;
+z-index: 98;
+width: 280px;
+height: auto;
+background-color: rgb(255, 255, 255);
+}
+
+
+header .clinetOption div{
+width: 120px;
+margin-top: 3%;
+margin-left: 5%;
+float: left;
+cursor: pointer;
+list-style: none;
+}
+
+
+header .clinetOption div i{
+font-size: 30px;
+color: rgb(255, 123, 0);
+transition: all 0.3s;
+padding-left: 35%;
+}
+header .clinetOption div h1{
+font-size: 18px;
+font-weight: 500;
+text-align: center;
+margin-top: -2%;
+color: rgb(255, 123, 0);
+transition: all 0.3s;
+}
+header .clinetOption div:hover i{
+color: rgb(50, 50, 50);
+}
+header .clinetOption div:hover h1{
+color: rgb(50, 50, 50);
+}
+/* carsouel */
+.div1{
+box-sizing: border-box;
+position: relative;
+margin-top: 5%;
+width: 100%;
+height: 557px;
+z-index: 10;
+}
+.div1 .imgs-section{
+position: absolute;
+top: 0;
+left: 0;
+z-index: -1;
+width: 100%;
+height: 625px;
+filter: blur(0.8px);
+}
+
+.div1 .details{
+position: relative;
+color: rgb(255, 255, 255);
+z-index: 1;
+width: auto;
+background:none;
+overflow: hidden;
+text-align: center;
+}
+.div1 .details #hh1{
+padding-top: 12%;
+width: 70%;
+text-align: center;
+margin-left: 15%;
+font-size: 52px;
+text-shadow: 1px 2px 20px rgb(34, 34, 34);
+transition: all 0.3s;
+}
+.div1 .details button{
+width: auto;
+margin-bottom: 5%;
+padding: 1% 4% 1% 4%;
+cursor: pointer;
+color: white;
+font-size: 18px;
+border: none;
+margin-top: 1%;
+margin-left: 2%;
+border-radius: 4px;
+background-color:rgb(255, 38, 0);
+transition: all 0.3s;
+box-shadow: 0px 0px 20px 7px black;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* swiper customized */
+
+#mySwiper .swiper-button-next {
+  color: rgb(0, 0, 0);
+  right: -1.1%;
+  height: 60px;
+  width: 90px;
+  transform: rotate(90deg);
+  border-bottom-left-radius: 60px;
+  border-bottom-right-radius: 60px;
+  background-color: rgb(255, 255, 255);
+  box-shadow: 0px 0px 20px 1px rgb(0, 0, 0);
+  transition: all 0.4s;
+}
+
+
+
+
+#mySwiper .swiper-button-prev {
+color: rgb(0, 0, 0);
+  left: -1%;
+  height: 60px;
+  width: 90px;
+  transform: rotate(90deg);
+  border-top-left-radius: 60px;
+  border-top-right-radius: 60px;
+  background-color: rgb(255, 255, 255);
+  box-shadow: 0px 0px 20px 1px rgb(0, 0, 0);
+  transition: all 0.4s;
+
+}
+#mySwiper .swiper-button-next:hover,#mySwiper .swiper-button-prev:hover {
+  background-color: rgb(248, 53, 4);
+color: white;
+}
+#mySwiper .swiper-button-next::after, #mySwiper .swiper-button-prev::after {
+    content: "";
+}
+
+
+#mySwiper .swiper-button-next::before{
+    content: "NEXT";
+    margin-top: -16%;
+    font-size: 20px;
+  word-spacing: 2cm;
+}
+ #mySwiper .swiper-button-prev::before {
+    content: "PREV";
+    margin-top: 16%;
+    font-size: 20px;
+  word-spacing: 2cm;
+}
+
+
+
+
+/* footer */
+footer{
+height: auto;
+padding-bottom: 3%;
+background-color: #1a1a1a;
+}
+footer .footer{
+position: relative;
+width: 100%;
+display: flex;
+height: auto;
+
+}
+/* lega */
+footer .footer .legal{
+padding-left: 5%;
+width: 33%;
+list-style: none;
+}
+footer .footer .legal h1{
+margin-top: 15%;
+font-size: 30px;
+color: white;
+margin-left: 2%;
+margin-bottom: 6%;
+}
+footer .footer .legal li{
+margin-top: 4%;
+text-align: left;
+font-size: 19px;
+color: white;
+margin-bottom: 2%;
+}
+footer .footer .legal li a{
+transition: all 0.3s;
+
+}
+footer .footer .legal li a:hover{
+padding-left: 4%;
+cursor: pointer;
+color: #0ac0ee;
+}
+
+
+
+
+
+/* menu */
+footer .footer .menu{
+padding-left: 5%;
+width: 33%;
+list-style: none;
+}
+
+footer .footer .menu h1{
+margin-top: 15%;
+font-size: 30px;
+color: white;
+margin-left: 2%;
+margin-bottom: 6%;
+}
+footer .footer .menu li{
+margin-top: 4%;
+text-align: left;
+font-size: 19px;
+color: white;
+margin-bottom: 2%;
+}
+footer .footer .menu li a{
+transition: all 0.3s;
+
+}
+footer .footer .menu li a:hover{
+padding-left: 4%;
+cursor: pointer;
+color: #0ac0ee;
+
+}
+/* timing */
+footer .footer .timing{
+width: 35%;
+list-style: none;
+}
+footer .footer .timing h1{
+margin-top: 12%;
+font-size: 30px;
+color: white;
+margin-bottom: 4%;
+}
+footer .footer .timing li{
+display: block;
+margin-top: 2%;
+text-align: left;
+font-size: 19px;
+color: white;
+margin-bottom: 2%;
+}
+footer .footer .timing li span{
+margin-right: 2%;
+color: rgb(214, 214, 214);
+}
+footer .footer .timing li #note{
+color:rgb(255, 0, 0);
+font-weight: 500;
+}
+footer .footer .timing li #bold{
+color:orange;
+font-weight: 500;
+margin-left: 2%;
+
+}
+
+
+footer .copyright{
+width: 100%;
+margin-top: 2%;
+display: flex;
+font-size: 18px;
+font-weight: 600;
+color: white;
+}
+footer .copyright hr{
+width: 25%;
+height: 0.5px;
+background-color: rgb(236, 236, 236);
+border: none;
+}
+footer .copyright span{
+color: rgb(5, 177, 215);
+padding-left: 0.5%;
+}
