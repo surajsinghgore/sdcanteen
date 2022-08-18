@@ -39,10 +39,11 @@ setJuiceItem(JuiceDatas)
 
 useEffect(()=>{
 items.map((itemm)=>{
+if(itemm.JuiceName){
  let filter1=JuiceDatas.filter((item)=>{
-return item.JuiceName.toLowerCase().includes(itemm.JuiceName.toLowerCase())})
-
+return item._id.toLowerCase().includes(itemm.id.toLowerCase())})
 filter1[0]['addToCart']=true;
+}
 })
 
 },[items])
@@ -75,7 +76,9 @@ let JuiceName=itemss.JuiceName;
 let Qty=itemss.Qty;
 let Image=itemss.Image;
 let Category=itemss.Category;
-addItem({id,price,JuiceName,Qty,Image,Category})
+let QtyBook=1;
+let totalAmount=itemss.Price;
+addItem({id,price,JuiceName,Qty,Image,Category,QtyBook,totalAmount})
 
  toast.success(`${JuiceName} successfully added to cart`, {
       position: "bottom-right",
@@ -89,7 +92,6 @@ addItem({id,price,JuiceName,Qty,Image,Category})
 }
 const RemoveFromCartItem=(item)=>{
 let id=item._id;
-
 const filteredData = JuiceDatas.filter((item) => item._id == id);
 filteredData[0]['addToCart']=false;
 removeItem(id)

@@ -16,6 +16,7 @@ import { useState } from 'react';
 import profile from '../public/profile.jpg'
 let HOST = process.env.NEXT_PUBLIC_API_URL;
 import {  useCart } from "react-use-cart";
+import router from 'next/router'
 
 
 export default function Header() {
@@ -138,13 +139,14 @@ suggestion.style.display="none"
 }
 }
 
-
+const redirectToHome=()=>{
+router.push('/')
+}
 
   return (
     <header>
-
     <div className="logo" id="Header">
-  <Link href="/"><Image src={sdLogo} alt="sd logo " height="60px" width="180px" /></Link> 
+  <Image src={sdLogo} alt="sd logo " height="60px" width="180px" onClick={redirectToHome}/>
     </div>
 
         <div className="search">
@@ -164,10 +166,11 @@ suggestion.style.display="none"
     <li id="user"><i><IoMdArrowDropdown /></i><div style={{marginTop:"10%"}}><Image src={profile} alt="profile" height={40} width="40" style={{borderRadius:"60px",marginLeft:"4%"}}/><span id='heading1' style={{textAlign:"center"}}>Hii , Suraj</span></div></li>
 
     {/* <li id="login"> <i style={{marginTop:"2%",marginLeft:"18%",fontSize:"28px"}}><BiLogIn/></i><span id='heading2'>Login</span></li> */}
-    <li  className='cart'> 
+    <li  className='cart'> <Link href="/Cart"><a>
     <div id="count">{cartSize}</div>
-    <span><AiOutlineShoppingCart/></span></li>
+    <span><AiOutlineShoppingCart/></span></a></Link></li>
     </div>
+
 
 {/* pages */}
     <div className="pages" id="pages" >

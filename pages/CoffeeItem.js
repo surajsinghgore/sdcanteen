@@ -38,11 +38,13 @@ setCoffeeItem(CoffeeDatas)
 }
 
 useEffect(()=>{
-items.map((itemm)=>{
- let filter1=CoffeeDatas.filter((item)=>{
-return item.CoffeeName.toLowerCase().includes(itemm.CoffeeName.toLowerCase())})
 
+items.map((itemm)=>{
+if(itemm.CoffeeName){
+ let filter1=CoffeeDatas.filter((item)=>{
+return item._id.toLowerCase().includes(itemm.id.toLowerCase())})
 filter1[0]['addToCart']=true;
+}
 })
 
 },[items])
@@ -75,7 +77,9 @@ let CoffeeName=itemss.CoffeeName;
 let Qty=itemss.Qty;
 let Image=itemss.Image;
 let Category=itemss.Category;
-addItem({id,price,CoffeeName,Qty,Image,Category})
+let QtyBook=1;
+let totalAmount=itemss.Price;
+addItem({id,price,CoffeeName,Qty,Image,Category,QtyBook,totalAmount})
 
  toast.success(`${CoffeeName} successfully added to cart`, {
       position: "bottom-right",

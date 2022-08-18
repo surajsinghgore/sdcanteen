@@ -39,12 +39,16 @@ setDrinkItem(DrinkDatas)
 }
 
 useEffect(()=>{
-items.map((itemm)=>{
- let filter1=DrinkDatas.filter((item)=>{
-return item.DrinkName.toLowerCase().includes(itemm.DrinkName.toLowerCase())})
 
+
+items.map((itemm)=>{
+if(itemm.DrinkName){
+ let filter1=DrinkDatas.filter((item)=>{
+return item._id.toLowerCase().includes(itemm.id.toLowerCase())})
 filter1[0]['addToCart']=true;
+}
 })
+
 
 },[items])
 
@@ -76,7 +80,9 @@ let DrinkName=itemss.DrinkName;
 let Qty=itemss.Qty;
 let Image=itemss.Image;
 let Category=itemss.Category;
-addItem({id,price,DrinkName,Qty,Image,Category})
+let QtyBook=1;
+let totalAmount=itemss.Price;
+addItem({id,price,DrinkName,Qty,Image,Category,QtyBook,totalAmount})
 
  toast.success(`${DrinkName} successfully added to cart`, {
       position: "bottom-right",

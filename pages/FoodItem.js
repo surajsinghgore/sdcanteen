@@ -11,7 +11,6 @@ import "react-toastify/dist/ReactToastify.css";
 import { IoMdArrowDropright } from 'react-icons/io';
 import { FaSearch } from 'react-icons/fa';
 import { useEffect ,useState} from "react";
-let HOST = process.env.NEXT_PUBLIC_API_URL;
 import {  useCart } from "react-use-cart";
 export default function FoodItem({ResCategory,FoodDatas}) {
 
@@ -39,10 +38,11 @@ setFoodItem(FoodDatas)
 
 useEffect(()=>{
 items.map((itemm)=>{
+if(itemm.FoodName){
  let filter1=FoodDatas.filter((item)=>{
-return item.FoodName.toLowerCase().includes(itemm.FoodName.toLowerCase())})
-
+return item._id.toLowerCase().includes(itemm.id.toLowerCase())})
 filter1[0]['addToCart']=true;
+}
 })
 
 },[items])
@@ -76,7 +76,9 @@ let FoodName=itemss.FoodName;
 let Qty=itemss.Qty;
 let Image=itemss.Image;
 let Category=itemss.Category;
-addItem({id,price,FoodName,Qty,Image,Category})
+let QtyBook=1;
+let totalAmount=itemss.Price;
+addItem({id,price,FoodName,Qty,Image,Category,QtyBook,totalAmount})
 
  toast.success(`${FoodName} successfully added to cart`, {
       position: "bottom-right",
