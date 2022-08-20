@@ -5,14 +5,13 @@ import Style from '../styles/FoodItem.module.css'
 import Styles from "../styles/admin.module.css";
 import banner from '../public/banner4.jpg';
 import Image from 'next/image';
-import Link from 'next/link';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { IoMdArrowDropright } from 'react-icons/io';
 import { FaSearch } from 'react-icons/fa';
 import { useEffect ,useState} from "react";
-let HOST = process.env.NEXT_PUBLIC_API_URL;
 import {  useCart } from "react-use-cart";
+import Banner from "../Components/Banner";
 
 
 export default function DrinkItem({ResCategory,DrinkDatas}) {
@@ -119,15 +118,8 @@ removeItem(id)
    <Header />
 
 
-   <div className={Style.Status}>
-<div className={Style.banner}>
-<Image src={banner} alt="banner" height={550} width={1350} />
-</div>
-<div className={Style.path}>
-<h1 style={{paddingRight:"20%"}}>Menu</h1>
-<p style={{paddingRight:"16%"}}><Link href="/">Home</Link> - <Link href="/DrinkItem">Drink Item </Link>- <span>Item</span></p>
-</div>
-</div>
+<Banner BannerImage={banner} Height={500} Width={1350} 
+CurrentPageUrl="/DrinkItem" CurrentPage="Drink Item" SubPage="Item" H1Style={{paddingRight:"20%"}} PStyle={{paddingRight:"16%"}}/>
    </div>
    <div className={Style.main_food}>
 

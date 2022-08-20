@@ -177,7 +177,7 @@ router.push('/')
     <div className="page">
     <h1>Pages</h1>
     <li><Link href="/">Home</Link></li>
-    <li>Contact </li>
+    <li><Link href="/Contact">Contact</Link> </li>
     <li>About US</li>
     <li>Gallery</li>
     </div>

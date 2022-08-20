@@ -1,11 +1,6 @@
-import sdLogo from '../public/logo.png';
-import Image from 'next/image'
 import Link from 'next/link'
-
 import { IoMdArrowDropright } from 'react-icons/io';
 import { useEffect, useState } from 'react';
-
-
 export default function Footer() {
 const [year,setYear]=useState();
 useEffect(()=>{
