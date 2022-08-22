@@ -99,11 +99,7 @@ const getDatas=async()=>{
   const drinkData = await drinkItem.json()
   const foodData = await foodItem.json()
   const juiceData = await juiceItem.json()
-if(!coffeeItem){
-  
-  }
-  else{
-
+if(coffeeItem ||drinkItem||foodItem||juiceItem||drinkData||foodData||juiceData){
   let coffeeNames=coffeeData.data.map((item)=>{
 return item.CoffeeName
 })
@@ -163,9 +159,13 @@ router.push('/')
  
      <li id="heading"> <i><IoMdArrowDropdown /></i> <span className='heading' >Pages</span></li>
      
-    <li id="user"><i><IoMdArrowDropdown /></i><div style={{marginTop:"10%"}}><Image src={profile} alt="profile" height={40} width="40" style={{borderRadius:"60px",marginLeft:"4%"}}/><span id='heading1' style={{textAlign:"center"}}>Hii , Suraj</span></div></li>
+    {/* <li id="user"><i><IoMdArrowDropdown /></i><div style={{marginTop:"10%"}}><Image src={profile} alt="profile" height={40} width="40" style={{borderRadius:"60px",marginLeft:"4%"}}/><span id='heading1' style={{textAlign:"center"}}>Hii , Suraj</span></div></li> */}
 
-    {/* <li id="login"> <i style={{marginTop:"2%",marginLeft:"18%",fontSize:"28px"}}><BiLogIn/></i><span id='heading2'>Login</span></li> */}
+    <li id="login"> <i style={{marginTop:"2%",marginLeft:"18%",fontSize:"28px"}}><BiLogIn/></i><Link href="/ClientLogin"><span id='heading2'>Login</span></Link></li>
+
+
+
+
     <li  className='cart'> <Link href="/Cart"><a>
     <div id="count">{cartSize}</div>
     <span><AiOutlineShoppingCart/></span></a></Link></li>
@@ -200,7 +200,7 @@ router.push('/')
     </div>
 
 {/* client Login  */}
-<div className="clinetOption" id="clientOption">
+{/* <div className="clinetOption" id="clientOption">
 <div>
 <i><BiPaste /></i>
 <h1>Past Order</h1>
@@ -216,7 +216,7 @@ router.push('/')
 <i><MdLogout /></i>
 <h1>Logout</h1>
 </div>
-</div>
+</div> */}
     </header>
   )
 }

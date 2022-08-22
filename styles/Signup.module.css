@@ -1,0 +1,150 @@
+
+.clientLogin{
+width: 100%;
+height: auto;
+margin-top: 2%;
+padding-bottom: 6%;
+display: flex;
+}
+.clientLogin .form{
+width: 100%;
+}
+.clientLogin .form h3{
+text-align: center;
+padding-top: 5%;
+color: rgb(243, 41, 14);
+font-size: 30px;
+}
+.clientLogin .form h2{
+text-align: center;
+color: rgb(105, 105, 105);
+font-size: 20px;
+}
+.clientLogin .form h2 span{
+color: rgb(3, 173, 195);
+}
+
+.clientLogin .form li{
+clear: both;
+margin-left: 10%;
+position: relative;
+box-sizing: border-box;
+width: 80%;
+padding: 3% 0% 0% 0%;
+height: auto;
+list-style: none;
+}
+
+.clientLogin .form li h6{
+position: absolute;
+top: -35%;
+left: 10%;
+color: rgb(104, 104, 104);
+font-size: 18px;
+}
+.clientLogin .form li input::-webkit-outer-spin-button,
+.clientLogin .form li input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.clientLogin .form li input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.clientLogin .form  .preview_photo{
+padding: 1% 1% 1% 1%;
+width: 30%;
+border-radius: 2px;
+margin-left: 30%;
+border: 1px solid rgb(131, 131, 131);
+}
+
+
+
+
+.clientLogin .form li h6 span{
+color: red;
+}
+.clientLogin .form li .icon{
+position: absolute;
+top: 60%;
+color: rgb(5, 106, 214);
+right: 13%;
+font-size: 22px;
+}
+.clientLogin .form li input{
+width: 80%;
+font-size: 18px;
+padding-left: 1%;
+border: 1px solid rgb(187, 187, 187);
+height: 45px;
+margin-left: 10%;
+outline: none;
+}
+.clientLogin .form li input[type=file]{
+padding-top: 0.7%;
+}
+.clientLogin .form li select{
+width: 80%;
+font-size: 18px;
+padding-left: 1%;
+border: 1px solid rgb(187, 187, 187);
+height: 45px;
+margin-left: 10%;
+outline: none;
+}
+
+.clientLogin .form li select option{
+width: 80%;
+font-size: 18px;
+padding-left: 1%;
+border: 1px solid rgb(187, 187, 187);
+height: 45px;
+margin-left: 10%;
+cursor: pointer;
+outline: none;
+}
+.clientLogin .form li input:focus{
+border: 1px solid rgb(231, 48, 2);
+
+}
+.clientLogin .form button{
+margin-left: 35%;
+width: auto;
+height: auto;
+margin-top: 3%;
+border: none;
+padding: 1% 10% 1% 10%;
+border-radius: 30px;
+outline: none;
+cursor: pointer;
+font-size: 20px;
+color: white;
+background-color: rgb(17, 144, 248);
+transition: all 0.4s;
+}
+.clientLogin .form button:hover{
+box-shadow: 0px 0px 12px 2px rgb(194, 194, 194);
+}
+.clientLogin .form .path{
+width: 100%;
+display: flex;
+padding-left: 21%;
+padding-top: 4%;
+}
+
+.clientLogin .form .path h4{
+margin-right: 30%;
+cursor: pointer;
+width: auto;
+color: rgb(247, 108, 1);
+transition: all 0.4s;
+}
+
+.clientLogin .form .path h4:hover{
+color: rgb(44, 42, 42);
+}
+
+
+

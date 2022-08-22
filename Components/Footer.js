@@ -13,11 +13,11 @@ setYear(date.getFullYear())
     <div className="footer">
     <div className="legal">
 <h1>Legal </h1>
-<li><Link href="/"><a><IoMdArrowDropright />Help & Support</a></Link></li>
-<li><Link href="/"><a><IoMdArrowDropright />Terms & Conditions</a></Link></li>
-<li><Link href="/"><a><IoMdArrowDropright />Refund & Cancellation</a></Link></li>
-<li><Link href="/"><a><IoMdArrowDropright />Privacy Policy</a></Link></li>
-<li><Link href="/"><a><IoMdArrowDropright />Offer Terms</a></Link></li>
+<li><Link href="/HelpAndSupport"><a><IoMdArrowDropright />Help & Support</a></Link></li>
+<li><Link href="/TermsAndCondition"><a><IoMdArrowDropright />Terms & Conditions</a></Link></li>
+<li><Link href="/RefundAndCancellation"><a><IoMdArrowDropright />Refund & Cancellation</a></Link></li>
+<li><Link href="/Privacy"><a><IoMdArrowDropright />Privacy Policy</a></Link></li>
+<li><Link href="/OfferTerm"><a><IoMdArrowDropright />Offer Terms</a></Link></li>
     </div>
     {/* menu links */}
 <div className="menu">
