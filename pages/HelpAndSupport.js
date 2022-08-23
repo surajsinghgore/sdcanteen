@@ -3,7 +3,6 @@ import Header from "../Components/Header";
 import Footer from "../Components/Footer";
 import Styles from "../styles/admin.module.css";
 import TermStyle from "../styles/terms.module.css";
-import Link from 'next/link'
 export default function HelpAndSupport() {
   return (
     <div>

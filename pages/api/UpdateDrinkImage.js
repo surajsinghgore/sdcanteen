@@ -51,7 +51,6 @@ handler.post(async (req, res) => {
   try {
     DbConnection();
     await VerifyAdmin(req, res);
-
     let _id = req.body._id;
     const oldImage = req.body.oldImage;
     const Image = req.file.filename;
