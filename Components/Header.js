@@ -1,5 +1,6 @@
 import sdLogo from '../public/logo.png';
 import Image from 'next/image'
+let HOST = process.env.NEXT_PUBLIC_API_URL;
 import Link from 'next/link'
 import React,{ useEffect } from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
@@ -9,29 +10,87 @@ import { BiPaste } from 'react-icons/bi';
 import { BiUserCircle } from 'react-icons/bi';
 import { BiLogIn } from 'react-icons/bi';
 import { BiSearchAlt2 } from 'react-icons/bi';
-import { FaRegUser } from 'react-icons/fa';
 import { MdLogout } from 'react-icons/md';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
 import { useState } from 'react';
-import profile from '../public/profile.jpg'
-let HOST = process.env.NEXT_PUBLIC_API_URL;
 import {  useCart } from "react-use-cart";
 import router from 'next/router'
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import boyProfile from '/public/men.png'
+import girlProfile from '/public/girl.png'
 
 
 export default function Header() {
 const [search,setSearch]=useState('');
 const [searchData,setSerachData]=useState([]);
+const [clientToken,setClientToken]=useState("");
+const [imgs,setImgs]=useState(boyProfile);
+const [fullName,setFullName]=useState("")
 const {
     totalUniqueItems
   } = useCart();
-  const [cartSize,setCartSize]=useState('')
+  const [cartSize,setCartSize]=useState('');
+
+
+useEffect(()=>{
+let id=localStorage.getItem('clientId');
+const getData=async()=>{
+if(localStorage.getItem('clientToken')){
+const res = await fetch(`${HOST}/api/ShowClientDetails`, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+        "clienttoken":`${localStorage.getItem('clientToken')}`
+      },
+      body: JSON.stringify({
+       id:id
+      }),
+    });
+let data=await res.json();
+if(data.data!==undefined){
+
+  if(data.data.Gender=='male'){
+  setImgs(boyProfile)
+  }
+  if(data.data.Gender=='female'){
+  setImgs(girlProfile)
+  }
+if(data.data.Profile==""){
+router.push('/ClientProfileUpload')
+}
+if(data.data.Profile!==""){
+setImgs(`/ClientImages/${data.data.Profile}`)
+}
+
+if(data.data.FullName){
+let str=data.data.FullName;
+let resName = str.substring(0, 5);
+setFullName(resName)
+}
+}
+}
+}
+getData();
+
+},[])
+
+
+
+
+
+  useEffect(()=>{
+    if(localStorage.getItem('clientToken')){
+ 
+  setClientToken(localStorage.getItem('clientToken'))
+  }
+  },[clientToken])
   useEffect(()=>{
   setCartSize(totalUniqueItems)
   },[totalUniqueItems])
-useEffect(()=>{
 
-// handling enable disbale of page 
+
+useEffect(()=>{
 let states=false;
 let states1=false;
 let page=document.getElementById('pages');
@@ -41,6 +100,7 @@ let clientOption=document.getElementById('clientOption');
 
 heading.addEventListener('mouseenter',()=>{
 page.style.display="flex";
+
 })
 
 if(user){
@@ -60,6 +120,7 @@ states1=false;
 
 user.addEventListener('mouseleave',()=>{
 setTimeout(disable,300);
+
 function disable(){
 if(states1==false){
 clientOption.style.display="none";
@@ -87,8 +148,9 @@ page.style.display="none";
 }
 })
 
+})
 
-
+useEffect(()=>{
 
 const getDatas=async()=>{
  const coffeeItem = await fetch(`${HOST}/api/ShowCoffeeItem`)
@@ -125,6 +187,9 @@ return item.toUpperCase().includes(search.toUpperCase())
   }
 getDatas();
 },[search])
+
+
+
 const SetSearchValue=(e)=>{
 setSearch(e.target.value);
 let search=document.getElementById('search');
@@ -139,6 +204,21 @@ const redirectToHome=()=>{
 router.push('/')
 }
 
+
+const LogoutClient=()=>{
+  toast.warn('User Logout Successfully', {
+position: "bottom-right",
+autoClose: 5000,
+hideProgressBar: false,
+closeOnClick: true,
+pauseOnHover: true,
+draggable: true,
+progress: undefined,
+});
+localStorage.removeItem('clientToken');
+localStorage.removeItem('clientId');
+setClientToken("")
+}
   return (
     <header>
     <div className="logo" id="Header">
@@ -158,15 +238,12 @@ router.push('/')
     <li> <i><MdFoodBank/></i> <span className='heading'>Order Now </span></li>
  
      <li id="heading"> <i><IoMdArrowDropdown /></i> <span className='heading' >Pages</span></li>
-     
-    {/* <li id="user"><i><IoMdArrowDropdown /></i><div style={{marginTop:"10%"}}><Image src={profile} alt="profile" height={40} width="40" style={{borderRadius:"60px",marginLeft:"4%"}}/><span id='heading1' style={{textAlign:"center"}}>Hii , Suraj</span></div></li> */}
-
-    <li id="login"> <i style={{marginTop:"2%",marginLeft:"18%",fontSize:"28px"}}><BiLogIn/></i><Link href="/ClientLogin"><span id='heading2'>Login</span></Link></li>
 
 
-
-
-    <li  className='cart'> <Link href="/Cart"><a>
+   {(clientToken)?  <li id="user"><i><IoMdArrowDropdown /></i><div style={{marginTop:"10%"}}><Image src={imgs} alt="profile" height={40} width="40" style={{borderRadius:"60px",marginLeft:"4%"}}/><span id='heading1' style={{textAlign:"center"}}>Hii , {fullName}</span></div></li>
+   : <li id="login"> <i style={{marginTop:"2%",marginLeft:"18%",fontSize:"28px"}}><BiLogIn/></i><Link href="/ClientLogin"><span id='heading2'>Login</span></Link></li>
+}  
+     <li  className='cart'> <Link href="/Cart"><a>
     <div id="count">{cartSize}</div>
     <span><AiOutlineShoppingCart/></span></a></Link></li>
     </div>
@@ -198,25 +275,32 @@ router.push('/')
     <li><Link href="/admin">Help Center</Link></li>
     </div>
     </div>
-
-{/* client Login  */}
-{/* <div className="clinetOption" id="clientOption">
+{(clientToken)?
+<div className="clinetOption" id="clientOption">
 <div>
 <i><BiPaste /></i>
 <h1>Past Order</h1>
 </div>
-
 <div>
 <i><BiUserCircle /></i>
 <h1>Account Info</h1>
 </div>
-
-
-<div>
+<div onClick={LogoutClient}>
 <i><MdLogout /></i>
 <h1>Logout</h1>
 </div>
-</div> */}
+</div> : ""}
+   <ToastContainer
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </header>
   )
 }

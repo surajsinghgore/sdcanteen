@@ -2,6 +2,8 @@ import DbConnection from "./Middleware/DbConnection";
 import ClientRegistrationTemporary from "./Schema/ClientRegistrationTemp";
 import ClientData from "./Schema/ClientData";
 import multer from 'multer'
+import VerifyClientUser from "./Middleware/ClientVerifyMiddleware";
+
 import nextConnect from "next-connect";
 const handler = nextConnect();
 
@@ -45,7 +47,8 @@ const uploard = multer({
 handler.post(async(req, res) => {
   try {
     DbConnection();
-      let _id = req.body._id;
+     await VerifyClientUser(req, res); 
+      let _id = req.body.id;
     const Profile = req.file.filename;
     if (!_id) {
       res.status(400).json({ message: "Please Provide Id" });
@@ -63,7 +66,6 @@ return res.status(201).json({data:ress,message:"Verification Otp is Send To Emai
     }
    
   } catch (e) {
-    console.log(e);
     res.status(501).json({ message: "Internal Server Error", status: "501" });
   }
 });

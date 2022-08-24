@@ -1,0 +1,84 @@
+.Profile{
+margin-top: 6%;
+width:96%;
+height: 86vh;
+margin-bottom: 2%;
+border: 2px solid rgb(223, 223, 223) ;
+margin-left: 2%;
+display: flex;
+}
+.Profile .left{
+width:50%;
+} 
+.Profile .left h1{
+padding-top: 5%;
+font-size: 25px;
+color: rgb(113, 113, 113);
+padding-left: 10%;
+}
+
+.Profile .left input[type="file"] {
+    display: none;
+}
+
+.Profile .left .div {
+padding-left: 25%;
+padding-top:25%;
+}
+.Profile .left .custom_file_upload {
+position: relative;
+    cursor: pointer;
+    width: 70%;
+font-size: 25px;
+color: rgb(78, 78, 78);
+border: 1px solid rgb(210, 210, 210);
+padding: 2% 12% 2% 14%;
+height: auto;
+border-radius: 30px;
+transition: all 0.4s;
+}
+.Profile .left .custom_file_upload:hover{
+box-shadow: 0px 0px 30px 10px rgb(245, 245, 245);
+border: 1px solid rgb(179, 179, 179);
+}
+
+.Profile .left .custom_file_upload .upload_icon{
+position: absolute;
+top: 21%;
+left: 8%;
+font-size: 30px;
+color: rgb(68, 0, 255);
+}
+.Profile .left button{
+width: 70%;
+height: auto;
+padding: 2% 4% 2% 4%;
+outline: none;
+cursor: pointer;
+font-size: 30px;
+border-radius: 10px;
+color: white;
+border: none;
+margin-top: 26%;
+margin-left: 55%;
+background: rgb(252, 106, 9);
+box-shadow: 0px 0px 10px 4px rgb(239, 239, 239);
+
+}
+
+
+.Profile .right{
+width:50%
+}
+
+.Profile .right .image{
+border-radius: 700px;
+width: 65%;
+margin-left: 18%;
+margin-top: 8%;
+height: 80%;
+box-shadow: 0px 0px 80px 10px rgb(239, 239, 239);
+overflow: hidden;
+border:1px solid rgb(239, 239, 239);
+background-color: rgb(239, 239, 239);;
+}

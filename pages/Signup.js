@@ -11,9 +11,8 @@ import { TbAddressBook } from 'react-icons/tb';
 import { AiOutlineMail } from 'react-icons/ai';
 import { GoDeviceMobile } from 'react-icons/go';
 import { BsGenderFemale } from 'react-icons/bs';
-import { IoMdPhotos } from 'react-icons/io';
 import { BsPersonBoundingBox } from 'react-icons/bs';
-import { useState } from "react";
+import { useState ,useEffect} from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import router from 'next/router'
@@ -28,7 +27,11 @@ export default function Signup() {
  const [cpassword,setCpassword]=useState("");
 
 
-
+useEffect(()=>{
+if(localStorage.getItem('clientToken')){
+      router.push("/");
+}
+})
 
  const sendData=async (e)=>{
  e.preventDefault();
@@ -157,6 +160,22 @@ progress: undefined,
 });
 return 0;
 }
+if(data.otpError){
+  toast.warn(`${data.message}`, {
+position: "bottom-right",
+autoClose: 5000,
+hideProgressBar: false,
+closeOnClick: true,
+pauseOnHover: true,
+draggable: true,
+progress: undefined,
+});
+  setTimeout(Redirect, 1200);
+    function Redirect() {
+      router.push("/Signup");
+    }
+return 0;
+}
 if(data.status=="400"){
 for(let i=0;i<data.errors.length;i++){
 if(i<1){
@@ -209,7 +228,6 @@ pauseOnHover: true,
 draggable: true,
 progress: undefined,
 });
-console.log(data.data)
 localStorage.setItem('clientRegistrationEmail',data.data.Email)
   setTimeout(Redirect, 1200);
     function Redirect() {

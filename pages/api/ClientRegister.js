@@ -29,7 +29,22 @@ body('Password',"Password must be contain atleast 5 character").isLength({ min: 
   try {
     DbConnection();
     let optGenerateNumber=otpGenerator.generate(6, { upperCaseAlphabets: false, specialChars: false ,lowerCaseAlphabets:false});
-    console.log(optGenerateNumber)
+let numberGenerate=parseInt(optGenerateNumber);
+let count=0;
+let sum=0;
+while (numberGenerate) {
+    sum += numberGenerate % 10;
+    ++count;
+    numberGenerate = Math.floor(numberGenerate / 10);
+}
+if(count!==6){
+return res.status(400).json({message:"Sorry Something went wrong,Please Register Again",otpError:"true"})
+}
+
+
+    if(numberGenerate.length==6){
+      return res.status(400).json({ message:"Sorry something went wrong ,Please Register Again",otpError:"true"});
+    }
     let FullName = req.body.FullName;
     let Age = req.body.Age;
     let Email = req.body.Email;
@@ -39,7 +54,6 @@ body('Password',"Password must be contain atleast 5 character").isLength({ min: 
     let Password = req.body.Password;
 const errors = validationResult(req);
     if (!errors.isEmpty()) {
-    console.log( errors.array())
       return res.status(400).json({ errors: errors.array() ,status:"400"});
     }
     if (!Age) {
@@ -87,13 +101,9 @@ Welcome to SD CANTEEN!
 
 transporter.sendMail(mailoption,function(error,info){
 if(error){
-
-console.log(error)
 return res.status(401).json({message:error,status:"401"});
 }
-else{
 return res.status(201).json({data:ress,message:"successfully otp send to email Id",status:"201"}) 
-}
 })
 async function OtpExpired(){
 await ClientRegistrationTemporary.findByIdAndUpdate(checkEmail._id, { Otp: null });
@@ -170,16 +180,13 @@ if(error){
 console.log(error)
 return res.status(401).json({message:error,status:"401"});
 }
-else{
-return res.status(201).json({data:ressData,message:"successfully otp send to email Id",status:"201"}) 
-}
 })
 async function OtpExpired(){
    await ClientRegistrationTemporary.findByIdAndDelete(ress._id)
 await ClientRegistrationTemporary.findByIdAndUpdate(ress._id, { Otp: null });
 }
 setTimeout(OtpExpired, 600000);
-  
+  return res.status(201).json({data:ressData,message:"successfully otp send to email Id",status:"201"}) 
     }
 }
    
