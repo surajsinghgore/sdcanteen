@@ -162,9 +162,12 @@ const getDatas=async()=>{
   const foodData = await foodItem.json()
   const juiceData = await juiceItem.json()
 if(coffeeItem ||drinkItem||foodItem||juiceItem||drinkData||foodData||juiceData){
-  let coffeeNames=coffeeData.data.map((item)=>{
+
+   let coffeeNames=coffeeData.data.map((item)=>{
 return item.CoffeeName
 })
+ 
+
 let drinkNames=drinkData.data.map((item)=>{
 return item.DrinkName
 })

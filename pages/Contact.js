@@ -6,15 +6,77 @@ import ContactStyle from "../styles/Contact.module.css";
 import banner from '../public/contactbanner.jpg';
 import shape from '../public/shape.png';
 import line from '../public/line-cauve.png';
-import Link from 'next/link';
+import router from 'next/router'
 import Image from 'next/image';
 import Banner from "../Components/Banner";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { GoLocation } from 'react-icons/go';
 import { FiPhoneCall } from 'react-icons/fi';
 import { HiOutlineMailOpen } from 'react-icons/hi';
 import { FaFax } from 'react-icons/fa';
-
+import { useEffect, useState } from "react";
+import { useForm, ValidationError } from '@formspree/react';
 export default function Contact() {
+const [userName,setUserName]=useState("");
+const [userEmail,setUserEmail]=useState("");
+const [userMobile,setUserMobile]=useState("");
+const [userMessage,setUserMessage]=useState("");
+
+
+ const [state, handleSubmit] = useForm("xrgdejno");
+const fire=(e)=>{
+e.preventDefault();
+if((userName=="")||(userEmail=="")||(userMobile=="")||(userMessage=="")){
+   toast.warn('Please Fill all the form fields', {
+      position: "bottom-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+    return 0;
+}
+    toast.success('Message Successfully Send. You will get response within ( 24 Hours )', {
+      position: "bottom-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+    setTimeout(Redirect, 1200);
+    function Redirect() {
+      router.push("/");
+    }
+}
+
+
+//  useEffect(()=>{
+ 
+//   if (state.succeeded) {
+//  toast.success('Message Successfully Send. You will get response within ( 24 Hours )', {
+//       position: "bottom-right",
+//       autoClose: 2000,
+//       hideProgressBar: false,
+//       closeOnClick: true,
+//       pauseOnHover: true,
+//       draggable: true,
+//       progress: undefined,
+//     });
+//       setUserName("");
+//       setUserEmail("");
+//       setUserMobile("");
+//       setUserMessage("");
+//   }
+  
+//  },[state])
+ 
+
+
   return (
     <>
      <div className={Styles.admin}>
@@ -92,15 +154,28 @@ CurrentPageUrl="/Contact" CurrentPage="Contact Us" SubPage="Page" H1Style={{padd
 <h3>GET IN TOUCH</h3>
 <h2>Send Us Message</h2>
 <p>Please provide your details below so that we get in touch.</p>
-<form>
-<input type="text" placeholder="Full Name" className={ContactStyle.Names} />
-<input type="text" placeholder="Email Id" className={ContactStyle.Email} />
-<input type="number" placeholder="Mobile Number" className={ContactStyle.Number}/>
-<textarea name="meesage" className={ContactStyle.Message} placeholder="Your Message"></textarea>
-<button>SUBMIT NOW</button>
+<form onSubmit={handleSubmit}>
+<input type="text" name="name" placeholder="Full Name" className={ContactStyle.Names} value={userName} onChange={(e)=>setUserName(e.target.value)}/>
+<input type="email" name="email" placeholder="Email Id" className={ContactStyle.Email} value={userEmail} onChange={(e)=>setUserEmail(e.target.value)}/>
+
+<input type="number" name="number" placeholder="Mobile Number" className={ContactStyle.Number} value={userMobile} onChange={(e)=>setUserMobile(e.target.value)}/>
+
+<textarea name="meesage" className={ContactStyle.Message} placeholder="Your Message" value={userMessage} onChange={(e)=>setUserMessage(e.target.value)}></textarea>
+<button disabled={state.submitting} onClick={fire}>SUBMIT NOW</button>
 </form>
 </div>
-</div>    
+</div>  
+      <ToastContainer
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />  
    <Footer />
     
     </>

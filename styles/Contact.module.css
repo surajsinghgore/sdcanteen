@@ -97,25 +97,26 @@ width: 90%;
 margin-left: 14%;
 }
 .form .right form .Names{
-width: 250px;
+margin-top: 2%;
+width: 93%;
 height: 50px;
 border: none;
-outline: none;
 padding-left: 2%;
 font-size: 17px;
 background-color: rgb(245, 245, 245);
 float: left;
+outline: none;
 }
 .form .right form .Email{
-margin-left: 2%;
-outline: none;
-width: 250px;
+margin-top: 2%;
+width: 93%;
 height: 50px;
 border: none;
 padding-left: 2%;
 font-size: 17px;
 background-color: rgb(245, 245, 245);
 float: left;
+outline: none;
 }
 .form .right form input::-webkit-outer-spin-button,
 .form .right form input::-webkit-inner-spin-button {
