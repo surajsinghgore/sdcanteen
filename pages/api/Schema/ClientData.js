@@ -39,9 +39,8 @@ const ClientData = new mongoose.Schema(
 );
 mongoose.models = {};
 
+
 const ClientDatas =
   mongoose.models.ClientData ||
   mongoose.model("ClientData", ClientData);
-
-
 export default ClientDatas;

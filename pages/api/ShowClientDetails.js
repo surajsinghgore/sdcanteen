@@ -5,8 +5,10 @@ import VerifyClientUser from "./Middleware/ClientVerifyMiddleware";
 export default async function ShowClientDeatils(req, res) {
   if (req.method == "POST") {
     try {
+     console.log(req.body.id)
       DbConnection();
  await VerifyClientUser(req, res);
+
       let id=req.body.id;
       if(!id){
       res.status(400).json({ message: "please Provide Id To Find Record Of User" });

@@ -270,7 +270,7 @@ setClientToken("")
     </div>
     <div className="page">
     <li style={{marginTop:"8%"}}>SD Special</li>
-    <li>Instant Food</li>
+    <li> <Link href="/FoodItem"> Instant Food </Link></li>
     </div>
         <div className="page">
     <h1>Extra Pages</h1>

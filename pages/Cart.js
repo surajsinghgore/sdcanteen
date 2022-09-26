@@ -8,7 +8,7 @@ import { ToastContainer, toast } from "react-toastify";
 import { useCart } from "react-use-cart";
 import "react-toastify/dist/ReactToastify.css";
 import Image from 'next/image'
-
+import router from 'next/router'
 
 import { RiDeleteBin2Line } from 'react-icons/ri';
 import { useEffect, useState } from "react";
@@ -22,6 +22,9 @@ const [juiceItem,setJuiceItem]=useState([""])
 const [length,setLength]=useState(0);
 const [payableAmount,setPayableAmount]=useState(0);
 
+const reirectToOrderPage=()=>{
+router.push('/OrderDetails')
+}
 const {
     items,
     removeItem,
@@ -64,7 +67,6 @@ for (let i = 0; i < items.length; i++) {
 
 }
 },[state])
-
 // clear all cart items
 const cleanAllCartItem=()=>{
 emptyCart();
@@ -317,7 +319,7 @@ return(
 <Link href="/"><button className={CartStyle.more}>Continue Shopping</button></Link>
 <div className={CartStyle.subtotal}>
 <h1>Total Payabal Amount: <span> ₹ {payableAmount}</span></h1>
-{(length==0)? <button className={CartStyle.disables}>Add Item</button>:<button>Order Now</button>}
+{(length==0)? <button className={CartStyle.disables}>Add Item</button>:<button onClick={reirectToOrderPage}>Order Now</button>}
 </div>
 </div>
 

@@ -1,0 +1,153 @@
+.TimeBox{
+width: 98%;
+height: auto;
+margin-left: 1%;
+}
+.TimeBox .box{
+float: left;
+margin-top: 3%;
+display: flex;
+width: 250px;
+margin-left: 2%;
+position: relative;
+}
+.TimeBox .box .btn{
+position: relative;
+width: 50%;
+
+font-size: 30px;
+}
+.TimeBox .box .btn input[type="radio"]{
+border: 0px;
+width: 50%;
+height: 4em;
+}
+
+.TimeBox .box .time{
+position: absolute;
+top: -50%;
+left: 30%;
+text-align: right;
+font-size: 28px;
+z-index: 1;
+color: rgb(97, 97, 97);
+}
+.TimeBox .box .time label{
+cursor: pointer;
+}
+
+
+.message{
+text-align: center;
+font-size: 35px;
+padding-top: 3%;
+color: rgb(250, 2, 2);
+width: 96%;
+margin-left: 2%;
+}
+.message span{
+color: blue;
+font-weight: 500;
+
+}
+
+
+/* Payment Page */
+
+.payment{
+position: relative;
+overflow: hidden;
+width: 100%;
+height: auto;
+padding-bottom: 5%;
+}
+
+.div{
+position: relative;
+margin-top: 5%;
+width: 100%;
+margin-left: 10%;
+font-size: 30px;
+}
+.div h4{
+position: absolute;
+top: -75%;
+left: 9%;
+}
+.div input[type="radio"]{
+border: 0px;
+width: 10%;
+height: 3em;
+}
+
+
+
+/* order complete page */
+
+
+.order{
+user-select: none;
+position: relative;
+margin-top: 6%;
+text-align: center;
+width: 100%;
+height: auto;
+}
+.order h1{
+font-size: 70px;
+color: rgb(243, 101, 13);
+}
+.order p{
+margin-top: -5%;
+font-size: 130px;
+color: rgb(4, 165, 53);
+
+}
+
+.order .Div1{
+margin-top: -3%;
+margin-left: 35%;
+width: 30%;
+}
+
+.order h2{
+font-size: 40px;
+color: rgb(59, 59, 59);
+}
+.order h3{
+margin-top: -2%;
+font-size: 35px;
+font-weight: 500;
+color: rgb(59, 59, 59);
+}
+
+.order h4{
+margin-top: -2%;
+font-size: 35px;
+font-weight: 500;
+color: rgb(59, 59, 59);
+}
+
+.order h4 .Token{
+margin-left: 2%;
+padding-left: 2%;
+padding-right: 2%;
+border: 3px dotted red;
+color: blue;
+user-select:all;
+font-size: 40px;
+}
+.order h5{
+margin-top: -2%;
+font-size: 30px;
+font-weight: 500;
+color: rgb(244, 49, 0);
+}
+
+
+.order h6{
+margin-top: -3%;
+font-size: 28px;
+font-weight: 500;
+color: rgb(55, 55, 55);
+}
