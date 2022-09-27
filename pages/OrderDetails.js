@@ -16,55 +16,45 @@ import { useEffect } from "react";
 
 export default function OrderDetails() {
 const [time,setTime]=useState([]);
+const [realTime,setRealTime]=useState(true);
 const [defaultTime,setDefaultTime]=useState();
-let t=new Date();
+let date=new Date();
+
 useEffect(()=>{
-var Hours = t.getHours();
-let m=t.getMinutes();
-           
-let h=parseFloat(Hours);
-
-const fetchTimeData=async()=>{
-m=t.getMinutes();
-Hours=t.getHours();
-if(m>=55){
-Hours=Hours+1;
-m=0;
+let m=parseInt(date.getMinutes());
+let h=parseInt(date.getHours());
+m=m+10;
+if(m<=9){
+m = '0'+m;
 }
- if (m < 10){
-  m = "0" + m  
- }
-    m=m+10;
-let ti=parseFloat(`${h}.${m}`);
-let l=parseFloat(localStorage.getItem('OrderFoodTime')).toFixed(2);
-
-let f=parseFloat(l);
-setDefaultTime(f);
+if(m>59){
+m = 0;h=h+1;
+m=m+10;
+}
+let times=`${h}.${m}`;
+const fetchData=async()=>{
 let d=await Timing.filter((time)=>{
-return time.time>=ti;
+return time.time>=times;
 })
 setTime(d);
-
- 
 }
-// sunday off
-if(t.getDay()!=7){
+
+
+if(date.getDay()!=7){
 // from 7 am to 6 pm allowed
 if((h>=7)&&(h<=17)){
-fetchTimeData();
-setTimeout(fetchTimeData,10000)
-}
-
-else{
-if(localStorage.getItem('OrderFoodTime')){
-localStorage.removeItem('OrderFoodTime');
+fetchData();
 }
 }
+},[realTime])
+
+useEffect(()=>{
+let seconds=60-date.getSeconds();
+const changes=()=>{
+setRealTime(!realTime);
 }
-
-},[t.getMinutes()])
-
-
+setInterval(changes,1000*seconds);
+})
  const style2 = {
         marginBottom:"5%",clear:"both"
     }
@@ -72,7 +62,13 @@ localStorage.removeItem('OrderFoodTime');
 const getTime=()=>{
 let value=document.querySelector("input[type='radio'][name=time]:checked").value;
 localStorage.setItem("OrderFoodTime",value);
+setDefaultTime(value)
 }
+useEffect(()=>{
+if(localStorage.getItem("OrderFoodTime")){
+setDefaultTime(localStorage.getItem("OrderFoodTime"))
+}
+},[])
   return (
     <>
     <VerifyClientMiddleware />
@@ -134,21 +130,18 @@ localStorage.setItem("OrderFoodTime",value);
 
  <div className={Style1.box} key={time.time}>
 <div className={Style1.btn} >
-{(defaultTime==time.time)?
+{(defaultTime==time.time1)?
 <input type="radio" name="time" id={time.time}
- value={time.time} defaultChecked/>
+ value={time.time1.toFixed(2)} defaultChecked/>
  :
  <input type="radio" name="time" id={time.time} 
-value={time.time} />
+value={time.time1.toFixed(2)} />
  }
-
- 
-
 </div>
 
 <div className={Style1.time}><h4><label htmlFor={time.time}>
 
- : {(time.time1!=undefined)?time.time1.toFixed(2):time.time.toFixed(2)}
+ : {time.time1.toFixed(2)}
  {(time.time>=12)?' PM':' AM'}
  </label></h4></div>
 </div>

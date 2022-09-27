@@ -1,67 +1,87 @@
 const Timing = [
 
   {
-    time: 8.00,
+    time: 8,
+      time1:8.00
   },
   {
     time: 8.15,
+      time1:8.15
   },
     {
-    time: 8.30,
+    time: 8.3,
+      time1: 8.30
   },
     {
     time: 8.45,
+      time1:8.45
   },
     {
-    time: 9.00,
+    time: 9,
+      time1:9.0
   },
    {
     time: 9.15,
+      time1:9.15
   },
    {
-    time: 9.30,
+    time: 9.3,
+      time1:9.30
   },
    {
     time: 9.45,
+      time1:9.45
   },
    {
-    time: 10.00,
+    time: 10,
+      time1:10.00
   },
    {
     time: 10.15,
+      time1:10.15
   },
    {
-    time: 10.30,
+    time: 10.3,
+      time1:10.30
   },
    {
     time: 10.45,
+      time1:10.45
   },
    {
-    time: 11.00,
+    time: 11,
+      time1:11.00
   },
   {
     time: 11.15,
+      time1:11.15
   },
   {
-    time: 11.30,
+    time: 11.3,
+      time1:11.3
   },
   {
     time: 11.45,
+      time1:11.45
   },
   {
-    time: 12.00,
+    time: 12,
+      time1:12.00
   },
   {
     time: 12.15,
+      time1:12.15
   },
   {
-    time: 12.30,
+    time: 12.3,
+      time1:12.30
   },
   {
     time: 12.45,
+      time1:12.45
   },
   {
-    time: 13.00,
+    time: 13,
     time1:1.00
   },
   {
@@ -143,9 +163,8 @@ const Timing = [
   {
     time: 18.00,
     time1:6.00
-  },
-   
-
+  }
+ 
 ];
 
 export default Timing;
