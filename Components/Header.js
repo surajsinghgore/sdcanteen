@@ -31,8 +31,6 @@ const {
     totalUniqueItems
   } = useCart();
   const [cartSize,setCartSize]=useState('');
-
-
 useEffect(()=>{
 let id=localStorage.getItem('clientId');
 const getData=async()=>{
@@ -74,8 +72,26 @@ setFullName(resName)
 getData();
 
 },[])
-
-
+// internet connection status check
+useEffect(()=>{
+let connectionStatus=window.navigator.onLine;
+if(connectionStatus==false){
+const msg=()=>{
+  toast.error('Internet Connection Lost,You Are Offline...', {
+position: "bottom-right",
+autoClose: 5000,
+hideProgressBar: false,
+closeOnClick: true,
+pauseOnHover: true,
+draggable: true,
+progress: undefined,
+});
+return 0;
+router.push("/");
+}
+setTimeout(msg,2000);
+}
+},[])
 
 
 
@@ -161,22 +177,30 @@ const getDatas=async()=>{
   const drinkData = await drinkItem.json()
   const foodData = await foodItem.json()
   const juiceData = await juiceItem.json()
-if(coffeeItem ||drinkItem||foodItem||juiceItem||drinkData||foodData||juiceData){
-
-   let coffeeNames=coffeeData.data.map((item)=>{
+let coffeeNames=[];
+let drinkNames=[];
+let foodNameNames=[];
+let juiceNames=[];
+if(coffeeData.data){
+ coffeeNames=coffeeData.data.map((item)=>{
 return item.CoffeeName
 })
- 
-
-let drinkNames=drinkData.data.map((item)=>{
+}
+if(drinkData.data){
+ drinkNames=drinkData.data.map((item)=>{
 return item.DrinkName
 })
-let foodNameNames=foodData.data.map((item)=>{
+}
+if(foodData.data){
+ foodNameNames=foodData.data.map((item)=>{
 return item.FoodName
 })
-let juiceNames=juiceData.data.map((item)=>{
+}
+if(juiceData.data){
+ juiceNames=juiceData.data.map((item)=>{
 return item.JuiceName
 })
+}
 
   let arr1=coffeeNames;
   let arr2=arr1.concat(drinkNames)
@@ -186,7 +210,7 @@ setSerachData(arr4.filter((item)=>{
 return item.toUpperCase().includes(search.toUpperCase())
 }))
   
-  }
+  
   }
 getDatas();
 },[search])
@@ -203,9 +227,7 @@ suggestion.style.display="none"
 }
 }
 
-const redirectToHome=()=>{
-router.push('/')
-}
+
 
 
 const LogoutClient=()=>{
@@ -225,8 +247,7 @@ setClientToken("")
   return (
     <header>
     <div className="logo" id="Header">
-  <Image src={sdLogo} alt="sd logo " height="60px" width="180px" onClick={redirectToHome}/>
-    </div>
+    <Link href={"/"}><a><Image src={sdLogo} alt="sd logo " height="60px" width="180px"/></a></Link> </div>
 
         <div className="search">
         <i> <AiOutlineSearch/></i>

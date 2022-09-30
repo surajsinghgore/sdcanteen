@@ -7,7 +7,7 @@ ItemName:{type:String,required:true},
 Qty:{type:Number,required:true},
 ProductOriginalAmount:{type:Number,required:true},
 Amount:{type:Number,required:true},
-Category:{type:String,required:true},
+Category:{type:String},
 }
 );
 const OrderSchema=new mongoose.Schema(  

@@ -20,6 +20,26 @@ const [realTime,setRealTime]=useState(true);
 const [defaultTime,setDefaultTime]=useState();
 let date=new Date();
 
+
+useEffect(()=>{
+let carts=JSON.parse(localStorage.getItem('react-use-cart'))
+if(carts.items.length==0){
+toast.warn("Please Add something In Cart", {
+               position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+              });
+                const pushToCompleteOrder=()=>{
+        router.push('/');
+        }
+          setTimeout(pushToCompleteOrder,1500);
+return 0;
+}
+},[])
 useEffect(()=>{
 let m=parseInt(date.getMinutes());
 let h=parseInt(date.getHours());

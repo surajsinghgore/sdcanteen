@@ -7,14 +7,16 @@ const VerifyClientUser=async(req,res)=>{
 try {
 const ClientToken= req.headers["clienttoken"]; //auth-token is 
 if(!ClientToken){
-    res.status(401).send({message:"please login with client credentials",unauthorized:"true"})
+   return res.status(401).send({message:"please login with client credentials",unauthorized:"true"})
 }
 
     const data=jwt.verify(ClientToken, JWT_SECRET);
-req.user=data.user;
+
+return req.user=data.user;
+
 } catch (error) {
 console.log(error)
-    res.status(401).send({message:"please login with client credentials",unauthorized:"true"})
+   return res.status(401).send({message:"please login with client credentials",unauthorized:"true"})
 }
 
 }

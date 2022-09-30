@@ -5,7 +5,6 @@ import VerifyClientUser from "./Middleware/ClientVerifyMiddleware";
 export default async function ShowClientDeatils(req, res) {
   if (req.method == "POST") {
     try {
-     console.log(req.body.id)
       DbConnection();
  await VerifyClientUser(req, res);
 

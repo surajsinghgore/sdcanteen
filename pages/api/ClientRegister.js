@@ -176,7 +176,6 @@ Welcome to SD CANTEEN!
 
 transporter.sendMail(mailoption,function(error,info){
 if(error){
-
 console.log(error)
 return res.status(401).json({message:error,status:"401"});
 }

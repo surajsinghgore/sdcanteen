@@ -42,7 +42,7 @@ setToken(localStorage.getItem('orderToken'))
 <h6>Show below code If Required :</h6>
 <h4>Your ORDER CODE:<span className={Style1.Token}>{token}</span></h4>
 
-
+<h5>Click Here to View Details</h5>
     </div> 
 
 

@@ -15,12 +15,224 @@ import "react-confirm-alert/src/react-confirm-alert.css";
 let HOST = process.env.NEXT_PUBLIC_API_URL;
 import { useCart } from "react-use-cart";
 export default function PaymentMethod() {
+const [totals,setTotal]=useState('0');
+const [arrays,setArrays]=useState([]);
 const [OrderFoodTime,setOrderFoodTime]=useState();
 const {
-
-    emptyCart 
+    emptyCart,
+    updateItem 
   } = useCart()
 
+
+let carts=JSON.parse(localStorage.getItem('react-use-cart'));
+
+useEffect(()=>{
+const dataFetch=async()=>{
+const items=localStorage.getItem("react-use-cart");
+let cartData=JSON.parse(items)
+let array=[];
+let sum=0;
+let coffeeData=[];
+let drinkData=[];
+let foodData=[];
+let juiceData=[];
+const coffeeItem = await fetch(`${HOST}/api/ShowCoffeeItem`)
+  const drinkItem = await fetch(`${HOST}/api/ShowDrinkItem`)
+  const foodItem = await fetch(`${HOST}/api/ShowFoodItem`)
+  const juiceItem = await fetch(`${HOST}/api/ShowJuiceItem`)
+   coffeeData = await coffeeItem.json()
+   drinkData = await drinkItem.json()
+   foodData = await foodItem.json()
+   juiceData = await juiceItem.json();
+for(let j=0;j<cartData.items.length;j++){
+  //  filter food Price
+if(cartData.items[j].FoodName){
+for(let i=0;i<foodData.data.length;i++){
+// match with food Name
+if(foodData.data[i].FoodName==cartData.items[j].FoodName){
+// match with Qty
+if(foodData.data[i].Price==parseInt(cartData.items[j].price)){
+// match with category
+if(foodData.data[i].Category==cartData.items[j].Category){
+let QtyBook=parseInt(cartData.items[j].QtyBook);
+let OriginalPrice=parseInt(foodData.data[i].Price);
+if(QtyBook<1){
+emptyCart();
+ toast.error("Sorry Tempering Is Not Allowed with Food Details", {
+               position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+              });
+                const pushToCompleteOrder=()=>{
+        router.push('/');
+        }
+          setTimeout(pushToCompleteOrder,1500);
+}
+// data send
+sum+=QtyBook*OriginalPrice;
+let ItemName=foodData.data[i].FoodName;
+let Qty=QtyBook;
+let Category=foodData.data[i].Category;
+let ProductOriginalAmount=foodData.data[i].Price;
+let Amount=QtyBook*OriginalPrice;
+updateItem(cartData.items[j].id,{
+QtyBook:Qty,
+totalAmount:Amount
+})
+array.push({ItemName,Qty,Amount,Category,ProductOriginalAmount}) 
+}
+}
+}
+}
+}
+  //  filter coffee Price
+if(cartData.items[j].CoffeeName){
+for(let i=0;i<coffeeData.data.length;i++){
+// match with coffee Name
+if(coffeeData.data[i].CoffeeName==cartData.items[j].CoffeeName){
+// match with Qty
+if(coffeeData.data[i].Price==parseInt(cartData.items[j].price)){
+// match with category
+if(coffeeData.data[i].Category==cartData.items[j].Category){
+let QtyBook=parseInt(cartData.items[j].QtyBook);
+let OriginalPrice=parseInt(coffeeData.data[i].Price);
+if(QtyBook<1){
+emptyCart();
+ toast.error("Sorry Tempering Is Not Allowed with Coffee Details", {
+               position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+              });
+                const pushToCompleteOrder=()=>{
+        router.push('/');
+        }
+          setTimeout(pushToCompleteOrder,1500);
+}
+// data send
+sum+=QtyBook*OriginalPrice;
+let ItemName=coffeeData.data[i].CoffeeName;
+let Qty=QtyBook;
+let Category=coffeeData.data[i].Category;
+let ProductOriginalAmount=coffeeData.data[i].Price;
+let Amount=QtyBook*OriginalPrice;
+updateItem(cartData.items[j].id,{
+QtyBook:Qty,
+totalAmount:Amount
+})
+array.push({ItemName,Qty,Amount,Category,ProductOriginalAmount}) 
+}
+}
+}
+}
+}
+  //  filter Juice Price
+if(cartData.items[j].JuiceName){
+for(let i=0;i<juiceData.data.length;i++){
+// match with Juice Name
+if(juiceData.data[i].JuiceName==cartData.items[j].JuiceName){
+// match with Qty
+if(juiceData.data[i].Qty==cartData.items[j].Qty){
+if(juiceData.data[i].Price==parseInt(cartData.items[j].price)){
+// match with category
+if(juiceData.data[i].Category==cartData.items[j].Category){
+let QtyBook=parseInt(cartData.items[j].QtyBook);
+let OriginalPrice=parseInt(juiceData.data[i].Price);
+if(QtyBook<1){
+emptyCart();
+ toast.error("Sorry Tempering Is Not Allowed with Juice Details", {
+               position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+              });
+                const pushToCompleteOrder=()=>{
+        router.push('/');
+        }
+          setTimeout(pushToCompleteOrder,1500);
+}
+// data send
+sum+=QtyBook*OriginalPrice;
+let ItemName=juiceData.data[i].JuiceName;
+let Qty=QtyBook;
+let Category=juiceData.data[i].Category;
+let ProductOriginalAmount=juiceData.data[i].Price;
+let Amount=QtyBook*OriginalPrice;
+updateItem(cartData.items[j].id,{
+QtyBook:Qty,
+totalAmount:Amount
+})
+array.push({ItemName,Qty,Amount,Category,ProductOriginalAmount}) 
+}
+}
+}
+}
+}
+}
+// drink
+ //  filter Drink Price
+if(cartData.items[j].DrinkName){
+for(let i=0;i<drinkData.data.length;i++){
+// match with Drink Name
+if(drinkData.data[i].DrinkName==cartData.items[j].DrinkName){
+// match with Qty
+if(drinkData.data[i].Qty==cartData.items[j].Qty){
+if(drinkData.data[i].Price==parseInt(cartData.items[j].price)){
+// match with category
+if(drinkData.data[i].Category==cartData.items[j].Category){
+let QtyBook=parseInt(cartData.items[j].QtyBook);
+let OriginalPrice=parseInt(drinkData.data[i].Price);
+if(QtyBook<1){
+emptyCart();
+ toast.error("Sorry Tempering Is Not Allowed with Drink Details", {
+               position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+              });
+                const pushToCompleteOrder=()=>{
+        router.push('/');
+        }
+          setTimeout(pushToCompleteOrder,1500);
+}
+// data send
+sum+=QtyBook*OriginalPrice;
+let ItemName=drinkData.data[i].DrinkName;
+let Qty=QtyBook;
+let Category=drinkData.data[i].Category;
+let ProductOriginalAmount=drinkData.data[i].Price;
+let Amount=QtyBook*OriginalPrice;
+updateItem(cartData.items[j].id,{
+QtyBook:Qty,
+totalAmount:Amount
+})
+array.push({ItemName,Qty,Amount,Category,ProductOriginalAmount}) 
+}
+}
+}
+}
+}
+}
+}
+setArrays(array);
+setTotal(sum);
+}
+
+dataFetch();
+},[])
 useEffect(()=>{
 if(!localStorage.getItem('OrderFoodTime')){
 router.push('/OrderDetails');
@@ -28,12 +240,8 @@ router.push('/OrderDetails');
 setOrderFoodTime(localStorage.getItem('OrderFoodTime'));
 },[])
 
-useEffect(()=>{
-
-},[])
-
+// cod method
 const InitaitePayment=()=>{
-
 let value=document.querySelector("input[type='radio'][name=payment]:checked").value;
 if(value=="COD"){
 confirmAlert({
@@ -44,51 +252,56 @@ confirmAlert({
           label: "Yes",
           onClick: async () => {
 
-
+const PickUpTime=localStorage.getItem("OrderFoodTime");
 const id=localStorage.getItem("clientId");
 const clientToken=localStorage.getItem("clientToken");
-const PickUpTime=localStorage.getItem("OrderFoodTime");
-const items=localStorage.getItem("react-use-cart");
-let cartData=JSON.parse(items)
 const PaymentMethod=value;
-let array=[];
-for(let i=0;i<cartData.items.length;i++){
-let ItemName;
+if(totals<=0){
+              emptyCart();
+toast.warn("Tempering Is Not Allowed In Cart,Plese Add Item Again", {
+               position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+              });
 
-if(cartData.items[i].FoodName){
- ItemName=cartData.items[i].FoodName;
+                const pushToCompleteOrder=()=>{
+        router.push('/');
+        }
+          setTimeout(pushToCompleteOrder,2000);
+          return 0;
 }
-if(cartData.items[i].JuiceName){
- ItemName=cartData.items[i].JuiceName;
+if(arrays.length==0||arrays==undefined||arrays==""){
+              emptyCart();
+toast.warn("Tempering Is Not Allowed In Cart,Plese Add Item Again", {
+               position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+              });
+                const pushToCompleteOrder=()=>{
+        router.push('/');
+        }
+          setTimeout(pushToCompleteOrder,2000);
+return 0;
 }
-if(cartData.items[i].CoffeeName){
-ItemName=cartData.items[i].CoffeeName;
-}
-if(cartData.items[i].DrinkName){
-ItemName =cartData.items[i].DrinkName;
+const TotalAmount=totals;
 
-}   
-      const Qty=parseInt(cartData.items[i].QtyBook);
-      const Amount=parseInt(cartData.items[i].totalAmount);
-      const ProductOriginalAmount=parseInt(cartData.items[i].price);
-      const Category=cartData.items[i].Category;
-      array.push({ItemName,Qty,Amount,Category,ProductOriginalAmount})  
-}
-      let sum=0;
-for (let i = 0; i < cartData.items.length; i++) {
-    let number=parseInt(cartData.items[i].totalAmount)
-    sum+=number;
-}
-const TotalAmount=sum;
      let res = await fetch(`${HOST}/api/OrderItem`, {
-              method: "POST",
+               method: "POST",
               headers: {
                 "Content-type": "application/json",
                 clienttoken: clientToken,
               },
               body: JSON.stringify({
                 _id: id,
-               PickUpTime,PaymentMethod,ItemsOrder:array,TotalAmount
+               PickUpTime,PaymentMethod,ItemsOrder:arrays,TotalAmount
               }),
             });
 
@@ -217,6 +430,8 @@ value="COD" /><label htmlFor="cod" style={{cursor:"pointer"}}><h4>: Cash On Deli
 </div>
 </form>
 </div>
+<h4 style={{textAlign:"center",fontSize:"30px",color:"black",marginTop:"-0%"}}>Total Payable Amount-: <span style={{color:"red"}}>{totals}</span></h4>
+<h4 style={{textAlign:"center",fontSize:"25px",color:"black"}}>Total Items Booked-: <span style={{color:"red"}}>{carts.items.length}</span> <span style={{color:"blue",paddingLeft:"15%"}}> <Link href="/Cart">Click to view items List</Link></span></h4>
 </div>
 
 
