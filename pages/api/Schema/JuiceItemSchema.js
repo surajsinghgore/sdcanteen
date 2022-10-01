@@ -4,7 +4,7 @@ const AddJuiceSchema = new mongoose.Schema(
   {
     JuiceName: {
       type: String,
-      required: true,
+      required: true, trim:true
     },
     Price: {
       type: Number,
@@ -14,7 +14,7 @@ const AddJuiceSchema = new mongoose.Schema(
       type: String,
     },
     Category: {
-      type: String,
+      type: String, trim:true
     },
     Image: {
       type: String,

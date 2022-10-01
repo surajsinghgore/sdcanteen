@@ -4,7 +4,7 @@ const ClientRegistration = new mongoose.Schema(
   {
     FullName: {
       type: String,
-      required: true,
+      required: true, trim:true
     },
       Age: {
       type: Number,
@@ -12,7 +12,7 @@ const ClientRegistration = new mongoose.Schema(
     },
       Email: {
       type: String,
-      required: true,
+      required: true, trim:true
     },
       Mobile: {
       type: Number,
@@ -24,7 +24,7 @@ const ClientRegistration = new mongoose.Schema(
     },
       FullAddress: {
       type: String,
-      required: true,
+      required: true, trim:true
     },
       Password: {
       type: String,

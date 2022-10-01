@@ -127,14 +127,15 @@ const Login = () => {
         </div>
         <h1>Sign in to Admin Panel</h1>
         <div className={styles.form}>
-          <form>
+          <form autoComplete="new-password"> 
             <input
               type="text"
               name="secret"
               placeholder="Enter Secret Id"
               required
               value={secret}
-              onChange={(e) => setSecret(e.target.value)}
+              onChange={(e) => setSecret(e.target.value)} 
+              autoComplete="new-password"       
             />
             <input
               type="password"
@@ -143,6 +144,7 @@ const Login = () => {
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+             autoComplete="new-password"
             />
 
             <button onClick={LoginFunction}>Click to login</button>

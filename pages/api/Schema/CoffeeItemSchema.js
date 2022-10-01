@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const AddCoffeeSchema = new mongoose.Schema(
   {
     CoffeeName: {
-      type: String,
+      type: String, trim:true,
       required: true,
     },
     Price: {
@@ -14,7 +14,7 @@ const AddCoffeeSchema = new mongoose.Schema(
       type: String,
     },
     Category: {
-      type: String,
+      type: String, trim:true
     },
     Image: {
       type: String,

@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const AddDrinkCategorySchema = new mongoose.Schema(
   {
     DrinkCategoryName: {
-      type: String,
+      type: String, trim:true
       required: true,
     },
   },

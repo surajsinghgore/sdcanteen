@@ -4,7 +4,7 @@ const AddCoffeeCategorySchema = new mongoose.Schema(
   {
     CoffeeCategoryName: {
       type: String,
-      required: true,
+      required: true, trim:true
     },
   },
   { timestamps: true }

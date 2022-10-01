@@ -4,7 +4,7 @@ const AddJuiceCategorySchema = new mongoose.Schema(
   {
     JuiceCategoryName: {
       type: String,
-      required: true,
+      required: true, trim:true
     },
   },
   { timestamps: true }

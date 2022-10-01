@@ -31,6 +31,8 @@ const {
     totalUniqueItems
   } = useCart();
   const [cartSize,setCartSize]=useState('');
+
+  // user details fetch
 useEffect(()=>{
 let id=localStorage.getItem('clientId');
 const getData=async()=>{
@@ -94,10 +96,10 @@ setTimeout(msg,2000);
 },[])
 
 
-
+// client token get
   useEffect(()=>{
     if(localStorage.getItem('clientToken')){
- 
+
   setClientToken(localStorage.getItem('clientToken'))
   }
   },[clientToken])
@@ -105,7 +107,7 @@ setTimeout(msg,2000);
   setCartSize(totalUniqueItems)
   },[totalUniqueItems])
 
-
+// user drop down
 useEffect(()=>{
 let states=false;
 let states1=false;
@@ -166,6 +168,7 @@ page.style.display="none";
 
 })
 
+// search bar logic
 useEffect(()=>{
 
 const getDatas=async()=>{
@@ -201,15 +204,13 @@ if(juiceData.data){
 return item.JuiceName
 })
 }
-
   let arr1=coffeeNames;
   let arr2=arr1.concat(drinkNames)
-  let arr3=arr2.concat(foodNameNames)
+ let arr3=arr2.concat(foodNameNames)
   let arr4=arr3.concat(juiceNames)
 setSerachData(arr4.filter((item)=>{
 return item.toUpperCase().includes(search.toUpperCase())
 }))
-  
   
   }
 getDatas();
@@ -242,7 +243,17 @@ progress: undefined,
 });
 localStorage.removeItem('clientToken');
 localStorage.removeItem('clientId');
+localStorage.removeItem('orderToken');
 setClientToken("")
+const redirect=()=>{
+router.push("/");
+}
+setTimeout(redirect,2000);
+}
+const firedClick=()=>{
+setSearch("");
+let suggestion=document.getElementById('suggestion');
+suggestion.style.display="none"
 }
   return (
     <header>
@@ -254,7 +265,7 @@ setClientToken("")
     <input type="search" name="search" id="search" value={search} onChange={SetSearchValue}placeholder='Search Items...'/>
     <div className="suggestion" id="suggestion">
     {(searchData.length!=0)?<>{searchData.slice(0,4).map((item,index)=>{
-    return(<Link href={`/${item}`} key={index}><a><li><BiSearchAlt2 className="fixed"/>{item}</li></a></Link>)
+    return(<Link href={`/${item}`} key={index}><a><li onClick={firedClick}><BiSearchAlt2 className="fixed"/>{item}</li></a></Link>)
     })}</> : <><h1 id="searchHeading">No Item Match</h1></>}
     </div>
     </div>
@@ -296,7 +307,7 @@ setClientToken("")
         <div className="page">
     <h1>Extra Pages</h1>
     <li><Link href="/admin">Admin Login</Link></li>
-    <li><Link href="/admin">Help Center</Link></li>
+    <li><Link href="/">Help Center</Link></li>
     </div>
     </div>
 {(clientToken)?

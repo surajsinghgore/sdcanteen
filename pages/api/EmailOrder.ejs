@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+ <div style="color:rgb(245, 245, 245);text-align: center;width: 99%;font-size:3vw;background-color: rgb(245, 61, 0);padding-top: 1%;padding-bottom: 1%;">SD CANTEEN</div>
+    <h1 style="margin-top:4%;font-size:3vw;color:rgb(0, 0, 0)">Hii ,<span style="color:rgb(231, 5, 5);"><%=userName %></span> </h1>
+    <div style="color:black;text-align: center;width: 100%;font-size:3vw;">Thank You For Your Order</div>
+      <div style="margin-top:4%;color:rgb(95, 95, 95);text-align: center;width: 100%;font-size:2vw;">Your 6 Digit Token Number:</div>
+      <div style="margin-top:4%;color:rgb(198, 10, 10);text-align: center;width: 99%;font-size:3vw;border: 3px dotted rgb(255, 38, 0);text-transform: lowercase;"><%=TokenUser %></div>
+        <div style="margin-top:6%;color:rgb(95, 95, 95);width: 100%;font-size:2vw;">Your Order Items Details:</div>
+    <table style="margin-top:2%;width:100%;text-align: center;font-size: 2vw;border:2px solid black">
+    <tr style="background-color: rgb(238, 238, 238);color:black">
+    <th>Food Name</th>
+    <th>Price</th>
+    <th>Qty</th>
+    <th>Category</th>
+    <th>Total</th>
+    </tr>
+    <% data.forEach(item=>{ %>
+       <tr style="border: 1px solid rgb(220, 220, 220);color:rgb(255, 81, 0);text-transform: capitalize;">
+    <td><%=item.ItemName %></td>
+    <td><%=item.ProductOriginalAmount %></td>
+    <td><%=item.Qty %></td>
+    <td><%=item.Category %></td>
+    <td><%=item.Amount %></td>
+    </tr>
+    <% }) %>
+    </table>
+
+<div style="margin-Top:4%;width:100%;display:flex;font-size: 2vw;">
+<div style="color:rgb(28, 28, 28)">Total Items Order : </div>
+<div style="padding-left:3%;color:rgb(66, 66, 66)"><%=totalItem %></div>
+ </div>
+<div style="margin-Top:4%;width:100%;display:flex;border-top: 4px solid rgb(213, 213, 213);border-bottom: 4px solid rgb(213, 213, 213);font-size: 3vw;text-align: center;color: rgb(49, 49, 49);">
+<div style="width:50%">Total Amount</div>
+<div style="width:50%">₹<%=TotalAmount %></div>
+ </div>
+<div style="margin-Top:4%;width:100%;display:flex;font-size: 2vw;">
+<div style="color:rgb(28, 28, 28)">PickUp Time : </div>
+<div style="padding-left:3%;color:rgb(2, 151, 205)"><%=PickUpTime %></div>
+ </div>
+ <div style="margin-Top:2%;width:100%;display:flex;font-size: 2vw;">
+<div style="color:rgb(28, 28, 28)">Order Time : </div>
+<div style="padding-left:3%;color:rgb(2, 151, 205)"><%=OrderTime %></div>
+ </div>
+ <div style="margin-Top:2%;width:100%;display:flex;font-size: 2vw;">
+<div style="color:rgb(28, 28, 28)">Order Date : </div>
+<div style="padding-left:3%;color:rgb(2, 151, 205)"><%=OrderDate %></div>
+ </div>
+  <div style="margin-Top:5%;width:100%;font-size: 2vw;text-align: center;">
+<div style="color:rgb(117, 117, 117)">Please contact SD CANTEEN if you not placed order Or order Placed by mistake.</div>
+ </div>
+  <div style="margin-top:4%;color:rgb(245, 245, 245);text-align: center;width: 99%;font-size:3vw;background-color: rgb(245, 61, 0);padding-top: 1%;padding-bottom: 1%;">SD CANTEEN</div>
+</body>
+</html>

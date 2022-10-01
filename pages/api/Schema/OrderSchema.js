@@ -20,7 +20,7 @@ const OrderSchema=new mongoose.Schema(
 
     FullName: {
       type: String,lowercase:true,
-      required: true,
+      required: true, trim:true
     },
       Email: {
       type: String,lowercase:true,

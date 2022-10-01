@@ -12,6 +12,7 @@ import { FaSearch } from 'react-icons/fa';
 import { useEffect ,useState} from "react";
 import {  useCart } from "react-use-cart";
 import Banner from "../Components/Banner";
+import router from 'next/router'
 export default function FoodItem({ResCategory,FoodDatas}) {
 
   const {
@@ -107,7 +108,19 @@ removeItem(id)
     });
 }
 
-
+// buy now item
+const BuyNowItem=(item)=>{
+let id=item._id;
+let price=item.Price;
+let FoodName=item.FoodName;
+let Qty=item.Qty;
+let Image=item.Image;
+let Category=item.Category;
+let QtyBook=1;
+let totalAmount=item.Price;
+addItem({id,price,FoodName,Qty,Image,Category,QtyBook,totalAmount})
+router.push("/Cart")
+}
   return (
     <>
       <div className={Styles.admin}>
@@ -180,7 +193,7 @@ CurrentPageUrl="/FoodItem" CurrentPage="Food Item" SubPage="Item" H1Style={{padd
 </>}
    <h4>₹ {item.Price}</h4>
  {(item.addToCart)?<><button onClick={()=>RemoveFromCartItem(item)}>Remove From Cart</button></> : <><button onClick={()=>addToCartItem(item)}>Add To Cart</button></>}
-   <button className={Style.buy}>Buy Now</button>
+   <button className={Style.buy} onClick={()=>BuyNowItem(item)}>Buy Now</button>
    </div>
    </div>
    )

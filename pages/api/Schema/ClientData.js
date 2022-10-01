@@ -5,6 +5,7 @@ const ClientData = new mongoose.Schema(
     FullName: {
       type: String,
       required: true,
+      trim:true
     },
       Age: {
       type: Number,
@@ -12,11 +13,11 @@ const ClientData = new mongoose.Schema(
     },
       Email: {
       type: String,
-      required: true,
+      required: true, trim:true
     },
       Mobile: {
       type: Number,
-      required: true,
+      required: true, trim:true
     },
       Gender: {
       type: String,
@@ -24,7 +25,7 @@ const ClientData = new mongoose.Schema(
     },
       FullAddress: {
       type: String,
-      required: true,
+      required: true, trim:true
     },
       Profile: {
       type: String,

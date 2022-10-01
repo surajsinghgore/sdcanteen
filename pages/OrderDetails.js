@@ -155,7 +155,7 @@ setDefaultTime(localStorage.getItem("OrderFoodTime"))
  value={time.time1.toFixed(2)} defaultChecked/>
  :
  <input type="radio" name="time" id={time.time} 
-value={time.time1.toFixed(2)} />
+value={`${time.time1.toFixed(2)}-${(time.time>=12)?'PM':'AM'}`} />
  }
 </div>
 

@@ -17,7 +17,7 @@ const [token,setToken]=useState('');
 
 useEffect(()=>{
 if(!localStorage.getItem('orderToken')){
-router.push('/OrderDetails');
+router.push('/Cart');
 }
 if(localStorage.getItem('orderToken')){
 setToken(localStorage.getItem('orderToken'))
@@ -38,11 +38,11 @@ setToken(localStorage.getItem('orderToken'))
 </div>
 <h2 >Congratulations.</h2>
 <h3>Your order was Placed Successfully.</h3>
-<h5>Please take SCREENSHOT of this code</h5>
+<h5>Please check Email for Order Status</h5>
 <h6>Show below code If Required :</h6>
 <h4>Your ORDER CODE:<span className={Style1.Token}>{token}</span></h4>
 
-<h5>Click Here to View Details</h5>
+<h5 style={{color:"blue"}}>Click Here to View Details</h5>
     </div> 
 
 
