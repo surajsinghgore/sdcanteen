@@ -11,9 +11,10 @@ const ClientData = new mongoose.Schema(
       type: Number,
       required: true,
     },
-      Email: {
-      type: String,
-      required: true, trim:true
+      Email: 
+      {
+       type: String, require: true, index:true, unique:true,
+       trim:true, 
     },
       Mobile: {
       type: Number,
@@ -21,7 +22,7 @@ const ClientData = new mongoose.Schema(
     },
       Gender: {
       type: String,
-      required: true,
+      required: true
     },
       FullAddress: {
       type: String,
@@ -33,7 +34,7 @@ const ClientData = new mongoose.Schema(
     },
       Password: {
       type: String,
-      required: true,
+      required: true
     },
   },
   { timestamps: true }

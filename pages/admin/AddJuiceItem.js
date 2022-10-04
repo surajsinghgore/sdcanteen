@@ -10,6 +10,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import router from "next/router";
 let HOST = process.env.NEXT_PUBLIC_API_URL;
+import VerifyAdminLogin from './VerifyAdminLogin';
 
 export default function AddJuiceItem() {
   const [data, setData] = useState([]);
@@ -85,9 +86,6 @@ export default function AddJuiceItem() {
 
     let res = await fetch(`${HOST}/api/AddJuiceItem`, {
       method: "POST",
-      headers: {
-        admintoken: localStorage.getItem("admintoken"),
-      },
       body: data,
     });
 
@@ -181,7 +179,7 @@ export default function AddJuiceItem() {
       <HeadTag title="Add Juice Item" />
       {/* left panel bar */}
       <AdminLeftMenu />
-
+<VerifyAdminLogin />
       {/* right bar */}
       <div className={StyleFood.rightSideBar}>
         <AdminRightInnerHeader title="Add Juice Page" />

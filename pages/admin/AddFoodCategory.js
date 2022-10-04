@@ -9,6 +9,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import router from "next/router";
 let HOST = process.env.NEXT_PUBLIC_API_URL;
+import VerifyAdminLogin from './VerifyAdminLogin';
 
 function AddFoodCategory() {
   const [FoodCategoryName, setFoodCategoryName] = useState("");
@@ -31,7 +32,6 @@ function AddFoodCategory() {
       method: "POST",
       headers: {
         "Content-type": "application/json",
-        admintoken: localStorage.getItem("admintoken"),
       },
       body: JSON.stringify({
         FoodCategoryName,
@@ -112,16 +112,12 @@ function AddFoodCategory() {
     setFoodCategoryName("");
   };
 
-  useEffect(() => {
-    if (!localStorage.getItem("admintoken")) {
-      router.push("/admin/Login");
-    }
-  }, []);
-
   return (
     <div className={Styles.admin}>
       <HeadTag title="Add Food Category" />
       <AdminLeftMenu />
+      <VerifyAdminLogin />
+
       {/* right bar */}
       <div className={StyleFood.rightSideBar}>
         <AdminRightInnerHeader title="Add Food Categories" />

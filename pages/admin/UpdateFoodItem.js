@@ -9,6 +9,8 @@ import AdminRightInnerHeader from "../../Components/AdminRightInnerHeader";
 import { FiEdit } from "react-icons/fi";
 import Image from "next/image";
 import "react-toastify/dist/ReactToastify.css";
+import VerifyAdminLogin from './VerifyAdminLogin';
+
 import router from "next/router";
 import { AllContext } from "../../context/AllContext";
 let HOST = process.env.NEXT_PUBLIC_API_URL;
@@ -74,7 +76,7 @@ export default function UpdateFoodItem() {
   return (
     <div className={Styles.admin}>
       <HeadTag title="Update Food Item" />
-
+<VerifyAdminLogin />
       {/* left panel bar */}
       <AdminLeftMenu />
 

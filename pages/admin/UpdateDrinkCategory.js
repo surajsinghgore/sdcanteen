@@ -11,6 +11,9 @@ import router from "next/router";
 let HOST = process.env.NEXT_PUBLIC_API_URL;
 import { AllContext } from "../../context/AllContext";
 
+import VerifyAdminLogin from './VerifyAdminLogin';
+
+
 function UpdateDrinkCategory() {
   const { filterAllFoodCategoriesData } = useContext(AllContext);
 
@@ -33,7 +36,7 @@ function UpdateDrinkCategory() {
       method: "POST",
       headers: {
         "Content-type": "application/json",
-        admintoken: localStorage.getItem("admintoken"),
+
       },
       body: JSON.stringify({
         _id: filterAllFoodCategoriesData,
@@ -106,6 +109,8 @@ function UpdateDrinkCategory() {
   return (
     <div className={Styles.admin}>
       <HeadTag title="Update Drink Category" />
+<VerifyAdminLogin />
+
 
       <AdminLeftMenu />
       {/* right bar */}

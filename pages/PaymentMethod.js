@@ -17,16 +17,16 @@ import { useCart } from "react-use-cart";
 export default function PaymentMethod() {
 const [totals,setTotal]=useState('0');
 const [arrays,setArrays]=useState([]);
+
+const [carts,setCarts]=useState([]);
 const [OrderFoodTime,setOrderFoodTime]=useState();
 const {
     emptyCart,
     updateItem 
   } = useCart()
 
-
-let carts=JSON.parse(localStorage.getItem('react-use-cart'));
-
 useEffect(()=>{
+setCarts(JSON.parse(localStorage.getItem('react-use-cart')))
 const dataFetch=async()=>{
 const items=localStorage.getItem("react-use-cart");
 let cartData=JSON.parse(items)
@@ -235,7 +235,7 @@ dataFetch();
 },[])
 useEffect(()=>{
 if(!localStorage.getItem('OrderFoodTime')){
-router.push('/OrderDetails');
+router.push('/Cart');
 }
 setOrderFoodTime(localStorage.getItem('OrderFoodTime'));
 },[])
@@ -253,8 +253,6 @@ confirmAlert({
           onClick: async () => {
 
 const PickUpTime=localStorage.getItem("OrderFoodTime");
-const id=localStorage.getItem("clientId");
-const clientToken=localStorage.getItem("clientToken");
 const PaymentMethod=value;
 if(totals<=0){
               emptyCart();
@@ -296,11 +294,9 @@ const TotalAmount=totals;
      let res = await fetch(`${HOST}/api/OrderItem`, {
                method: "POST",
               headers: {
-                "Content-type": "application/json",
-                clienttoken: clientToken,
+                "Content-type": "application/json"
               },
               body: JSON.stringify({
-                _id: id,
                PickUpTime,PaymentMethod,ItemsOrder:arrays,TotalAmount
               }),
             });
@@ -431,7 +427,8 @@ value="COD" /><label htmlFor="cod" style={{cursor:"pointer"}}><h4>: Cash On Deli
 </form>
 </div>
 <h4 style={{textAlign:"center",fontSize:"30px",color:"black",marginTop:"-0%"}}>Total Payable Amount-: <span style={{color:"red"}}>{totals}</span></h4>
-<h4 style={{textAlign:"center",fontSize:"25px",color:"black"}}>Total Items Booked-: <span style={{color:"red"}}>{carts.items.length}</span> <span style={{color:"blue",paddingLeft:"15%"}}> <Link href="/Cart">Click to view items List</Link></span></h4>
+{(carts.length!=0) ?<><h4 style={{textAlign:"center",fontSize:"25px",color:"black"}}>Total Items Booked-: <span style={{color:"red"}}>{carts.items.length}</span> <span style={{color:"blue",paddingLeft:"15%"}}> <Link href="/Cart">Click to view items List</Link></span></h4></> : ""}
+
 </div>
 
 

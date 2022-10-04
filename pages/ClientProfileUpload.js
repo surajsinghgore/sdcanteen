@@ -16,31 +16,15 @@ import { AiOutlineCloudUpload } from 'react-icons/ai';
 export default function ClientProfileUpload() {
   const [imgs, setImgs] = useState(boyProfile);
   const [files, setFiles] = useState("");
-const [id,setId]=useState("");
+
 
 useEffect(()=>{
-if(!localStorage.getItem('clientToken')){
-  router.push('/')
-}
-if(!localStorage.getItem('clientId')){
-  router.push('/')
-}
-
-},[])
-
-useEffect(()=>{
-let id=localStorage.getItem('clientId');
-setId(id)
 const getData=async()=>{
 const res = await fetch(`${HOST}/api/ShowClientDetails`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",
-        "clienttoken":`${localStorage.getItem('clientToken')}`
       },
-      body: JSON.stringify({
-       id:id
-      }),
     });
 let data=await res.json();
 if(!data){
@@ -121,13 +105,9 @@ progress: undefined,
 return 0;
 }
 const data = new FormData();
-    data.append("id", id);
     data.append("Profile", files);
  let res = await fetch(`${HOST}/api/ClientProfile`, {
       method: "POST",
-      headers: {
-        clienttoken: localStorage.getItem("clientToken"),
-      },
       body: data,
     });
 
@@ -144,6 +124,22 @@ progress: undefined,
 });   
 return 0;
     } 
+    if(res.status==401){
+const redirects=()=>{
+toast.error('Please Login First', {
+position: "bottom-right",
+autoClose: 5000,
+hideProgressBar: false,
+closeOnClick: true,
+pauseOnHover: true,
+draggable: true,
+progress: undefined,
+});
+router.push("/ClientLogin");
+return 0;
+}
+setTimeout(redirects,2000);
+}
  if(res.status==501){
       toast.warn(`${datas.message}`, {
 position: "bottom-right",

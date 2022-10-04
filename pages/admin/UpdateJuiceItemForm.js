@@ -10,6 +10,9 @@ import "react-toastify/dist/ReactToastify.css";
 import router from "next/router";
 import { AllContext } from "../../context/AllContext";
 import Link from "next/link";
+import VerifyAdminLogin from './VerifyAdminLogin';
+
+
 let HOST = process.env.NEXT_PUBLIC_API_URL;
 export default function UpdateJuiceItemForm() {
   const { filterJuiceItemsData } = useContext(AllContext);
@@ -106,7 +109,7 @@ export default function UpdateJuiceItemForm() {
       method: "POST",
       headers: {
         "Content-type": "application/json",
-        admintoken: localStorage.getItem("admintoken"),
+        
       },
       body: JSON.stringify({
         _id: filterJuiceItemsData[0]._id,
@@ -164,6 +167,7 @@ export default function UpdateJuiceItemForm() {
 
   return (
     <div className={Styles.admin}>
+    <VerifyAdminLogin />
       <HeadTag title="Update Juice Item Form" />
       {/* left panel bar */}
       <AdminLeftMenu />

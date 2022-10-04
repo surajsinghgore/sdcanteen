@@ -10,6 +10,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import router from "next/router";
 let HOST = process.env.NEXT_PUBLIC_API_URL;
+import VerifyAdminLogin from './VerifyAdminLogin';
 
 export default function AddFoodItem() {
   const [data, setData] = useState([]);
@@ -84,9 +85,6 @@ export default function AddFoodItem() {
 
     let res = await fetch(`${HOST}/api/AddFoodItem`, {
       method: "POST",
-      headers: {
-        admintoken: localStorage.getItem("admintoken"),
-      },
       body: data,
     });
 
@@ -164,9 +162,7 @@ export default function AddFoodItem() {
     }
   };
   useEffect(() => {
-    if (!localStorage.getItem("admintoken")) {
-      router.push("/admin/Login");
-    }
+  
     async function dataFetch() {
       let ress = await fetch(`${HOST}/api/ShowFoodCategory`);
       let datas = await ress.json();
@@ -178,7 +174,7 @@ export default function AddFoodItem() {
   return (
     <div className={Styles.admin}>
       <HeadTag title="Add Food Item" />
-
+<VerifyAdminLogin />
       {/* left panel bar */}
       <AdminLeftMenu />
 

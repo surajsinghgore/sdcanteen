@@ -66,27 +66,19 @@ if((userName=="")||(userEmail=="")||(userMobile=="")||(userMessage=="")){
 
 
 useEffect(()=>{
-let id=localStorage.getItem('clientId');
 const getData=async()=>{
-if(localStorage.getItem('clientToken')){
 const res = await fetch(`${HOST}/api/ShowClientDetails`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",
-        "clienttoken":`${localStorage.getItem('clientToken')}`
-      },
-      body: JSON.stringify({
-       id:id
-      }),
+      }
     });
 let data=await res.json();
-if(data!=undefined){
+if(data.data!=undefined){
 setUserName(data.data.FullName);
 setUserEmail(data.data.Email);
 setUserMobile(data.data.Mobile)
-}
-}
-else{
+}else{
 toast.error('Please Login To Access This Page', {
 position: "bottom-right",
 autoClose: 5000,

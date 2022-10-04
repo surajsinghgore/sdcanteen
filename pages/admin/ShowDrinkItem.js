@@ -8,6 +8,10 @@ import PathNavigate from "../../Components/PathNavigate";
 import AdminRightInnerHeader from "../../Components/AdminRightInnerHeader";
 let HOST = process.env.NEXT_PUBLIC_API_URL;
 import Image from "next/image";
+
+import VerifyAdminLogin from './VerifyAdminLogin';
+
+
 import "react-toastify/dist/ReactToastify.css";
 import { useState, useEffect } from "react";
 export default function ShowDrinkItem({ datas }) {
@@ -51,9 +55,7 @@ export default function ShowDrinkItem({ datas }) {
     async function dataFetch() {
       let response = await fetch(`${HOST}/api/ShowDrinkCategory`, {
         method: "GET",
-        headers: {
-          admintoken: localStorage.getItem("admintoken"),
-        },
+       
       });
       let dataCategory = await response.json();
       await setData(dataCategory.data);
@@ -64,6 +66,9 @@ export default function ShowDrinkItem({ datas }) {
   return (
     <div className={Styles.admin}>
       <HeadTag title="Show Drink Item" />
+
+
+<VerifyAdminLogin />
 
       {/* left panel bar */}
       <AdminLeftMenu />

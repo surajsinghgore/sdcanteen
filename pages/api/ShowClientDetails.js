@@ -7,14 +7,13 @@ export default async function ShowClientDeatils(req, res) {
     try {
       DbConnection();
  await VerifyClientUser(req, res);
-
-      let id=req.body.id;
+      let id=req.cookies.clinetId;
       if(!id){
-      res.status(400).json({ message: "please Provide Id To Find Record Of User" });
+      res.status(401).json({ message: "please Provide Id To Find Record Of User" });
       }
       let data = await ClientData.findById(id).select('-Password -createdAt -updatedAt');
       if(!data){
-      res.status(400).json({message:"Wrong user Id",wrongUser:"true"})
+      res.status(404).json({message:"Wrong user Id",wrongUser:"true"})
       }
       res.status(201).json({ data, status: "201" });
     } catch (error) {

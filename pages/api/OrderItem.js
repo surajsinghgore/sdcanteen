@@ -26,7 +26,7 @@ export default async function AddCoffeeCategory(req, res) {
       DbConnection();
      let res1=await VerifyClientUser(req, res);
  if(res1!=undefined){
-       const _id=req.body._id;
+      const _id=req.cookies.clinetId;
       const findClientData=await ClientDatas.findById({_id}).select('-Password -createdAt -updatedAt -Age -Gender -Profile');
       if(!findClientData){
     res.status(404).json({status:"404",message:"Record Not Find with this User Id"})
@@ -54,7 +54,7 @@ const Email=findClientData.Email;
       const FullName=findClientData.FullName;
       const PickUpTime=req.body.PickUpTime;
       const PaymentMethod=req.body.PaymentMethod;
-      const UserId=req.body._id;
+      const UserId=req.cookies.clinetId;
       const TotalAmount=req.body.TotalAmount;
       const OrderTime=OrderTimes;
       const OrderDate=`${day}.${month}.${year}`;

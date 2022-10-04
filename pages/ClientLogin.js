@@ -13,18 +13,12 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 let HOST = process.env.NEXT_PUBLIC_API_URL;
 import router from 'next/router'
+import HidePagesAfterLogin from "./HidePagesAfterLogin";
 
 
 export default function ClientLogin() {
 const [email,setEmail]=useState("")
 const [password,setPassword]=useState("")
-useEffect(()=>{
-if(localStorage.getItem('clientToken')){
-      router.push("/");
-}
-
-})
-
 const Login=async(e)=>{
 e.preventDefault();
 if(email===""){
@@ -101,10 +95,7 @@ pauseOnHover: true,
 draggable: true,
 progress: undefined,
 });
-if(data.clinetToken){
-localStorage.setItem("clientToken",data.clinetToken)
-localStorage.setItem("clientId",data.id)
-}
+
  setTimeout(Redirect, 1200);
     function Redirect() {
       router.push("/");
@@ -161,14 +152,11 @@ draggable: true,
 progress: undefined,
 });
 
-if(data.clinetToken){
-localStorage.setItem("clientToken",data.clinetToken)
-localStorage.setItem("clientId",data.id)
-}
- setTimeout(Redirect, 1200);
+
     function Redirect() {
       router.push("/");
     }
+ setTimeout(Redirect, 1200);
   }
 
 
@@ -177,6 +165,7 @@ localStorage.setItem("clientId",data.id)
 }
   return (
     <div>
+    <HidePagesAfterLogin />
     <div className={Styles.admin}>
       <HeadTag title="Client Login" />
    <Header />
@@ -186,12 +175,12 @@ localStorage.setItem("clientId",data.id)
 <h3>SD CANTEEN</h3>
 <li>
 <h6>Enter Email/Mobile To Login</h6>
-<input type="text" name="" placeholder="Email / Mobile" value={email} onChange={(e)=>setEmail(e.target.value)}/>
+<input type="text" name="" placeholder="Email / Mobile" value={email} onChange={(e)=>setEmail(e.target.value)}  autoComplete="new-password"  />
 <MdOutlineAlternateEmail className={ClientStyle.icon} />
 </li>
 <li>
 <h6>Enter Password To Login</h6>
-<input type="password" name="" placeholder="Password" value={password} onChange={(e)=>setPassword(e.target.value)}/>
+<input type="password" name="" placeholder="Password" value={password} onChange={(e)=>setPassword(e.target.value)}  autoComplete="new-password"  />
 <RiLockPasswordLine className={ClientStyle.icon} />
 </li>
 <button onClick={Login}>Login</button>

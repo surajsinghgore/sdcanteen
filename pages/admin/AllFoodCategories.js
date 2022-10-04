@@ -10,8 +10,8 @@ import FoodAllCategoryComponent from "../../Components/FoodAllCategoryComponent"
 import Link from "next/link";
 import { IoIosAddCircleOutline } from "react-icons/io";
 import { AllContext } from "../../context/AllContext";
+import VerifyAdminLogin from "./VerifyAdminLogin";
 let HOST = process.env.NEXT_PUBLIC_API_URL;
-import router from "next/router";
 
 function AllFoodCategories() {
   const { deletes } = useContext(AllContext);
@@ -49,13 +49,10 @@ function AllFoodCategories() {
     }
   };
 
-  useEffect(() => {
-    if (!localStorage.getItem("admintoken")) {
-      router.push("/admin/Login");
-    }
-  }, []);
+
   return (
     <div className={Styles.admin}>
+    <VerifyAdminLogin />
       <HeadTag title="All Food Category" />
 
       {/* left panel bar */}

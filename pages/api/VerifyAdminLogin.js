@@ -7,7 +7,6 @@ export default async function VerifyAdminLogin(req, res) {
       DbConnection();
       await VerifyAdmin(req, res);
 
-      res.status(201).json({ message: "success", status: "201" });
     } catch (error) {
       res.status(501).json({ message: error, status: "501" });
     }

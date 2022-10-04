@@ -12,6 +12,8 @@ import router from "next/router";
 import { AllContext } from "../../context/AllContext";
 import Link from "next/link";
 import Image from "next/image";
+import VerifyAdminLogin from './VerifyAdminLogin';
+
 
 function UpdateCoffeeImage() {
   const { filterCoffeeItemsData } = useContext(AllContext);
@@ -55,7 +57,6 @@ setImgs(`/CoffeeItemImages/${filterCoffeeItemsData[0].Image}`)
     }
     let response = await fetch(`${HOST}/api/UpdateCoffeeImage`, {
       method: "POST",
-      headers: { admintoken: localStorage.getItem("admintoken") },
       body: dataImage,
     });
 
@@ -121,6 +122,8 @@ setImgs(`/CoffeeItemImages/${filterCoffeeItemsData[0].Image}`)
   return (
     <div className={Styles.admin}>
       <HeadTag title="Update Coffee Image" />
+
+<VerifyAdminLogin />
 
       {/* left panel bar */}
       <AdminLeftMenu />

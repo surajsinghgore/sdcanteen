@@ -4,18 +4,18 @@ import "react-toastify/dist/ReactToastify.css";
 let HOST = process.env.NEXT_PUBLIC_API_URL;
 import { useEffect } from "react";
 
-export default function VerifyClientMiddleware() {
+export default function VerifyAdminLogin() {
 useEffect(()=>{
 const getData=async()=>{
-const res = await fetch(`${HOST}/api/ShowClientDetails`, {
+const res = await fetch(`${HOST}/api/VerifyAdminLogin`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",
       }
     });
-let data=await res.json();
-if(data.data==undefined){
-toast.error('Please Login To Access This Page', {
+    await res.json();
+if(res.status==403){
+toast.error('Please Login With Admin Credentials', {
 position: "bottom-right",
 autoClose: 5000,
 hideProgressBar: false,
@@ -24,14 +24,14 @@ pauseOnHover: true,
 draggable: true,
 progress: undefined,
 });
-setTimeout(RedirectFunction,1500);
-return 0;
 function RedirectFunction(){
-  router.push('/ClientLogin')
+  router.push('/admin/Login')
+}
+setTimeout(RedirectFunction,1500);
+}
 
 }
-}
-}
+
 getData();
 
 },[])

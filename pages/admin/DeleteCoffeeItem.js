@@ -15,6 +15,8 @@ import "react-toastify/dist/ReactToastify.css";
 let HOST = process.env.NEXT_PUBLIC_API_URL;
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
+import VerifyAdminLogin from './VerifyAdminLogin';
+
 
 export default function DeleteCoffeeItem({ datas }) {
   const [useEffectCall, setUseEffectCall] = useState(false);
@@ -91,7 +93,6 @@ export default function DeleteCoffeeItem({ datas }) {
               method: "DELETE",
               headers: {
                 "Content-type": "application/json",
-                admintoken: localStorage.getItem("admintoken"),
               },
               body: JSON.stringify({
                 _id: item._id,
@@ -166,6 +167,9 @@ export default function DeleteCoffeeItem({ datas }) {
   return (
     <div className={Styles.admin}>
       <HeadTag title="Delete Coffee Item" />
+
+<VerifyAdminLogin />
+
 
       {/* left panel bar */}
       <AdminLeftMenu />

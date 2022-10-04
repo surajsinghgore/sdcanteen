@@ -48,10 +48,10 @@ handler.post(async(req, res) => {
   try {
     DbConnection();
      await VerifyClientUser(req, res); 
-      let _id = req.body.id;
+      let _id = req.cookies.clinetId;
     const Profile = req.file.filename;
     if (!_id) {
-      res.status(400).json({ message: "Please Provide Id" });
+      res.status(401).json({ message: "Please Provide Id" });
     }
     if (!Profile) {
       res.status(400).json({ message: "Please Upload Profile Photo" });

@@ -8,6 +8,9 @@ import AdminRightInnerHeader from "../../Components/AdminRightInnerHeader";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 let HOST = process.env.NEXT_PUBLIC_API_URL;
+import VerifyAdminLogin from './VerifyAdminLogin';
+
+
 import router from "next/router";
 import { AllContext } from "../../context/AllContext";
 import Link from "next/link";
@@ -121,6 +124,10 @@ setImgs(`/CoffeeItemImages/${filterJuiceItemsData[0].Image}`)
   return (
     <div className={Styles.admin}>
       <HeadTag title="Update Juice Image" />
+
+
+<VerifyAdminLogin />
+
 
       {/* left panel bar */}
       <AdminLeftMenu />

@@ -24,32 +24,63 @@ import girlProfile from '/public/girl.png'
 export default function Header() {
 const [search,setSearch]=useState('');
 const [searchData,setSerachData]=useState([]);
-const [clientToken,setClientToken]=useState("");
 const [imgs,setImgs]=useState(boyProfile);
-const [fullName,setFullName]=useState("")
+const [fullName,setFullName]=useState("");
+const [userLogin,setUserLogin]=useState(false);
 const {
     totalUniqueItems
   } = useCart();
   const [cartSize,setCartSize]=useState('');
 
+
+
   // user details fetch
 useEffect(()=>{
-let id=localStorage.getItem('clientId');
+setUserLogin(false)
 const getData=async()=>{
-if(localStorage.getItem('clientToken')){
 const res = await fetch(`${HOST}/api/ShowClientDetails`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",
-        "clienttoken":`${localStorage.getItem('clientToken')}`
-      },
-      body: JSON.stringify({
-       id:id
-      }),
+      }
     });
-let data=await res.json();
-if(data.data!==undefined){
 
+let data=await res.json();
+
+if(res.status==404){
+const redirects=()=>{
+toast.error('Record Not Found', {
+position: "bottom-right",
+autoClose: 5000,
+hideProgressBar: false,
+closeOnClick: true,
+pauseOnHover: true,
+draggable: true,
+progress: undefined,
+});
+router.push("/ClientLogin");
+return 0;
+}
+setTimeout(redirects,2000);
+
+}
+if(res.status==501){
+const redirects=()=>{
+toast.error('Internal Server Error.Please try Again', {
+position: "bottom-right",
+autoClose: 5000,
+hideProgressBar: false,
+closeOnClick: true,
+pauseOnHover: true,
+draggable: true,
+progress: undefined,
+});
+return 0;
+}
+
+}
+if(data.data!==undefined){
+setUserLogin(true);
   if(data.data.Gender=='male'){
   setImgs(boyProfile)
   }
@@ -69,7 +100,7 @@ let resName = str.substring(0, 5);
 setFullName(resName)
 }
 }
-}
+
 }
 getData();
 
@@ -78,7 +109,6 @@ getData();
 useEffect(()=>{
 let connectionStatus=window.navigator.onLine;
 if(connectionStatus==false){
-const msg=()=>{
   toast.error('Internet Connection Lost,You Are Offline...', {
 position: "bottom-right",
 autoClose: 5000,
@@ -89,20 +119,10 @@ draggable: true,
 progress: undefined,
 });
 return 0;
-router.push("/");
-}
-setTimeout(msg,2000);
 }
 },[])
 
 
-// client token get
-  useEffect(()=>{
-    if(localStorage.getItem('clientToken')){
-
-  setClientToken(localStorage.getItem('clientToken'))
-  }
-  },[clientToken])
   useEffect(()=>{
   setCartSize(totalUniqueItems)
   },[totalUniqueItems])
@@ -170,7 +190,6 @@ page.style.display="none";
 
 // search bar logic
 useEffect(()=>{
-
 const getDatas=async()=>{
  const coffeeItem = await fetch(`${HOST}/api/ShowCoffeeItem`)
   const drinkItem = await fetch(`${HOST}/api/ShowDrinkItem`)
@@ -232,7 +251,20 @@ suggestion.style.display="none"
 
 
 const LogoutClient=()=>{
-  toast.warn('User Logout Successfully', {
+
+
+const getData=async()=>{
+const res = await fetch(`${HOST}/api/LogoutClient`, {
+      method: "Get",
+      headers: {
+        "Content-type": "application/json",
+      }
+    });
+
+await res.json();
+if(res.status==201){
+
+toast.success('User Logout Successfully', {
 position: "bottom-right",
 autoClose: 5000,
 hideProgressBar: false,
@@ -241,15 +273,21 @@ pauseOnHover: true,
 draggable: true,
 progress: undefined,
 });
-localStorage.removeItem('clientToken');
-localStorage.removeItem('clientId');
-localStorage.removeItem('orderToken');
-setClientToken("")
+setUserLogin(false);
 const redirect=()=>{
 router.push("/");
 }
 setTimeout(redirect,2000);
 }
+
+}
+getData();
+
+  
+}
+
+
+
 const firedClick=()=>{
 setSearch("");
 let suggestion=document.getElementById('suggestion');
@@ -271,19 +309,12 @@ suggestion.style.display="none"
     </div>
     <div className="links">
     <li> <i><MdFoodBank/></i> <span className='heading'>Order Now </span></li>
- 
-     <li id="heading"> <i><IoMdArrowDropdown /></i> <span className='heading' >Pages</span></li>
-
-
-   {(clientToken)?  <li id="user"><i><IoMdArrowDropdown /></i><div style={{marginTop:"10%"}}><Image src={imgs} alt="profile" height={40} width="40" style={{borderRadius:"60px",marginLeft:"4%"}}/><span id='heading1' style={{textAlign:"center"}}>Hii , {fullName}</span></div></li>
-   : <li id="login"> <i style={{marginTop:"2%",marginLeft:"18%",fontSize:"28px"}}><BiLogIn/></i><Link href="/ClientLogin"><span id='heading2'>Login</span></Link></li>
-}  
+      <li id="heading"> <i><IoMdArrowDropdown /></i> <span className='heading' >Pages</span></li>
+   {(userLogin)?  <li id="user"><i><IoMdArrowDropdown /></i><div style={{marginTop:"10%"}}><Image src={imgs} alt="profile" height={40} width="40" style={{borderRadius:"60px",marginLeft:"4%"}}/><span id='heading1' style={{textAlign:"center"}}>Hii , {fullName}</span></div></li> :    <li id="login"> <i style={{marginTop:"2%",marginLeft:"18%",fontSize:"28px"}}><BiLogIn/></i><Link href="/ClientLogin"><span id='heading2'>Login</span></Link></li> }
      <li  className='cart'> <Link href="/Cart"><a>
     <div id="count">{cartSize}</div>
     <span><AiOutlineShoppingCart/></span></a></Link></li>
     </div>
-
-
 {/* pages */}
     <div className="pages" id="pages" >
     <div className="page">
@@ -310,8 +341,8 @@ suggestion.style.display="none"
     <li><Link href="/">Help Center</Link></li>
     </div>
     </div>
-{(clientToken)?
-<div className="clinetOption" id="clientOption">
+
+{(userLogin)?<div className="clinetOption" id="clientOption">
 <div>
 <i><BiPaste /></i>
 <h1>Past Order</h1>
@@ -324,7 +355,8 @@ suggestion.style.display="none"
 <i><MdLogout /></i>
 <h1>Logout</h1>
 </div>
-</div> : ""}
+</div>  :""}
+
    <ToastContainer
         position="bottom-right"
         autoClose={5000}

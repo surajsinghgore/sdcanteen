@@ -8,6 +8,9 @@ import PathNavigate from "../../Components/PathNavigate";
 import AdminRightInnerHeader from "../../Components/AdminRightInnerHeader";
 import { FiEdit } from "react-icons/fi";
 import Image from "next/image";
+import VerifyAdminLogin from './VerifyAdminLogin';
+
+
 import "react-toastify/dist/ReactToastify.css";
 import router from "next/router";
 import { AllContext } from "../../context/AllContext";
@@ -76,6 +79,10 @@ let HOST = process.env.NEXT_PUBLIC_API_URL;
   return (
     <div className={Styles.admin}>
       <HeadTag title="Update Juice Item" />
+
+
+<VerifyAdminLogin />
+
 
       {/* left panel bar */}
       <AdminLeftMenu />

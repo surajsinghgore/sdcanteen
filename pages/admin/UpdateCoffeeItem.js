@@ -12,6 +12,8 @@ import "react-toastify/dist/ReactToastify.css";
 import router from "next/router";
 import { AllContext } from "../../context/AllContext";
 let HOST = process.env.NEXT_PUBLIC_API_URL;
+import VerifyAdminLogin from './VerifyAdminLogin';
+
 
 export default function UpdateCoffeeItem() {
   const { updateCoffeeItem } = useContext(AllContext);
@@ -80,6 +82,8 @@ export default function UpdateCoffeeItem() {
   return (
     <div className={Styles.admin}>
       <HeadTag title="Update Coffee item" />
+
+<VerifyAdminLogin />
 
       {/* left panel bar */}
       <AdminLeftMenu />

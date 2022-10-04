@@ -10,6 +10,8 @@ import "react-toastify/dist/ReactToastify.css";
 import router from "next/router";
 let HOST = process.env.NEXT_PUBLIC_API_URL;
 
+import VerifyAdminLogin from './VerifyAdminLogin';
+
 function AddDrinkCategory() {
   const [DrinkCategory, setDrinkCategory] = useState("");
   const addCategory = async (e) => {
@@ -30,7 +32,6 @@ function AddDrinkCategory() {
       method: "POST",
       headers: {
         "Content-type": "application/json",
-        admintoken: localStorage.getItem("admintoken"),
       },
       body: JSON.stringify({
         DrinkCategoryName: DrinkCategory,
@@ -110,14 +111,9 @@ function AddDrinkCategory() {
 
     setDrinkCategory("");
   };
-
-  useEffect(() => {
-    if (!localStorage.getItem("admintoken")) {
-      router.push("/admin/Login");
-    }
-  }, []);
   return (
     <div className={Styles.admin}>
+    <VerifyAdminLogin />
       <HeadTag title="Add Drink Category" />
       <AdminLeftMenu />
       {/* right bar */}

@@ -16,6 +16,9 @@ let HOST = process.env.NEXT_PUBLIC_API_URL;
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 
+import VerifyAdminLogin from './VerifyAdminLogin';
+
+
 export default function DeleteDrinkItem({ datas }) {
   const [useEffectCall, setUseEffectCall] = useState(false);
   const [drinkNameSearch, setDrinkNameSearch] = useState("");
@@ -91,7 +94,6 @@ export default function DeleteDrinkItem({ datas }) {
               method: "DELETE",
               headers: {
                 "Content-type": "application/json",
-                admintoken: localStorage.getItem("admintoken"),
               },
               body: JSON.stringify({
                 _id: item._id,
@@ -166,6 +168,8 @@ export default function DeleteDrinkItem({ datas }) {
   return (
     <div className={Styles.admin}>
       <HeadTag title="Delete Drink Item" />
+<VerifyAdminLogin />
+
 
       {/* left panel bar */}
       <AdminLeftMenu />

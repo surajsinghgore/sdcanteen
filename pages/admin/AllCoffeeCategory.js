@@ -10,8 +10,9 @@ import CoffeeAllCategoryComponent from "../../Components/CoffeeAllCategoryCompon
 import Link from "next/link";
 import { IoIosAddCircleOutline } from "react-icons/io";
 let HOST = process.env.NEXT_PUBLIC_API_URL;
-import router from "next/router";
 import { AllContext } from "../../context/AllContext";
+import VerifyAdminLogin from './VerifyAdminLogin';
+
 function AllCoffeeCategory() {
   const { deletes } = useContext(AllContext);
 
@@ -48,15 +49,12 @@ function AllCoffeeCategory() {
     }
   };
 
-  useEffect(() => {
-    if (!localStorage.getItem("admintoken")) {
-      router.push("/admin/Login");
-    }
-  }, []);
+
   return (
     <div className={Styles.admin}>
       <HeadTag title="All Coffee Category" />
       {/* left panel bar */}
+<VerifyAdminLogin />
       <AdminLeftMenu />
 
       {/* right bar */}

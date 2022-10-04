@@ -6,6 +6,7 @@ import ClientData from "./Schema/ClientData";
 const otpGenerator = require('otp-generator')
 import nextConnect from "next-connect";
 const handler = nextConnect();
+var cookie = require('cookie');
 
  const nodemailer = require("nodemailer");
  let transporter = nodemailer.createTransport({
@@ -138,6 +139,9 @@ const securePassword=await bcrypt.hash(Password,salt);
       Otp:optGenerateNumber,
       Verify:false
     });
+
+
+
     let ress = await Items.save();
 let ressData=await ClientRegistrationTemporary.findById(ress._id).select('-Password -Otp -Verify -createdAt -updatedAt');
 
@@ -176,7 +180,6 @@ Welcome to SD CANTEEN!
 
 transporter.sendMail(mailoption,function(error,info){
 if(error){
-console.log(error)
 return res.status(401).json({message:error,status:"401"});
 }
 })

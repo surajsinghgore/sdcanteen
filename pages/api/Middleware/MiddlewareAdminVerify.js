@@ -3,7 +3,7 @@ const JWT_SECRET = process.env.JWT_SECRET_KEY;
 
 const VerifyAdmin = async (req, res, next) => {
   try {
-    let token = req.headers["admintoken"];
+    let token = req.cookies.adminToken;
     // token not present then
     if (!token) {
       res.status(403).send({

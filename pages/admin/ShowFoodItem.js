@@ -10,6 +10,7 @@ let HOST = process.env.NEXT_PUBLIC_API_URL;
 import Image from "next/image";
 import "react-toastify/dist/ReactToastify.css";
 import { useState, useEffect } from "react";
+import VerifyAdminLogin from "./VerifyAdminLogin";
 export default function ShowFoodItem({ datas }) {
   const [foodNameSearch, setFoodNameSearch] = useState("");
   const [categorySearch, setCategorySearch] = useState("");
@@ -48,10 +49,7 @@ export default function ShowFoodItem({ datas }) {
   useEffect(() => {
     async function dataFetch() {
       let response = await fetch(`${HOST}/api/ShowFoodCategory`, {
-        method: "GET",
-        headers: {
-          admintoken: localStorage.getItem("admintoken"),
-        },
+        method: "GET"
       });
       let dataCategory = await response.json();
       await setData(dataCategory.data);
@@ -61,6 +59,7 @@ export default function ShowFoodItem({ datas }) {
 
   return (
     <div className={Styles.admin}>
+    <VerifyAdminLogin />
       <HeadTag title="Show Food Item" />
       {/* left panel bar */}
       <AdminLeftMenu />

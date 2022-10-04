@@ -8,6 +8,8 @@ import AdminRightInnerHeader from "../../Components/AdminRightInnerHeader";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 let HOST = process.env.NEXT_PUBLIC_API_URL;
+import VerifyAdminLogin from './VerifyAdminLogin';
+
 import router from "next/router";
 import { AllContext } from "../../context/AllContext";
 import Link from "next/link";
@@ -54,7 +56,6 @@ setImgs(`/CoffeeItemImages/${filterFoodItemsData[0].Image}`)
     }
     let response = await fetch(`${HOST}/api/UpdateFoodImage`, {
       method: "POST",
-      headers: { admintoken: localStorage.getItem("admintoken") },
       body: dataImage,
     });
 
@@ -120,7 +121,7 @@ setImgs(`/CoffeeItemImages/${filterFoodItemsData[0].Image}`)
   return (
     <div className={Styles.admin}>
       <HeadTag title="Update Food Image" />
-
+<VerifyAdminLogin />
       {/* left panel bar */}
       <AdminLeftMenu />
 

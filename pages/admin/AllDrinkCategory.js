@@ -11,7 +11,8 @@ import Link from "next/link";
 import { IoIosAddCircleOutline } from "react-icons/io";
 import { AllContext } from "../../context/AllContext";
 let HOST = process.env.NEXT_PUBLIC_API_URL;
-import router from "next/router";
+import VerifyAdminLogin from './VerifyAdminLogin';
+
 
 
 
@@ -51,14 +52,11 @@ function AllDrinkCategory() {
     }
   };
 
-  useEffect(() => {
-    if (!localStorage.getItem("admintoken")) {
-      router.push("/admin/Login");
-    }
-  }, []);
+
   return (
     <div className={Styles.admin}>
       <HeadTag title="All Drink Category" />
+<VerifyAdminLogin />
 
       {/* left panel bar */}
       <AdminLeftMenu />

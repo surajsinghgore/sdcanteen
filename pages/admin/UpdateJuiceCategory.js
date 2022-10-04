@@ -10,6 +10,8 @@ import "react-toastify/dist/ReactToastify.css";
 import router from "next/router";
 import { AllContext } from "../../context/AllContext";
 let HOST = process.env.NEXT_PUBLIC_API_URL;
+import VerifyAdminLogin from './VerifyAdminLogin';
+
 
 function UpdateJuiceCategory() {
   const { filterAllFoodCategoriesData } = useContext(AllContext);
@@ -32,7 +34,7 @@ function UpdateJuiceCategory() {
       method: "POST",
       headers: {
         "Content-type": "application/json",
-        admintoken: localStorage.getItem("admintoken"),
+       
       },
       body: JSON.stringify({
         _id: filterAllFoodCategoriesData,
@@ -105,6 +107,10 @@ function UpdateJuiceCategory() {
   return (
     <div className={Styles.admin}>
       <HeadTag title="Update Juice Category" />
+
+
+<VerifyAdminLogin />
+
 
       <AdminLeftMenu />
       {/* right bar */}

@@ -16,6 +16,7 @@ import { useState ,useEffect} from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import router from 'next/router'
+import HidePagesAfterLogin from "./HidePagesAfterLogin";
 export default function Signup() {
  const [fullName,setFullName]=useState("");
  const [age,setAge]=useState("");
@@ -27,11 +28,7 @@ export default function Signup() {
  const [cpassword,setCpassword]=useState("");
 
 
-useEffect(()=>{
-if(localStorage.getItem('clientToken')){
-      router.push("/");
-}
-})
+
 
  const sendData=async (e)=>{
  e.preventDefault();
@@ -237,6 +234,7 @@ localStorage.setItem('clientRegistrationEmail',data.data.Email)
   }
   return (
     <div>
+    <HidePagesAfterLogin />
     <div className={Styles.admin}>
       <HeadTag title="Client Signup" />
    <Header />
@@ -259,7 +257,7 @@ localStorage.setItem('clientRegistrationEmail',data.data.Email)
 
 <li>
 <h6>Enter Email Account <span>*</span></h6>
-<input type="email" name="email" placeholder="Enter email id" value={email} onChange={(e)=>setEmail(e.target.value)} required/>
+<input type="email" name="email" placeholder="Enter email id" value={email} onChange={(e)=>setEmail(e.target.value)} autoComplete="new-password" required />
 <AiOutlineMail className={ClientStyle.icon} />
 </li>
 
@@ -289,7 +287,7 @@ localStorage.setItem('clientRegistrationEmail',data.data.Email)
 </li>
 <li>
 <h6>Enter Password <span>*</span></h6>
-<input type="password" name="password" placeholder="Password" value={password} onChange={(e)=>setPassword(e.target.value)} required/>
+<input type="password" name="password" placeholder="Password" value={password} onChange={(e)=>setPassword(e.target.value)} autoComplete="new-password" required/>
 <RiLockPasswordLine className={ClientStyle.icon} />
 </li>
 <li>

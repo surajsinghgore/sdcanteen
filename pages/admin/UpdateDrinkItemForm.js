@@ -12,6 +12,9 @@ import { AllContext } from "../../context/AllContext";
 import Link from "next/link";
 let HOST = process.env.NEXT_PUBLIC_API_URL;
 
+import VerifyAdminLogin from './VerifyAdminLogin';
+
+
 export default function UpdateDrinkItemForm() {
   const { filterDrinkItemsData } = useContext(AllContext);
 
@@ -107,7 +110,7 @@ export default function UpdateDrinkItemForm() {
       method: "POST",
       headers: {
         "Content-type": "application/json",
-        admintoken: localStorage.getItem("admintoken"),
+
       },
       body: JSON.stringify({
         _id: filterDrinkItemsData[0]._id,
@@ -166,6 +169,8 @@ export default function UpdateDrinkItemForm() {
   return (
     <div className={Styles.admin}>
       <HeadTag title="Update Drink Item Form" />
+<VerifyAdminLogin />
+
 
       {/* left panel bar */}
       <AdminLeftMenu />

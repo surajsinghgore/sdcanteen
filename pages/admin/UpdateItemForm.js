@@ -8,6 +8,8 @@ import AdminRightInnerHeader from "../../Components/AdminRightInnerHeader";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import router from "next/router";
+import VerifyAdminLogin from './VerifyAdminLogin';
+
 import { AllContext } from "../../context/AllContext";
 import Link from "next/link";
 let HOST = process.env.NEXT_PUBLIC_API_URL;
@@ -109,7 +111,7 @@ let HOST = process.env.NEXT_PUBLIC_API_URL;
       method: "POST",
       headers: {
         "Content-type": "application/json",
-        admintoken: localStorage.getItem("admintoken"),
+      
       },
       body: JSON.stringify({
         _id: filterFoodItemsData[0]._id,
@@ -168,7 +170,7 @@ let HOST = process.env.NEXT_PUBLIC_API_URL;
   return (
     <div className={Styles.admin}>
       <HeadTag title="Update Food Item Form" />
-
+<VerifyAdminLogin />
       {/* left panel bar */}
       <AdminLeftMenu />
 

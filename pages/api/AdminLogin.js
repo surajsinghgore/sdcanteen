@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
 const JWT_SECRET = process.env.JWT_SECRET_KEY;
+var cookie = require('cookie');
 
 export default async function AdminLogin(req, res) {
   if (req.method !== "POST") {
@@ -30,9 +31,17 @@ export default async function AdminLogin(req, res) {
         secret: secret,
       };
       const token = jwt.sign(data, JWT_SECRET, { expiresIn: "1h" });
-      return res
+
+      // generate cookies for admin
+      res.setHeader('Set-Cookie',cookie.serialize('adminToken', token, {
+      httpOnly: true,
+        path: '/',
+    expires:new Date(Date.now()+ 3600000),
+    // secure:true
+    }) );
+            return res
         .status(201)
-        .json({ status: "201", message: "successfully login", token: token });
+        .json({ status: "201", message: "successfully login",  });
     }
   } catch (e) {
     console.log(e);

@@ -11,6 +11,8 @@ import router from "next/router";
 import { AllContext } from "../../context/AllContext";
 import Link from "next/link";
 let HOST = process.env.NEXT_PUBLIC_API_URL;
+import VerifyAdminLogin from './VerifyAdminLogin';
+
 
  function UpdateCoffeeItemForm() {
   const { filterCoffeeItemsData } = useContext(AllContext);
@@ -106,7 +108,7 @@ let HOST = process.env.NEXT_PUBLIC_API_URL;
       method: "POST",
       headers: {
         "Content-type": "application/json",
-        admintoken: localStorage.getItem("admintoken"),
+       
       },
       body: JSON.stringify({
         _id: filterCoffeeItemsData[0]._id,
@@ -168,6 +170,8 @@ let HOST = process.env.NEXT_PUBLIC_API_URL;
 
       {/* left panel bar */}
       <AdminLeftMenu />
+
+<VerifyAdminLogin />
 
       {/* right bar */}
       <div className={StyleFood.rightSideBar}>

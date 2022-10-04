@@ -13,6 +13,9 @@ import router from "next/router";
 import { AllContext } from "../../context/AllContext";
 let HOST = process.env.NEXT_PUBLIC_API_URL;
 
+import VerifyAdminLogin from './VerifyAdminLogin';
+
+
 export default function UpdateDrinkItem() {
   const { updateDrinkItem } = useContext(AllContext);
   const [drinkNameSearch, setDrinkNameSearch] = useState("");
@@ -76,6 +79,8 @@ export default function UpdateDrinkItem() {
   return (
     <div className={Styles.admin}>
       <HeadTag title="Update Drink Item" />
+<VerifyAdminLogin />
+
 
       {/* left panel bar */}
       <AdminLeftMenu />
