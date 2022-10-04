@@ -6,7 +6,7 @@ const VerifyAdmin = async (req, res, next) => {
     let token = req.cookies.adminToken;
     // token not present then
     if (!token) {
-      res.status(403).send({
+      returnres.status(403).send({
         message: "please login with admin credentials",
         status: "403",
       });
@@ -14,7 +14,7 @@ const VerifyAdmin = async (req, res, next) => {
 
     let data = await jwt.verify(token, JWT_SECRET);
     if (!data) {
-      res.status(403).send({
+     return res.status(403).send({
         message: "please login with admin credentials",
         status: "403",
       });
@@ -22,7 +22,7 @@ const VerifyAdmin = async (req, res, next) => {
     req.user = data.user;
   } catch (error) {
     console.log(error);
-    res
+   return res
       .status(403)
       .send({ message: "please login with admin credentials", status: "403" });
   }

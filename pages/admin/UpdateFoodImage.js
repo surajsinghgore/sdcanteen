@@ -9,7 +9,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 let HOST = process.env.NEXT_PUBLIC_API_URL;
 import VerifyAdminLogin from './VerifyAdminLogin';
-
+import imges from '../../public/banner4.jpg'
 import router from "next/router";
 import { AllContext } from "../../context/AllContext";
 import Link from "next/link";
@@ -17,11 +17,11 @@ import Image from "next/image";
 
 export default function UpdateFoodImage() {
   const { filterFoodItemsData } = useContext(AllContext);
-  const [imgs, setImgs] = useState('');
+  const [imgs, setImgs] = useState(imges);
   const [files, setFiles] = useState("");
 useEffect(()=>{
-if(filterFoodItemsData){
-setImgs(`/CoffeeItemImages/${filterFoodItemsData[0].Image}`)
+if(filterFoodItemsData[0]!=undefined){
+setImgs(`/FoodItemImages/${filterFoodItemsData[0].Image}`)
 }
 },[filterFoodItemsData])
   // images handle
@@ -167,7 +167,7 @@ setImgs(`/CoffeeItemImages/${filterFoodItemsData[0].Image}`)
             <li>
               <p>Photo Realtime Preview</p>
               <div className={StyleFood.preview_photo}>
-                <Image src={imgs} alt="" id="output" width={600} height={600} />
+                <Image src={imgs} alt="food image" id="output" width={600} height={600} />
               </div>
             </li>
             <button onClick={updateImage}> UPDATE IMAGE</button>

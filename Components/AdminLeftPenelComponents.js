@@ -2,7 +2,10 @@ import React,{useState,useEffect} from 'react'
 import Styles from "../styles/admin.module.css";
 import Link from "next/link";
 import router from 'next/router'
+let HOST = process.env.NEXT_PUBLIC_API_URL;
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 function AdminLeftPenelComponents({item}) {
 const [show,setShow]=useState(false);
 const [open,setOpen]=useState(false);
@@ -10,18 +13,55 @@ const [open,setOpen]=useState(false);
 if(open){
 setShow(true);
  if(item.title=='Logout'){
-localStorage.removeItem('admintoken')
-setTimeout(RedirectFunction,10);
-function RedirectFunction(){
-  router.push('/')
+
+
+
+const getData=async()=>{
+const res = await fetch(`${HOST}/api/LogoutAdmin`, {
+      method: "Get",
+      headers: {
+        "Content-type": "application/json",
+      }
+    });
+
+await res.json();
+if(res.status==201){
+
+toast.success('Admin Logout Successfully', {
+position: "bottom-right",
+autoClose: 5000,
+hideProgressBar: false,
+closeOnClick: true,
+pauseOnHover: true,
+draggable: true,
+progress: undefined,
+});
+const redirect=()=>{
+router.push("/");
 }
+setTimeout(redirect,2000);
+}
+
+}
+getData();
+
+
+
+
+
+
+
+
+
+
 }
 }
 else{
 setShow(false);
 }
  // eslint-disable-next-line react-hooks/exhaustive-deps
- },[open])
+ 
+},[open])
   return (
         <li key={item.id} onClick={()=>setOpen(!open)} id="clicked">  
           <div className={(show)?Styles.styles1:Styles.styles}>
@@ -43,6 +83,17 @@ setShow(false);
          }):''}
       
          </ul>:''}
+            <ToastContainer
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
         </li>
   )
 }

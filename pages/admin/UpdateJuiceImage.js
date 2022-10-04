@@ -9,7 +9,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 let HOST = process.env.NEXT_PUBLIC_API_URL;
 import VerifyAdminLogin from './VerifyAdminLogin';
-
+import imges from '../../public/banner4.jpg'
 
 import router from "next/router";
 import { AllContext } from "../../context/AllContext";
@@ -18,12 +18,12 @@ import Image from "next/image";
 
 export default function UpdateJuiceImage() {
   const { filterJuiceItemsData } = useContext(AllContext);
-  const [imgs, setImgs] = useState('');
+  const [imgs, setImgs] = useState(imges);
   const [files, setFiles] = useState("");
 
 useEffect(()=>{
 if(filterJuiceItemsData){
-setImgs(`/CoffeeItemImages/${filterJuiceItemsData[0].Image}`)
+setImgs(`/JuiceItemImages/${filterJuiceItemsData[0].Image}`)
 }
 },[filterJuiceItemsData])
   // images handle
@@ -102,7 +102,7 @@ setImgs(`/CoffeeItemImages/${filterJuiceItemsData[0].Image}`)
 
     if (datas.status == "201") {
       toast.success(
-        `${filterJuiceItemsData[0].FoodName} Image Successfully Updated`,
+        `${filterJuiceItemsData[0].JuiceName} Image Successfully Updated`,
         {
           position: "bottom-right",
           autoClose: 5000,

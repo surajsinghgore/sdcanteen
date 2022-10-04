@@ -45,7 +45,7 @@ let res=await fetch(`${HOST}/api/DeleteJuiceCategory`,{
     method: "DELETE",
     headers:{
         "Content-type": "application/json",
-         "admintoken":localStorage.getItem('admintoken')
+       
     },
     body: JSON.stringify({
         _id:id

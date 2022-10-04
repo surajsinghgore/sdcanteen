@@ -8,7 +8,7 @@ import AdminRightInnerHeader from "../../Components/AdminRightInnerHeader";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 let HOST = process.env.NEXT_PUBLIC_API_URL;
-
+import imges from '../../public/banner4.jpg'
 import VerifyAdminLogin from './VerifyAdminLogin';
 
 
@@ -19,11 +19,11 @@ import Image from "next/image";
 
 export default function UpdateDrinkImage() {
   const { filterDrinkItemsData } = useContext(AllContext);
-  const [imgs, setImgs] = useState('');
+  const [imgs, setImgs] = useState(imges);
   const [files, setFiles] = useState("");
 useEffect(()=>{
 if(filterDrinkItemsData){
-setImgs(`/CoffeeItemImages/${filterDrinkItemsData[0].Image}`)
+setImgs(`/DrinkItemImages/${filterDrinkItemsData[0].Image}`)
 }
 },[filterDrinkItemsData])
   // images handle
@@ -102,7 +102,7 @@ setImgs(`/CoffeeItemImages/${filterDrinkItemsData[0].Image}`)
 
     if (datas.status == "201") {
       toast.success(
-        `${filterDrinkItemsData[0].FoodName} Image Successfully Updated`,
+        `${filterDrinkItemsData[0].DrinkName} Image Successfully Updated`,
         {
           position: "bottom-right",
           autoClose: 5000,

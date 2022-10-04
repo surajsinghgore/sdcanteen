@@ -27,7 +27,7 @@ let HOST = process.env.NEXT_PUBLIC_API_URL;
   const [subCategory, setSubCategory] = useState('');
 
   useEffect(() => {
-    if (filterFoodItemsData) {
+    if (filterFoodItemsData[0]!=undefined) {
       setFoodName(filterFoodItemsData[0].FoodName);
       setPrice(filterFoodItemsData[0].Price);
       setQtys(filterFoodItemsData[0].Qty);

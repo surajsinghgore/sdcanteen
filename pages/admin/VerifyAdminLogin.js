@@ -8,12 +8,12 @@ export default function VerifyAdminLogin() {
 useEffect(()=>{
 const getData=async()=>{
 const res = await fetch(`${HOST}/api/VerifyAdminLogin`, {
-      method: "POST",
+      method: "GET",
       headers: {
         "Content-type": "application/json",
       }
     });
-    await res.json();
+    let data=await res.json();
 if(res.status==403){
 toast.error('Please Login With Admin Credentials', {
 position: "bottom-right",
@@ -34,7 +34,7 @@ setTimeout(RedirectFunction,1500);
 
 getData();
 
-},[])
+})
 
 
 

@@ -47,7 +47,7 @@ let res=await fetch(`${HOST}/api/DeleteFoodCategory`,{
     method: "DELETE",
     headers:{
         "Content-type": "application/json",
-           "admintoken":localStorage.getItem('admintoken')
+          
     },
     body: JSON.stringify({
         _id:id

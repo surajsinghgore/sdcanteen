@@ -163,9 +163,7 @@ export default function AddJuiceItem() {
     }
   };
   useEffect(() => {
-    if (!localStorage.getItem("admintoken")) {
-      router.push("/admin/Login");
-    }
+
     async function dataFetch() {
       let ress = await fetch(`${HOST}/api/ShowJuiceCategory`);
       let datas = await ress.json();

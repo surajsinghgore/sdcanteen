@@ -13,11 +13,11 @@ import { AllContext } from "../../context/AllContext";
 import Link from "next/link";
 import Image from "next/image";
 import VerifyAdminLogin from './VerifyAdminLogin';
-
+import imges from '../../public/banner4.jpg'
 
 function UpdateCoffeeImage() {
   const { filterCoffeeItemsData } = useContext(AllContext);
-  const [imgs, setImgs] = useState('' );
+  const [imgs, setImgs] = useState(imges);
   const [files, setFiles] = useState("");
 
 useEffect(()=>{
@@ -100,7 +100,7 @@ setImgs(`/CoffeeItemImages/${filterCoffeeItemsData[0].Image}`)
 
     if (datas.status == "201") {
       toast.success(
-        `${filterCoffeeItemsData[0].FoodName} Image Successfully Updated`,
+        `${filterCoffeeItemsData[0].CoffeeName} Image Successfully Updated`,
         {
           position: "bottom-right",
           autoClose: 5000,
