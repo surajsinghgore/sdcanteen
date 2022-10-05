@@ -12,6 +12,7 @@ import VerifyClientMiddleware from "./VerifyClientMiddleware";
 import Timing from '../Data/Timing';
 import { useState } from "react";
 import { useEffect } from "react";
+let HOST = process.env.NEXT_PUBLIC_API_URL;
 
 
 export default function OrderDetails() {
@@ -20,7 +21,7 @@ const [realTime,setRealTime]=useState(true);
 const [defaultTime,setDefaultTime]=useState();
 let date=new Date();
 
-
+// if cart is empty then off Timing Page
 useEffect(()=>{
 let carts=JSON.parse(localStorage.getItem('react-use-cart'))
 if(carts.items.length==0){
@@ -40,6 +41,7 @@ toast.warn("Please Add something In Cart", {
 return 0;
 }
 },[])
+
 useEffect(()=>{
 let m=parseInt(date.getMinutes());
 let h=parseInt(date.getHours());
@@ -53,19 +55,56 @@ m=m+10;
 }
 let times=`${h}.${m}`;
 const fetchData=async()=>{
+
+const res = await fetch(`${HOST}/api/ShowOrderOnOffStatus`, {
+      method: "GET",
+      headers: {
+        "Content-type": "application/json",
+      }
+    });
+    let data=await res.json();
+  if(res.status==501){
+toast.error('Internal Server Error', {
+position: "bottom-right",
+autoClose: 5000,
+hideProgressBar: false,
+closeOnClick: true,
+pauseOnHover: true,
+draggable: true,
+progress: undefined,
+});
+return 0;
+    }
+ if(res.status==404){
+toast.warn('No Record Found', {
+position: "bottom-right",
+autoClose: 5000,
+hideProgressBar: false,
+closeOnClick: true,
+pauseOnHover: true,
+draggable: true,
+progress: undefined,
+});
+return 0;
+    }
+let status;
+if(data.data){
+status=data.data[0].Status;
+}
+if(status=="true"){}else{
 let d=await Timing.filter((time)=>{
 return time.time>=times;
 })
 setTime(d);
 }
-
-
+}
 if(date.getDay()!=7){
 // from 7 am to 6 pm allowed
 if((h>=7)&&(h<=17)){
 fetchData();
 }
 }
+
 },[realTime])
 
 useEffect(()=>{
@@ -84,6 +123,8 @@ let value=document.querySelector("input[type='radio'][name=time]:checked").value
 localStorage.setItem("OrderFoodTime",value);
 setDefaultTime(value)
 }
+
+
 useEffect(()=>{
 if(localStorage.getItem("OrderFoodTime")){
 setDefaultTime(localStorage.getItem("OrderFoodTime"))

@@ -191,3 +191,26 @@ background-color: rgb(41, 39, 39);
 color: white;
 box-shadow: 0px 0px 32px 2px rgb(227, 94, 6);
 }
+
+
+
+/* toggle button */
+
+.profile_section{
+position: relative;
+display: flex;
+margin-left: 20%;
+margin-top: 1%;
+}
+.profile_section h1{
+font-size: 20px;
+color: red;
+}
+.profile_section .react_switch{
+position: absolute;
+top: 18%;
+left: 15%;
+vertical-align: middle;
+  margin-left: 4px;
+
+}
