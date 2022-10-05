@@ -21,8 +21,6 @@ const [show,setShow]=useState(false);
 
 const showSubMenu=()=>{
 setShow(true);
-
-
 }
 // update
 const UpdateCategory=async(id)=>{

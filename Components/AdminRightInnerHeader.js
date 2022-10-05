@@ -19,8 +19,29 @@ export default function AdminRightInnerHeader(props) {
   }
   }
   },[])
-
-
+// set on / off after fetching old status from database
+useEffect(()=>{
+const gets=async()=>{
+const res1 = await fetch(`${HOST}/api/ShowOrderOnOffStatus`, {
+      method: "GET",
+      headers: {
+        "Content-type": "application/json",
+      }
+    });
+    let data=await res1.json();
+    if(data.data){
+    let s=data.data[0].Status;
+    if(s=="true"){
+    setChecked(false)
+    }
+    else{
+    setChecked(true)
+    }
+    }
+}
+gets();
+},[])
+// update on/off state using toggle button 
   const handleChange=() => {
   
     setChecked(!checked);

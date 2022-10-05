@@ -172,14 +172,22 @@ close: <IoIosArrowDown />,
 subMenu:[
 {
 title:"Realtime Order",
+path:"/admin/RealtimeOrder",
+},
+{
+title:"Past Pending Order",
 path:"/admin/AddOrder",
 },
 {
-title:"Pending Order",
+title:"All Past Order",
 path:"/admin/AddOrder",
 },
 {
-title:"Past Order",
+title:"Filter Orders",
+path:"/admin/AddOrder",
+},
+{
+title:"Monthwise Orders",
 path:"/admin/AddOrder",
 },
 ]

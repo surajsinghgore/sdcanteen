@@ -105,6 +105,8 @@ setFullName(resName)
 getData();
 
 },[])
+
+
 // internet connection status check
 useEffect(()=>{
 let connectionStatus=window.navigator.onLine;
@@ -122,7 +124,7 @@ return 0;
 }
 },[])
 
-
+// unique element in cart fetch
   useEffect(()=>{
   setCartSize(totalUniqueItems)
   },[totalUniqueItems])
@@ -236,7 +238,7 @@ getDatas();
 },[search])
 
 
-
+// search bar
 const SetSearchValue=(e)=>{
 setSearch(e.target.value);
 let search=document.getElementById('search');
@@ -248,7 +250,7 @@ suggestion.style.display="none"
 }
 
 
-
+// logout
 
 const LogoutClient=()=>{
 
@@ -287,7 +289,7 @@ getData();
 }
 
 
-
+// on click on search suggesttion
 const firedClick=()=>{
 setSearch("");
 let suggestion=document.getElementById('suggestion');

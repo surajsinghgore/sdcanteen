@@ -1,0 +1,266 @@
+.orders{
+width: 96%;
+margin-left: 2%;
+height: 500px;
+margin-top: 10%;
+position: relative;
+}
+
+.orders .tables_section{
+width: 100%;
+height: auto;
+}
+
+.orders .tables_section .tableheading{
+width: 98%;
+margin-left: 1%;
+height: auto;
+padding-top: 2%;
+text-transform: uppercase;
+color: rgb(87, 87, 87);
+padding-bottom: 2%;
+display: flex;
+border: 2px solid rgb(227, 227, 227);
+display:flex;
+}
+
+
+.orders .tables_section .contain{
+position: relative;
+border: 2px solid rgb(227, 227, 227);
+width: 98%;
+margin-bottom: 1%;
+margin-left: 1%;
+}
+.orders .tables_section .contain .tableheaddata{
+
+height: auto;
+padding-top: 2%;
+color: rgb(87, 87, 87);
+text-transform: uppercase;
+padding-bottom: 2%;
+display: flex;
+
+}
+
+
+.orders .tables_section .contain .tableheaddata .div1,.orders .tables_section .tableheading .div1{
+width: 12%;
+height: auto;text-align:center;
+font-size: 20px;
+color: rgb(87, 87, 87);
+}
+.orders .tables_section .contain .tableheaddata .div2,.orders .tables_section .tableheading .div2{
+width: 25%;
+height: auto;
+font-size: 20px;text-align:center;
+color: rgb(87, 87, 87);
+}
+
+.orders .tables_section .contain .tableheaddata .div3,.orders .tables_section .tableheading .div3{
+
+width: 12%;
+height: auto;
+font-size: 20px;text-align:center;
+color: rgb(87, 87, 87);
+}
+
+.orders .tables_section .contain .tableheaddata .div4,.orders .tables_section .tableheading .div4{
+width: 19%;
+height: auto;text-align:center;
+font-size: 20px;
+color: rgb(87, 87, 87);
+}
+
+
+.orders .tables_section .contain .tableheaddata .div5,.orders .tables_section .tableheading .div5{
+width: 15%;
+height: auto;text-align:center;
+font-size: 20px;
+color: rgb(87, 87, 87);
+}
+
+.orders .tables_section .contain .tableheaddata .rej,.orders .tables_section .contain .tableheaddatasub .rej{
+background-color: rgb(255, 186, 186);
+border-radius: 30px;
+color: white;
+padding-top: 4%;
+padding-bottom: 4%;
+color: red;
+}
+
+.orders .tables_section .contain .tableheaddata .cor,.orders .tables_section .contain .tableheaddatasub .cor{
+background-color: #9eff9e;
+border-radius: 30px;
+color: white;
+padding-top: 4%;
+color: #014001;
+padding-bottom: 4%;
+}
+
+.orders .tables_section .contain .tableheaddata .pen,.orders .tables_section .contain .tableheaddatasub .pen{
+background-color: rgb(255, 224, 185);
+border-radius: 30px;
+color: white;
+padding-top: 4%;
+color: rgb(253, 76, 0);
+padding-bottom: 4%;
+}
+
+
+/* sub data */
+/* heading */
+.orders .tables_section .contain .tableheadingsub{
+
+height: auto;
+
+padding-top: 0.5%;
+text-transform: uppercase;
+color: rgb(0, 0, 0);
+padding-bottom: 0.5%;
+display: flex;
+border: 2px solid rgb(77, 77, 77);
+}
+
+/* data */
+.orders .tables_section .contain .tableheaddatasub{
+width: 98%;
+position: relative;
+user-select: none;
+margin-left: 1%;
+height: auto;
+padding-top: 2%;
+color: rgb(87, 87, 87);
+text-transform: uppercase;
+padding-bottom: 1%;
+display: flex;
+border-bottom: 2px solid rgb(227, 227, 227);
+}
+
+.orders .tables_section .contain .tableheaddatasub .div1,.orders .tables_section .contain .tableheadingsub .div1{
+width: 25%;
+height: auto;text-align:center;
+font-size: 16px;
+font-weight: 600;
+
+}
+.orders .tables_section .contain .tableheaddatasub .div2,.orders .tables_section .contain .tableheadingsub .div2{
+width: 10%;
+height: auto;text-align:center;
+font-size: 16px;
+font-weight: 600;
+
+}
+
+.orders .tables_section .contain .tableheaddatasub .div3,.orders .tables_section .contain .tableheadingsub .div3{
+width: 10%;
+height: auto;text-align:center;
+font-size: 16px;
+font-weight: 600;
+
+}
+.orders .tables_section .contain .tableheaddatasub .div4,.orders .tables_section .contain .tableheadingsub .div4{
+width: 20%;
+height: auto;text-align:center;
+font-size: 16px;
+font-weight: 600;
+
+}
+.orders .tables_section .contain .tableheaddatasub .div5,.orders .tables_section .contain .tableheadingsub .div5{
+width: 12%;
+height: auto;text-align:center;
+font-size: 16px;
+font-weight: 600;
+
+}
+.orders .tables_section .contain .tableheaddatasub .div6,.orders .tables_section .contain .tableheadingsub .div6{
+width: 10%;
+height: auto;text-align:center;
+font-size: 16px;
+font-weight: 600;
+
+}
+
+.orders .tables_section .contain .tableheadingsub .div7{
+width:12%;
+height: auto;text-align:center;
+font-size: 16px;
+font-weight: 600;
+}
+.orders .tables_section .contain .tableheaddatasub .div7{
+width:12%;
+height: auto;
+text-align:center;
+font-size: 16px;
+font-weight: 600;
+}
+
+.orders .tables_section .contain .tableheadingsub .div8{
+width: 15%;
+height: auto;text-align:center;
+font-size: 16px;
+font-weight: 600;
+
+}
+.orders .tables_section .contain .tableheaddatasub .div8{
+width: 15%;
+height: auto;text-align:center;
+font-size: 26px;
+font-weight: 600;
+color: rgb(87, 87, 87);
+cursor: pointer;
+}
+
+/* drop down */
+.orders .tables_section .contain .tableheaddatasub .options{
+position: absolute;
+top: 85%;
+right: 5.5%;
+z-index: 99;
+width: 160px;
+height: 110px;
+box-shadow: 0px 2px 18px 5px rgb(165, 165, 165);
+background-color: rgb(255, 255, 255);
+}
+
+.orders .tables_section .contain .tableheaddatasub .options div{
+margin-top: 4%;
+margin-bottom: 5%;
+font-size: 19px;
+padding-top: 1%;
+padding-bottom: 1%;
+position: relative;
+font-weight: 500;
+}
+
+.orders .tables_section .contain .tableheaddatasub .options div:hover{
+cursor: pointer;
+background-color: rgb(234, 234, 234);
+}
+.orders .tables_section .contain .tableheaddatasub .options div .icon1{
+color: rgb(3, 160, 245);
+margin-left: 10%;
+font-size: 30px;
+}
+
+.orders .tables_section .contain .tableheaddatasub .options div .icon2{
+color: red;
+margin-left: 10%;
+font-size: 30px;
+}
+
+.orders .tables_section .contain .tableheaddatasub .options div .icon_1{
+color: rgb(3, 160, 245);
+margin-left: 5%;
+position: absolute;
+top: 15%;
+left: 28%;
+}
+
+.orders .tables_section .contain .tableheaddatasub .options div .icon_2{
+color: red;
+margin-left: 5%;
+position: absolute;
+top: 15%;
+left: 28%;
+}

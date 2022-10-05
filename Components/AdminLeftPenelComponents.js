@@ -13,9 +13,6 @@ const [open,setOpen]=useState(false);
 if(open){
 setShow(true);
  if(item.title=='Logout'){
-
-
-
 const getData=async()=>{
 const res = await fetch(`${HOST}/api/LogoutAdmin`, {
       method: "Get",
@@ -36,10 +33,11 @@ pauseOnHover: true,
 draggable: true,
 progress: undefined,
 });
+localStorage.removeItem("orderStatus");
 const redirect=()=>{
 router.push("/");
 }
-setTimeout(redirect,2000);
+setTimeout(redirect,100);
 }
 
 }

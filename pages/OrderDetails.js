@@ -41,7 +41,7 @@ toast.warn("Please Add something In Cart", {
 return 0;
 }
 },[])
-
+// enable time is not sunday and also not off from admin
 useEffect(()=>{
 let m=parseInt(date.getMinutes());
 let h=parseInt(date.getHours());
@@ -106,7 +106,7 @@ fetchData();
 }
 
 },[realTime])
-
+// refresh automatically after some times
 useEffect(()=>{
 let seconds=60-date.getSeconds();
 const changes=()=>{
@@ -119,9 +119,24 @@ setInterval(changes,1000*seconds);
     }
 
 const getTime=()=>{
+if(document.querySelector("input[type='radio'][name=time]:checked")){
 let value=document.querySelector("input[type='radio'][name=time]:checked").value;
 localStorage.setItem("OrderFoodTime",value);
 setDefaultTime(value)
+router.push('/PaymentMethod')
+}
+else{
+toast.warn('Please Select Time Slot', {
+position: "bottom-right",
+autoClose: 5000,
+hideProgressBar: false,
+closeOnClick: true,
+pauseOnHover: true,
+draggable: true,
+progress: undefined,
+});
+return 0;
+}
 }
 
 
@@ -222,7 +237,7 @@ value={`${time.time1.toFixed(2)}-${(time.time>=12)?'PM':'AM'}`} />
 <Link href="/Cart"><button className={CartStyle.more}>Cart Page</button></Link>
 <div className={CartStyle.subtotal} >
 {(time.length!=0)?
-<Link href="/PaymentMethod"><button style={{marginTop:"5%",marginRight:"-4%"}} onClick={getTime}>Continue Order</button></Link>
+<button style={{marginTop:"5%",marginRight:"-4%"}} onClick={getTime}>Continue Order</button>
 :<button style={{marginTop:"5%",marginRight:"-4%",cursor:"not-allowed"}} onClick={getTime} disabled>Continue Order</button>
 }
 </div>
