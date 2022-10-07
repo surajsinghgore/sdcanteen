@@ -6,7 +6,7 @@ const VerifyAdmin = async (req, res, next) => {
     let token = req.cookies.adminToken;
     // token not present then
     if (!token) {
-      returnres.status(403).send({
+      return res.status(403).send({
         message: "please login with admin credentials",
         status: "403",
       });

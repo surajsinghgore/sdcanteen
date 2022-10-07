@@ -53,10 +53,12 @@ const Email=findClientData.Email;
       const FullAddress=findClientData.FullAddress;
       const FullName=findClientData.FullName;
       const PickUpTime=req.body.PickUpTime;
+      const PickUpTime1=req.body.PickUpTime1;
       const PaymentMethod=req.body.PaymentMethod;
       const UserId=req.cookies.clinetId;
       const TotalAmount=req.body.TotalAmount;
       const OrderTime=OrderTimes;
+    
       const OrderDate=`${day}.${month}.${year}`;
 
 let array=[];
@@ -71,10 +73,11 @@ for(let i=0;i<req.body.ItemsOrder.length;i++){
       const Amount=req.body.ItemsOrder[i].Amount;
       const ProductOriginalAmount=req.body.ItemsOrder[i].ProductOriginalAmount;
       const Category=req.body.ItemsOrder[i].Category;
-      array.push({ItemName,Qty,Amount,Category,ProductOriginalAmount})  
+      const CategoryPrimary=req.body.ItemsOrder[i].CategoryPrimary;
+      array.push({ItemName,Qty,Amount,Category,CategoryPrimary,ProductOriginalAmount})  
 }
  const sendItem=new OrderSchemaDataBase({UserId,
-      Email,Mobile,FullAddress,FullName,PickUpTime,PaymentMethod,OrderTime,OrderDate,TotalAmount,TokenNumber,TokenUser,
+      Email,Mobile,FullAddress,FullName,PickUpTime,PickUpTime1,PaymentMethod,OrderTime,OrderDate,TotalAmount,TokenNumber,TokenUser,
       ItemsOrder:array
       })
       let ress=await sendItem.save();

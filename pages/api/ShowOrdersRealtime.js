@@ -15,12 +15,11 @@ const OrderDate=`${day}.${month}.${year}`;
 
 
 
-let Alldata=await OrderSchemaDataBase.find().select('-createdAt -updatedAt -UserId -TokenNumber');
+let Alldata=await OrderSchemaDataBase.find().select('-createdAt -updatedAt -UserId -TokenNumber').sort({PickUpTime1:1});
 let data=await Alldata.filter((item)=>{
 return item.OrderDate.includes(OrderDate)
 })
 
-console.log(data)
  res.status(201).json({status:"201",data:data})
     }
     catch(e){

@@ -34,6 +34,7 @@ draggable: true,
 progress: undefined,
 });
 localStorage.removeItem("orderStatus");
+localStorage.removeItem("active");
 const redirect=()=>{
 router.push("/");
 }

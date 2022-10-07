@@ -6,12 +6,23 @@ margin-top: 10%;
 position: relative;
 
 }
+
+.orders input[type="search"]::-webkit-search-decoration,
+.orders input[type="search"]::-webkit-search-cancel-button,
+.orders input[type="search"]::-webkit-search-results-button,
+.orders input[type="search"]::-webkit-search-results-decoration {
+  -webkit-appearance:none;
+}
 .orders h1{
 font-size: 17px;
 color: red;
 padding-left: 1%;
 }
-
+.orders h6{
+margin-left: 3%;
+color: blue;
+font-size: 30px;
+}
 /* search bar */
 .orders .searchBar{
 width: 100%;
@@ -35,6 +46,15 @@ text-align: center;
 margin-bottom: 2%;
 font-size: 18px;
 outline: none;
+}
+
+
+.orders .searchBar option {
+    overflow: hidden;  
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    height: 110px;
+    font-size: 18px;
 }
 
 
@@ -316,6 +336,8 @@ height: auto;text-align:center;
 font-size: 26px;
 font-weight: 600;
 color: rgb(87, 87, 87);
+}
+.orders .tables_section .contain .menu,.orders .tables_section .contain .close{
 cursor: pointer;
 }
 
@@ -362,6 +384,7 @@ color: rgb(3, 160, 245);
 margin-left: 5%;
 position: absolute;
 top: 15%;
+cursor: pointer;
 left: 28%;
 }
 
@@ -369,6 +392,8 @@ left: 28%;
 color: red;
 margin-left: 5%;
 position: absolute;
+cursor: pointer;
+
 top: 15%;
 left: 28%;
 }
@@ -417,8 +442,9 @@ top: 0;
 background-color: white;
 left: 0;
 }
-.tableheaddatasub .update .tick{color: green;font-size: 30px;}
-.tableheaddatasub .update .back{color: rgb(238, 71, 11);margin-left: 5%;}
+.tableheaddatasub .update .tick{color: green;font-size: 30px;cursor: pointer;}
+.tableheaddatasub .done{color: green;font-size: 30px;}
+.tableheaddatasub .update .back{color: rgb(238, 71, 11);margin-left: 5%;cursor: pointer;}
 
 
 .tableheaddatasub .update .div1{
@@ -475,5 +501,4 @@ height: auto;text-align:center;
 font-size: 26px;
 font-weight: 600;
 color: rgb(87, 87, 87);
-cursor: pointer;
 }

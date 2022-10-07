@@ -13,7 +13,7 @@ const [filterFoodItemsData,setFilterFoodItemsData]=useState([]);
 const [filterCoffeeItemsData,setFilterCoffeeItemsData]=useState([]);
 const [filterDrinkItemsData,setFilterDrinkItemsData]=useState([]);
 const [filterJuiceItemsData,setFilterJuiceItemsData]=useState([]);
-
+const [statesForRealtime,setStateForRealtime]=useState(true);
 const [deletes,setDeletes]=useState(false);
 
 
@@ -103,9 +103,10 @@ return item._id==id})
 return (<AllContext.Provider value={{
 // useState
 filterAllFoodCategoriesData,
-deletes,setDeletes,
+deletes,setDeletes,setStateForRealtime,
 filterFoodItemsData,
 filterCoffeeItemsData,
+statesForRealtime,
 filterDrinkItemsData,
 filterJuiceItemsData,
 updateFoodCategories,

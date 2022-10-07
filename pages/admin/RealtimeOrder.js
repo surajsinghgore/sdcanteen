@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useContext } from "react";
 import Styles from "../../styles/admin.module.css";
 import HeadTag from "../../Components/Head";
 import AdminLeftMenu from "../../Components/AdminLeftMenu";
@@ -6,76 +6,287 @@ import VerifyAdminLogin from './VerifyAdminLogin';
 import AdminRightInnerHeader from "../../Components/AdminRightInnerHeader";
 import StyleFood from "../../styles/AddFood.module.css";
 import StyleRealtime from "../../styles/RealtimeOrder.module.css";
-
 import { useEffect } from "react";
 import ShowHideInRealtime from "../../Components/ShowHideInRealtime";
 let HOST = process.env.NEXT_PUBLIC_API_URL;
-
+import { AllContext } from "../../context/AllContext";
 
 export default function RealtimeOrder() {
+ const { statesForRealtime } = useContext(AllContext);
 
 const [datas,setData]=useState([]);
+
+const [token,setToken]=useState('')
+const [customerName,setCustomerName]=useState('')
+const [category,setCategory]=useState('')
+const [time,setTime]=useState('')
+
 const [totalOrder,setTotalOrder]=useState(0);
 const [completeOrder,setCompleteOrder]=useState(0);
 const [pendingOrder,setPendingOrder]=useState(0);
 const [rejectOrder,setRejectOrder]=useState(0);
 const [notPickOrder,setNotPickOrder]=useState(0);
+const [allData,setAllData]=useState([]);
+const [rejectData,setRejectData]=useState([]);
+const [pendingData,setPendingData]=useState([]);
+const [completeData,setCompleteData]=useState([]);
+const [pickUpNotData,setPickUpNotData]=useState([]);
 // fetch realtime data
-useEffect(()=>{
 const fetchData=async()=>{
 let ress = await fetch(`${HOST}/api/ShowOrdersRealtime`);
       let datass = await ress.json();
-      // filter records accoding to time
-     
       if(datass.data!=undefined){
-setTotalOrder(datass.data.length)
-
-// OrderStatus
-// order complete
-const completes=await datass.data.filter((item)=>{
-return item.OrderStatus.toLowerCase()=="complete";
-})
-setCompleteOrder(completes.length)
-// pending order
-const pending=await datass.data.filter((item)=>{
-return item.OrderStatus.toLowerCase()=="pending";
-})
-setPendingOrder(pending.length)
-// reject order
-const reject=await datass.data.filter((item)=>{
-return item.OrderStatus.toLowerCase()=="reject";
-})
-setRejectOrder(reject.length)
-// order not pickup
-
+      //! pending Data Fetch
+      let pendingRes=datass.data.filter((item)=>{
+      return item.OrderStatus.toLowerCase()=="pending";
+      })
+setPendingOrder(pendingRes.length)
+      setPendingData(pendingRes);
+        setData(pendingRes)
+     //! complete Data Fetch
+     let completeRes=datass.data.filter((item)=>{
+      return item.OrderStatus.toLowerCase()=="complete";
+      })
+      setCompleteOrder(completeRes.length)
+      setCompleteData(completeRes);
+      // reject Data
+     let rejectRes=datass.data.filter((item)=>{
+      return item.OrderStatus.toLowerCase()=="reject";
+      })
+      setRejectOrder(rejectRes.length)
+      setRejectData(rejectRes);
+      //! not pickedup order
 let currentDate=new Date();
 let OrderTimes;
-let hours=currentDate.getHours();
 let m=parseInt(currentDate.getMinutes());
-if(m<=9){
-m = '0'+m;
-}
-if(hours>=12){
-OrderTimes=currentDate.getHours()+1+"-"+m+" PM";
-}
-else{
-OrderTimes=currentDate.getHours()+1+"-"+m+" AM";
-}
-const orderNotPick=await datass.data.filter((item)=>{
-if(item.OrderStatus.toLowerCase()=="pending"){
-return parseFloat(item.PickUpTime).toFixed(2)<=parseFloat(OrderTimes).toFixed(2);
-}
-})
-setNotPickOrder(orderNotPick.length)
-      await setData(datass.data);
+let t=currentDate.getHours()+"."+m;
+OrderTimes=parseFloat(t).toFixed(2);
+     let pickupNotRes=datass.data.filter((item)=>{
+      return item.OrderStatus.toLowerCase()=="pending" && parseFloat(item.PickUpTime1).toFixed(2)<=parseFloat(OrderTimes).toFixed(2);
+      })
+
+ setPickUpNotData(pickupNotRes);
+setNotPickOrder(pickupNotRes.length)
+setTotalOrder(datass.data.length)
+setAllData(datass.data)
       }
 }
 
+useEffect(()=>{
 fetchData();
-},[])
+},[statesForRealtime])
+
+
+useEffect(()=>{
+
+},[datas])
+
+
+// filter using token
+const changingToken=(e)=>{
+setToken(e.target.value)
+let namesId=document.getElementById('token').value.length;
+let value=document.getElementById('token').value
+if(namesId==0){
+if(localStorage.getItem('active')=="pending"){setData(pendingData)}
+else if(localStorage.getItem('active')=="complete"){setData(completeData)}
+else if(localStorage.getItem('active')=="reject"){setData(rejectData)}
+else if(localStorage.getItem('active')=="notpick"){pickUpNotData}
+else{setData(allData)}
+}
+else{
+let arr=[];
+if(localStorage.getItem('active')=="pending"){
+arr=pendingData;
+}
+else if(localStorage.getItem('active')=="complete"){
+arr=completeData;
+}
+else if(localStorage.getItem('active')=="reject"){
+arr=rejectData;
+
+}
+else if(localStorage.getItem('active')=="notpick"){
+arr=pickUpNotData;
+
+}
+else{
+arr=allData;
+}
+let aa=arr.filter((item)=>{
+return  item.TokenUser.toLowerCase().includes(value.toLowerCase())
+})
+setData(aa);
+}
+}
+
+// filter using curstomer name
+const changingName=(e)=>{
+setCustomerName(e.target.value)
+let namesId=document.getElementById('names').value.length
+let value=document.getElementById('names').value
+if(namesId==0){
+if(localStorage.getItem('active')=="pending"){setData(pendingData)}
+else if(localStorage.getItem('active')=="complete"){setData(completeData)}
+else if(localStorage.getItem('active')=="reject"){setData(rejectData)}
+else if(localStorage.getItem('active')=="notpick"){setData(pickUpNotData)}
+else{setData(allData)}
+}
+else{
+let arr=[];
+if(localStorage.getItem('active')=="pending"){
+arr=pendingData;
+}
+else if(localStorage.getItem('active')=="complete"){
+arr=completeData;
+}
+else if(localStorage.getItem('active')=="reject"){
+arr=rejectData;
+
+}
+else if(localStorage.getItem('active')=="notpick"){
+arr=pickUpNotData;
+
+}
+else{
+arr=allData;
+}
+let aa=arr.filter((item)=>{
+return  item.FullName.toLowerCase().includes(value.toLowerCase())
+})
+setData(aa);
+}
+}
+
+// filter using time
+const changingTime=(e)=>{
+setTime(e.target.value)
+let value=document.getElementById("time").value
+if(value=="null"){
+if(localStorage.getItem('active')=="pending"){setData(pendingData)}
+else if(localStorage.getItem('active')=="complete"){setData(completeData)}
+else if(localStorage.getItem('active')=="reject"){setData(rejectData)}
+else if(localStorage.getItem('active')=="notpick"){setData(pickUpNotData)}
+else{setData(allData)}
+}
+else{
+let arr=[];
+if(localStorage.getItem('active')=="pending"){
+arr=pendingData;
+}
+else if(localStorage.getItem('active')=="complete"){
+arr=completeData;
+}
+else if(localStorage.getItem('active')=="reject"){
+arr=rejectData;
+
+}
+else if(localStorage.getItem('active')=="notpick"){
+arr=pickUpNotData;
+
+}
+else{
+arr=allData;
+}
+let aa=arr.filter((item)=>{
+return  item.PickUpTime.toLowerCase().includes(value.toLowerCase())
+})
+setData(aa);
+}
+}
+
+// filter using category
+const changingCategory=(e)=>{
+setCategory(e.target.value)
+let value=document.getElementById("category").value
+if(value=="null"){
+if(localStorage.getItem('active')=="pending"){setData(pendingData)}
+else if(localStorage.getItem('active')=="complete"){setData(completeData)}
+else if(localStorage.getItem('active')=="reject"){setData(rejectData)}
+else if(localStorage.getItem('active')=="notpick"){setData(pickUpNotData)}
+else{setData(allData)}
+}
+else{
+let arr=[];
+if(localStorage.getItem('active')=="pending"){
+arr=pendingData;
+}
+else if(localStorage.getItem('active')=="complete"){
+arr=completeData;
+}
+else if(localStorage.getItem('active')=="reject"){
+arr=rejectData;
+
+}
+else if(localStorage.getItem('active')=="notpick"){
+arr=pickUpNotData;
+
+}
+else{
+arr=allData;
+}
+let aa;
+aa=arr.map((itm)=>{
+return {...itm,ItemsOrder : itm.ItemsOrder.filter((item)=>{
+ return item.CategoryPrimary==value;
+})}
+})
+
+setData(aa)
+
+
+}
+}
 
 
 
+
+
+
+
+// filter using anayalsis
+
+const allDatasFunction=()=>{
+localStorage.setItem("active","all")
+setData(allData)
+setToken('')
+setCustomerName('')
+setCategory('')
+setTime('')
+}
+
+const completeFunction=()=>{
+localStorage.setItem("active","complete")
+setData(completeData);
+setToken('')
+setCustomerName('')
+setCategory('')
+setTime('')
+}
+const pendingFunction=()=>{
+localStorage.setItem("active","pending")
+setData(pendingData)
+setToken('')
+setCustomerName('')
+setCategory('')
+setTime('')
+}
+const rejectFunction=()=>{
+localStorage.setItem("active","reject")
+setData(rejectData)
+setToken('')
+setCustomerName('')
+setCategory('')
+setTime('')
+}
+const notpickFunction=()=>{
+localStorage.setItem("active","notpick")
+setData(pickUpNotData)
+setToken('')
+setCustomerName('')
+setCategory('')
+setTime('')
+}
 
   return (
       <div className={Styles.admin}>
@@ -95,24 +306,54 @@ fetchData();
 
 {/*! search bar section */}
 <div className={StyleRealtime.searchBar}>
-<input type="search" name="" id="" placeholder="Search Token Id ..." />
-<input type="search" name="" id="" placeholder="Search Customer Name..."/>
-<select>
-<option value="" defaultChecked>Search Time Slot...</option>
+<input type="search" name="token" value={token} placeholder="Search Token Id ..." onChange={changingToken} id="token"/>
+<input type="search" name="curstomername" value={customerName} placeholder="Search Customer Name..." onChange={changingName} id="names"/>
+<select value={time} onChange={changingTime} name="time" id="time">
+<option value="null">Search Time Slot...</option>
 <option value="8.00-Am">8.00 Am</option>
+<option value="8.15-Am">8.15 Am</option>
+<option value="8.30-Am">8.30 Am</option>
+<option value="8.45-Am">8.45 Am</option>
 <option value="9.00-AM">9.00 Am</option>
+<option value="9.15-AM">9.15 Am</option>
+<option value="9.30-AM">9.30 Am</option>
+<option value="9.45-AM">9.45 Am</option>
 <option value="10.00-Am">10.00 Am</option>
+<option value="10.15-Am">10.15 Am</option>
+<option value="10.30-Am">10.30 Am</option>
+<option value="10.45-Am">10.45 Am</option>
 <option value="11.00-Am">11.00 Am</option>
+<option value="11.15-Am">11.15 Am</option>
+<option value="11.30-Am">11.30 Am</option>
+<option value="11.45-Am">11.45 Am</option>
 <option value="12.00-Pm">12.00 Pm</option>
+<option value="12.15-Pm">12.15 Pm</option>
+<option value="12.30-Pm">12.30 Pm</option>
+<option value="12.45-Pm">12.45 Pm</option>
 <option value="1.00-Pm">1.00 Pm</option>
+<option value="1.15-Pm">1.15 Pm</option>
+<option value="1.30-Pm">1.30 Pm</option>
+<option value="1.45-Pm">1.45 Pm</option>
 <option value="2.00-Pm">2.00 Pm</option>
+<option value="2.15-Pm">2.15 Pm</option>
+<option value="2.30-Pm">2.30 Pm</option>
+<option value="2.45-Pm">2.45 Pm</option>
 <option value="3.00-Pm">3.00 Pm</option>
+<option value="3.15-Pm">3.15 Pm</option>
+<option value="3.30-Pm">3.30 Pm</option>
+<option value="3.45-Pm">3.45 Pm</option>
 <option value="4.00-Pm">4.00 Pm</option>
+<option value="4.15-Pm">4.15 Pm</option>
+<option value="4.30-Pm">4.30 Pm</option>
+<option value="4.45-Pm">4.45 Pm</option>
 <option value="5.00-Pm">5.00 Pm</option>
+<option value="5.15-Pm">5.15 Pm</option>
+<option value="5.30-Pm">5.30 Pm</option>
+<option value="5.45-Pm">5.45 Pm</option>
 <option value="6.00-Pm">6.00 Pm</option>
 </select>
-<select>
-<option value="" defaultChecked>Select Category..</option>
+<select value={category} onChange={changingCategory} name="category" id="category">
+<option value="null">Select Category..</option>
 <option value="foodcategory">Food Category</option>
 <option value="coffeecategory">Coffee Category</option>
 <option value="drinkcategory">Drink Category</option>
@@ -122,11 +363,11 @@ fetchData();
 
 {/* analysis section */}
 <div className={StyleRealtime.analysis}>
-<div className={StyleRealtime.div1}>Total Orders : {totalOrder}</div>
-<div className={StyleRealtime.div2}>Complete Orders: {completeOrder}</div>
-<div className={StyleRealtime.div3}>Pending Orders: {pendingOrder}</div>
-<div className={StyleRealtime.div4}>Reject Orders : {rejectOrder}</div>
-<div className={StyleRealtime.div5}>Not Picked Orders : {notPickOrder}</div>
+<div className={StyleRealtime.div1} onClick={allDatasFunction}>Total Orders : {totalOrder}</div>
+<div className={StyleRealtime.div2} onClick={completeFunction}>Complete Orders: {completeOrder}</div>
+<div className={StyleRealtime.div3} onClick={pendingFunction}>Pending Orders: {pendingOrder}</div>
+<div className={StyleRealtime.div4} onClick={rejectFunction}>Reject Orders : {rejectOrder}</div>
+<div className={StyleRealtime.div5} onClick={notpickFunction}>Orders Not On Time: {notPickOrder}</div>
 </div>
 
 <div className={StyleRealtime.tables_section}>
@@ -169,13 +410,13 @@ return (
 <div className={StyleRealtime.div7}>Order Status</div>
 <div className={StyleRealtime.div8}>Action</div>
 </div>
-<ShowHideInRealtime item={item.ItemsOrder}/>
+{(item.ItemsOrder!=undefined) ? <ShowHideInRealtime item={item.ItemsOrder}/>: ""}
 </div>
 </div>
 )
 })}
 
-</div>: <h1>No Item Found</h1>}
+</div>: <h6>No Orders Found</h6>}
 
 </div>
         </div>

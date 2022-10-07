@@ -9,6 +9,7 @@ const ItemsOrderSchema = new mongoose.Schema({
   Category: { type: String },
   OrderStatus: { type: String, default: "Pending", required: true },
   AmountReceived: { type: Number, default: 0, required: true },
+  CategoryPrimary:{ type: String ,required:true,lowercase:true}
 });
 const OrderSchema = new mongoose.Schema(
   {
@@ -42,6 +43,10 @@ const OrderSchema = new mongoose.Schema(
       type: String,
       required: true,
       lowercase: true,
+    },
+     PickUpTime1: {
+      type: String,
+      required: true
     },
     OrderTime: {
       type: String,

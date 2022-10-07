@@ -29,10 +29,10 @@ function RedirectFunction(){
 }
 setTimeout(RedirectFunction,1500);
 }
-
 }
 
 getData();
+
 
 })
 

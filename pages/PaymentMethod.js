@@ -17,7 +17,6 @@ import { useCart } from "react-use-cart";
 export default function PaymentMethod() {
 const [totals,setTotal]=useState('0');
 const [arrays,setArrays]=useState([]);
-
 const [carts,setCarts]=useState([]);
 const [OrderFoodTime,setOrderFoodTime]=useState();
 const {
@@ -79,11 +78,13 @@ let Qty=QtyBook;
 let Category=foodData.data[i].Category;
 let ProductOriginalAmount=foodData.data[i].Price;
 let Amount=QtyBook*OriginalPrice;
+let CategoryPrimary="foodcategory"
+
 updateItem(cartData.items[j].id,{
 QtyBook:Qty,
 totalAmount:Amount
 })
-array.push({ItemName,Qty,Amount,Category,ProductOriginalAmount}) 
+array.push({ItemName,Qty,Amount,Category,ProductOriginalAmount,CategoryPrimary}) 
 }
 }
 }
@@ -123,11 +124,12 @@ let Qty=QtyBook;
 let Category=coffeeData.data[i].Category;
 let ProductOriginalAmount=coffeeData.data[i].Price;
 let Amount=QtyBook*OriginalPrice;
+let CategoryPrimary="coffeecategory"
 updateItem(cartData.items[j].id,{
 QtyBook:Qty,
 totalAmount:Amount
 })
-array.push({ItemName,Qty,Amount,Category,ProductOriginalAmount}) 
+array.push({ItemName,Qty,Amount,Category,ProductOriginalAmount,CategoryPrimary}) 
 }
 }
 }
@@ -168,11 +170,12 @@ let Qty=QtyBook;
 let Category=juiceData.data[i].Category;
 let ProductOriginalAmount=juiceData.data[i].Price;
 let Amount=QtyBook*OriginalPrice;
+let CategoryPrimary="juicecategory"
 updateItem(cartData.items[j].id,{
 QtyBook:Qty,
 totalAmount:Amount
 })
-array.push({ItemName,Qty,Amount,Category,ProductOriginalAmount}) 
+array.push({ItemName,Qty,Amount,Category,ProductOriginalAmount,CategoryPrimary}) 
 }
 }
 }
@@ -213,13 +216,14 @@ sum+=QtyBook*OriginalPrice;
 let ItemName=drinkData.data[i].DrinkName;
 let Qty=QtyBook;
 let Category=drinkData.data[i].Category;
+let CategoryPrimary="drinkcategory"
 let ProductOriginalAmount=drinkData.data[i].Price;
 let Amount=QtyBook*OriginalPrice;
 updateItem(cartData.items[j].id,{
 QtyBook:Qty,
 totalAmount:Amount
 })
-array.push({ItemName,Qty,Amount,Category,ProductOriginalAmount}) 
+array.push({ItemName,Qty,Amount,Category,ProductOriginalAmount,CategoryPrimary}) 
 }
 }
 }
@@ -291,13 +295,14 @@ return 0;
 }
 const TotalAmount=totals;
 
+const PickUpTime1=localStorage.getItem('PickUpTime1');
      let res = await fetch(`${HOST}/api/OrderItem`, {
                method: "POST",
               headers: {
                 "Content-type": "application/json"
               },
               body: JSON.stringify({
-               PickUpTime,PaymentMethod,ItemsOrder:arrays,TotalAmount
+               PickUpTime,PickUpTime1,PaymentMethod,ItemsOrder:arrays,TotalAmount
               }),
             });
 
@@ -329,6 +334,7 @@ const TotalAmount=totals;
             if(data.status=="201"){
             emptyCart();
             localStorage.removeItem('OrderFoodTime')
+            localStorage.removeItem('PickUpTime1')
             localStorage.setItem("orderToken",data.tokenUser);
               toast.success("Order Successfully Placed", {
                 position: "bottom-right",

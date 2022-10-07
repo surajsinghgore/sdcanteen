@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react'
+import React,{useState,useEffect,useContext} from 'react'
 import { BiMenu } from 'react-icons/bi';
 let HOST = process.env.NEXT_PUBLIC_API_URL;
 import { BiLoader } from 'react-icons/bi';
@@ -6,10 +6,18 @@ import { RiDeleteBin7Line } from 'react-icons/ri';
 import { CgPlayListRemove } from 'react-icons/cg';
 import { TiTickOutline } from 'react-icons/ti';
 import { MdOutlineClose } from 'react-icons/md';
+import { IoMdDoneAll } from 'react-icons/io';
+import { GrFormClose } from 'react-icons/gr';
+import VerifyAdminLogin from '../pages/admin/VerifyAdminLogin';
+
 import "react-toastify/dist/ReactToastify.css";
 import StyleRealtime from "../styles/RealtimeOrder.module.css";
 import { ToastContainer, toast } from "react-toastify";
+import router from 'next/router'
+import { AllContext } from "../context/AllContext";
 function SingleItemRealtime({item}) {
+ const { statesForRealtime,setStateForRealtime } = useContext(AllContext);
+
 const [updateStates,setUpdateStates]=useState(false);
 const [datas,setDatas]=useState([]);
 const [low,setLow]=useState();
@@ -31,18 +39,94 @@ setLow(lowercase)
 
 
 // process order
-const process=(id)=>{
+const process=()=>{
 setShow(false);
 setUpdateStates(true)
 }
 // reject Order
 const reject=(id)=>{
-console.log(id)
+let status="reject";
+const sendData=async()=>{
+const res = await fetch(`${HOST}/api/UpdateOrderItems`, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({
+        "id": id,"status":status
+      }),
+    });
+  await res.json();
+if(res.status==403){
+toast.error('Please Login With Admin Credentails', {
+position: "bottom-right",
+autoClose: 5000,
+hideProgressBar: false,
+closeOnClick: true,
+pauseOnHover: true,
+draggable: true,
+progress: undefined,
+});
+return 0;
+}
+if(res.status==400){
+toast.warn('Please fill All the filed Id,Price,Status', {
+position: "bottom-right",
+autoClose: 5000,
+hideProgressBar: false,
+closeOnClick: true,
+pauseOnHover: true,
+draggable: true,
+progress: undefined,
+});
+return 0;
+}
+
+if(res.status==404){
+toast.warn('Record Not Found', {
+position: "bottom-right",
+autoClose: 5000,
+hideProgressBar: false,
+closeOnClick: true,
+pauseOnHover: true,
+draggable: true,
+progress: undefined,
+});
+return 0;
+}
+if(res.status==501){
+toast.warn('Internal Server Error', {
+position: "bottom-right",
+autoClose: 5000,
+hideProgressBar: false,
+closeOnClick: true,
+pauseOnHover: true,
+draggable: true,
+progress: undefined,
+});
+return 0;
+}
+
+toast.success('Successfully Updated', {
+position: "bottom-right",
+autoClose: 5000,
+hideProgressBar: false,
+closeOnClick: true,
+pauseOnHover: true,
+draggable: true,
+progress: undefined,
+});
+router.push('/admin/RealtimeOrder')
+setStateForRealtime(!statesForRealtime);
+setLow(status)
+setOrderStatus(status)
+setShow(false)
+}
+sendData();
 }
 
 
 const UpdateOrder=(id,Amount)=>{
-console.log(id)
 let priceInt=parseInt(price);
 if(priceInt<0){
 toast.warn('Price Below Zero Not Allowed', {
@@ -104,8 +188,6 @@ progress: undefined,
 });
 return 0;
 }
-
-
 const sendData=async()=>{
 const res = await fetch(`${HOST}/api/UpdateOrderItems`, {
       method: "POST",
@@ -176,6 +258,8 @@ pauseOnHover: true,
 draggable: true,
 progress: undefined,
 });
+router.push('/admin/RealtimeOrder')
+setStateForRealtime(!statesForRealtime);
 setUpdateStates(false)
 setLow(status)
 setOrderStatus(status)
@@ -185,6 +269,7 @@ sendData();
 
   return (
      <>
+     <VerifyAdminLogin />
     {(datas.length!=0)?<div>
 <div className={StyleRealtime.tableheaddatasub} key={item._id}>
 <div className={StyleRealtime.div1}>{item.ItemName}</div>
@@ -192,14 +277,29 @@ sendData();
 <div className={StyleRealtime.div3}>{item.Qty}</div>
 <div className={StyleRealtime.div4}>{item.Category}</div>
 <div className={StyleRealtime.div5}>{item.Amount}</div>
-<div className={StyleRealtime.div6}>{item.AmountReceived}</div>
+<div className={StyleRealtime.div6}>{item.AmountReceived} </div>
 <div className={StyleRealtime.div7}>
 {(low=="pending")? <div className={StyleRealtime.pen}>{OrderStatus}</div>: (low=="complete")? <div className={StyleRealtime.com}>{OrderStatus}</div>:<div className={StyleRealtime.rej}>{OrderStatus}</div>} 
 </div>
-<div className={StyleRealtime.div8} onClick={()=>setShow(!show)}>
-{/* open close icon */}
-{(show)?<CgPlayListRemove />:<BiMenu />}
+
+{(item.OrderStatus.toLowerCase()=="complete")?
+// complete  
+<div className={StyleRealtime.div8}>
+ <IoMdDoneAll className={StyleRealtime.com} title="Order Complete"/>
 </div>
+:
+// reject
+((item.OrderStatus.toLowerCase()=="reject")? 
+<div className={StyleRealtime.div8}>
+ <GrFormClose className={StyleRealtime.rej} title="Order Reject"/>
+</div>
+:
+// pending
+ <div className={StyleRealtime.div8} onClick={()=>setShow(!show)}>
+{(show)?<CgPlayListRemove className={StyleRealtime.close}/>:<BiMenu className={StyleRealtime.menu}/>}
+</div>) 
+ }
+
 {/* option after click */}
 
 
@@ -210,7 +310,8 @@ sendData();
 </div>
 
 <div onClick={()=>reject(item._id)}><span className={StyleRealtime.icon2}  ><RiDeleteBin7Line /></span> <span className={StyleRealtime.icon_2} >Reject</span> </div>
-</div> :" "}
+</div> :
+""}
 
 
 
@@ -229,13 +330,12 @@ sendData();
 <select value={status} onChange={(e)=>setStatus(e.target.value)}>
 <option value="pending">Pending</option>
 <option value="complete">Complete</option>
-<option value="reject">Reject</option>
 </select>
 </div>
 <div className={StyleRealtime.div8}>
 {/* open close icon */}
-<TiTickOutline className={StyleRealtime.tick} title="Upate" onClick={()=>UpdateOrder(item._id,item.Amount)}/>
-<MdOutlineClose className={StyleRealtime.back} title="Back" onClick={()=>setUpdateStates(false)}/>
+<TiTickOutline className={StyleRealtime.tick} title="Upate" onClick={()=>UpdateOrder(item._id,item.Amount)} />
+<MdOutlineClose className={StyleRealtime.back} title="Back" onClick={()=>setUpdateStates(false)} />
 </div>
 </div>
   : ""}

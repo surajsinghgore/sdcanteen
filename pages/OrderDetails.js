@@ -106,6 +106,7 @@ fetchData();
 }
 
 },[realTime])
+
 // refresh automatically after some times
 useEffect(()=>{
 let seconds=60-date.getSeconds();
@@ -114,14 +115,23 @@ setRealTime(!realTime);
 }
 setInterval(changes,1000*seconds);
 })
+
  const style2 = {
         marginBottom:"5%",clear:"both"
     }
 
-const getTime=()=>{
+const getTime=(item)=>{
+
+
 if(document.querySelector("input[type='radio'][name=time]:checked")){
 let value=document.querySelector("input[type='radio'][name=time]:checked").value;
 localStorage.setItem("OrderFoodTime",value);
+
+let dd=Timing.filter((itm)=>{
+return (parseFloat(itm.time1).toFixed(2))==(parseFloat(localStorage.getItem('OrderFoodTime')).toFixed(2))
+})
+let pickUpTime1=dd[0].time;
+localStorage.setItem("PickUpTime1",pickUpTime1);
 setDefaultTime(value)
 router.push('/PaymentMethod')
 }
@@ -237,8 +247,8 @@ value={`${time.time1.toFixed(2)}-${(time.time>=12)?'PM':'AM'}`} />
 <Link href="/Cart"><button className={CartStyle.more}>Cart Page</button></Link>
 <div className={CartStyle.subtotal} >
 {(time.length!=0)?
-<button style={{marginTop:"5%",marginRight:"-4%"}} onClick={getTime}>Continue Order</button>
-:<button style={{marginTop:"5%",marginRight:"-4%",cursor:"not-allowed"}} onClick={getTime} disabled>Continue Order</button>
+<button style={{marginTop:"5%",marginRight:"-4%"}} onClick={()=>getTime(time)}>Continue Order</button>
+:<button style={{marginTop:"5%",marginRight:"-4%",cursor:"not-allowed"}} onClick={()=>getTime()} disabled>Continue Order</button>
 }
 </div>
 </div>
