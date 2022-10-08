@@ -120,7 +120,6 @@ pauseOnHover: true,
 draggable: true,
 progress: undefined,
 });
-return 0;
 }
 },[])
 

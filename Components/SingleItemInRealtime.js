@@ -1,6 +1,10 @@
 import React,{useState,useEffect,useContext} from 'react'
 import { BiMenu } from 'react-icons/bi';
 let HOST = process.env.NEXT_PUBLIC_API_URL;
+let foodkey = process.env.NEXT_PUBLIC_Secret_Key_FoodOwner;
+let coffeekey = process.env.NEXT_PUBLIC_Secret_Key_CoffeeOwner;
+let juicekey = process.env.NEXT_PUBLIC_Secret_Key_JuiceOwner;
+let drinkkey = process.env.NEXT_PUBLIC_Secret_Key_DrinkOwner;
 import { BiLoader } from 'react-icons/bi';
 import { RiDeleteBin7Line } from 'react-icons/ri';
 import { CgPlayListRemove } from 'react-icons/cg';
@@ -9,7 +13,6 @@ import { MdOutlineClose } from 'react-icons/md';
 import { IoMdDoneAll } from 'react-icons/io';
 import { GrFormClose } from 'react-icons/gr';
 import VerifyAdminLogin from '../pages/admin/VerifyAdminLogin';
-
 import "react-toastify/dist/ReactToastify.css";
 import StyleRealtime from "../styles/RealtimeOrder.module.css";
 import { ToastContainer, toast } from "react-toastify";
@@ -44,7 +47,8 @@ setShow(false);
 setUpdateStates(true)
 }
 // reject Order
-const reject=(id)=>{
+
+const reject=(id,CategoryPrimary)=>{
 let status="reject";
 const sendData=async()=>{
 const res = await fetch(`${HOST}/api/UpdateOrderItems`, {
@@ -107,6 +111,79 @@ progress: undefined,
 return 0;
 }
 
+if(CategoryPrimary=="foodcategory"){
+let value=prompt("Enter Secret Key [ Food Admin ] to Process Order");
+if(value!=foodkey){
+toast.warn('Sorry Incorrect Secret Key', {
+position: "bottom-right",
+autoClose: 5000,
+hideProgressBar: false,
+closeOnClick: true,
+pauseOnHover: true,
+draggable: true,
+progress: undefined,
+});
+return 0;
+}
+}
+else if(CategoryPrimary=="coffeecategory"){
+let value=prompt("Enter Secret Key [ Coffee Admin ] to Process Order");
+if(value!=coffeekey){
+toast.warn('Sorry Incorrect Secret Key', {
+position: "bottom-right",
+autoClose: 5000,
+hideProgressBar: false,
+closeOnClick: true,
+pauseOnHover: true,
+draggable: true,
+progress: undefined,
+});
+return 0;
+}
+}
+else if(CategoryPrimary=="drinkcategory"){
+let value=prompt("Enter Secret Key [ Drink Admin ] to Process Order");
+if(value!=drinkkey){
+toast.warn('Sorry Incorrect Secret Key', {
+position: "bottom-right",
+autoClose: 5000,
+hideProgressBar: false,
+closeOnClick: true,
+pauseOnHover: true,
+draggable: true,
+progress: undefined,
+});
+return 0;
+}
+}
+else if(CategoryPrimary=="juicecategory"){
+let value=prompt("Enter Secret Key [ Juice Admin ] to Process Order");
+if(value!=juicekey){
+toast.warn('Sorry Incorrect Secret Key', {
+position: "bottom-right",
+autoClose: 5000,
+hideProgressBar: false,
+closeOnClick: true,
+pauseOnHover: true,
+draggable: true,
+progress: undefined,
+});
+return 0;
+}
+
+}
+else{
+toast.warn('Sorry something went wrong with  Secret Key you provides', {
+position: "bottom-right",
+autoClose: 5000,
+hideProgressBar: false,
+closeOnClick: true,
+pauseOnHover: true,
+draggable: true,
+progress: undefined,
+});
+return 0;
+}
 toast.success('Successfully Updated', {
 position: "bottom-right",
 autoClose: 5000,
@@ -126,7 +203,8 @@ sendData();
 }
 
 
-const UpdateOrder=(id,Amount)=>{
+const UpdateOrder=(id,Amount,CategoryPrimary)=>{
+
 let priceInt=parseInt(price);
 if(priceInt<0){
 toast.warn('Price Below Zero Not Allowed', {
@@ -188,6 +266,81 @@ progress: undefined,
 });
 return 0;
 }
+
+if(CategoryPrimary=="foodcategory"){
+let value=prompt("Enter Secret Key [ Food Admin ] to Process Order");
+if(value!=foodkey){
+toast.warn('Sorry Incorrect Secret Key', {
+position: "bottom-right",
+autoClose: 5000,
+hideProgressBar: false,
+closeOnClick: true,
+pauseOnHover: true,
+draggable: true,
+progress: undefined,
+});
+return 0;
+}
+}
+else if(CategoryPrimary=="coffeecategory"){
+let value=prompt("Enter Secret Key [ Coffee Admin ] to Process Order");
+if(value!=coffeekey){
+toast.warn('Sorry Incorrect Secret Key', {
+position: "bottom-right",
+autoClose: 5000,
+hideProgressBar: false,
+closeOnClick: true,
+pauseOnHover: true,
+draggable: true,
+progress: undefined,
+});
+return 0;
+}
+}
+else if(CategoryPrimary=="drinkcategory"){
+let value=prompt("Enter Secret Key [ Drink Admin ] to Process Order");
+if(value!=drinkkey){
+toast.warn('Sorry Incorrect Secret Key', {
+position: "bottom-right",
+autoClose: 5000,
+hideProgressBar: false,
+closeOnClick: true,
+pauseOnHover: true,
+draggable: true,
+progress: undefined,
+});
+return 0;
+}
+}
+else if(CategoryPrimary=="juicecategory"){
+let value=prompt("Enter Secret Key [ Juice Admin ] to Process Order");
+if(value!=juicekey){
+toast.warn('Sorry Incorrect Secret Key', {
+position: "bottom-right",
+autoClose: 5000,
+hideProgressBar: false,
+closeOnClick: true,
+pauseOnHover: true,
+draggable: true,
+progress: undefined,
+});
+return 0;
+}
+
+}
+else{
+toast.warn('Sorry something went wrong with  Secret Key you provides', {
+position: "bottom-right",
+autoClose: 5000,
+hideProgressBar: false,
+closeOnClick: true,
+pauseOnHover: true,
+draggable: true,
+progress: undefined,
+});
+return 0;
+}
+
 const sendData=async()=>{
 const res = await fetch(`${HOST}/api/UpdateOrderItems`, {
       method: "POST",
@@ -309,7 +462,7 @@ sendData();
 <BiLoader /></span> <span className={StyleRealtime.icon_1}>Process</span> 
 </div>
 
-<div onClick={()=>reject(item._id)}><span className={StyleRealtime.icon2}  ><RiDeleteBin7Line /></span> <span className={StyleRealtime.icon_2} >Reject</span> </div>
+<div onClick={()=>reject(item._id,item.CategoryPrimary)}><span className={StyleRealtime.icon2}  ><RiDeleteBin7Line /></span> <span className={StyleRealtime.icon_2} >Reject</span> </div>
 </div> :
 ""}
 
@@ -334,7 +487,7 @@ sendData();
 </div>
 <div className={StyleRealtime.div8}>
 {/* open close icon */}
-<TiTickOutline className={StyleRealtime.tick} title="Upate" onClick={()=>UpdateOrder(item._id,item.Amount)} />
+<TiTickOutline className={StyleRealtime.tick} title="Upate" onClick={()=>UpdateOrder(item._id,item.Amount,item.CategoryPrimary)} />
 <MdOutlineClose className={StyleRealtime.back} title="Back" onClick={()=>setUpdateStates(false)} />
 </div>
 </div>

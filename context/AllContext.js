@@ -18,8 +18,6 @@ const [deletes,setDeletes]=useState(false);
 
 
 
-
-
 const updateFoodCategories=async(id)=>{
 
 let ress=await fetch(`${HOST}/api/ShowFoodCategory`);

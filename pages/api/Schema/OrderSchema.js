@@ -45,6 +45,10 @@ const OrderSchema = new mongoose.Schema(
       lowercase: true,
     },
      PickUpTime1: {
+      type: mongoose.Types.Decimal128,
+      required: true
+    },
+      PickUpTime2: {
       type: String,
       required: true
     },

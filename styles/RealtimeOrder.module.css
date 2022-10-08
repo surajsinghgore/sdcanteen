@@ -18,6 +18,19 @@ font-size: 17px;
 color: red;
 padding-left: 1%;
 }
+
+.orders h5{
+position: absolute; 
+top: -7%;
+right: 2%;
+font-size: 17px;
+color: rgb(71, 10, 10);
+padding-left: 1%;
+}
+.orders h5 span{
+color: rgb(246, 66, 0);
+font-size: 20px;
+}
 .orders h6{
 margin-left: 3%;
 color: blue;
