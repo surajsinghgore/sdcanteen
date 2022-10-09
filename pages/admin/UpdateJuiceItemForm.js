@@ -23,16 +23,19 @@ export default function UpdateJuiceItemForm() {
   const [Qtys, setQtys] = useState();
   const [Category, setCategory] = useState();
   const [subCategory, setSubCategory] = useState('');
-
+  const [description, setDescription] = useState("");
   useEffect(() => {
-    if (filterJuiceItemsData) {
+    if (filterJuiceItemsData!=undefined) {
       setJuiceName(filterJuiceItemsData[0].JuiceName);
       setPrice(filterJuiceItemsData[0].Price);
       setQtys(filterJuiceItemsData[0].Qty);
       setCategory(filterJuiceItemsData[0].Category);
          setSubCategory(filterJuiceItemsData[0].Category)
+               setDescription(filterJuiceItemsData[0].Description)
 
-    }
+    }else{
+    router.push('/admin/UpdateJuiceItem')
+}
     async function dataFetch() {
       let ress = await fetch(`${HOST}/api/ShowJuiceCategory`);
       let datas = await ress.json();
@@ -66,6 +69,17 @@ export default function UpdateJuiceItemForm() {
         progress: undefined,
       });
       return 0;
+    }if (!description) {
+      toast.warn("Please Enter Description of Item", {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      return 0;
     }
 
     // matching Weather Data Change OR Not
@@ -82,11 +96,14 @@ export default function UpdateJuiceItemForm() {
     let CATEGORYSAME = filterJuiceItemsData.filter((item) => {
       return item.Category == Category;
     });
-
+   let DESCRIPTIONSAME = filterJuiceItemsData.filter((item) => {
+      return item.Description == description;
+    });
     if (!FOODNAMESAME.length == 0) {
       if (!PRICESAME.length == 0) {
         if (!QTYSAME.length == 0) {
           if (!CATEGORYSAME.length == 0) {
+           if (!DESCRIPTIONSAME.length == 0) {
             toast.warn(
               "Same Data Is Not Allowed To Update, Please Update Juice Item Records",
               {
@@ -96,13 +113,13 @@ export default function UpdateJuiceItemForm() {
                 closeOnClick: true,
                 pauseOnHover: true,
                 draggable: true,
-                progress: undefined,
+                progress: undefined,    
               }
             );
             return 0;
           }
         }
-      }
+      }}
     }
 
     let response = await fetch(`${HOST}/api/UpdateJuiceItem`, {
@@ -117,9 +134,24 @@ export default function UpdateJuiceItemForm() {
         Price: Price,
         Qty: Qtys,
         Category: Category,
+          Description:description 
       }),
     });
-
+  if (response.status == 401) {
+      toast.error("Please Login With Admin Credentials", {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      setTimeout(RedirectFunction, 1000);
+      function RedirectFunction() {
+        router.push("/admin/Login");
+      }
+      }
     let datas = await response.json();
 
     if (datas.status == "501") {
@@ -251,6 +283,13 @@ export default function UpdateJuiceItemForm() {
                   );
                 })}
               </select>
+            </li> <li className={StyleFood.description}>
+                <p>
+               Enter Description Category<span>*</span>
+              </p>
+            <textarea value={description} name="description" onChange={(e)=>setDescription(e.target.value)}>
+            
+            </textarea>
             </li>
             <button onClick={updateItems}> UPDATE JUICE</button>
           </div>

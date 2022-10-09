@@ -6,7 +6,12 @@ export default async function AddJuiceCategory(req, res) {
   if (req.method == "POST") {
     try {
       DbConnection();
-      await VerifyAdmin(req, res);
+  let verify=await VerifyAdmin(req, res);
+   if(verify==undefined){
+
+    return res.status(401).json({ message: "Please login with admin credentails" });
+    }
+
       let JuiceCategoryName = req.body.JuiceCategoryName;
       if (!JuiceCategoryName) {
         res

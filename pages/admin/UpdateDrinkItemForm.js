@@ -19,21 +19,25 @@ export default function UpdateDrinkItemForm() {
   const { filterDrinkItemsData } = useContext(AllContext);
 
   const [data, setData] = useState([]);
-  // form ates
   const [drinkName, setDrinkName] = useState();
   const [Price, setPrice] = useState();
   const [Qtys, setQtys] = useState();
   const [Category, setCategory] = useState();
   const [subCategory, setSubCategory] = useState('');
 
+  const [description, setDescription] = useState("");
   useEffect(() => {
-    if (filterDrinkItemsData) {
+    if (filterDrinkItemsData!=undefined) {
       setDrinkName(filterDrinkItemsData[0].DrinkName);
       setPrice(filterDrinkItemsData[0].Price);
       setQtys(filterDrinkItemsData[0].Qty);
       setCategory(filterDrinkItemsData[0].Category);
          setSubCategory(filterDrinkItemsData[0].Category)
+               setDescription(filterDrinkItemsData[0].Description)
     }
+     else{
+    router.push('/admin/UpdateDrinkItem')
+}
     async function dataFetch() {
       let ress = await fetch(`${HOST}/api/ShowDrinkCategory`);
       let datas = await ress.json();
@@ -68,7 +72,18 @@ export default function UpdateDrinkItemForm() {
       });
       return 0;
     }
-
+if (!description) {
+      toast.warn("Please Enter Description of Item", {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      return 0;
+    }
     // matching Weather Data Change OR Not
     let FOODNAMESAME = filterDrinkItemsData.filter((item) => {
       return item.DrinkName == drinkName;
@@ -83,11 +98,14 @@ export default function UpdateDrinkItemForm() {
     let CATEGORYSAME = filterDrinkItemsData.filter((item) => {
       return item.Category == Category;
     });
-
+   let DESCRIPTIONSAME = filterDrinkItemsData.filter((item) => {
+      return item.Description == description;
+    });
     if (!FOODNAMESAME.length == 0) {
       if (!PRICESAME.length == 0) {
         if (!QTYSAME.length == 0) {
           if (!CATEGORYSAME.length == 0) {
+           if (!DESCRIPTIONSAME.length == 0) {
             toast.warn(
               "Same Data Is Not Allowed To Update, Please Update Drink Item Records",
               {
@@ -103,6 +121,7 @@ export default function UpdateDrinkItemForm() {
             return 0;
           }
         }
+        }
       }
     }
 
@@ -117,10 +136,24 @@ export default function UpdateDrinkItemForm() {
         DrinkName: drinkName,
         Price: Price,
         Qty: Qtys,
-        Category: Category,
+        Category: Category,      Description:description 
       }),
     });
-
+  if (response.status == 401) {
+      toast.error("Please Login With Admin Credentials", {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      setTimeout(RedirectFunction, 1000);
+      function RedirectFunction() {
+        router.push("/admin/Login");
+      }
+      }
     let datas = await response.json();
 
     if (datas.status == "501") {
@@ -254,6 +287,13 @@ export default function UpdateDrinkItemForm() {
                   );
                 })}
               </select>
+            </li> <li className={StyleFood.description}>
+                <p>
+               Enter Description Category<span>*</span>
+              </p>
+            <textarea value={description} name="description" onChange={(e)=>setDescription(e.target.value)}>
+            
+            </textarea>
             </li>
             <button onClick={updateItems}> UPDATE DRINK</button>
           </div>

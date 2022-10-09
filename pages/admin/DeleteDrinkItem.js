@@ -100,7 +100,18 @@ export default function DeleteDrinkItem({ datas }) {
                 imagePath: item.Image,
               }),
             });
-
+  if (res.status == 401) {
+      toast.error("Please Login With Admin Credentials", {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      return 0;
+      }
             let data = await res.json();
             if (data.status == "501") {
               toast.error(`${data.message}`, {

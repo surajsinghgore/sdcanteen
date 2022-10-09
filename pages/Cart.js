@@ -33,37 +33,43 @@ const {
   } = useCart()
 
 useEffect(()=>{
-if(items){
+if(items!=undefined && items.length!=0){
 setLength(items.length)
 let foodData=items.filter((item)=>{
-
 return item.FoodName
 })
-
+if(foodData!=undefined){
 setFoodItem(foodData)
+}
 
 let coffeeData=items.filter((item)=>{
 return item.CoffeeName
 })
+if(coffeeData!=undefined){
 setCoffeeItem(coffeeData)
+}
 
 let juiceData=items.filter((item)=>{
 return item.JuiceName
 })
+if(juiceData!=undefined){
 setJuiceItem(juiceData)
-
+}
 
 let drinkData=items.filter((item)=>{
 return item.DrinkName
 })
+if(drinkData!=undefined){
 setDrinkItem(drinkData)
-
+}
+if(items!=undefined && items.length!=0){
 let sum=0;
 for (let i = 0; i < items.length; i++) {
     let number=parseInt(items[i].totalAmount)
     sum+=number;
 }
     setPayableAmount(sum)
+}
 
 }
 },[state])

@@ -37,7 +37,21 @@ export default function AddCoffeeCategory() {
       }),
     });
     let data = await res.json();
-
+  if (res.status == 401) {
+      toast.error("Please Login With Admin Credentials", {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      setTimeout(RedirectFunction, 1000);
+      function RedirectFunction() {
+        router.push("/admin/Login");
+      }
+      }
     if (data.status == "403") {
       toast.error("Please Login With Admin Credentials", {
         position: "bottom-right",
@@ -54,6 +68,7 @@ export default function AddCoffeeCategory() {
       }
       return 0;
     }
+
     if (data.status == "501") {
       toast.error(`${data.message}`, {
         position: "bottom-right",

@@ -13,7 +13,7 @@ const res = await fetch(`${HOST}/api/VerifyAdminLogin`, {
         "Content-type": "application/json",
       }
     });
-    let data=await res.json();
+   await res.json();
 if(res.status==403){
 toast.error('Please Login With Admin Credentials', {
 position: "bottom-right",
@@ -28,13 +28,14 @@ function RedirectFunction(){
   router.push('/admin/Login')
 }
 setTimeout(RedirectFunction,1500);
+return 0;
 }
 }
 
 getData();
 
 
-})
+},[])
 
 
 

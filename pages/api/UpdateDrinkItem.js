@@ -5,14 +5,17 @@ export default async function UpdateDrinkItem(req, res) {
   if (req.method == "POST") {
     try {
       DbConnection();
-      await VerifyAdmin(req, res);
+   let verify=await VerifyAdmin(req, res);
+ if(verify==undefined){
+    return res.status(401).json({ message: "Please login with admin credentails" });
+    }
 
       let _id = req.body._id;
       let DrinkName = req.body.DrinkName;
       let Price = req.body.Price;
       let Qty = req.body.Qty;
       let Category = req.body.Category;
-
+    let Description = req.body.Description;
       if (!_id) {
         res.status(400).json({ message: "Please Provide Id" });
       } else if (!DrinkName) {
@@ -20,11 +23,13 @@ export default async function UpdateDrinkItem(req, res) {
       } else if (!Price) {
         res.status(400).json({ message: "Please Enter Price Of Item" });
       }
-
+else if (!Description) {
+        res.status(400).json({ message: "Please Enter Description Of Item" });
+      }
       let ress = await DrinkItemSchema.findByIdAndUpdate(_id, {
         DrinkName: DrinkName,
         Price: Price,
-        Qty,
+        Qty,   Description,
         Category: Category,
       });
       if (ress) {

@@ -22,8 +22,10 @@ export default function UpdateJuiceImage() {
   const [files, setFiles] = useState("");
 
 useEffect(()=>{
-if(filterJuiceItemsData){
+if(filterJuiceItemsData!=undefined){
 setImgs(`/JuiceItemImages/${filterJuiceItemsData[0].Image}`)
+} else{
+    router.push('/admin/UpdateJuiceItem')
 }
 },[filterJuiceItemsData])
   // images handle
@@ -61,7 +63,21 @@ setImgs(`/JuiceItemImages/${filterJuiceItemsData[0].Image}`)
       headers: { admintoken: localStorage.getItem("admintoken") },
       body: dataImage,
     });
-
+  if (response.status == 401) {
+      toast.error("Please Login With Admin Credentials", {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      setTimeout(RedirectFunction, 1000);
+      function RedirectFunction() {
+        router.push("/admin/Login");
+      }
+      }
     if (response.status === 500) {
       toast.error("Only JPG , PNG , JPEG Images are Allowed To Upload", {
         position: "bottom-right",

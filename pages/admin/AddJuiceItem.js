@@ -23,7 +23,7 @@ export default function AddJuiceItem() {
   const [imgs, setImgs] = useState();
   const [showImage, setShowImage] = useState(true);
   const [files, setFiles] = useState("");
-
+  const [description, setDescription] = useState("");
   // images handle
   const handleChange = async (e) => {
     if (e.target.files[0]) {
@@ -63,7 +63,19 @@ export default function AddJuiceItem() {
         progress: undefined,
       });
       return 0;
+    }if (!description) {
+      toast.warn("Please Enter Description of Item", {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      return 0;
     }
+
     if (!Images) {
       toast.warn("Please Uploard Juice Image", {
         position: "bottom-right",
@@ -84,11 +96,27 @@ export default function AddJuiceItem() {
     data.append("Category", Category);
     data.append("Image", files);
 
+data.append("Description", description);
+
     let res = await fetch(`${HOST}/api/AddJuiceItem`, {
       method: "POST",
       body: data,
     });
-
+  if (res.status == 401) {
+      toast.error("Please Login With Admin Credentials", {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      setTimeout(RedirectFunction, 1000);
+      function RedirectFunction() {
+        router.push("/admin/Login");
+      }
+      }
     if (data.status == "403") {
       toast.error("Please Login With Admin Credentials", {
         position: "bottom-right",
@@ -245,6 +273,14 @@ export default function AddJuiceItem() {
                   );
                 })}
               </select>
+            </li>
+              <li className={StyleFood.description}>
+                <p>
+               Enter Description Category<span>*</span>
+              </p>
+            <textarea value={description} name="description" onChange={(e)=>setDescription(e.target.value)}>
+            
+            </textarea>
             </li>
             <li>
               <p>

@@ -45,7 +45,21 @@ function UpdateDrinkCategory() {
     });
 
     let dataRes = await res.json();
-
+ if (res.status == 401) {
+      toast.error("Please Login With Admin Credentials", {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      setTimeout(RedirectFunction, 1000);
+      function RedirectFunction() {
+        router.push("/admin/Login");
+      }
+      }
     if (dataRes.status == "403") {
       toast.error("Please Login With Admin Credentials", {
         position: "bottom-right",
@@ -101,9 +115,11 @@ function UpdateDrinkCategory() {
   };
 
   useEffect(() => {
-    if (filterAllFoodCategoriesData) {
+    if (filterAllFoodCategoriesData!=undefined) {
       setDrinkCategoryName(filterAllFoodCategoriesData[0].DrinkCategoryName);
-    }
+    } else{
+    router.push('/admin/UpdateDrinkCategory')
+}
   }, [filterAllFoodCategoriesData]);
 
   return (

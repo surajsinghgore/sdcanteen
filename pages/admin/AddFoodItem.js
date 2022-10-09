@@ -18,6 +18,7 @@ export default function AddFoodItem() {
   const [Price, setPrice] = useState("");
   const [Qtys, setQtys] = useState("");
   const [Category, setCategory] = useState("");
+  const [description, setDescription] = useState("");
   const [Images, setImages] = useState("");
   const [imgs, setImgs] = useState();
   const [showImage, setShowImage] = useState(true);
@@ -63,6 +64,18 @@ export default function AddFoodItem() {
       });
       return 0;
     }
+    if (!description) {
+      toast.warn("Please Enter Description of Item", {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      return 0;
+    }
     if (!Images) {
       toast.warn("Please Uploard Food Image", {
         position: "bottom-right",
@@ -81,6 +94,7 @@ export default function AddFoodItem() {
     data.append("Price", Price);
     data.append("Qty", Qtys);
     data.append("Category", Category);
+    data.append("Description", description);
     data.append("Image", files);
 
     let res = await fetch(`${HOST}/api/AddFoodItem`, {
@@ -89,6 +103,22 @@ export default function AddFoodItem() {
     });
 
     if (data.status == "403") {
+      toast.error("Please Login With Admin Credentials", {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      setTimeout(RedirectFunction, 1000);
+      function RedirectFunction() {
+        router.push("/admin/Login");
+      }
+      return 0;
+    }
+     if (res.status == 401) {
       toast.error("Please Login With Admin Credentials", {
         position: "bottom-right",
         autoClose: 5000,
@@ -245,6 +275,14 @@ export default function AddFoodItem() {
                   );
                 })}
               </select>
+            </li>
+            <li className={StyleFood.description}>
+                <p>
+               Enter Description Category<span>*</span>
+              </p>
+            <textarea value={description} name="description" onChange={(e)=>setDescription(e.target.value)}>
+            
+            </textarea>
             </li>
             <li>
               <p>

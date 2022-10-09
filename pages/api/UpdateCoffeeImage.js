@@ -2,10 +2,7 @@ import DbConnection from "./Middleware/DbConnection";
 import CoffeeItemSchema from "./Schema/CoffeeItemSchema";
 import nextConnect from "next-connect";
 import VerifyAdmin from "./Middleware/MiddlewareAdminVerify";
-
-import Path from "path";
 var fs = require("fs");
-
 const handler = nextConnect();
 
 import multer from "multer";
@@ -50,11 +47,16 @@ handler.use(uploard.single("Image"));
 handler.post(async (req, res) => {
   try {
     DbConnection();
-    await VerifyAdmin(req, res);
-
-    let _id = req.body._id;
-    const oldImage = req.body.oldImage;
     const Image = req.file.filename;
+    const oldImage = req.body.oldImage;
+   var filePath = `./public/FoodItemImages/${Image}`;
+
+let verify=await VerifyAdmin(req, res);
+ if(verify==undefined){
+ await fs.unlinkSync(filePath);
+    return res.status(401).json({ message: "Please login with admin credentails" });
+    }
+    let _id = req.body._id;
 
     if (!_id) {
       res.status(400).json({ message: "Please Provide Id" });
@@ -71,6 +73,10 @@ handler.post(async (req, res) => {
     if (ress) {
       await fs.unlinkSync(filePath);
       res.status(201).json({ ress, status: "201" });
+    }
+     else{
+     await fs.unlinkSync(filePath);
+    return res.status(401).json({ message: "Please login with admin credentails" });
     }
   } catch (e) {
     console.log(e);

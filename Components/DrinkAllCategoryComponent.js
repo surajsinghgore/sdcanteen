@@ -52,7 +52,18 @@ let res=await fetch(`${HOST}/api/DeleteDrinkCategory`,{
 })
 
 let dataRes=await res.json();
-
+  if (res.status == 401) {
+      toast.error("Please Login With Admin Credentials", {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      return 0;
+      }
  if(dataRes.status=='403'){
 toast.error('Please Login With Admin Credentials', {
 position: "bottom-right",

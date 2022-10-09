@@ -5,8 +5,13 @@ export default async function DeleteDrinkCategory(req, res) {
   if (req.method == "DELETE") {
     try {
       DbConnection();
-      await VerifyAdmin(req, res);
+let verify=await VerifyAdmin(req, res);
       let _id = req.body._id;
+ if(verify==undefined){
+
+    return res.status(401).json({ message: "Please login with admin credentails" });
+    }
+
 
       // not get id
       if (!_id) {

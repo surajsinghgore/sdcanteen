@@ -6,10 +6,10 @@ export default async function UpdateorderItems(req, res) {
     try {
       DbConnection();
   await VerifyAdmin(req, res);
-
     let id=req.body.id;
     let price=req.body.price;
     let status=req.body.status;
+
     if(price==undefined){
      if(id==undefined||status==undefined){
       res.status(400).json({ message: "Please fill All the filed Id,Status" });
@@ -62,12 +62,17 @@ await OrderSchemaDataBase.findOneAndUpdate({ItemsOrder: {$elemMatch: {_id: id}}}
 let datas=await OrderSchemaDataBase.find({ItemsOrder: {$elemMatch: {_id: id}}})
 let dataUpdate=await OrderSchemaDataBase.find({ItemsOrder: {$elemMatch: {_id: id}}})
 let s=0;
+let rej=0;
 for(let i=0;i<dataUpdate.length;i++){
  dataUpdate[i].ItemsOrder.map((item)=>{
  if(item.OrderStatus=="complete"){
 s=s+1;
  }
+  if(item.OrderStatus=="reject"){
+rej=rej+1;
+ }
  })
+ let totalItemsSize=s+rej;
  if(dataUpdate[i].ItemsOrder.length==s){
   let ids=dataUpdate[i]._id;
   let TotalAmount=dataUpdate[i].TotalAmount;
@@ -75,6 +80,19 @@ s=s+1;
           OrderStatus: "complete",AmountReceived:TotalAmount
         });
 
+ }
+ if(dataUpdate[i].ItemsOrder.length==totalItemsSize){
+ let sum=0;
+  let ids=dataUpdate[i]._id;
+           dataUpdate[i].ItemsOrder.map((itm)=>{
+         let pricess=parseInt(itm.AmountReceived)
+          sum=sum+pricess;
+          });
+ 
+  let TotalAmount=sum;
+ await OrderSchemaDataBase.findByIdAndUpdate(ids, {
+          OrderStatus: "reject",AmountReceived:TotalAmount
+        });
  }
 }
 

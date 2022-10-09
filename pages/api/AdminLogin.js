@@ -27,9 +27,12 @@ export default async function AdminLogin(req, res) {
       OriginalSecretAdminLoginId == secret &&
       OriginalPasswordAdminLogin == password
     ) {
-      let data = {
-        secret: secret,
-      };
+  
+      const data={
+  secret:{
+    id: secret
+  }
+}
       const token = jwt.sign(data, JWT_SECRET, { expiresIn: "1h" });
 
       // generate cookies for admin

@@ -11,9 +11,10 @@ import ShowHideInRealtime from "../../Components/ShowHideInRealtime";
 let HOST = process.env.NEXT_PUBLIC_API_URL;
 import { AllContext } from "../../context/AllContext";
 import router from "next/router";
-export default function RealtimeOrder() {
-  const { statesForRealtime } = useContext(AllContext);
 
+
+export default function AllOrders() {
+  const { statesForRealtime } = useContext(AllContext);
   const [datas, setData] = useState([]);
   const [token, setToken] = useState("");
   const [customerName, setCustomerName] = useState("");
@@ -319,7 +320,7 @@ const result = arr.map(item => ({
 
   return (
     <div className={Styles.admin}>
-      <HeadTag title="Realtime Order" />
+      <HeadTag title="All Orders" />
       <VerifyAdminLogin />
 
       {/* left panel bar */}
@@ -328,7 +329,7 @@ const result = arr.map(item => ({
       {/* right bar */}
 
       <div className={StyleFood.rightSideBar}>
-        <AdminRightInnerHeader title="Realtime Order Panel" />
+        <AdminRightInnerHeader title="All Orders Details" />
 
         <div className={StyleRealtime.orders}>
           <h1>Filter Records</h1>
@@ -409,26 +410,6 @@ const result = arr.map(item => ({
               <option value="juicecategory">Juice Category</option>
             </select>
           </div>
-
-          {/* analysis section */}
-          <div className={StyleRealtime.analysis}>
-            <div className={StyleRealtime.div1} onClick={allDatasFunction}>
-              Total Orders : {totalOrder}
-            </div>
-            <div className={StyleRealtime.div2} onClick={completeFunction}>
-              Complete Orders: {completeOrder}
-            </div>
-            <div className={StyleRealtime.div3} onClick={pendingFunction}>
-              Pending Orders: {pendingOrder}
-            </div>
-            <div className={StyleRealtime.div4} onClick={rejectFunction}>
-              Reject Orders : {rejectOrder}
-            </div>
-            <div className={StyleRealtime.div5} onClick={notpickFunction}>
-              Orders Not On Time: {notPickOrder}
-            </div>
-          </div>
-
           <div className={StyleRealtime.tables_section}>
             {/* .pen .con .rej */}
 

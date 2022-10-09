@@ -98,7 +98,8 @@ return time.time>=times;
 setTime(d);
 }
 }
-if(date.getDay()!=7){
+// zero is for sunday
+if(parseInt(date.getDay())!=0){
 // from 7 am to 6 pm allowed
 if((h>=7)&&(h<=17)){
 fetchData();

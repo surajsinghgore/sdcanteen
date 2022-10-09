@@ -175,16 +175,8 @@ title:"Realtime Order",
 path:"/admin/RealtimeOrder",
 },
 {
-title:"Past Pending Order",
-path:"/admin/AddOrder",
-},
-{
-title:"All Past Order",
-path:"/admin/AddOrder",
-},
-{
-title:"Filter Orders",
-path:"/admin/AddOrder",
+title:"All Orders",
+path:"/admin/AllOrders",
 },
 {
 title:"Monthwise Orders",

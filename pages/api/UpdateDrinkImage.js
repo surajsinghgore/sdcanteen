@@ -50,11 +50,16 @@ handler.use(uploard.single("Image"));
 handler.post(async (req, res) => {
   try {
     DbConnection();
-    await VerifyAdmin(req, res);
+
     let _id = req.body._id;
     const oldImage = req.body.oldImage;
     const Image = req.file.filename;
-
+        var filePath = `./public/DrinkItemImages/${oldImage}`;
+let verify=await VerifyAdmin(req, res);
+ if(verify==undefined){
+ await fs.unlinkSync(filePath);
+    return res.status(401).json({ message: "Please login with admin credentails" });
+    }
     if (!_id) {
       res.status(400).json({ message: "Please Provide Id" });
     }
@@ -64,12 +69,15 @@ handler.post(async (req, res) => {
     if (!Image) {
       res.status(400).json({ message: "Please Enter Item Image" });
     }
-    var filePath = `./public/DrinkItemImages/${oldImage}`;
+
 
     let ress = await DrinkItemSchema.findByIdAndUpdate(_id, { Image: Image });
     if (ress) {
       await fs.unlinkSync(filePath);
       res.status(201).json({ ress, status: "201" });
+    } else{
+     await fs.unlinkSync(filePath);
+     return res.status(401).json({ message: "Please login with admin credentails" });
     }
   } catch (e) {
     console.log(e);

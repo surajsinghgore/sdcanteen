@@ -19,13 +19,12 @@ let HOST = process.env.NEXT_PUBLIC_API_URL;
   const { filterFoodItemsData } = useContext(AllContext);
 
   const [data, setData] = useState([]);
-  // form ates
   const [FoodName, setFoodName] = useState();
   const [Price, setPrice] = useState();
   const [Qtys, setQtys] = useState();
   const [Category, setCategory] = useState();
   const [subCategory, setSubCategory] = useState('');
-
+  const [description, setDescription] = useState("");
   useEffect(() => {
     if (filterFoodItemsData[0]!=undefined) {
       setFoodName(filterFoodItemsData[0].FoodName);
@@ -33,8 +32,12 @@ let HOST = process.env.NEXT_PUBLIC_API_URL;
       setQtys(filterFoodItemsData[0].Qty);
       setCategory(filterFoodItemsData[0].Category);
          setSubCategory(filterFoodItemsData[0].Category)
+               setDescription(filterFoodItemsData[0].Description)
 
     }
+     else{
+    router.push('/admin/UpdateFoodItem')
+}
     async function dataFetch() {
       let ress = await fetch(`${HOST}/api/ShowFoodCategory`);
       let datas = await ress.json();
@@ -69,7 +72,18 @@ let HOST = process.env.NEXT_PUBLIC_API_URL;
       });
       return 0;
     }
-
+if (!description) {
+      toast.warn("Please Enter Description of Item", {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      return 0;
+    }
     // matching Weather Data Change OR Not
     let FOODNAMESAME = filterFoodItemsData.filter((item) => {
       return item.FoodName == FoodName;
@@ -83,12 +97,15 @@ let HOST = process.env.NEXT_PUBLIC_API_URL;
     });
     let CATEGORYSAME = filterFoodItemsData.filter((item) => {
       return item.Category == Category;
+    });   let DESCRIPTIONSAME = filterFoodItemsData.filter((item) => {
+      return item.Description == description;
     });
 
     if (!FOODNAMESAME.length == 0) {
       if (!PRICESAME.length == 0) {
         if (!QTYSAME.length == 0) {
           if (!CATEGORYSAME.length == 0) {
+           if (!DESCRIPTIONSAME.length == 0) {
             toast.warn(
               "Same Data Is Not Allowed To Update, Please Update Food Item Records",
               {
@@ -98,13 +115,13 @@ let HOST = process.env.NEXT_PUBLIC_API_URL;
                 closeOnClick: true,
                 pauseOnHover: true,
                 draggable: true,
-                progress: undefined,
+                progress: undefined,     
               }
             );
             return 0;
           }
         }
-      }
+      }}
     }
 
     let response = await fetch(`${HOST}/api/UpdateFoodItem`, {
@@ -117,7 +134,7 @@ let HOST = process.env.NEXT_PUBLIC_API_URL;
         _id: filterFoodItemsData[0]._id,
         FoodName: FoodName,
         Price: Price,
-        Qty: Qtys,
+        Qty: Qtys, Description:description ,
         Category: Category,
       }),
     });
@@ -136,7 +153,21 @@ let HOST = process.env.NEXT_PUBLIC_API_URL;
       });
       return 0;
     }
-
+  if (response.status == 401) {
+      toast.error("Please Login With Admin Credentials", {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      setTimeout(RedirectFunction, 1000);
+      function RedirectFunction() {
+        router.push("/admin/Login");
+      }
+      }
     if (datas.status == "400") {
       toast.warn(`${datas.message}`, {
         position: "bottom-right",
@@ -253,6 +284,13 @@ let HOST = process.env.NEXT_PUBLIC_API_URL;
                   );
                 })}
               </select>
+            </li> <li className={StyleFood.description}>
+                <p>
+               Enter Description Category<span>*</span>
+              </p>
+            <textarea value={description} name="description" onChange={(e)=>setDescription(e.target.value)}>
+            
+            </textarea>
             </li>
             <button onClick={updateItems}> UPDATE FOOD</button>
           </div>

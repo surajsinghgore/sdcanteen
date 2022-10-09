@@ -19,7 +19,7 @@ const VerifyAdmin = async (req, res, next) => {
         status: "403",
       });
     }
-    req.user = data.user;
+   return req.secret = data.secret;
   } catch (error) {
     console.log(error);
    return res

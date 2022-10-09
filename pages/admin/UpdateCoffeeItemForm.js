@@ -17,6 +17,7 @@ import VerifyAdminLogin from './VerifyAdminLogin';
  function UpdateCoffeeItemForm() {
   const { filterCoffeeItemsData } = useContext(AllContext);
 
+  const [description, setDescription] = useState("");
   const [data, setData] = useState(['']);
   const [CoffeeName, setCoffeeName] = useState('');
   const [Price, setPrice] = useState('');
@@ -25,12 +26,16 @@ import VerifyAdminLogin from './VerifyAdminLogin';
   const [subCategory, setSubCategory] = useState('');
 
   useEffect(() => {
-    if (filterCoffeeItemsData) {
+    if (filterCoffeeItemsData!=undefined) {
       setCoffeeName(filterCoffeeItemsData[0].CoffeeName);
       setPrice(filterCoffeeItemsData[0].Price);
       setQtys(filterCoffeeItemsData[0].Qty);
       setCategory(filterCoffeeItemsData[0].Category);
       setSubCategory(filterCoffeeItemsData[0].Category)
+      setDescription(filterCoffeeItemsData[0].Description)
+    }
+    else{
+    router.push('/admin/UpdateCoffeeItem')
     }
     async function dataFetch() {
       let ress = await fetch(`${HOST}/api/ShowCoffeeCategory`);
@@ -66,6 +71,18 @@ import VerifyAdminLogin from './VerifyAdminLogin';
       });
       return 0;
     }
+if (!description) {
+      toast.warn("Please Enter Description of Item", {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      return 0;
+    }
 
     // matching Weather Data Change OR Not
     let FOODNAMESAME = filterCoffeeItemsData.filter((item) => {
@@ -81,11 +98,15 @@ import VerifyAdminLogin from './VerifyAdminLogin';
     let CATEGORYSAME = filterCoffeeItemsData.filter((item) => {
       return item.Category == Category;
     });
+    let DESCRIPTIONSAME = filterCoffeeItemsData.filter((item) => {
+      return item.Description == description;
+    });
 
     if (!FOODNAMESAME.length == 0) {
       if (!PRICESAME.length == 0) {
         if (!QTYSAME.length == 0) {
           if (!CATEGORYSAME.length == 0) {
+          if (!DESCRIPTIONSAME.length == 0) {
             toast.warn(
               "Same Data Is Not Allowed To Update, Please Update Coffee Item Records",
               {
@@ -99,6 +120,7 @@ import VerifyAdminLogin from './VerifyAdminLogin';
               }
             );
             return 0;
+          }
           }
         }
       }
@@ -116,6 +138,7 @@ import VerifyAdminLogin from './VerifyAdminLogin';
         Price: Price,
         Qty: Qtys,
         Category: Category,
+        Description:description 
       }),
     });
 
@@ -133,7 +156,21 @@ import VerifyAdminLogin from './VerifyAdminLogin';
       });
       return 0;
     }
-
+  if (response.status == 401) {
+      toast.error("Please Login With Admin Credentials", {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      setTimeout(RedirectFunction, 1000);
+      function RedirectFunction() {
+        router.push("/admin/Login");
+      }
+      }
     if (datas.status == "400") {
       toast.warn(`${datas.message}`, {
         position: "bottom-right",
@@ -254,6 +291,14 @@ import VerifyAdminLogin from './VerifyAdminLogin';
                 })}</>:''}
              
               </select>
+            </li>
+              <li className={StyleFood.description}>
+                <p>
+               Enter Description Category<span>*</span>
+              </p>
+            <textarea value={description} name="description" onChange={(e)=>setDescription(e.target.value)}>
+            
+            </textarea>
             </li>
             <button onClick={updateItems}> UPDATE COFFEE</button>
           </div>

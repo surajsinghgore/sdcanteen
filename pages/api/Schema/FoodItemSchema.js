@@ -12,9 +12,14 @@ const AddFoodSchema = new mongoose.Schema(
     },
     Qty: {
       type: String,
+      default: "1",
     },
     Category: {
       type: String, trim:true
+    },
+    Description: {
+      type: String,
+      required: true
     },
     Image: {
       type: String,

@@ -2,7 +2,7 @@ import DbConnection from "./Middleware/DbConnection";
 import JuiceItemSchema from "./Schema/JuiceItemSchema";
 import VerifyAdmin from "./Middleware/MiddlewareAdminVerify";
 import nextConnect from "next-connect";
-
+var fs = require("fs");
 const handler = nextConnect();
 
 import multer from "multer";
@@ -47,12 +47,24 @@ handler.use(uploard.single("Image"));
 handler.post(async (req, res) => {
   try {
     DbConnection();
-    await VerifyAdmin(req, res);
+
+
+let verify=await VerifyAdmin(req, res);
+
     const Image = req.file.filename;
     let JuiceName = req.body.JuiceName;
     let Price = req.body.Price;
     let Qty = req.body.Qty;
-    let Category = req.body.Category;
+let Category = req.body.Category;
+      let Description = req.body.Description;
+   var filePath = `./public/JuiceItemImages/${Image}`;
+
+
+ if(verify==undefined){
+     await fs.unlinkSync(filePath);
+     res.status(401).json({ message: "Please login with admin credentails" });
+    }
+
 
     if (!Image) {
       res.status(400).json({ message: "Please Enter Item Image" });
@@ -61,6 +73,9 @@ handler.post(async (req, res) => {
     } else if (!Price) {
       res.status(400).json({ message: "Please Enter Price Of Item" });
     }
+    else if (!Description) {
+      res.status(400).json({ message: "Please Enter Description Of Item" });
+    }
 
     let Items = new JuiceItemSchema({
       JuiceName,
@@ -68,10 +83,14 @@ handler.post(async (req, res) => {
       Qty,
       Category,
       Image,
+      Description,
     });
     let ress = await Items.save();
     if (ress) {
       res.status(201).json({ ress, status: "201" });
+    } else{
+     await fs.unlinkSync(filePath);
+     return res.status(401).json({ message: "Please login with admin credentails" });
     }
   } catch (e) {
     console.log(e);

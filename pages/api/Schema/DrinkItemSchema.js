@@ -16,6 +16,10 @@ const AddDrinkSchema = new mongoose.Schema(
     Category: {
       type: String, trim:true
     },
+    Description: {
+      type: String,
+      required: true
+    },
     Image: {
       type: String,
     },

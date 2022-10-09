@@ -2,6 +2,7 @@ import DbConnection from "./Middleware/DbConnection";
 import CoffeeItemSchema from "./Schema/CoffeeItemSchema";
 import VerifyAdmin from "./Middleware/MiddlewareAdminVerify";
 import nextConnect from "next-connect";
+var fs = require("fs");
 
 const handler = nextConnect();
 
@@ -47,13 +48,18 @@ handler.use(uploard.single("Image"));
 handler.post(async (req, res) => {
   try {
     DbConnection();
-    await VerifyAdmin(req, res);
+let verify=await VerifyAdmin(req, res);
     const Image = req.file.filename;
     let CoffeeName = req.body.CoffeeName;
     let Price = req.body.Price;
     let Qty = req.body.Qty;
     let Category = req.body.Category;
-
+    let Description = req.body.Description;
+   var filePath = `./public/CoffeeItemImages/${Image}`;
+if(verify==undefined){
+     await fs.unlinkSync(filePath);
+     res.status(401).json({ message: "Please login with admin credentails" });
+    }
     if (!Image) {
       res.status(400).json({ message: "Please Enter Item Image" });
     } else if (!CoffeeName) {
@@ -61,21 +67,29 @@ handler.post(async (req, res) => {
     } else if (!Price) {
       res.status(400).json({ message: "Please Enter Price Of Item" });
     }
+    else if (!Description) {
+      res.status(400).json({ message: "Please Enter Description Of Item" });
+    }
 
     let Items = new CoffeeItemSchema({
       CoffeeName,
       Price,
       Qty,
       Category,
+      Description,
       Image,
     });
     let ress = await Items.save();
     if (ress) {
       res.status(201).json({ ress, status: "201" });
     }
+    else{
+     await fs.unlinkSync(filePath);
+      res.status(401).json({ message: "Please login with admin credentails" });
+    }
   } catch (e) {
     console.log(e);
-    res.status(501).json({ message: "Internal Server Error", status: "201" });
+ return res.status(401).json({ message: "Please login with admin credentails" });
   }
 });
 

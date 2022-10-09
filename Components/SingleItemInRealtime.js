@@ -34,6 +34,7 @@ setDatas(item);
 setOrderStatus(item.OrderStatus);
 let lowercase=item.OrderStatus.toLowerCase();
 setLow(lowercase)
+setPrice(item.AmountReceived)
 }
 },[])
 
@@ -50,67 +51,6 @@ setUpdateStates(true)
 
 const reject=(id,CategoryPrimary)=>{
 let status="reject";
-const sendData=async()=>{
-const res = await fetch(`${HOST}/api/UpdateOrderItems`, {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify({
-        "id": id,"status":status
-      }),
-    });
-  await res.json();
-if(res.status==403){
-toast.error('Please Login With Admin Credentails', {
-position: "bottom-right",
-autoClose: 5000,
-hideProgressBar: false,
-closeOnClick: true,
-pauseOnHover: true,
-draggable: true,
-progress: undefined,
-});
-return 0;
-}
-if(res.status==400){
-toast.warn('Please fill All the filed Id,Price,Status', {
-position: "bottom-right",
-autoClose: 5000,
-hideProgressBar: false,
-closeOnClick: true,
-pauseOnHover: true,
-draggable: true,
-progress: undefined,
-});
-return 0;
-}
-
-if(res.status==404){
-toast.warn('Record Not Found', {
-position: "bottom-right",
-autoClose: 5000,
-hideProgressBar: false,
-closeOnClick: true,
-pauseOnHover: true,
-draggable: true,
-progress: undefined,
-});
-return 0;
-}
-if(res.status==501){
-toast.warn('Internal Server Error', {
-position: "bottom-right",
-autoClose: 5000,
-hideProgressBar: false,
-closeOnClick: true,
-pauseOnHover: true,
-draggable: true,
-progress: undefined,
-});
-return 0;
-}
-
 if(CategoryPrimary=="foodcategory"){
 let value=prompt("Enter Secret Key [ Food Admin ] to Process Order");
 if(value!=foodkey){
@@ -174,6 +114,67 @@ return 0;
 }
 else{
 toast.warn('Sorry something went wrong with  Secret Key you provides', {
+position: "bottom-right",
+autoClose: 5000,
+hideProgressBar: false,
+closeOnClick: true,
+pauseOnHover: true,
+draggable: true,
+progress: undefined,
+});
+return 0;
+}
+
+const sendData=async()=>{
+const res = await fetch(`${HOST}/api/UpdateOrderItems`, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({
+        "id": id,"status":status
+      }),
+    });
+  await res.json();
+if(res.status==403){
+toast.error('Please Login With Admin Credentails', {
+position: "bottom-right",
+autoClose: 5000,
+hideProgressBar: false,
+closeOnClick: true,
+pauseOnHover: true,
+draggable: true,
+progress: undefined,
+});
+return 0;
+}
+if(res.status==400){
+toast.warn('Please fill All the filed Id,Price,Status', {
+position: "bottom-right",
+autoClose: 5000,
+hideProgressBar: false,
+closeOnClick: true,
+pauseOnHover: true,
+draggable: true,
+progress: undefined,
+});
+return 0;
+}
+
+if(res.status==404){
+toast.warn('Record Not Found', {
+position: "bottom-right",
+autoClose: 5000,
+hideProgressBar: false,
+closeOnClick: true,
+pauseOnHover: true,
+draggable: true,
+progress: undefined,
+});
+return 0;
+}
+if(res.status==501){
+toast.warn('Internal Server Error', {
 position: "bottom-right",
 autoClose: 5000,
 hideProgressBar: false,
@@ -420,6 +421,7 @@ setOrderStatus(status)
 sendData();
 }
 
+
   return (
      <>
      <VerifyAdminLogin />
@@ -432,17 +434,18 @@ sendData();
 <div className={StyleRealtime.div5}>{item.Amount}</div>
 <div className={StyleRealtime.div6}>{item.AmountReceived} </div>
 <div className={StyleRealtime.div7}>
-{(low=="pending")? <div className={StyleRealtime.pen}>{OrderStatus}</div>: (low=="complete")? <div className={StyleRealtime.com}>{OrderStatus}</div>:<div className={StyleRealtime.rej}>{OrderStatus}</div>} 
+{(low=="pending")? <div className={StyleRealtime.pen}>{OrderStatus}</div>: (low=="complete")? <div className={StyleRealtime.com}>{OrderStatus}</div>:
+<div className={StyleRealtime.rej}>{OrderStatus}</div>} 
 </div>
 
-{(item.OrderStatus.toLowerCase()=="complete")?
+{(OrderStatus.toLowerCase()=="complete")?
 // complete  
 <div className={StyleRealtime.div8}>
  <IoMdDoneAll className={StyleRealtime.com} title="Order Complete"/>
 </div>
 :
 // reject
-((item.OrderStatus.toLowerCase()=="reject")? 
+((OrderStatus.toLowerCase()=="reject")? 
 <div className={StyleRealtime.div8}>
  <GrFormClose className={StyleRealtime.rej} title="Order Reject"/>
 </div>

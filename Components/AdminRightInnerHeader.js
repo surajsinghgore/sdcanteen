@@ -55,6 +55,18 @@ const res1 = await fetch(`${HOST}/api/ShowOrderOnOffStatus`, {
         "Content-type": "application/json",
       }
     });
+      if (res1.status == 401) {
+      toast.error("Please Login With Admin Credentials", {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+  return 0;
+      }
     let data=await res1.json();
 
         if(res1.status==501){

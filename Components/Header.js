@@ -46,6 +46,7 @@ const res = await fetch(`${HOST}/api/ShowClientDetails`, {
     });
 
 let data=await res.json();
+if(data!=undefined){
 
 if(res.status==404){
 const redirects=()=>{
@@ -100,7 +101,7 @@ let resName = str.substring(0, 5);
 setFullName(resName)
 }
 }
-
+}
 }
 getData();
 

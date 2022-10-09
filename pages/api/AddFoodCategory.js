@@ -8,7 +8,11 @@ export default async function AddFoodCategory(req, res) {
     try {
       DbConnection();
 
-      await VerifyAdmin(req, res);
+     let verify=await VerifyAdmin(req, res);
+       if(verify==undefined){
+
+    return res.status(401).json({ message: "Please login with admin credentails" });
+    }
       let foodName = req.body.FoodCategoryName;
       if (!foodName) {
         res

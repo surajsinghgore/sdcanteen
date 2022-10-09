@@ -22,6 +22,7 @@ export default function AddCoffeeItem() {
   const [imgs, setImgs] = useState();
   const [showImage, setShowImage] = useState(true);
   const [files, setFiles] = useState("");
+    const [description, setDescription] = useState("");
   const handleChange = async (e) => {
     if (e.target.files[0]) {
       var file = e.target.files[0];
@@ -61,6 +62,19 @@ export default function AddCoffeeItem() {
       });
       return 0;
     }
+    if (!description) {
+      toast.warn("Please Enter Description of Item", {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      return 0;
+    }
+
     if (!Images) {
       toast.warn("Please Uploard Coffee Image", {
         position: "bottom-right",
@@ -80,6 +94,8 @@ export default function AddCoffeeItem() {
     data.append("Qty", Qtys);
     data.append("Category", Category);
     data.append("Image", files);
+    data.append("Description", description);
+
 
     let res = await fetch(`${HOST}/api/AddCoffeeItem`, {
       method: "POST",
@@ -102,6 +118,21 @@ export default function AddCoffeeItem() {
       }
       return 0;
     }
+      if (res.status == 401) {
+      toast.error("Please Login With Admin Credentials", {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      setTimeout(RedirectFunction, 1000);
+      function RedirectFunction() {
+        router.push("/admin/Login");
+      }
+      }
     if (res.status === 500) {
       toast.error("Only JPG , PNG , JPEG Images are Allowed To Upload", {
         position: "bottom-right",
@@ -241,6 +272,14 @@ export default function AddCoffeeItem() {
                   );
                 })}
               </select>
+            </li>
+              <li className={StyleFood.description}>
+                <p>
+               Enter Description Category<span>*</span>
+              </p>
+            <textarea value={description} name="description" onChange={(e)=>setDescription(e.target.value)}>
+            
+            </textarea>
             </li>
             <li>
               <p>

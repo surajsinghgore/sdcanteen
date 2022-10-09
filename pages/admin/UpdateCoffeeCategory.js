@@ -41,7 +41,21 @@ function UpdateCoffeeCategory() {
         CoffeeCategoryName,
       }),
     });
-
+ if (res.status == 401) {
+      toast.error("Please Login With Admin Credentials", {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      setTimeout(RedirectFunction, 1000);
+      function RedirectFunction() {
+        router.push("/admin/Login");
+      }
+      }
     let dataRes = await res.json();
 
     if (dataRes.status == "403") {
@@ -99,9 +113,12 @@ function UpdateCoffeeCategory() {
   };
 
   useEffect(() => {
-    if (filterAllFoodCategoriesData) {
+    if (filterAllFoodCategoriesData!=undefined) {
       setCoffeeCategoryName(filterAllFoodCategoriesData[0].CoffeeCategoryName);
     }
+    else{
+    router.push('/admin/UpdateCoffeeCategory')
+}
   }, [filterAllFoodCategoriesData]);
 
   return (
