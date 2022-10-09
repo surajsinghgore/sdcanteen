@@ -8,12 +8,18 @@ import router from "next/router";
 // login images banner
 import loginImage from "../../public/admin/loginImg.svg";
 import USerProfile from "../../public/admin/loginProfile.png";
+import { useEffect } from "react";
+import Link from "next/link";
 
 const Login = () => {
   const [secret, setSecret] = useState("");
   const [password, setPassword] = useState("");
   let HOST = process.env.NEXT_PUBLIC_API_URL;
-
+useEffect(()=>{
+if(localStorage.getItem('adminlogin')!=undefined){
+router.push('/admin')
+}
+},[])
   const LoginFunction = async (e) => {
     e.preventDefault();
 
@@ -29,7 +35,7 @@ const Login = () => {
         progress: undefined,
       });
 
-      return 0;
+      return;
     }
     if (!password) {
       toast.warn("Please enter password", {
@@ -41,7 +47,7 @@ const Login = () => {
         draggable: true,
         progress: undefined,
       });
-      return 0;
+      return;
     }
 
     // send request to server
@@ -68,7 +74,7 @@ const Login = () => {
         draggable: true,
         progress: undefined,
       });
-      return 0;
+      return;
     }
     if (data.status == "501") {
       toast.error(`${data.message}`, {
@@ -80,7 +86,7 @@ const Login = () => {
         draggable: true,
         progress: undefined,
       });
-      return 0;
+      return;
     }
 
     // success
@@ -93,7 +99,7 @@ const Login = () => {
       draggable: true,
       progress: undefined,
     });
-
+localStorage.setItem('adminlogin',"true")
     setTimeout(myGreeting, 1200);
     function myGreeting() {
       router.push("/admin");
@@ -146,6 +152,7 @@ const Login = () => {
             />
 
             <button onClick={LoginFunction}>Click to login</button>
+           <Link href="/"><h6>Click Here To Main Website</h6></Link> 
           </form>
         </div>
       </div>

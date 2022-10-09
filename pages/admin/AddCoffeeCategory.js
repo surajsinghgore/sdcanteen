@@ -24,7 +24,7 @@ export default function AddCoffeeCategory() {
         draggable: true,
         progress: undefined,
       });
-      return 0;
+      return ;
     }
 
     const res = await fetch(`${HOST}/api/AddCoffeeCategory`, {
@@ -66,7 +66,7 @@ export default function AddCoffeeCategory() {
       function RedirectFunction() {
         router.push("/admin/Login");
       }
-      return 0;
+      return ;
     }
 
     if (data.status == "501") {
@@ -79,7 +79,7 @@ export default function AddCoffeeCategory() {
         draggable: true,
         progress: undefined,
       });
-      return 0;
+      return ;
     }
     if (data.status == "402") {
       toast.warn(`${data.message}`, {
@@ -91,7 +91,7 @@ export default function AddCoffeeCategory() {
         draggable: true,
         progress: undefined,
       });
-      return 0;
+      return ;
     }
     if (data.status == "400") {
       toast.warn(`${CoffeeCategory} Is Already Exists In Food Category`, {
@@ -103,7 +103,7 @@ export default function AddCoffeeCategory() {
         draggable: true,
         progress: undefined,
       });
-      return 0;
+      return ;
     }
 
     toast.success(`${CoffeeCategory} Coffee Category Successfully Added`, {

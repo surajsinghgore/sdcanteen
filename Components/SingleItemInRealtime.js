@@ -63,7 +63,7 @@ pauseOnHover: true,
 draggable: true,
 progress: undefined,
 });
-return 0;
+return ;
 }
 }
 else if(CategoryPrimary=="coffeecategory"){
@@ -78,7 +78,7 @@ pauseOnHover: true,
 draggable: true,
 progress: undefined,
 });
-return 0;
+return ;
 }
 }
 else if(CategoryPrimary=="drinkcategory"){
@@ -93,7 +93,7 @@ pauseOnHover: true,
 draggable: true,
 progress: undefined,
 });
-return 0;
+return ;
 }
 }
 else if(CategoryPrimary=="juicecategory"){
@@ -108,7 +108,7 @@ pauseOnHover: true,
 draggable: true,
 progress: undefined,
 });
-return 0;
+return ;
 }
 
 }
@@ -122,7 +122,7 @@ pauseOnHover: true,
 draggable: true,
 progress: undefined,
 });
-return 0;
+return ;
 }
 
 const sendData=async()=>{
@@ -146,7 +146,7 @@ pauseOnHover: true,
 draggable: true,
 progress: undefined,
 });
-return 0;
+return ;
 }
 if(res.status==400){
 toast.warn('Please fill All the filed Id,Price,Status', {
@@ -158,7 +158,7 @@ pauseOnHover: true,
 draggable: true,
 progress: undefined,
 });
-return 0;
+return ;
 }
 
 if(res.status==404){
@@ -171,7 +171,7 @@ pauseOnHover: true,
 draggable: true,
 progress: undefined,
 });
-return 0;
+return ;
 }
 if(res.status==501){
 toast.warn('Internal Server Error', {
@@ -183,7 +183,7 @@ pauseOnHover: true,
 draggable: true,
 progress: undefined,
 });
-return 0;
+return ;
 }
 toast.success('Successfully Updated', {
 position: "bottom-right",
@@ -217,7 +217,7 @@ pauseOnHover: true,
 draggable: true,
 progress: undefined,
 });
-return 0;
+return ;
 }
 else if(priceInt==0){
 toast.warn('Zero Price Amount Not Allowed', {
@@ -229,7 +229,7 @@ pauseOnHover: true,
 draggable: true,
 progress: undefined,
 });
-return 0;
+return ;
 }
 else if(status=="pending"){
 toast.warn('Please Change Order Status', {
@@ -241,7 +241,7 @@ pauseOnHover: true,
 draggable: true,
 progress: undefined,
 });
-return 0;
+return ;
 }
 if(priceInt<parseInt(Amount)){
 toast.warn('Amount Is Less Than Total Amount', {
@@ -253,7 +253,7 @@ pauseOnHover: true,
 draggable: true,
 progress: undefined,
 });
-return 0;
+return ;
 }
 if(priceInt>parseInt(Amount)){
 toast.warn('Amount Is More Than Total Amount', {
@@ -265,7 +265,7 @@ pauseOnHover: true,
 draggable: true,
 progress: undefined,
 });
-return 0;
+return ;
 }
 
 if(CategoryPrimary=="foodcategory"){
@@ -280,7 +280,7 @@ pauseOnHover: true,
 draggable: true,
 progress: undefined,
 });
-return 0;
+return ;
 }
 }
 else if(CategoryPrimary=="coffeecategory"){
@@ -295,7 +295,7 @@ pauseOnHover: true,
 draggable: true,
 progress: undefined,
 });
-return 0;
+return ;
 }
 }
 else if(CategoryPrimary=="drinkcategory"){
@@ -310,7 +310,7 @@ pauseOnHover: true,
 draggable: true,
 progress: undefined,
 });
-return 0;
+return ;
 }
 }
 else if(CategoryPrimary=="juicecategory"){
@@ -325,7 +325,7 @@ pauseOnHover: true,
 draggable: true,
 progress: undefined,
 });
-return 0;
+return ;
 }
 
 }
@@ -339,7 +339,7 @@ pauseOnHover: true,
 draggable: true,
 progress: undefined,
 });
-return 0;
+return ;
 }
 
 const sendData=async()=>{
@@ -363,7 +363,7 @@ pauseOnHover: true,
 draggable: true,
 progress: undefined,
 });
-return 0;
+return ;
 }
 if(res.status==400){
 toast.warn('Please fill All the filed Id,Price,Status', {
@@ -375,7 +375,7 @@ pauseOnHover: true,
 draggable: true,
 progress: undefined,
 });
-return 0;
+return ;
 }
 
 if(res.status==404){
@@ -388,7 +388,7 @@ pauseOnHover: true,
 draggable: true,
 progress: undefined,
 });
-return 0;
+return ;
 }
 if(res.status==501){
 toast.warn('Internal Server Error', {
@@ -400,7 +400,7 @@ pauseOnHover: true,
 draggable: true,
 progress: undefined,
 });
-return 0;
+return ;
 }
 
 toast.success('Successfully Updated', {

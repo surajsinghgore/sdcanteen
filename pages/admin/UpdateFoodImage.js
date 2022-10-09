@@ -55,7 +55,7 @@ setImgs(`/FoodItemImages/${filterFoodItemsData[0].Image}`)
         draggable: true,
         progress: undefined,
       });
-      return 0;
+      return ;
     }
     let response = await fetch(`${HOST}/api/UpdateFoodImage`, {
       method: "POST",
@@ -86,7 +86,7 @@ setImgs(`/FoodItemImages/${filterFoodItemsData[0].Image}`)
         draggable: true,
         progress: undefined,
       });
-      return 0;
+      return ;
     }
     let datas = await response.json();
     if (datas.status == "501") {
@@ -99,7 +99,7 @@ setImgs(`/FoodItemImages/${filterFoodItemsData[0].Image}`)
         draggable: true,
         progress: undefined,
       });
-      return 0;
+      return ;
     }
     if (datas.status == "400") {
       toast.warn(`${datas.message}`, {
@@ -111,7 +111,7 @@ setImgs(`/FoodItemImages/${filterFoodItemsData[0].Image}`)
         draggable: true,
         progress: undefined,
       });
-      return 0;
+      return ;
     }
 
     if (datas.status == "201") {

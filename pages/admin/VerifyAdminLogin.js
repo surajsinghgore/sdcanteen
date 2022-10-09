@@ -24,11 +24,12 @@ pauseOnHover: true,
 draggable: true,
 progress: undefined,
 });
+localStorage.removeItem('adminlogin');
 function RedirectFunction(){
   router.push('/admin/Login')
 }
 setTimeout(RedirectFunction,1500);
-return 0;
+return ;
 }
 }
 

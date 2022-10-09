@@ -56,7 +56,7 @@ export default function UpdateJuiceItemForm() {
         draggable: true,
         progress: undefined,
       });
-      return 0;
+      return ;
     }
     if (!Price) {
       toast.warn("Please Enter Juice Price", {
@@ -68,7 +68,7 @@ export default function UpdateJuiceItemForm() {
         draggable: true,
         progress: undefined,
       });
-      return 0;
+      return ;
     }if (!description) {
       toast.warn("Please Enter Description of Item", {
         position: "bottom-right",
@@ -79,7 +79,7 @@ export default function UpdateJuiceItemForm() {
         draggable: true,
         progress: undefined,
       });
-      return 0;
+      return ;
     }
 
     // matching Weather Data Change OR Not
@@ -116,7 +116,7 @@ export default function UpdateJuiceItemForm() {
                 progress: undefined,    
               }
             );
-            return 0;
+            return ;
           }
         }
       }}
@@ -164,7 +164,7 @@ export default function UpdateJuiceItemForm() {
         draggable: true,
         progress: undefined,
       });
-      return 0;
+      return ;
     }
 
     if (datas.status == "400") {
@@ -177,7 +177,7 @@ export default function UpdateJuiceItemForm() {
         draggable: true,
         progress: undefined,
       });
-      return 0;
+      return ;
     }
 
     if (datas.status == "201") {

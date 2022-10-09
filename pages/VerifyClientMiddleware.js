@@ -25,7 +25,7 @@ draggable: true,
 progress: undefined,
 });
 setTimeout(RedirectFunction,1500);
-return 0;
+return ;
 function RedirectFunction(){
   router.push('/ClientLogin')
 

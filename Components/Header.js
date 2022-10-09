@@ -37,6 +37,7 @@ const {
   // user details fetch
 useEffect(()=>{
 setUserLogin(false)
+if(localStorage.getItem('login')!=undefined){
 const getData=async()=>{
 const res = await fetch(`${HOST}/api/ShowClientDetails`, {
       method: "POST",
@@ -60,7 +61,7 @@ draggable: true,
 progress: undefined,
 });
 router.push("/ClientLogin");
-return 0;
+return ;
 }
 setTimeout(redirects,2000);
 
@@ -76,7 +77,7 @@ pauseOnHover: true,
 draggable: true,
 progress: undefined,
 });
-return 0;
+return ;
 }
 
 }
@@ -104,6 +105,7 @@ setFullName(resName)
 }
 }
 getData();
+}
 
 },[])
 
@@ -276,6 +278,7 @@ draggable: true,
 progress: undefined,
 });
 setUserLogin(false);
+localStorage.removeItem('login')
 const redirect=()=>{
 router.push("/");
 }
@@ -339,7 +342,7 @@ suggestion.style.display="none"
     </div>
         <div className="page">
     <h1>Extra Pages</h1>
-    <li><Link href="/admin">Admin Login</Link></li>
+    <li><Link href="/admin/Login">Admin Login</Link></li>
     <li><Link href="/">Help Center</Link></li>
     </div>
     </div>

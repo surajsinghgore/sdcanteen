@@ -75,7 +75,7 @@ export default function DeleteCoffeeItem({ datas }) {
                 draggable: true,
                 progress: undefined,
               });
-              return 0;
+              return ;
             }
             if (!item.Image) {
               toast.warn("Please Provide Correct Image Of Item", {
@@ -87,7 +87,7 @@ export default function DeleteCoffeeItem({ datas }) {
                 draggable: true,
                 progress: undefined,
               });
-              return 0;
+              return ;
             }
             let res = await fetch(`${HOST}/api/DeleteCoffeeItem`, {
               method: "DELETE",
@@ -112,7 +112,7 @@ export default function DeleteCoffeeItem({ datas }) {
         draggable: true,
         progress: undefined,
       });
-      return 0;
+      return ;
       }
             if (data.status == "501") {
               toast.error(`${data.message}`, {
@@ -124,7 +124,7 @@ export default function DeleteCoffeeItem({ datas }) {
                 draggable: true,
                 progress: undefined,
               });
-              return 0;
+              return ;
             }
 
             if (data.status == "400") {
@@ -137,7 +137,7 @@ export default function DeleteCoffeeItem({ datas }) {
                 draggable: true,
                 progress: undefined,
               });
-              return 0;
+              return ;;
             }
             if (data.status == "201") {
               toast.success(`Coffee Item Successfully Deleted`, {

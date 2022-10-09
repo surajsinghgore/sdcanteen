@@ -38,7 +38,7 @@ toast.warn("Please Add something In Cart", {
         router.push('/');
         }
           setTimeout(pushToCompleteOrder,1500);
-return 0;
+return ;
 }
 },[])
 // enable time is not sunday and also not off from admin
@@ -73,7 +73,7 @@ pauseOnHover: true,
 draggable: true,
 progress: undefined,
 });
-return 0;
+return ;
     }
  if(res.status==404){
 toast.warn('No Record Found', {
@@ -85,7 +85,7 @@ pauseOnHover: true,
 draggable: true,
 progress: undefined,
 });
-return 0;
+return ;
     }
 let status;
 if(data.data){
@@ -146,7 +146,7 @@ pauseOnHover: true,
 draggable: true,
 progress: undefined,
 });
-return 0;
+return ;
 }
 }
 

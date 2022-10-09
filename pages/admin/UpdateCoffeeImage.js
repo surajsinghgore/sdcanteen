@@ -56,7 +56,7 @@ else{
         draggable: true,
         progress: undefined,
       });
-      return 0;
+      return ;
     }
     let response = await fetch(`${HOST}/api/UpdateCoffeeImage`, {
       method: "POST",
@@ -87,7 +87,7 @@ else{
         draggable: true,
         progress: undefined,
       });
-      return 0;
+      return ;
     }
     let datas = await response.json();
     if (datas.status == "501") {
@@ -100,7 +100,7 @@ else{
         draggable: true,
         progress: undefined,
       });
-      return 0;
+      return ;
     }
     if (datas.status == "400") {
       toast.warn(`${datas.message}`, {
@@ -112,7 +112,7 @@ else{
         draggable: true,
         progress: undefined,
       });
-      return 0;
+      return ;
     }
 
     if (datas.status == "201") {

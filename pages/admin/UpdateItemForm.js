@@ -58,7 +58,7 @@ let HOST = process.env.NEXT_PUBLIC_API_URL;
         draggable: true,
         progress: undefined,
       });
-      return 0;
+      return ;
     }
     if (!Price) {
       toast.warn("Please Enter Food Price", {
@@ -70,7 +70,7 @@ let HOST = process.env.NEXT_PUBLIC_API_URL;
         draggable: true,
         progress: undefined,
       });
-      return 0;
+      return ;
     }
 if (!description) {
       toast.warn("Please Enter Description of Item", {
@@ -82,7 +82,7 @@ if (!description) {
         draggable: true,
         progress: undefined,
       });
-      return 0;
+      return ;
     }
     // matching Weather Data Change OR Not
     let FOODNAMESAME = filterFoodItemsData.filter((item) => {
@@ -118,7 +118,7 @@ if (!description) {
                 progress: undefined,     
               }
             );
-            return 0;
+            return ;
           }
         }
       }}
@@ -151,7 +151,7 @@ if (!description) {
         draggable: true,
         progress: undefined,
       });
-      return 0;
+      return ;
     }
   if (response.status == 401) {
       toast.error("Please Login With Admin Credentials", {
@@ -178,7 +178,7 @@ if (!description) {
         draggable: true,
         progress: undefined,
       });
-      return 0;
+      return ;
     }
 
     if (datas.status == "201") {

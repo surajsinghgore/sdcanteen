@@ -13,6 +13,19 @@ const [open,setOpen]=useState(false);
 if(open){
 setShow(true);
  if(item.title=='Logout'){
+ if(localStorage.getItem('adminlogin')==undefined){
+ 
+toast.error('Please Login first with admin credentials', {
+position: "bottom-right",
+autoClose: 5000,
+hideProgressBar: false,
+closeOnClick: true,
+pauseOnHover: true,
+draggable: true,
+progress: undefined,
+});
+return ;
+ }
 const getData=async()=>{
 const res = await fetch(`${HOST}/api/LogoutAdmin`, {
       method: "Get",
@@ -35,6 +48,7 @@ progress: undefined,
 });
 localStorage.removeItem("orderStatus");
 localStorage.removeItem("active");
+localStorage.removeItem("adminlogin");
 const redirect=()=>{
 router.push("/");
 }

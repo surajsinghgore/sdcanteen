@@ -25,7 +25,7 @@ function AddDrinkCategory() {
         draggable: true,
         progress: undefined,
       });
-      return 0;
+      return ;
     }
 
     const res = await fetch(`${HOST}/api/AddDrinkCategory`, {
@@ -67,7 +67,7 @@ function AddDrinkCategory() {
       function RedirectFunction() {
         router.push("/admin/Login");
       }
-      return 0;
+      return ;
     }
     // dublicate error message
     if (data.status == "501") {
@@ -80,7 +80,7 @@ function AddDrinkCategory() {
         draggable: true,
         progress: undefined,
       });
-      return 0;
+      return ;
     }
     // empty or not check
     if (data.status == "402") {
@@ -93,7 +93,7 @@ function AddDrinkCategory() {
         draggable: true,
         progress: undefined,
       });
-      return 0;
+      return ;
     }
     // dublicate error message
     if (data.status == "400") {
@@ -106,7 +106,7 @@ function AddDrinkCategory() {
         draggable: true,
         progress: undefined,
       });
-      return 0;
+      return ;
     }
 
     toast.success(`${DrinkCategory} Drink Category Successfully Added`, {

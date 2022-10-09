@@ -102,7 +102,7 @@ pauseOnHover: true,
 draggable: true,
 progress: undefined,
 });   
-return 0;
+return ;
 }
 const data = new FormData();
     data.append("Profile", files);
@@ -122,7 +122,7 @@ pauseOnHover: true,
 draggable: true,
 progress: undefined,
 });   
-return 0;
+return ;
     } 
     if(res.status==401){
 const redirects=()=>{
@@ -136,7 +136,7 @@ draggable: true,
 progress: undefined,
 });
 router.push("/ClientLogin");
-return 0;
+return ;
 }
 setTimeout(redirects,2000);
 }
@@ -150,7 +150,7 @@ pauseOnHover: true,
 draggable: true,
 progress: undefined,
 });   
-return 0;
+return ;
     } 
     if(res.status==201){
          toast.success('Profile Photo Successfully uploaded', {

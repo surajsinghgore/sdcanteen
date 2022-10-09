@@ -31,7 +31,7 @@ pauseOnHover: true,
 draggable: true,
 progress: undefined,
 });
-return 0;
+return ;
 }
 if(password===""){
 toast.warn("Please Enter Password", {
@@ -43,7 +43,7 @@ pauseOnHover: true,
 draggable: true,
 progress: undefined,
 });
-return 0;
+return ;
 }
 
 let Mobile=parseInt(email);
@@ -70,7 +70,7 @@ pauseOnHover: true,
 draggable: true,
 progress: undefined,
 });
-return 0;
+return ;
 }
 if(res.status==400){
 toast.warn(`${data.message}`, {
@@ -82,7 +82,7 @@ pauseOnHover: true,
 draggable: true,
 progress: undefined,
 });
-return 0;
+return ;
 }
 
 if(res.status==201){
@@ -95,11 +95,13 @@ pauseOnHover: true,
 draggable: true,
 progress: undefined,
 });
-
- setTimeout(Redirect, 1200);
-    function Redirect() {
+localStorage.setItem('login',"true");
+function Redirect() {
+      
       router.push("/");
     }
+ setTimeout(Redirect, 1200);
+    
   }
 
 }
@@ -109,7 +111,6 @@ const res=await fetch(`${HOST}/api/ClientLogin`,{
     method: "POST",
     headers:{
         "Content-Type": "application/json",
-        
     },
     body: JSON.stringify({
         Mobile,Password:password
@@ -126,7 +127,7 @@ pauseOnHover: true,
 draggable: true,
 progress: undefined,
 });
-return 0;
+return ;
 }
 if(res.status==400){
 toast.warn(`${data.message}`, {
@@ -138,7 +139,7 @@ pauseOnHover: true,
 draggable: true,
 progress: undefined,
 });
-return 0;
+return ;
 }
 
 if(res.status===201){
@@ -152,7 +153,7 @@ draggable: true,
 progress: undefined,
 });
 
-
+localStorage.setItem('login',"true");
     function Redirect() {
       router.push("/");
     }
@@ -173,6 +174,7 @@ progress: undefined,
 <div className={ClientStyle.clientLogin}>
 <div className={ClientStyle.form}>
 <h3>SD CANTEEN</h3>
+<form>
 <li>
 <h6>Enter Email/Mobile To Login</h6>
 <input type="text" name="" placeholder="Email / Mobile" value={email} onChange={(e)=>setEmail(e.target.value)}  autoComplete="new-password"  />
@@ -183,6 +185,7 @@ progress: undefined,
 <input type="password" name="" placeholder="Password" value={password} onChange={(e)=>setPassword(e.target.value)}  autoComplete="new-password"  />
 <RiLockPasswordLine className={ClientStyle.icon} />
 </li>
+</form>
 <button onClick={Login}>Login</button>
 <div className={ClientStyle.path}>
 <h4><Link href="/Signup">Register New User?</Link></h4>

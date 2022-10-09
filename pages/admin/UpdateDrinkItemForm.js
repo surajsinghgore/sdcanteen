@@ -58,7 +58,7 @@ export default function UpdateDrinkItemForm() {
         draggable: true,
         progress: undefined,
       });
-      return 0;
+      return ;
     }
     if (!Price) {
       toast.warn("Please Enter Drink Price", {
@@ -70,7 +70,7 @@ export default function UpdateDrinkItemForm() {
         draggable: true,
         progress: undefined,
       });
-      return 0;
+      return ;
     }
 if (!description) {
       toast.warn("Please Enter Description of Item", {
@@ -82,7 +82,7 @@ if (!description) {
         draggable: true,
         progress: undefined,
       });
-      return 0;
+      return ;
     }
     // matching Weather Data Change OR Not
     let FOODNAMESAME = filterDrinkItemsData.filter((item) => {
@@ -118,7 +118,7 @@ if (!description) {
                 progress: undefined,
               }
             );
-            return 0;
+            return ;
           }
         }
         }
@@ -166,7 +166,7 @@ if (!description) {
         draggable: true,
         progress: undefined,
       });
-      return 0;
+      return ;
     }
 
     if (datas.status == "400") {
@@ -179,7 +179,7 @@ if (!description) {
         draggable: true,
         progress: undefined,
       });
-      return 0;
+      return ;
     }
 
     if (datas.status == "201") {

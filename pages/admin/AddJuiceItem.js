@@ -50,7 +50,7 @@ export default function AddJuiceItem() {
         draggable: true,
         progress: undefined,
       });
-      return 0;
+      return ;
     }
     if (!Price) {
       toast.warn("Please Enter Juice Price", {
@@ -62,7 +62,7 @@ export default function AddJuiceItem() {
         draggable: true,
         progress: undefined,
       });
-      return 0;
+      return ;
     }if (!description) {
       toast.warn("Please Enter Description of Item", {
         position: "bottom-right",
@@ -73,7 +73,7 @@ export default function AddJuiceItem() {
         draggable: true,
         progress: undefined,
       });
-      return 0;
+      return ;
     }
 
     if (!Images) {
@@ -86,7 +86,7 @@ export default function AddJuiceItem() {
         draggable: true,
         progress: undefined,
       });
-      return 0;
+      return ;
     }
 
     const data = new FormData();
@@ -131,7 +131,7 @@ data.append("Description", description);
       function RedirectFunction() {
         router.push("/admin/Login");
       }
-      return 0;
+      return ;
     }
     if (res.status === 500) {
       toast.error("Only JPG , PNG , JPEG Images are Allowed To Upload", {
@@ -143,7 +143,7 @@ data.append("Description", description);
         draggable: true,
         progress: undefined,
       });
-      return 0;
+      return ;
     }
     let datas = await res.json();
 
@@ -157,7 +157,7 @@ data.append("Description", description);
         draggable: true,
         progress: undefined,
       });
-      return 0;
+      return ;
     }
     // dublicate error message
     if (datas.status == "400") {
@@ -170,7 +170,7 @@ data.append("Description", description);
         draggable: true,
         progress: undefined,
       });
-      return 0;
+      return ;
     }
 
     if (datas.status == "201") {

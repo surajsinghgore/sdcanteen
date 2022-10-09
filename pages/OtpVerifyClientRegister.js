@@ -38,7 +38,7 @@ export default function OtpVerifyClientRegister() {
         draggable: true,
         progress: undefined,
       });
-      return 0;
+      return ;
     }
 
     let count = 0;
@@ -59,7 +59,7 @@ export default function OtpVerifyClientRegister() {
         draggable: true,
         progress: undefined,
       });
-      return 0;
+      return ;
     }
 
     const res = await fetch(`${HOST}/api/VerifyOtp`, {
@@ -84,7 +84,7 @@ export default function OtpVerifyClientRegister() {
         draggable: true,
         progress: undefined,
       });
-      return 0;
+      return ;
     }
 
     if (data.status == 400) {
@@ -103,7 +103,7 @@ export default function OtpVerifyClientRegister() {
       function Redirect() {
         router.push("/Signup");
       }
-      return 0;
+      return ;
     }
     if (data.status == 403) {
       toast.warn(`${data.message}`, {
@@ -120,7 +120,7 @@ export default function OtpVerifyClientRegister() {
       function Redirect() {
         router.push("/Signup");
       }
-      return 0;
+      return ;
     }
     if (data.status == 501) {
       toast.warn(`${data.message}`, {
@@ -132,7 +132,7 @@ export default function OtpVerifyClientRegister() {
         draggable: true,
         progress: undefined,
       });
-      return 0;
+      return ;
     }
     if (data.status == 201) {
       toast.success("Otp Verified Successfully", {

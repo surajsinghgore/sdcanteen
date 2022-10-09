@@ -39,7 +39,7 @@ if((userName=="")||(userEmail=="")||(userMobile=="")||(userMessage=="")){
       draggable: true,
       progress: undefined,
     });
-    return 0;
+    return ;
 }
 
     toast.success('Message Successfully Send', {

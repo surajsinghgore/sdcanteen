@@ -43,7 +43,7 @@ if(!fullName){
       draggable: true,
       progress: undefined,
     });
-    return 0;
+    return ;
 }
 if(!age){
  toast.warn(`Please Enter Age`, {
@@ -54,7 +54,7 @@ if(!age){
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
-    });  return 0;
+    });  return ;
 }
 if(!email){
  toast.warn(`Please Enter Email`, {
@@ -65,7 +65,7 @@ if(!email){
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
-    });  return 0;
+    });  return ;
 }
 if(!mobile){
  toast.warn(`Please Enter Mobile`, {
@@ -76,7 +76,7 @@ if(!mobile){
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
-    });  return 0;
+    });  return ;
 }
 if(!gender){
  toast.warn(`Please Enter Gender`, {
@@ -87,7 +87,7 @@ if(!gender){
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
-    });  return 0;
+    });  return ;
 }
 if(!address){
  toast.warn(`Please Enter Address`, {
@@ -109,7 +109,7 @@ if(!password){
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
-    });  return 0;
+    });  return ;
 }
 if(!cpassword){
  toast.warn(`Please Enter Confirm Password`, {
@@ -121,7 +121,7 @@ if(!cpassword){
       draggable: true,
       progress: undefined,
     });
-      return 0;
+      return ;
 }
 if(password!==cpassword){
  toast.warn(`Password And Confirm Password Not Match`, {
@@ -133,7 +133,7 @@ if(password!==cpassword){
       draggable: true,
       progress: undefined,
     });
-      return 0;
+      return ;
 }
 const res = await fetch(`${HOST}/api/ClientRegister`, {
       method: "POST",
@@ -155,7 +155,7 @@ pauseOnHover: true,
 draggable: true,
 progress: undefined,
 });
-return 0;
+return ;
 }
 if(data.otpError){
   toast.warn(`${data.message}`, {
@@ -171,7 +171,7 @@ progress: undefined,
     function Redirect() {
       router.push("/Signup");
     }
-return 0;
+return ;
 }
 if(data.status=="400"){
 for(let i=0;i<data.errors.length;i++){
@@ -188,7 +188,7 @@ progress: undefined,
 continue;
 }
 }
-return 0;
+return ;
 }
 if(data.status==400){
   toast.warn(`${data.message}`, {
@@ -200,7 +200,7 @@ pauseOnHover: true,
 draggable: true,
 progress: undefined,
 });
-return 0;
+return ;
 }
 if(data.status==401){
   toast.warn(`${data.message}`, {
@@ -212,7 +212,7 @@ pauseOnHover: true,
 draggable: true,
 progress: undefined,
 });
-return 0;
+return ;
 }
 
 if(data.status==201){

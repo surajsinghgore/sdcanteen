@@ -50,7 +50,7 @@ export default function AddFoodItem() {
         draggable: true,
         progress: undefined,
       });
-      return 0;
+      return ;
     }
     if (!Price) {
       toast.warn("Please Enter Food Price", {
@@ -62,7 +62,7 @@ export default function AddFoodItem() {
         draggable: true,
         progress: undefined,
       });
-      return 0;
+      return ;
     }
     if (!description) {
       toast.warn("Please Enter Description of Item", {
@@ -74,7 +74,7 @@ export default function AddFoodItem() {
         draggable: true,
         progress: undefined,
       });
-      return 0;
+      return ;
     }
     if (!Images) {
       toast.warn("Please Uploard Food Image", {
@@ -86,7 +86,7 @@ export default function AddFoodItem() {
         draggable: true,
         progress: undefined,
       });
-      return 0;
+      return ;
     }
 
     const data = new FormData();
@@ -116,7 +116,7 @@ export default function AddFoodItem() {
       function RedirectFunction() {
         router.push("/admin/Login");
       }
-      return 0;
+      return ;
     }
      if (res.status == 401) {
       toast.error("Please Login With Admin Credentials", {
@@ -132,7 +132,7 @@ export default function AddFoodItem() {
       function RedirectFunction() {
         router.push("/admin/Login");
       }
-      return 0;
+      return ;
     }
     if (res.status === 500) {
       toast.error("Only JPG , PNG , JPEG Images are Allowed To Upload", {
@@ -144,7 +144,7 @@ export default function AddFoodItem() {
         draggable: true,
         progress: undefined,
       });
-      return 0;
+      return ;
     }
     let datas = await res.json();
 
@@ -158,7 +158,7 @@ export default function AddFoodItem() {
         draggable: true,
         progress: undefined,
       });
-      return 0;
+      return ;
     }
    
     if (datas.status == "400") {
@@ -171,7 +171,7 @@ export default function AddFoodItem() {
         draggable: true,
         progress: undefined,
       });
-      return 0;
+      return ;
     }
 
     if (datas.status == "201") {

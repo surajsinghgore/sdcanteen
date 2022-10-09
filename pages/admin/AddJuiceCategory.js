@@ -25,7 +25,7 @@ function AddJuiceCategory() {
         draggable: true,
         progress: undefined,
       });
-      return 0;
+      return ;
     }
 
     const res = await fetch(`${HOST}/api/AddJuiceCategory`, {
@@ -68,7 +68,7 @@ function AddJuiceCategory() {
       function RedirectFunction() {
         router.push("/admin/Login");
       }
-      return 0;
+      return ;
     }
     // dublicate error message
     if (data.status == "501") {
@@ -81,7 +81,7 @@ function AddJuiceCategory() {
         draggable: true,
         progress: undefined,
       });
-      return 0;
+      return ;
     }
     // empty or not check
     if (data.status == "402") {
@@ -94,7 +94,7 @@ function AddJuiceCategory() {
         draggable: true,
         progress: undefined,
       });
-      return 0;
+      return ;
     }
     // dublicate error message
     if (data.status == "400") {
@@ -107,7 +107,7 @@ function AddJuiceCategory() {
         draggable: true,
         progress: undefined,
       });
-      return 0;
+      return ;
     }
 
     toast.success(`${JuiceCategory} Juice Category Successfully Added`, {

@@ -65,7 +65,7 @@ const res1 = await fetch(`${HOST}/api/ShowOrderOnOffStatus`, {
         draggable: true,
         progress: undefined,
       });
-  return 0;
+  return ;
       }
     let data=await res1.json();
 
@@ -79,7 +79,7 @@ pauseOnHover: true,
 draggable: true,
 progress: undefined,
 });
-return 0;
+return ;
     }
  if(res1.status==404){
 toast.warn('No Record Found', {
@@ -91,7 +91,7 @@ pauseOnHover: true,
 draggable: true,
 progress: undefined,
 });
-return 0;
+return ;
     }
     let id;
 // update status
@@ -108,7 +108,7 @@ pauseOnHover: true,
 draggable: true,
 progress: undefined,
 });
-return 0;
+return ;
 }
 const res = await fetch(`${HOST}/api/UpdateOnOffStatus`, {
       method: "POST",
@@ -130,7 +130,7 @@ pauseOnHover: true,
 draggable: true,
 progress: undefined,
 });
-return 0;
+return ;
     }
     if(res.status==400){
 toast.warn('Status is Empty', {
@@ -142,7 +142,7 @@ pauseOnHover: true,
 draggable: true,
 progress: undefined,
 });
-return 0;
+return ;
     }
 
     if(checked==true){

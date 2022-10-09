@@ -48,7 +48,7 @@ export default function AddCoffeeItem() {
         draggable: true,
         progress: undefined,
       });
-      return 0;
+      return ;
     }
     if (!Price) {
       toast.warn("Please Enter Coffee Price", {
@@ -60,7 +60,7 @@ export default function AddCoffeeItem() {
         draggable: true,
         progress: undefined,
       });
-      return 0;
+      return ;
     }
     if (!description) {
       toast.warn("Please Enter Description of Item", {
@@ -72,7 +72,7 @@ export default function AddCoffeeItem() {
         draggable: true,
         progress: undefined,
       });
-      return 0;
+      return ;
     }
 
     if (!Images) {
@@ -85,7 +85,7 @@ export default function AddCoffeeItem() {
         draggable: true,
         progress: undefined,
       });
-      return 0;
+      return ;
     }
 
     const data = new FormData();
@@ -116,7 +116,7 @@ export default function AddCoffeeItem() {
       function RedirectFunction() {
         router.push("/admin/Login");
       }
-      return 0;
+      return ;
     }
       if (res.status == 401) {
       toast.error("Please Login With Admin Credentials", {
@@ -143,7 +143,7 @@ export default function AddCoffeeItem() {
         draggable: true,
         progress: undefined,
       });
-      return 0;
+      return ;
     }
     let datas = await res.json();
 
@@ -157,7 +157,7 @@ export default function AddCoffeeItem() {
         draggable: true,
         progress: undefined,
       });
-      return 0;
+      return ;
     }
     if (datas.status == "400") {
       toast.warn(`${datas.message}`, {
@@ -169,7 +169,7 @@ export default function AddCoffeeItem() {
         draggable: true,
         progress: undefined,
       });
-      return 0;
+      return ;
     }
 
     if (datas.status == "201") {

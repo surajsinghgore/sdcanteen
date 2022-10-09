@@ -57,7 +57,7 @@ setImgs(`/DrinkItemImages/${filterDrinkItemsData[0].Image}`)
         draggable: true,
         progress: undefined,
       });
-      return 0;
+      return ;
     }
     let response = await fetch(`${HOST}/api/UpdateDrinkImage`, {
       method: "POST",
@@ -89,7 +89,7 @@ setImgs(`/DrinkItemImages/${filterDrinkItemsData[0].Image}`)
         draggable: true,
         progress: undefined,
       });
-      return 0;
+      return ;
     }
     let datas = await response.json();
     if (datas.status == "501") {
@@ -102,7 +102,7 @@ setImgs(`/DrinkItemImages/${filterDrinkItemsData[0].Image}`)
         draggable: true,
         progress: undefined,
       });
-      return 0;
+      return ;
     }
     if (datas.status == "400") {
       toast.warn(`${datas.message}`, {
@@ -114,7 +114,7 @@ setImgs(`/DrinkItemImages/${filterDrinkItemsData[0].Image}`)
         draggable: true,
         progress: undefined,
       });
-      return 0;
+      return ;
     }
 
     if (datas.status == "201") {

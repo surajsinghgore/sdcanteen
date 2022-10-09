@@ -75,7 +75,7 @@ export default function DeleteJuiceItem({ datas }) {
                 draggable: true,
                 progress: undefined,
               });
-              return 0;
+              return ;
             }
             if (!item.Image) {
               toast.warn("Please Provide Correct Image Of Item", {
@@ -87,7 +87,7 @@ export default function DeleteJuiceItem({ datas }) {
                 draggable: true,
                 progress: undefined,
               });
-              return 0;
+              return ;
             }
             let res = await fetch(`${HOST}/api/DeleteJuiceItem`, {
               method: "DELETE",
@@ -110,7 +110,7 @@ export default function DeleteJuiceItem({ datas }) {
         draggable: true,
         progress: undefined,
       });
-      return 0;
+      return ;
       }
             let data = await res.json();
             if (data.status == "501") {
@@ -123,7 +123,7 @@ export default function DeleteJuiceItem({ datas }) {
                 draggable: true,
                 progress: undefined,
               });
-              return 0;
+              return ;
             }
 
             if (data.status == "400") {
@@ -136,7 +136,7 @@ export default function DeleteJuiceItem({ datas }) {
                 draggable: true,
                 progress: undefined,
               });
-              return 0;
+              return ;
             }
             if (data.status == "201") {
               toast.success(`Juice Item Successfully Deleted`, {

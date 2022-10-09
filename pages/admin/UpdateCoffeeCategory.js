@@ -29,7 +29,7 @@ function UpdateCoffeeCategory() {
         draggable: true,
         progress: undefined,
       });
-      return 0;
+      return ;
     }
     let res = await fetch(`${HOST}/api/UpdateCoffeeCategory`, {
       method: "POST",
@@ -68,7 +68,7 @@ function UpdateCoffeeCategory() {
         draggable: true,
         progress: undefined,
       });
-      return 0;
+      return ;
     }
     if (dataRes.status == "400") {
       toast.warn(`${dataRes.message}`, {
@@ -80,7 +80,7 @@ function UpdateCoffeeCategory() {
         draggable: true,
         progress: undefined,
       });
-      return 0;
+      return ;
     }
 
     if (dataRes.status == "501") {
@@ -93,7 +93,7 @@ function UpdateCoffeeCategory() {
         draggable: true,
         progress: undefined,
       });
-      return 0;
+      return ;
     }
 
     toast.success(`${dataRes.message}`, {

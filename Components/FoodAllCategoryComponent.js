@@ -65,7 +65,7 @@ let dataRes=await res.json();
         draggable: true,
         progress: undefined,
       });
-      return 0;
+      return ;
       }
  if(dataRes.status=='403'){
 toast.error('Please Login With Admin Credentials', {
@@ -77,7 +77,7 @@ pauseOnHover: true,
 draggable: true,
 progress: undefined,
 });
-return 0;
+return ;
 }
 if(dataRes.status=='400'){
 toast.warn(`${dataRes.message}`, {
@@ -89,7 +89,7 @@ pauseOnHover: true,
 draggable: true,
 progress: undefined,
 });
-return 0;
+return ;
 }
 
 
@@ -104,7 +104,7 @@ pauseOnHover: true,
 draggable: true,
 progress: undefined,
 });
-return 0;
+return ;
 }
 setDeletes(!deletes)
 setShow(false);

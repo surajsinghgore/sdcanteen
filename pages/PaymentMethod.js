@@ -274,7 +274,7 @@ toast.warn("Tempering Is Not Allowed In Cart,Plese Add Item Again", {
         router.push('/');
         }
           setTimeout(pushToCompleteOrder,2000);
-          return 0;
+          return ;
 }
 if(arrays.length==0||arrays==undefined||arrays==""){
               emptyCart();
@@ -291,7 +291,7 @@ toast.warn("Tempering Is Not Allowed In Cart,Plese Add Item Again", {
         router.push('/');
         }
           setTimeout(pushToCompleteOrder,2000);
-return 0;
+return ;
 }
 const TotalAmount=totals;
 
@@ -317,7 +317,7 @@ const PickUpTime1=localStorage.getItem('PickUpTime1');
                 draggable: true,
                 progress: undefined,
               });
-              return 0;
+              return ;
             }
               if (data.status == "404") {
               toast.warn(`${data.message}`, {
@@ -329,7 +329,7 @@ const PickUpTime1=localStorage.getItem('PickUpTime1');
                 draggable: true,
                 progress: undefined,
               });
-              return 0;
+              return ;
             }
             if(data.status=="201"){
             emptyCart();

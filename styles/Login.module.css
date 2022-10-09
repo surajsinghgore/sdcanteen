@@ -11,7 +11,11 @@ display: flex;
 width: 50%;
 height: auto;
 }
-
+.login  h6{
+font-size: 14px;
+color: blue;
+cursor: pointer;
+}
 
 
 .login .left_section .image{
