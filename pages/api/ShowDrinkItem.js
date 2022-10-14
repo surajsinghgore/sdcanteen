@@ -6,7 +6,8 @@ export default async function ShowDrinkItem(req, res) {
     try {
       DbConnection();
       let data = await DrinkItemSchema.find().select('-createdAt -updatedAt');
-      res.status(201).json({ data, status: "201" });
+      let dataClient = await DrinkItemSchema.find({Active:"ON"}).select('-createdAt -updatedAt');
+      res.status(201).json({ data, status: "201" ,dataClient});
     } catch (error) {
       res.status(501).json({ message: error, status: "501" });
     }

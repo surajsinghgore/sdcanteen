@@ -229,7 +229,7 @@ let ress = await fetch(`${HOST}/api/ShowDrinkCategory`);
 
 let ressDrink = await fetch(`${HOST}/api/ShowDrinkItem`);
   let DrinkData = await ressDrink.json();
-  let DrinkDatas = await DrinkData.data;
+  let DrinkDatas = await DrinkData.dataClient;
 
 
   return { props: { ResCategory,DrinkDatas } }

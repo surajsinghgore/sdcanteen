@@ -74,8 +74,9 @@ for(let i=0;i<req.body.ItemsOrder.length;i++){
       const Amount=req.body.ItemsOrder[i].Amount;
       const ProductOriginalAmount=req.body.ItemsOrder[i].ProductOriginalAmount;
       const Category=req.body.ItemsOrder[i].Category;
+      const Size=req.body.ItemsOrder[i].Size;
       const CategoryPrimary=req.body.ItemsOrder[i].CategoryPrimary;
-      array.push({ItemName,Qty,Amount,Category,CategoryPrimary,ProductOriginalAmount})  
+      array.push({ItemName,Qty,Amount,Category,Size,CategoryPrimary,ProductOriginalAmount})  
 }
  const sendItem=new OrderSchemaDataBase({UserId,
       Email,Mobile,FullAddress,FullName,PickUpTime,PickUpTime1,PaymentMethod,OrderTime,OrderDate,TotalAmount,TokenNumber,TokenUser,PickUpTime2,

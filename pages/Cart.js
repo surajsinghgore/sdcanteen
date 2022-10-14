@@ -85,7 +85,7 @@ emptyCart();
       draggable: true,
       progress: undefined,
     });
-setState(!state)
+    router.push("/");
 }
 
 
@@ -159,7 +159,6 @@ totalAmount:tm
 }
 setState(!state)
 
-
 }
   return (
     <>
@@ -218,6 +217,7 @@ setState(!state)
 <div className={CartStyle.pics}></div>
 <div className={CartStyle.names}>NAME</div>
 <div className={CartStyle.price}>PRICE</div>
+<div className={CartStyle.price}>SIZE</div>
 <div className={CartStyle.qty}>QTY</div>
 <div className={CartStyle.total}>TOTAL</div>
 <div className={CartStyle.remove}></div>
@@ -233,6 +233,7 @@ return(
 </div>
 <div className={CartStyle.names}><p> {item.FoodName}</p></div>
 <div className={CartStyle.price}> <p>{item.price}</p> </div>
+<div className={CartStyle.price}> <p>{item.Size}</p> </div>
 <div className={CartStyle.qty}>
 <div className={CartStyle.button}>
 <div className={CartStyle.left} onClick={()=>decrement(item)} title="Decrement">-</div>
@@ -256,7 +257,7 @@ return(
 </div>
 <div className={CartStyle.names}><p> {item.CoffeeName}</p></div>
 <div className={CartStyle.price}> <p>{item.price}</p> </div>
-
+<div className={CartStyle.price}> <p>{item.Size}</p> </div>
 <div className={CartStyle.qty}>
 <div className={CartStyle.button}>
 <div className={CartStyle.left} onClick={()=>decrement(item)} title="Decrement">-</div>
@@ -280,7 +281,7 @@ return(
 </div>
 <div className={CartStyle.names}><p> {item.DrinkName}</p></div>
 <div className={CartStyle.price}> <p>{item.price}</p> </div>
-
+<div className={CartStyle.price}> <p>{item.Size}</p> </div>
 <div className={CartStyle.qty}>
 <div className={CartStyle.button}>
 <div className={CartStyle.left} onClick={()=>decrement(item)} title="Decrement">-</div>
@@ -304,7 +305,7 @@ return(
 </div>
 <div className={CartStyle.names}><p> {item.JuiceName}</p></div>
 <div className={CartStyle.price}> <p>{item.price}</p> </div>
-
+<div className={CartStyle.price}> <p>{item.Size}</p> </div>
 <div className={CartStyle.qty}>
 <div className={CartStyle.button}>
 <div className={CartStyle.left} onClick={()=>decrement(item)} title="Decrement">-</div>

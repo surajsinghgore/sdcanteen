@@ -217,8 +217,8 @@ setDefaultTime(localStorage.getItem("OrderFoodTime"))
 
  <div className={Style1.box} key={time.time}>
 <div className={Style1.btn} >
-{(defaultTime==time.time1)?
-<input type="radio" name="time" id={time.time}
+{(parseFloat(defaultTime).toFixed(2)==time.time1)?
+<input type="radio" name="time" id={time.time1}
  value={time.time1.toFixed(2)} defaultChecked/>
  :
  <input type="radio" name="time" id={time.time} 

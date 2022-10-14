@@ -10,7 +10,6 @@ display: flex;
 height: auto;
 padding-top: 1%;
 padding-bottom: 1%;
-margin-bottom: 5%;
 }
 .searchSection .topSection .left{
 width: 50%;
@@ -26,22 +25,73 @@ width: 400px;
 height: 400px;
 }
 
+
+/* right section */
 .searchSection .topSection .right{
 width: 50%;
-padding-top: 3%;
+padding-top:1%;
 }
 
 
 .searchSection .topSection .right h1{
 font-size: 40px;
-padding-left: 14%;text-transform: uppercase;
+padding-left: 13%;
+text-transform: uppercase;
+font-size: 40px;
 }
+
+/* star */
+.searchSection .topSection .right .star .startSection{
+display: flex;
+padding-left: 12%;
+margin-bottom: 6%;
+width: 100%;
+}
+.searchSection .topSection .right .star .startSection .startIcon{
+font-size: 28px;
+color: orange;
+}
+.searchSection .topSection .right .star .startSection h5{
+font-size: 20px;
+text-align: left;
+margin-top: 1%;
+margin-left: -12%;
+}
+.searchSection .topSection .right .star .startSection h5:hover{
+color: red;
+cursor: pointer;
+}
+
 .searchSection .topSection .right h3{
 font-size: 29px;
 padding-left: 14%;
-margin-top: -2%;
+margin-top: -4%;
 color: red;
 }
+
+.searchSection .topSection .right .subSection{
+height: auto;
+width: 77%;
+display: flex;
+padding-bottom: 3%;
+margin-left: 13%;
+list-style: none;
+}
+
+
+.searchSection .topSection .right .subSection .subHeading{
+font-size: 16px;
+columns: rgb(101, 101, 101);
+padding-top: 1%;
+}
+.searchSection .topSection .right .subSection .subData{
+color: rgb(5, 5, 5);
+font-size: 19px;
+font-weight: 500;
+padding-left: 2%;
+padding-right: 4%;
+}
+
 .searchSection .topSection .right hr{
 width: 75%;
 margin-left: 14%;
@@ -60,6 +110,38 @@ padding-left: 14%;
 margin-top: -2%;
 color: rgb(76, 76, 76);font-weight: 400;
 }
+
+.searchSection .topSection .right .filterItem{
+width: 77%;
+margin-left: 13%;
+margin-bottom: 4%;
+height: auto;
+}
+.searchSection .topSection .right .filterItem h1{
+font-size: 16px;
+margin-left: -11%;
+color: rgb(74, 74, 74);
+}
+.searchSection .topSection .right .filterItem .form{
+font-size: 20px;
+display: flex;
+margin-top: -3%;
+list-style: none;
+}
+.searchSection .topSection .right .filterItem .form .radioCard{
+width: 20%;
+margin-top: 2%;
+display: flex;
+}
+.searchSection .topSection .right .filterItem .form li{
+padding-top: 4%;
+}
+
+.searchSection .topSection .right .filterItem .form li span:hover{
+cursor: pointer;
+color: red;
+}
+
 
 .searchSection .topSection .right .btn1{
 margin-left: 14%;
@@ -92,4 +174,58 @@ border-radius: 30px;
 border: none;cursor: pointer;
 color: white;
 background-color: rgb(154, 4, 247);
+}
+
+/* description */
+.description{
+clear: both;
+height: auto;
+width: 88%;
+font-size: 20px;
+margin-left: 9%;
+padding-bottom: 4%;
+}
+.reviews{
+clear: both;
+height: auto;
+width: 86%;
+font-size: 20px;
+margin-left: 9%;
+margin-bottom: 5%;
+}
+.reviews .heading{
+width: 20%;
+padding-top: 1%;
+padding-bottom: 1%;
+color: white;
+background-color: rgb(251, 113, 1);
+border-top-right-radius: 10px;
+border-top-left-radius: 10px;
+font-size: 26px;
+text-align: center;
+
+}
+.reviews .box{
+width: 100%;
+padding-bottom: 5%;
+border: 1px solid rgb(191, 191, 191);
+}
+.reviews .box .top{
+display: flex;
+}
+.reviews .box .top .avgRate,.reviews .box .top .totalStar{
+width: 44%;
+margin-top: 3%;
+margin-left: 4%;
+height: 200px;
+border-radius: 4px;
+border: 1px solid rgb(126, 126, 126);
+}
+.reviews .box .filterReview{
+width: 92%;
+margin-top: 2%;
+margin-left: 4%;
+border: 3px;
+background-color: rgb(242, 242, 242);
+height: 60px;
 }

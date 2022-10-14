@@ -7,6 +7,7 @@ const ItemsOrderSchema = new mongoose.Schema({
   ProductOriginalAmount: { type: Number, required: true },
   Amount: { type: Number, required: true },
   Category: { type: String },
+  Size: { type: String,required:true },
   OrderStatus: { type: String, default: "Pending", required: true },
   AmountReceived: { type: Number, default: 0, required: true },
   CategoryPrimary:{ type: String ,required:true,lowercase:true}

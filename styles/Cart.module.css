@@ -84,7 +84,6 @@ margin-top: 5%;
 width: 90%;
 margin-left: 5%;
 height:auto;
-
 padding-bottom: 5%;}
 .cart .cartItem .top{
 width: 100%;
@@ -188,7 +187,7 @@ font-size: 20px;
 }
 .cart .cartItem .cartTable .data .names p{
 width: 80%;
-margin-top: 18%;
+margin-top: 30%;
 margin-left: 10%;
 text-align: center;
 font-weight: 600;
@@ -201,7 +200,7 @@ font-size: 20px;
 }
 .cart .cartItem .cartTable .data .price p{
 width: 100%;
-margin-top: 48%;
+margin-top: 70%;
 font-weight: 600;
 word-break: break-all;
 }
@@ -209,6 +208,8 @@ word-break: break-all;
 width: 24%;
 text-align: center;
 font-size: 20px;
+margin-top: 2%;
+
 }
 .cart .cartItem .cartTable .data .qty .button{
 width:100%;
@@ -255,7 +256,7 @@ font-size: 20px;
 }
 .cart .cartItem .cartTable .data .total p{
 width: 100%;
-margin-top: 45%;
+margin-top: 65%;
 font-weight: 600;
 word-break: break-all;
 }
@@ -265,6 +266,8 @@ color: red;
 line-height: 500%;
 font-size: 30px;
 text-align: center;
+margin-top: 2.1%;
+
 }
 
 

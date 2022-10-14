@@ -67,7 +67,6 @@ setTimeout(redirects,2000);
 
 }
 if(res.status==501){
-const redirects=()=>{
 toast.error('Internal Server Error.Please try Again', {
 position: "bottom-right",
 autoClose: 5000,
@@ -78,7 +77,7 @@ draggable: true,
 progress: undefined,
 });
 return ;
-}
+
 
 }
 if(data.data!==undefined){
@@ -207,23 +206,23 @@ let coffeeNames=[];
 let drinkNames=[];
 let foodNameNames=[];
 let juiceNames=[];
-if(coffeeData.data){
- coffeeNames=coffeeData.data.map((item)=>{
+if(coffeeData.dataClient){
+ coffeeNames=coffeeData.dataClient.map((item)=>{
 return item.CoffeeName
 })
 }
-if(drinkData.data){
- drinkNames=drinkData.data.map((item)=>{
+if(drinkData.dataClient){
+ drinkNames=drinkData.dataClient.map((item)=>{
 return item.DrinkName
 })
 }
-if(foodData.data){
- foodNameNames=foodData.data.map((item)=>{
+if(foodData.dataClient){
+ foodNameNames=foodData.dataClient.map((item)=>{
 return item.FoodName
 })
 }
-if(juiceData.data){
- juiceNames=juiceData.data.map((item)=>{
+if(juiceData.dataClient){
+ juiceNames=juiceData.dataClient.map((item)=>{
 return item.JuiceName
 })
 }
