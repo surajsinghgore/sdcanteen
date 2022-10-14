@@ -22,7 +22,7 @@ const [normalPriceName,setNormalPriceName]=useState("Normal Price")
   const [mediumPrice, setMediumPrice] = useState("");
   const [mediumPriceName, setMediumPriceName] = useState("Medium Size Price");
   const [smallPrice, setSmallPrice] = useState("");
-  const [smallPriceName, setSmallPriceName] = useState("Half Size Price");
+  const [smallPriceName, setSmallPriceName] = useState("Small Size Price");
   const [largePrice, setLargePrice] = useState("");
   const [largePriceName, setLargePriceName] = useState("Large Size Price");
   const [data, setData] = useState([]);
@@ -196,9 +196,6 @@ active="ON"
 }else{
 active="OFF"
 }
-
-
-
 
     let response = await fetch(`${HOST}/api/UpdateJuiceItem`, {
       method: "POST",

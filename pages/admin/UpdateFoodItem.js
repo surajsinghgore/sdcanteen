@@ -132,7 +132,8 @@ export default function UpdateFoodItem() {
               <li className={ShowStyles.Item_Name}>Food Name</li>
               <li className={ShowStyles.Item_Price}>Price</li>
               <li className={ShowStyles.Item_Category}>Category</li>
-              <li className={ShowStyles.Item_Qty}>Action</li>
+                   <li className={ShowStyles.Item_Visibilty}>Visibility</li>
+              <li className={ShowStyles.Item_Category}>Action</li>
             </div>
 
             {fetchData.length != 0 ? (
@@ -183,7 +184,10 @@ export default function UpdateFoodItem() {
                       <li className={ShowStyles.Item_Category}>
                         <p>{item.Category}</p>
                       </li>
-                      <li className={ShowStyles.Item_Qty}>
+                             <li className={ShowStyles.Item_Visibilty}>
+                      {(item.Active=="ON")? <div className={ShowStyles.ON}>{item.Active}</div>: <div className={ShowStyles.OFF}>{item.Active}</div>}
+                     </li>
+                      <li className={ShowStyles.Item_Category}>
                         <p
                           style={{
                             color: "blue",

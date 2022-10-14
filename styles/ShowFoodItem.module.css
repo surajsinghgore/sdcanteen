@@ -95,7 +95,6 @@ padding-bottom: 2%;
 .display_List .card_container .cards{
 display: flex;
 z-index: -99;
-
 user-select: none;
 margin-top: 2%;
 margin-left: 1%;
@@ -113,23 +112,29 @@ text-align: center;
 
 }
 .display_List .card_container .cards .Item_Name{
-width: 35%;
+width: 30%;
 font-size: 20px;
 text-align: center;
 margin-top: 1%;
 
 }
 .display_List .card_container .cards .Item_Price{
-width: 25%;
+width: 20%;
+padding-left: 2%;
 font-size: 20px;
 margin-top: 1%;
-text-align: left;
-padding-left: 1%;
 color: rgb(51, 51, 51);
 }
 
 .display_List .card_container .cards .Item_Qty{
 width: 10%;
+font-size: 20px;
+margin-top: 1%;
+text-align: center;
+color: rgb(79, 79, 79);
+}
+.display_List .card_container .cards .Item_Visibilty{
+width: 12%;
 font-size: 20px;
 margin-top: 1%;
 text-align: center;
@@ -158,10 +163,9 @@ border-bottom: 2px solid rgb(224, 224, 224);
 }
 .display_List .card_container .card .Image_Section{
 width: 20%;
-
 }
 .display_List .card_container .card .Item_Name{
-width: 35%;
+width: 30%;
 font-size: 20px;
 text-align: center;
 word-wrap: normal;
@@ -170,11 +174,11 @@ font-weight: 700;
 }
 
 .display_List .card_container .card .Item_Price{
-width: 25%;
+width: 20%;
 font-size: 18px;
 color: rgb(51, 51, 51);
-
 text-transform: capitalize;
+padding-left: 1.5%;
 }
 .display_List .card_container .card .Item_Price .One{
 padding-top: 13%;
@@ -185,8 +189,6 @@ padding-top: 0.1%;
 
 .display_List .card_container .card .Item_Price b{
 font-weight: 500;
-padding-left: 4%;
-text-align: left;
 }
 .display_List .card_container .card .Item_Qty{
 width: 10%;
@@ -195,13 +197,40 @@ text-align: center;
 color: rgb(79, 79, 79);
 padding-top: 2.5%;
 }
+
+
+.display_List .card_container .card .Item_Visibilty{
+width: 12%;
+font-size: 20px;
+text-align: center;
+padding-top: 2.5%;
+color: rgb(79, 79, 79);
+}
 .display_List .card_container .card .Item_Category{
 width: 20%;
 font-size: 18px;
 padding-top: 2.5%;
-
 text-align: center;
 color: rgb(79, 79, 79);
 }
-
+.display_List .card_container .card .Item_Visibilty .ON{
+background-color: rgb(5, 117, 255);
+border-radius: 30px;
+padding-top: 1%;
+padding-bottom: 3%;
+margin-top: 15%;
+width: 80%;
+margin-left: 20%;
+color: white;
+}
+.display_List .card_container .card .Item_Visibilty .OFF{
+background-color: rgb(253, 5, 5);
+border-radius: 30px;
+padding-top: 1%;
+padding-bottom: 3%;
+margin-top: 15%;
+width: 80%;
+margin-left: 20%;
+color: white;
+}
 
