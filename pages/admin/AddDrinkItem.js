@@ -11,13 +11,21 @@ import "react-toastify/dist/ReactToastify.css";
 import router from "next/router";
 let HOST = process.env.NEXT_PUBLIC_API_URL;
 import VerifyAdminLogin from './VerifyAdminLogin';
+import Switch from "react-switch";
 
 export default function AddDrinkItem() {
   const [data, setData] = useState([]);
-  // form ates
+ const [checked, setChecked] = useState(true);
   const [drinkName, setDrinkName] = useState("");
-  const [Price, setPrice] = useState("");
-  const [Qtys, setQtys] = useState("");
+  const [normalPrice, setNormalPrice] = useState("");
+const [normalPriceName,setNormalPriceName]=useState("Normal Price")
+  const [mediumPrice, setMediumPrice] = useState("");
+  const [mediumPriceName, setMediumPriceName] = useState("Medium Size Price");
+  const [smallPrice, setSmallPrice] = useState("");
+  const [smallPriceName, setSmallPriceName] = useState("Small Size Price");
+  const [largePrice, setLargePrice] = useState("");
+  const [largePriceName, setLargePriceName] = useState("Large Size Price");
+  const [Qtys, setQtys] = useState(1);
   const [Category, setCategory] = useState("");
   const [Images, setImages] = useState("");
   const [imgs, setImgs] = useState();
@@ -38,7 +46,9 @@ export default function AddDrinkItem() {
       setShowImage(true);
     }
   };
-
+ const handleChanges=()=>{
+  setChecked(!checked)
+  }
   const AddDrinkItem = async (e) => {
     e.preventDefault();
     if (!drinkName) {
@@ -53,8 +63,8 @@ export default function AddDrinkItem() {
       });
       return ;
     }
-    if (!Price) {
-      toast.warn("Please Enter Drink Price", {
+  if (!Category) {
+      toast.warn("Please select Category Of Item", {
         position: "bottom-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -64,7 +74,9 @@ export default function AddDrinkItem() {
         progress: undefined,
       });
       return ;
-    }if (!description) {
+    }
+ 
+   if (!description) {
       toast.warn("Please Enter Description of Item", {
         position: "bottom-right",
         autoClose: 5000,
@@ -76,8 +88,9 @@ export default function AddDrinkItem() {
       });
       return ;
     }
+
     if (!Images) {
-      toast.warn("Please Uploard Drink Image", {
+      toast.warn("Please Uploard Juice Image", {
         position: "bottom-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -88,18 +101,83 @@ export default function AddDrinkItem() {
       });
       return ;
     }
+if((smallPrice=="")&&(mediumPrice=="")&&(largePrice=="")){
+if(normalPrice==""){
+   toast.warn("Please Enter Atleast Normal Price Of Item", {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+       return ;
+}
+}
+
+
+if((smallPrice!="")&&(mediumPrice!="")||(largePrice!="")){
+if(normalPrice!=""){
+   toast.warn("Please Enter Only Normal Price or Different Size Price", {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+       return ;
+}
+}
+if(parseInt(smallPrice)<=0 || parseInt(mediumPrice)<=0 || parseInt(largePrice)<=0 || parseInt(normalPrice)<=0){
+toast.warn("Price Not Be Zero Or Below Zero", {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+       return ;
+}
+let active;
+if(checked==true){
+active="ON"
+}else{
+active="OFF"
+}
 
     const data = new FormData();
     data.append("DrinkName", drinkName);
-    data.append("Price", Price);
     data.append("Qty", Qtys);
     data.append("Category", Category);
+    data.append("Description", description);
     data.append("Image", files);
-data.append("Description", description);
+data.append("Active", active);
+if(largePrice!=""){
+data.append('largePriceName', largePrice);
+}
+if(mediumPrice!=""){
+data.append('mediumPriceName', mediumPrice);
+}
+if(smallPrice!=""){
+data.append('smallPriceName', smallPrice);
+}
+
+
+if(normalPrice!=""){
+data.append('normalPriceName', normalPrice);
+}
+
+
     let res = await fetch(`${HOST}/api/AddDrinkItem`, {
       method: "POST",
-      body: data,
+      body:  data,
     });
+
   if (res.status == 401) {
       toast.error("Please Login With Admin Credentials", {
         position: "bottom-right",
@@ -114,6 +192,19 @@ data.append("Description", description);
       function RedirectFunction() {
         router.push("/admin/Login");
       }
+      }
+
+        if (res.status == 409) {
+      toast.error("Item with this Name already Exits", {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+     return ;
       }
     if (data.status == "403") {
       toast.error("Please Login With Admin Credentials", {
@@ -157,8 +248,8 @@ data.append("Description", description);
       });
       return ;
     }
-    // dublicate error message
-    if (datas.status == "400") {
+    // empty filed error message
+    if (res.status == 204) {
       toast.warn(`${datas.message}`, {
         position: "bottom-right",
         autoClose: 5000,
@@ -222,56 +313,95 @@ data.append("Description", description);
             <h1>Enter New Drink Item For Website</h1>
           </div>
           <div className={StyleFood.form_element}>
+        
             <li>
               <p>
                 Enter Drink Name <span>*</span>
               </p>
               <input
                 type="text"
-                name="DrinkName"
+                name="juiceName"
                 value={drinkName}
                 onChange={(e) => setDrinkName(e.target.value)}
               />
             </li>
-            <li>
-              <p>
-                Enter Drink Price <span>*</span>
-              </p>
-              <input
-                type="number"
-                name="DrinkPrice"
-                value={Price}
-                onChange={(e) => setPrice(e.target.value)}
-              />
-            </li>
 
+    
             <li>
               <p>Enter Drink Qty</p>
               <input
                 type="text"
-                name="DrinkQty"
+                name="JuiceQty"
                 value={Qtys}
+                readOnly={true}
                 onChange={(e) => setQtys(e.target.value)}
               />
             </li>
 
-            <li>
-              <p>Enter Drink Category</p>
+
+            <li className={StyleFood.selects}>
+              <p>Enter Drink Category <span>*</span></p>
               <select
-                name="Drinkcategory"
+                name="Juicecategory"
                 value={Category}
                 onChange={(e) => setCategory(e.target.value)}
               >
                 <option value="no">Select Category</option>
-                {data.map((item, index) => {
+                {(data!=undefined) ? <>  {data.map((item, index) => {
                   return (
                     <option value={item.DrinkCategoryName} key={index}>
                       {item.DrinkCategoryName}
                     </option>
                   );
                 })}
+                </>
+                :"" }
+              
               </select>
             </li>
+
+
+
+<li className={StyleFood.Pricess}>
+<h6>Enter Price <span>*</span></h6>
+<p><input type="text" name="normalPriceName" className={StyleFood.priceHeading} value={normalPriceName} onChange={(e)=>setNormalPriceName(e.target.value)} readOnly/>   <input
+                type="Number"
+                name="JuiceQty"
+                className={StyleFood.prices}
+                value={normalPrice}
+                onChange={(e) => setNormalPrice(e.target.value)}
+              /> </p>
+<h4>Or</h4>
+<p>
+<input type="text" name="smallPriceName" className={StyleFood.priceHeading} value={smallPriceName} onChange={(e)=>setSmallPriceName(e.target.value)} readOnly/> 
+  <input
+                type="Number"
+                name="JuiceQty"
+                className={StyleFood.prices}
+                value={smallPrice}
+                onChange={(e) => setSmallPrice(e.target.value)}
+              /> </p>
+
+   <p>
+   <input type="text" name="mediumPriceName" className={StyleFood.priceHeading} value={mediumPriceName} onChange={(e)=>setMediumPriceName(e.target.value)} readOnly/> 
+   <input
+                type="Number"
+                name="JuiceQty"
+                className={StyleFood.prices}
+                value={mediumPrice}
+                onChange={(e) => setMediumPrice(e.target.value)}
+              /> </p>  
+
+       <p>
+       <input type="text" name="largePriceName" className={StyleFood.priceHeading} value={largePriceName} onChange={(e)=>setLargePriceName(e.target.value)} readOnly />  <input
+                type="Number"
+                name="JuiceQty"
+                className={StyleFood.prices}
+                value={largePrice}
+                onChange={(e) => setLargePrice(e.target.value)}
+              /> </p>                
+</li>
+
               <li className={StyleFood.description}>
                 <p>
                Enter Description Category<span>*</span>
@@ -287,7 +417,7 @@ data.append("Description", description);
               <input
                 type="file"
                 name="photo"
-                id="photoDrink"
+                id="photoJuice"
                 onChange={handleChange}
               />
             </li>
@@ -306,6 +436,15 @@ data.append("Description", description);
                   />
                 )}
               </div>
+            </li>
+               <li className={StyleFood.btns}>  
+            <p>Product Visiblity Status </p>
+             <Switch
+          onChange={handleChanges}
+          checked={checked}
+          className={StyleFood.react_switch1}
+          offColor='#FF1E1E'
+        />
             </li>
             <button onClick={AddDrinkItem}> ADD DRINK</button>
           </div>

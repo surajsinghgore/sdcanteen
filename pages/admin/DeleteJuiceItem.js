@@ -258,7 +258,32 @@ export default function DeleteJuiceItem({ datas }) {
                         <p>{item.JuiceName}</p>
                       </li>
                       <li className={ShowStyles.Item_Price}>
-                        <p>{item.Price}</p>
+                            {(item.ItemCost!=undefined) ?
+                            <>
+                            {(item.ItemCost.length==1)?
+                             <>
+                          {item.ItemCost.map((items)=>{
+                      return(
+                        <p key={items._id} className={ShowStyles.One}>
+                        <b>{items.sizeName} : </b>{items.Price}
+                        </p>
+                                            )
+                      })}
+                             </>:
+                            <>
+     {item.ItemCost.map((items)=>{
+                      return(
+                        <p key={items._id} className={ShowStyles.Many}>
+                        <b>{items.sizeName} : </b>{items.Price}
+                        </p>
+                                            )
+                      })}
+                            </>
+                            }
+                       
+                      </>
+                      :""}
+                     
                       </li>
                       <li className={ShowStyles.Item_Category}>
                         <p>{item.Category}</p>

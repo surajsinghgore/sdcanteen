@@ -3,8 +3,6 @@ import DrinkItemSchema from "./Schema/DrinkItemSchema";
 import VerifyAdmin from "./Middleware/MiddlewareAdminVerify";
 import nextConnect from "next-connect";
 var fs = require("fs");
-
-
 const handler = nextConnect();
 
 import multer from "multer";
@@ -49,46 +47,79 @@ handler.use(uploard.single("Image"));
 handler.post(async (req, res) => {
   try {
     DbConnection();
-let verify=await VerifyAdmin(req, res);
+    let verify = await VerifyAdmin(req, res);
     const Image = req.file.filename;
+    let array = [];
     let DrinkName = req.body.DrinkName;
-    let Price = req.body.Price;
     let Qty = req.body.Qty;
     let Category = req.body.Category;
-      let Description = req.body.Description;
-   var filePath = `./public/DrinkItemImages/${Image}`;
+    let Active = req.body.Active;
+    let Description = req.body.Description;
+    var filePath = `./public/DrinkItemImages/${Image}`;
+    let normalPrice;
+    let smallPrice;
+    let mediumPrice;
+    let largePrice;
 
- if(verify==undefined){
-     await fs.unlinkSync(filePath);
-     res.status(401).json({ message: "Please login with admin credentails" });
+    if (req.body.largePriceName) {
+      largePrice = parseInt(req.body.largePriceName);
+      array.push({ sizeName: "largeSize", Price: largePrice });
+    }
+    if (req.body.normalPriceName) {
+      normalPrice = parseInt(req.body.normalPriceName);
+      array.push({ sizeName: "normalSize", Price: normalPrice });
+    }
+    if (req.body.mediumPriceName) {
+      mediumPrice = parseInt(req.body.mediumPriceName);
+      array.push({ sizeName: "mediumSize", Price: mediumPrice });
+    }
+    if (req.body.smallPriceName) {
+      smallPrice = parseInt(req.body.smallPriceName);
+      array.push({ sizeName: "smallSize", Price: smallPrice });
     }
 
-
+    if (verify == undefined) {
+      await fs.unlinkSync(filePath);
+      res.status(401).json({ message: "Please login with admin credentails" });
+    }
     if (!Image) {
-      res.status(400).json({ message: "Please Enter Item Image" });
+      res.status(204).json({ message: "Please Enter Item Image" });
     } else if (!DrinkName) {
-      res.status(400).json({ message: "Please Enter Drink Name" });
-    } else if (!Price) {
-      res.status(400).json({ message: "Please Enter Price Of Item" });
+      res.status(204).json({ message: "Please Enter Drink Name" });
+    } else if (!Description) {
+      res.status(204).json({ message: "Please Enter Description Of Item" });
+    } else if (!Category) {
+      res.status(204).json({ message: "Please Enter category Of Item" });
+    } else if (!Active) {
+      res.status(204).json({ message: "Please select Active status Of Item" });
     }
-     else if (!Description) {
-      res.status(400).json({ message: "Please Enter Description Of Item" });
+
+    // records not dublicate
+    let ress = await DrinkItemSchema.find({ DrinkName: DrinkName });
+    if (ress.length != 0) {
+      await fs.unlinkSync(filePath);
+      return res
+        .status(409)
+        .json({ message: "Item with this Name Already Exits" });
     }
 
     let Items = new DrinkItemSchema({
       DrinkName,
-      Price,
       Qty,
       Category,
       Image,
+      Active,
       Description,
+      ItemCost: array,
     });
-    let ress = await Items.save();
-    if (ress) {
+    let ressGets = await Items.save();
+    if (ressGets) {
       res.status(201).json({ ress, status: "201" });
-    } else{
-     await fs.unlinkSync(filePath);
-      return res.status(401).json({ message: "Please login with admin credentails" });
+    } else {
+      await fs.unlinkSync(filePath);
+      return res
+        .status(401)
+        .json({ message: "Please login with admin credentails" });
     }
   } catch (e) {
     console.log(e);

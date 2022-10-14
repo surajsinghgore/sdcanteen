@@ -11,7 +11,9 @@ import Image from "next/image";
 import "react-toastify/dist/ReactToastify.css";
 import { useState, useEffect } from "react";
 import VerifyAdminLogin from "./VerifyAdminLogin";
+
 export default function ShowFoodItem({ datas }) {
+
   const [foodNameSearch, setFoodNameSearch] = useState("");
   const [categorySearch, setCategorySearch] = useState("");
   const [data, setData] = useState([]);
@@ -136,8 +138,33 @@ export default function ShowFoodItem({ datas }) {
                       <li className={ShowStyles.Item_Name}>
                         <p>{item.FoodName}</p>
                       </li>
-                      <li className={ShowStyles.Item_Price}>
-                        <p>{item.Price}</p>
+                        <li className={ShowStyles.Item_Price}>
+                            {(item.ItemCost!=undefined) ?
+                            <>
+                            {(item.ItemCost.length==1)?
+                             <>
+                          {item.ItemCost.map((items)=>{
+                      return(
+                        <p key={items._id} className={ShowStyles.One}>
+                        <b>{items.sizeName} : </b>{items.Price}
+                        </p>
+                                            )
+                      })}
+                             </>:
+                            <>
+     {item.ItemCost.map((items)=>{
+                      return(
+                        <p key={items._id} className={ShowStyles.Many}>
+                        <b>{items.sizeName} : </b>{items.Price}
+                        </p>
+                                            )
+                      })}
+                            </>
+                            }
+                       
+                      </>
+                      :""}
+                     
                       </li>
                       <li className={ShowStyles.Item_Qty}>
                         <p>{item.Qty}</p>

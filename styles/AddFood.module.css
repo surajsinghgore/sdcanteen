@@ -99,7 +99,7 @@ color: rgb(87, 87, 87);
 .Form .form_element{
 width: 100%;
 height: auto;
-padding-bottom: 2%;
+padding-bottom: 6%;
 }
 
 
@@ -111,16 +111,67 @@ list-style: none;
 margin-left: 2%;
 height: auto;
 }
-.Form .form_element li p span{
+.Form .form_element li p span ,.Form .form_element .Pricess h6 span{
 color: red;
 font-size: 22px;
+border: none;
 }
-.Form .form_element li p{
+.Form .form_element li p,.Form .form_element .Pricess h6{
 width: 100%;
 font-size: 20px;
 padding-left: 4%;
+font-weight: 450;
 }
 
+
+
+
+
+.Form .form_element .selects{
+width: 90%;
+margin-left: 2%;
+height: auto;
+text-align: left;
+}
+
+.Form .form_element .Pricess h4{text-align: center;font-size: 20px;color:Red}
+.Form .form_element .Pricess p{
+display: flex;
+}
+.Form .form_element .Pricess {
+width: 96%;
+margin-left: 2%;
+height: auto;
+text-align: left;
+
+}
+.Form .form_element .Pricess .priceHeading{
+width: 200px;
+height: auto;
+padding-top: 0.5%;
+padding-bottom: 0.5%;
+border: 1px solid rgb(178, 178, 178);
+margin-left: -1%;
+font-size: 19px;
+font-weight: 480;
+color: purple;
+}
+
+
+.Form .form_element .btns{
+text-align: left;
+}
+
+.Form .form_element .btns .react_switch1{
+margin-left: 5%;
+}
+
+
+.Form .form_element li .prices{
+width: 65%;
+float: right;
+margin-right: 10%;
+}
 .Form .form_element li input{
 width: 80%;
 height: 40px;
@@ -133,17 +184,18 @@ margin-left: 4%;
 
 
 .Form .form_element li select{
-width: 80%;
-text-align: center;
+width: 95%;
 height: 40px;
 cursor: pointer;
 outline: none;
 padding-left: 2%;
+text-align: center;
+background: none;
 font-size: 20px;
+margin-left: 2.5%;
 border: 1px solid rgb(178, 178, 178);
-margin-left: 4%;
-margin-bottom: 1%;
 }
+
 
 .Form .form_element .description{
 width: 86%;

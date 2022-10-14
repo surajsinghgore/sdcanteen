@@ -10,17 +10,27 @@ import "react-toastify/dist/ReactToastify.css";
 import router from "next/router";
 import VerifyAdminLogin from './VerifyAdminLogin';
 
+import Switch from "react-switch";
+
 import { AllContext } from "../../context/AllContext";
 import Link from "next/link";
 let HOST = process.env.NEXT_PUBLIC_API_URL;
 
 
  function UpdateFoodItemForm() {
-  const { filterFoodItemsData } = useContext(AllContext);
-
+  const { filterFoodItemsData,updateFoodItem } = useContext(AllContext);
+let array=[];
+ const [checked, setChecked] = useState(true);
+   const [normalPrice, setNormalPrice] = useState("");
+const [normalPriceName,setNormalPriceName]=useState("Normal Price")
+  const [mediumPrice, setMediumPrice] = useState("");
+  const [mediumPriceName, setMediumPriceName] = useState("Medium Price");
+  const [smallPrice, setSmallPrice] = useState("");
+  const [smallPriceName, setSmallPriceName] = useState("Half Price");
+  const [largePrice, setLargePrice] = useState("");
+  const [largePriceName, setLargePriceName] = useState("Large Price");
   const [data, setData] = useState([]);
   const [FoodName, setFoodName] = useState();
-  const [Price, setPrice] = useState();
   const [Qtys, setQtys] = useState();
   const [Category, setCategory] = useState();
   const [subCategory, setSubCategory] = useState('');
@@ -28,15 +38,37 @@ let HOST = process.env.NEXT_PUBLIC_API_URL;
   useEffect(() => {
     if (filterFoodItemsData[0]!=undefined) {
       setFoodName(filterFoodItemsData[0].FoodName);
-      setPrice(filterFoodItemsData[0].Price);
       setQtys(filterFoodItemsData[0].Qty);
       setCategory(filterFoodItemsData[0].Category);
          setSubCategory(filterFoodItemsData[0].Category)
                setDescription(filterFoodItemsData[0].Description)
+if(filterFoodItemsData[0].Active=="ON"){
+setChecked(true)
+}
+else{
+setChecked(false)
+}
 
+filterFoodItemsData[0].ItemCost.map((item)=>{
+if(item.sizeName=="normalsize"){
+setNormalPrice(item.Price)
+}
+if(item.sizeName=="mediumsize"){
+setMediumPrice(item.Price)
+}
+if(item.sizeName=="largesize"){
+setLargePrice(item.Price)
+}
+if(item.sizeName=="halfsize"){
+setSmallPrice(item.Price)
+}
+})
     }
      else{
+          function back(){
     router.push('/admin/UpdateFoodItem')
+          }
+    setTimeout(2000,back);
 }
     async function dataFetch() {
       let ress = await fetch(`${HOST}/api/ShowFoodCategory`);
@@ -45,10 +77,11 @@ let HOST = process.env.NEXT_PUBLIC_API_URL;
     }
     dataFetch();
   }, [filterFoodItemsData]);
-
+  const handleChanges=()=>{
+  setChecked(!checked)
+  }
   const updateItems = async (e) => {
-    e.preventDefault();
-    if (!FoodName) {
+     if (!FoodName) {
       toast.warn("Please Enter Food Name", {
         position: "bottom-right",
         autoClose: 5000,
@@ -60,19 +93,7 @@ let HOST = process.env.NEXT_PUBLIC_API_URL;
       });
       return ;
     }
-    if (!Price) {
-      toast.warn("Please Enter Food Price", {
-        position: "bottom-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
-      return ;
-    }
-if (!description) {
+    if (!description) {
       toast.warn("Please Enter Description of Item", {
         position: "bottom-right",
         autoClose: 5000,
@@ -84,65 +105,8 @@ if (!description) {
       });
       return ;
     }
-    // matching Weather Data Change OR Not
-    let FOODNAMESAME = filterFoodItemsData.filter((item) => {
-      return item.FoodName == FoodName;
-    });
-
-    let PRICESAME = filterFoodItemsData.filter((item) => {
-      return item.Price == Price;
-    });
-    let QTYSAME = filterFoodItemsData.filter((item) => {
-      return item.Qty == Qtys;
-    });
-    let CATEGORYSAME = filterFoodItemsData.filter((item) => {
-      return item.Category == Category;
-    });   let DESCRIPTIONSAME = filterFoodItemsData.filter((item) => {
-      return item.Description == description;
-    });
-
-    if (!FOODNAMESAME.length == 0) {
-      if (!PRICESAME.length == 0) {
-        if (!QTYSAME.length == 0) {
-          if (!CATEGORYSAME.length == 0) {
-           if (!DESCRIPTIONSAME.length == 0) {
-            toast.warn(
-              "Same Data Is Not Allowed To Update, Please Update Food Item Records",
-              {
-                position: "bottom-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,     
-              }
-            );
-            return ;
-          }
-        }
-      }}
-    }
-
-    let response = await fetch(`${HOST}/api/UpdateFoodItem`, {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      
-      },
-      body: JSON.stringify({
-        _id: filterFoodItemsData[0]._id,
-        FoodName: FoodName,
-        Price: Price,
-        Qty: Qtys, Description:description ,
-        Category: Category,
-      }),
-    });
-
-    let datas = await response.json();
-
-    if (datas.status == "501") {
-      toast.error(`${datas.message}`, {
+ if (!Category) {
+      toast.warn("Please Enter Category of Item", {
         position: "bottom-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -153,6 +117,101 @@ if (!description) {
       });
       return ;
     }
+ if (Category=="no") {
+      toast.warn("Please Select Category of Item", {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      return ;
+    }
+ if(normalPrice){
+array.push({"normalsize":normalPrice})
+}
+if(mediumPrice){
+array.push({"mediumsize":mediumPrice})
+
+}
+if(largePrice){
+array.push({"largesize":largePrice})
+}
+if(smallPrice){
+array.push({"halfsize":smallPrice})
+}
+
+if((smallPrice=="")&&(mediumPrice=="")&&(largePrice=="")){
+if(normalPrice==""){
+   toast.warn("Please Enter Atleast Normal Price Of Item", {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+       return ;
+}
+}
+
+
+if((smallPrice!="")||(mediumPrice!="")||(largePrice!="")){
+if(normalPrice!=""){
+   toast.warn("Please Enter Only Normal Price or Different Size Price", {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+       return ;
+}
+}
+if(parseInt(smallPrice)<=0 || parseInt(mediumPrice)<=0 || parseInt(largePrice)<=0 || parseInt(normalPrice)<=0){
+toast.warn("Price Not Be Zero Or Below Zero", {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+       return ;
+}
+
+let active;
+if(checked==true){
+active="ON"
+}
+else{
+active="OFF"
+}
+
+    let response = await fetch(`${HOST}/api/UpdateFoodItem`, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+        
+      },
+      body: JSON.stringify({
+        _id: filterFoodItemsData[0]._id,
+        FoodName: FoodName,
+        Qty: Qtys,
+        Category: Category,
+          Description:description ,
+          ItemCost:array,
+          Active:active
+      }),
+    });
+  
+  let datas=await response.json();
   if (response.status == 401) {
       toast.error("Please Login With Admin Credentials", {
         position: "bottom-right",
@@ -168,7 +227,20 @@ if (!description) {
         router.push("/admin/Login");
       }
       }
-    if (datas.status == "400") {
+  
+    if (response.status == 204) {
+      toast.error(`${datas.message}`, {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      return ;
+    }
+    if (response.status == 409) {
       toast.warn(`${datas.message}`, {
         position: "bottom-right",
         autoClose: 5000,
@@ -181,7 +253,31 @@ if (!description) {
       return ;
     }
 
-    if (datas.status == "201") {
+    if (response.status == 400) {
+      toast.warn(`${datas.message}`, {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      return ;
+    }
+   if (response.status == 404) {
+      toast.warn(`${datas.message}`, {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      return ;
+    }
+    if (response.status == 201) {
       toast.success(`${FoodName} is Successfully Added`, {
         position: "bottom-right",
         autoClose: 5000,
@@ -191,11 +287,13 @@ if (!description) {
         draggable: true,
         progress: undefined,
       });
-      setTimeout(RedirectFunction, 1000);
+      updateFoodItem()
+        setTimeout(RedirectFunction, 1000);
       function RedirectFunction() {
         router.push("/admin/UpdateFoodItem");
       }
     }
+
   };
 
   return (
@@ -233,64 +331,108 @@ if (!description) {
                 </Link>
               </h3>
             </div>
-            <li>
+             <li>
               <p>
-                Enter Food Name <span>*</span>
+                Enter Juice Name <span>*</span>
               </p>
               <input
                 type="text"
-                name="foodName"
+                name="juiceName"
                 value={FoodName}
                 onChange={(e) => setFoodName(e.target.value)}
               />
             </li>
-            <li>
-              <p>
-                Enter Food Price <span>*</span>
-              </p>
-              <input
-                type="number"
-                name="foodPrice"
-                value={Price}
-                onChange={(e) => setPrice(e.target.value)}
-              />
-            </li>
 
+    
             <li>
               <p>Enter Food Qty</p>
               <input
                 type="text"
-                name="foodQty"
+                name="JuiceQty"
                 value={Qtys}
+                readOnly={true}
                 onChange={(e) => setQtys(e.target.value)}
               />
             </li>
 
-            <li>
-              <p>Enter Food Category</p>
+            <li className={StyleFood.selects}>
+              <p>Enter Food Category <span>*</span></p>
               <select
-                name="foodcategory"
+                name="Juicecategory"
                 value={Category}
                 onChange={(e) => setCategory(e.target.value)}
               >
-                  <option value={subCategory}>
-                 {subCategory}
-                </option>
-                {data.map((item, index) => {
+                <option value="no">Select Category</option>
+                {(data!=undefined) ? <>  {data.map((item, index) => {
                   return (
                     <option value={item.FoodCategoryName} key={index}>
                       {item.FoodCategoryName}
                     </option>
                   );
                 })}
+                </>
+                :"" }
+              
               </select>
-            </li> <li className={StyleFood.description}>
+            </li>
+
+
+<li className={StyleFood.Pricess}>
+<h6>Enter Price <span>*</span></h6>
+<p><input type="text" name="normalPriceName" className={StyleFood.priceHeading} value={normalPriceName} onChange={(e)=>setNormalPriceName(e.target.value)} readOnly/>   <input
+                type="Number"
+                name="JuiceQty"
+                className={StyleFood.prices}
+                value={normalPrice}
+                onChange={(e) => setNormalPrice(e.target.value)}
+              /> </p>
+<h4>Or</h4>
+<p>
+<input type="text" name="smallPriceName" className={StyleFood.priceHeading} value={smallPriceName} onChange={(e)=>setSmallPriceName(e.target.value)} readOnly/> 
+  <input
+                type="Number"
+                name="JuiceQty"
+                className={StyleFood.prices}
+                value={smallPrice}
+                onChange={(e) => setSmallPrice(e.target.value)}
+              /> </p>
+
+   <p>
+   <input type="text" name="mediumPriceName" className={StyleFood.priceHeading} value={mediumPriceName} onChange={(e)=>setMediumPriceName(e.target.value)} readOnly/> 
+   <input
+                type="Number"
+                name="JuiceQty"
+                className={StyleFood.prices}
+                value={mediumPrice}
+                onChange={(e) => setMediumPrice(e.target.value)}
+              /> </p>  
+
+       <p>
+       <input type="text" name="largePriceName" className={StyleFood.priceHeading} value={largePriceName} onChange={(e)=>setLargePriceName(e.target.value)} readOnly />  <input
+                type="Number"
+                name="JuiceQty"
+                className={StyleFood.prices}
+                value={largePrice}
+                onChange={(e) => setLargePrice(e.target.value)}
+              /> </p>                
+</li>
+
+              <li className={StyleFood.description}>
                 <p>
                Enter Description Category<span>*</span>
               </p>
             <textarea value={description} name="description" onChange={(e)=>setDescription(e.target.value)}>
             
             </textarea>
+            </li>
+                  <li className={StyleFood.btns}>  
+            <p>Product Visiblity Status </p>
+             <Switch
+          onChange={handleChanges}
+          checked={checked}
+          className={StyleFood.react_switch1}
+          offColor='#FF1E1E'
+        />
             </li>
             <button onClick={updateItems}> UPDATE FOOD</button>
           </div>

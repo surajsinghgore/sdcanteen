@@ -1,4 +1,9 @@
 import mongoose from "mongoose";
+const Prices = new mongoose.Schema({
+  sizeName: { type: String, required: true ,lowercase:true},
+  Price: { type: Number, required: true }
+});
+
 
 const AddCoffeeSchema = new mongoose.Schema(
   {
@@ -6,16 +11,19 @@ const AddCoffeeSchema = new mongoose.Schema(
       type: String, trim:true,
       required: true,
     },
-    Price: {
-      type: Number,
-      required: true,
-    },
     Qty: {
       type: String,
+      default:'1'
     },
     Category: {
-      type: String, trim:true
+      type: String, trim:true,
+      required:true
     },
+     Active:{
+    type:String,
+    required:true,
+    },
+     ItemCost: [Prices],
     Description: {
       type: String,
       required: true

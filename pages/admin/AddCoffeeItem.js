@@ -12,11 +12,23 @@ import router from "next/router";
 let HOST = process.env.NEXT_PUBLIC_API_URL;
 import VerifyAdminLogin from './VerifyAdminLogin';
 
+import Switch from "react-switch";
+
 export default function AddCoffeeItem() {
+
+ const [checked, setChecked] = useState(true);
+
+  const [normalPrice, setNormalPrice] = useState("");
+const [normalPriceName,setNormalPriceName]=useState("Normal Price")
+  const [mediumPrice, setMediumPrice] = useState("");
+  const [mediumPriceName, setMediumPriceName] = useState("Medium Size Price");
+  const [smallPrice, setSmallPrice] = useState("");
+  const [smallPriceName, setSmallPriceName] = useState("Small Size Price");
+  const [largePrice, setLargePrice] = useState("");
+  const [largePriceName, setLargePriceName] = useState("Large Size Price");
+  const [Qtys, setQtys] = useState(1);
   const [data, setData] = useState([]);
-  const [CoffeeName, setCoffeeName] = useState("");
-  const [Price, setPrice] = useState("");
-  const [Qtys, setQtys] = useState("");
+  const [coffeeName, setCoffeeName] = useState("");
   const [Category, setCategory] = useState("");
   const [Images, setImages] = useState("");
   const [imgs, setImgs] = useState();
@@ -35,11 +47,13 @@ export default function AddCoffeeItem() {
       setShowImage(true);
     }
   };
-
+ const handleChanges=()=>{
+  setChecked(!checked)
+  }
   const AddCoffeeItem = async (e) => {
     e.preventDefault();
-    if (!CoffeeName) {
-      toast.warn("Please Enter Coffee Name", {
+     if (!coffeeName) {
+      toast.warn("Please Enter Juice Name", {
         position: "bottom-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -50,8 +64,8 @@ export default function AddCoffeeItem() {
       });
       return ;
     }
-    if (!Price) {
-      toast.warn("Please Enter Coffee Price", {
+  if (!Category) {
+      toast.warn("Please select Category Of Item", {
         position: "bottom-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -62,7 +76,8 @@ export default function AddCoffeeItem() {
       });
       return ;
     }
-    if (!description) {
+ 
+   if (!description) {
       toast.warn("Please Enter Description of Item", {
         position: "bottom-right",
         autoClose: 5000,
@@ -76,7 +91,7 @@ export default function AddCoffeeItem() {
     }
 
     if (!Images) {
-      toast.warn("Please Uploard Coffee Image", {
+      toast.warn("Please Uploard Juice Image", {
         position: "bottom-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -87,21 +102,111 @@ export default function AddCoffeeItem() {
       });
       return ;
     }
+if((smallPrice=="")&&(mediumPrice=="")&&(largePrice=="")){
+if(normalPrice==""){
+   toast.warn("Please Enter Atleast Normal Price Of Item", {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+       return ;
+}
+}
+
+
+if((smallPrice!="")&&(mediumPrice!="")||(largePrice!="")){
+if(normalPrice!=""){
+   toast.warn("Please Enter Only Normal Price or Different Size Price", {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+       return ;
+}
+}
+if(parseInt(smallPrice)<=0 || parseInt(mediumPrice)<=0 || parseInt(largePrice)<=0 || parseInt(normalPrice)<=0){
+toast.warn("Price Not Be Zero Or Below Zero", {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+       return ;
+}
+let active;
+if(checked==true){
+active="ON"
+}else{
+active="OFF"
+}
 
     const data = new FormData();
-    data.append("CoffeeName", CoffeeName);
-    data.append("Price", Price);
+    data.append("CoffeeName", coffeeName);
     data.append("Qty", Qtys);
     data.append("Category", Category);
-    data.append("Image", files);
     data.append("Description", description);
+    data.append("Image", files);
+data.append("Active", active);
+if(largePrice!=""){
+data.append('largePriceName', largePrice);
+}
+if(mediumPrice!=""){
+data.append('mediumPriceName', mediumPrice);
+}
+if(smallPrice!=""){
+data.append('smallPriceName', smallPrice);
+}
+
+
+if(normalPrice!=""){
+data.append('normalPriceName', normalPrice);
+}
 
 
     let res = await fetch(`${HOST}/api/AddCoffeeItem`, {
       method: "POST",
-      body: data,
+      body:  data,
     });
 
+  if (res.status == 401) {
+      toast.error("Please Login With Admin Credentials", {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      setTimeout(RedirectFunction, 1000);
+      function RedirectFunction() {
+        router.push("/admin/Login");
+      }
+      }
+
+        if (res.status == 409) {
+      toast.error("Item with this Name already Exits", {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+     return ;
+      }
     if (data.status == "403") {
       toast.error("Please Login With Admin Credentials", {
         position: "bottom-right",
@@ -118,21 +223,6 @@ export default function AddCoffeeItem() {
       }
       return ;
     }
-      if (res.status == 401) {
-      toast.error("Please Login With Admin Credentials", {
-        position: "bottom-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
-      setTimeout(RedirectFunction, 1000);
-      function RedirectFunction() {
-        router.push("/admin/Login");
-      }
-      }
     if (res.status === 500) {
       toast.error("Only JPG , PNG , JPEG Images are Allowed To Upload", {
         position: "bottom-right",
@@ -159,7 +249,8 @@ export default function AddCoffeeItem() {
       });
       return ;
     }
-    if (datas.status == "400") {
+    // empty filed error message
+    if (res.status == 204) {
       toast.warn(`${datas.message}`, {
         position: "bottom-right",
         autoClose: 5000,
@@ -173,7 +264,7 @@ export default function AddCoffeeItem() {
     }
 
     if (datas.status == "201") {
-      toast.success(`${CoffeeName} is Successfully Added`, {
+      toast.success(`${coffeeName} is Successfully Added`, {
         position: "bottom-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -185,7 +276,7 @@ export default function AddCoffeeItem() {
 
       setTimeout(RedirectFunction, 1000);
       function RedirectFunction() {
-        router.push("/admin/ShowCoffeeItem");
+           router.push("/admin/ShowCoffeeItem");
       }
     }
   };
@@ -223,56 +314,95 @@ export default function AddCoffeeItem() {
             <h1>Enter New Coffee Item For Website</h1>
           </div>
           <div className={StyleFood.form_element}>
+           
             <li>
               <p>
                 Enter Coffee Name <span>*</span>
               </p>
               <input
                 type="text"
-                name="CoffeeName"
-                value={CoffeeName}
+                name="juiceName"
+                value={coffeeName}
                 onChange={(e) => setCoffeeName(e.target.value)}
               />
             </li>
-            <li>
-              <p>
-                Enter Coffee Price <span>*</span>
-              </p>
-              <input
-                type="number"
-                name="CoffeePrice"
-                value={Price}
-                onChange={(e) => setPrice(e.target.value)}
-              />
-            </li>
 
+    
             <li>
               <p>Enter Coffee Qty</p>
               <input
                 type="text"
-                name="CoffeeQty"
+                name="JuiceQty"
                 value={Qtys}
+                readOnly={true}
                 onChange={(e) => setQtys(e.target.value)}
               />
             </li>
 
-            <li>
-              <p>Enter Coffee Category</p>
+
+            <li className={StyleFood.selects}>
+              <p>Enter Coffee Category <span>*</span></p>
               <select
-                name="Coffeecategory"
+                name="Juicecategory"
                 value={Category}
                 onChange={(e) => setCategory(e.target.value)}
               >
                 <option value="no">Select Category</option>
-                {data.map((item, index) => {
+                {(data!=undefined) ? <>  {data.map((item, index) => {
                   return (
                     <option value={item.CoffeeCategoryName} key={index}>
                       {item.CoffeeCategoryName}
                     </option>
                   );
                 })}
+                </>
+                :"" }
+              
               </select>
             </li>
+
+
+
+<li className={StyleFood.Pricess}>
+<h6>Enter Price <span>*</span></h6>
+<p><input type="text" name="normalPriceName" className={StyleFood.priceHeading} value={normalPriceName} onChange={(e)=>setNormalPriceName(e.target.value)} readOnly/>   <input
+                type="Number"
+                name="JuiceQty"
+                className={StyleFood.prices}
+                value={normalPrice}
+                onChange={(e) => setNormalPrice(e.target.value)}
+              /> </p>
+<h4>Or</h4>
+<p>
+<input type="text" name="smallPriceName" className={StyleFood.priceHeading} value={smallPriceName} onChange={(e)=>setSmallPriceName(e.target.value)} readOnly/> 
+  <input
+                type="Number"
+                name="JuiceQty"
+                className={StyleFood.prices}
+                value={smallPrice}
+                onChange={(e) => setSmallPrice(e.target.value)}
+              /> </p>
+
+   <p>
+   <input type="text" name="mediumPriceName" className={StyleFood.priceHeading} value={mediumPriceName} onChange={(e)=>setMediumPriceName(e.target.value)} readOnly/> 
+   <input
+                type="Number"
+                name="JuiceQty"
+                className={StyleFood.prices}
+                value={mediumPrice}
+                onChange={(e) => setMediumPrice(e.target.value)}
+              /> </p>  
+
+       <p>
+       <input type="text" name="largePriceName" className={StyleFood.priceHeading} value={largePriceName} onChange={(e)=>setLargePriceName(e.target.value)} readOnly />  <input
+                type="Number"
+                name="JuiceQty"
+                className={StyleFood.prices}
+                value={largePrice}
+                onChange={(e) => setLargePrice(e.target.value)}
+              /> </p>                
+</li>
+
               <li className={StyleFood.description}>
                 <p>
                Enter Description Category<span>*</span>
@@ -288,7 +418,7 @@ export default function AddCoffeeItem() {
               <input
                 type="file"
                 name="photo"
-                id="photoCoffee"
+                id="photoJuice"
                 onChange={handleChange}
               />
             </li>
@@ -307,6 +437,15 @@ export default function AddCoffeeItem() {
                   />
                 )}
               </div>
+            </li>
+               <li className={StyleFood.btns}>  
+            <p>Product Visiblity Status </p>
+             <Switch
+          onChange={handleChanges}
+          checked={checked}
+          className={StyleFood.react_switch1}
+          offColor='#FF1E1E'
+        />
             </li>
             <button onClick={AddCoffeeItem}> ADD COFFEE</button>
           </div>
