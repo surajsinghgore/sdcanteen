@@ -194,10 +194,10 @@ page.style.display="none";
 // search bar logic
 useEffect(()=>{
 const getDatas=async()=>{
- const coffeeItem = await fetch(`${HOST}/api/ShowCoffeeItem`)
-  const drinkItem = await fetch(`${HOST}/api/ShowDrinkItem`)
-  const foodItem = await fetch(`${HOST}/api/ShowFoodItem`)
-  const juiceItem = await fetch(`${HOST}/api/ShowJuiceItem`)
+ const coffeeItem = await fetch(`${HOST}/api/ShowCoffeeItemClient`)
+  const drinkItem = await fetch(`${HOST}/api/ShowDrinkItemClient`)
+  const foodItem = await fetch(`${HOST}/api/ShowFoodItemClient`)
+  const juiceItem = await fetch(`${HOST}/api/ShowJuiceItemClient`)
   const coffeeData = await coffeeItem.json()
   const drinkData = await drinkItem.json()
   const foodData = await foodItem.json()
@@ -206,23 +206,23 @@ let coffeeNames=[];
 let drinkNames=[];
 let foodNameNames=[];
 let juiceNames=[];
-if(coffeeData.dataClient){
- coffeeNames=coffeeData.dataClient.map((item)=>{
+if(coffeeData.data){
+ coffeeNames=coffeeData.data.map((item)=>{
 return item.CoffeeName
 })
 }
-if(drinkData.dataClient){
- drinkNames=drinkData.dataClient.map((item)=>{
+if(drinkData.data){
+ drinkNames=drinkData.data.map((item)=>{
 return item.DrinkName
 })
 }
-if(foodData.dataClient){
- foodNameNames=foodData.dataClient.map((item)=>{
+if(foodData.data){
+ foodNameNames=foodData.data.map((item)=>{
 return item.FoodName
 })
 }
-if(juiceData.dataClient){
- juiceNames=juiceData.dataClient.map((item)=>{
+if(juiceData.data){
+ juiceNames=juiceData.data.map((item)=>{
 return item.JuiceName
 })
 }

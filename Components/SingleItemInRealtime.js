@@ -430,7 +430,10 @@ sendData();
 <div className={StyleRealtime.div1}>{item.ItemName}</div>
 <div className={StyleRealtime.div2}>{item.ProductOriginalAmount}</div>
 <div className={StyleRealtime.div3}>{item.Qty}</div>
-<div className={StyleRealtime.div4}>{item.Category}</div>
+<div className={StyleRealtime.div4}>{item.Category}
+<span>
+{(item.Size=="normalsize")? "[N]":(item.Size=="smallsize")? "[S]":(item.Size=="largesize")? "[L]":(item.Size=="mediumsize")? "[M]":"[H]"}</span>
+</div>
 <div className={StyleRealtime.div5}>{item.Amount}</div>
 <div className={StyleRealtime.div6}>{item.AmountReceived} </div>
 <div className={StyleRealtime.div7}>
@@ -477,7 +480,8 @@ sendData();
 <div className={StyleRealtime.div1}>{item.ItemName}</div>
 <div className={StyleRealtime.div2}>{item.ProductOriginalAmount}</div>
 <div className={StyleRealtime.div3}>{item.Qty}</div>
-<div className={StyleRealtime.div4}>{item.Category}</div>
+<div className={StyleRealtime.div4}>{item.Category}
+</div>
 <div className={StyleRealtime.div5}>{item.Amount}</div>
 <div className={StyleRealtime.div6}>
 <input type="text" value={price} onChange={(e)=>setPrice(e.target.value)}/>

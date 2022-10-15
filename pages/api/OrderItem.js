@@ -68,6 +68,7 @@ let array=[];
     var token1 = randtoken.generate(6);
     const TokenNumber=token;
     const TokenUser=token1;
+
 for(let i=0;i<req.body.ItemsOrder.length;i++){
     const ItemName=req.body.ItemsOrder[i].ItemName;
       const Qty=req.body.ItemsOrder[i].Qty;

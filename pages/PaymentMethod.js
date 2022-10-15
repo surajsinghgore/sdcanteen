@@ -26,7 +26,7 @@ export default function PaymentMethod() {
     const dataFetch = async () => {
       const items = localStorage.getItem("react-use-cart");
       let cartData = JSON.parse(items);
-
+console.log(cartData.items.length)
       let array = [];
       let sum = 0;
       let coffeeData = [];
@@ -34,10 +34,10 @@ export default function PaymentMethod() {
       let foodData = [];
       let juiceData = [];
 
-      const coffeeItem = await fetch(`${HOST}/api/ShowCoffeeItem`);
-      const drinkItem = await fetch(`${HOST}/api/ShowDrinkItem`);
-      const foodItem = await fetch(`${HOST}/api/ShowFoodItem`);
-      const juiceItem = await fetch(`${HOST}/api/ShowJuiceItem`);
+      const coffeeItem = await fetch(`${HOST}/api/ShowCoffeeItemClient`);
+      const drinkItem = await fetch(`${HOST}/api/ShowDrinkItemClient`);
+      const foodItem = await fetch(`${HOST}/api/ShowFoodItemClient`);
+      const juiceItem = await fetch(`${HOST}/api/ShowJuiceItemClient`);
       coffeeData = await coffeeItem.json();
       drinkData = await drinkItem.json();
       foodData = await foodItem.json();
@@ -45,6 +45,7 @@ export default function PaymentMethod() {
 
       for (let j = 0; j < cartData.items.length; j++) {
         //  filter food Price
+
         if (cartData.items[j].FoodName) {
           for (let i = 0; i < foodData.data.length; i++) {
             if (foodData.data[i].FoodName == cartData.items[j].FoodName) {
@@ -74,10 +75,10 @@ export default function PaymentMethod() {
                   };
                   setTimeout(pushToCompleteOrder, 1500);
                 }
-                sum += QtyBook * OriginalPrice;
                 let ItemName = foodData.data[i].FoodName;
                 let Qty = QtyBook;
-                let Category = foodData.data[i].Category;
+                sum += QtyBook * OriginalPrice;
+                              let Category = foodData.data[i].Category;
                 let ProductOriginalAmount = OriginalPrice;
                 let Amount = QtyBook * OriginalPrice;
                 let CategoryPrimary = "foodcategory";
@@ -131,7 +132,7 @@ export default function PaymentMethod() {
                   setTimeout(pushToCompleteOrder, 1500);
                 }
                 sum += QtyBook * OriginalPrice;
-                let ItemName = coffeeData.data[i].CoffeeName;
+                            let ItemName = coffeeData.data[i].CoffeeName;
                 let Qty = QtyBook;
                 let Category = coffeeData.data[i].Category;
                 let ProductOriginalAmount = OriginalPrice;
@@ -188,7 +189,7 @@ export default function PaymentMethod() {
                   setTimeout(pushToCompleteOrder, 1500);
                 }
                 sum += QtyBook * OriginalPrice;
-                let ItemName = drinkData.data[i].DrinkName;
+                            let ItemName = drinkData.data[i].DrinkName;
                 let Qty = QtyBook;
                 let Category = drinkData.data[i].Category;
                 let ProductOriginalAmount = OriginalPrice;
@@ -215,9 +216,11 @@ export default function PaymentMethod() {
 
         // !Juice Data
 
-        if (cartData.items[j].JuiceData) {
+
+ 
+        if (cartData.items[j].JuiceName) {
           for (let i = 0; i < juiceData.data.length; i++) {
-            if (juiceData.data[i].JuiceData == cartData.items[j].JuiceData) {
+            if (juiceData.data[i].JuiceName == cartData.items[j].JuiceName) {
               if (juiceData.data[i].Category == cartData.items[j].Category) {
                 let QtyBook = parseInt(cartData.items[j].QtyBook);
                 let pricesFilter = juiceData.data[i].ItemCost.filter((itx) => {
@@ -245,7 +248,7 @@ export default function PaymentMethod() {
                   setTimeout(pushToCompleteOrder, 1500);
                 }
                 sum += QtyBook * OriginalPrice;
-                let ItemName = juiceData.data[i].JuiceData;
+                let ItemName = juiceData.data[i].JuiceName;
                 let Qty = QtyBook;
                 let Category = juiceData.data[i].Category;
                 let ProductOriginalAmount = OriginalPrice;

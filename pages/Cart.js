@@ -32,8 +32,10 @@ const {
     updateItem  
   } = useCart()
 
+
+
 useEffect(()=>{
-if(items!=undefined && items.length!=0){
+if(items!=undefined ){
 setLength(items.length)
 let foodData=items.filter((item)=>{
 return item.FoodName
@@ -85,7 +87,7 @@ emptyCart();
       draggable: true,
       progress: undefined,
     });
-    router.push("/");
+    setState(!state);
 }
 
 

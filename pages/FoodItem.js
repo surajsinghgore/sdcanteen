@@ -4,21 +4,17 @@ import Footer from "../Components/Footer";
 import Style from '../styles/FoodItem.module.css'
 import Styles from "../styles/admin.module.css";
 import banner from '../public/banner.jpg';
-import Image from 'next/image';
-import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { IoMdArrowDropright } from 'react-icons/io';
 import { FaSearch } from 'react-icons/fa';
 import { useEffect ,useState} from "react";
 import {  useCart } from "react-use-cart";
 import Banner from "../Components/Banner";
-import router from 'next/router'
-export default function FoodItem({ResCategory,FoodDatas}) {
+import ItemCard from "../Components/ItemCard";
 
+export default function FoodItem({ResCategory,FoodDatas}) {
   const {
     items,
-    removeItem,
-    addItem ,
   } = useCart();
 const [foodCategory,setFoodCategory]=useState([]);
 const [foodItem,setFoodItem]=useState([]);
@@ -70,57 +66,6 @@ setFoodItem(filter)
 
 }
 
-const addToCartItem=(itemss)=>{
-let id=itemss._id;
-let price=itemss.Price;
-let FoodName=itemss.FoodName;
-let Qty=itemss.Qty;
-let Image=itemss.Image;
-let Category=itemss.Category;
-let QtyBook=1;
-let totalAmount=itemss.Price;
-addItem({id,price,FoodName,Qty,Image,Category,QtyBook,totalAmount})
-
- toast.success(`${FoodName} successfully added to cart`, {
-      position: "bottom-right",
-      autoClose: 2000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
-}
-const RemoveFromCartItem=(item)=>{
-let id=item._id;
-
-const filteredData = FoodDatas.filter((item) => item._id == id);
-filteredData[0]['addToCart']=false;
-removeItem(id)
- toast.error(`${item.FoodName} successfully removed from cart`, {
-      position: "bottom-right",
-      autoClose: 2000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
-}
-
-// buy now item
-const BuyNowItem=(item)=>{
-let id=item._id;
-let price=item.Price;
-let FoodName=item.FoodName;
-let Qty=item.Qty;
-let Image=item.Image;
-let Category=item.Category;
-let QtyBook=1;
-let totalAmount=item.Price;
-addItem({id,price,FoodName,Qty,Image,Category,QtyBook,totalAmount})
-router.push("/Cart")
-}
   return (
     <>
       <div className={Styles.admin}>
@@ -156,7 +101,7 @@ CurrentPageUrl="/FoodItem" CurrentPage="Food Item" SubPage="Item" H1Style={{padd
    </div>
 
 
-
+{/* right side card section */}
    <div className={Style.right}>
    <div className={Style.top}>
    
@@ -173,29 +118,10 @@ CurrentPageUrl="/FoodItem" CurrentPage="Food Item" SubPage="Item" H1Style={{padd
 
 
    <div className={Style.cards}>
-
-
-
    {foodItem.length==0? <><h1 className={Style.match}>No Item Found</h1></>: <>
    {foodItem.map((item)=>{
    return (
-      <div className={Style.card} key={item._id} loading="lazy">
-   <div className={Style.Img} >
-   <Image src={`/FoodItemImages/${item.Image}`} alt={item.Image} width={385} height={200} loading="lazy" />
-   </div>
-   <div className={Style.deatils}>
-   <h1>{item.FoodName}</h1>
-<h3>Qty: <span>{item.Qty}</span></h3>
-{(item.Category)?<>
-<h6>Category: <span>{item.Category}</span></h6>
-</> : <>
-<h6>Category: <span>No</span></h6>
-</>}
-   <h4>₹ {item.Price}</h4>
- {(item.addToCart)?<><button onClick={()=>RemoveFromCartItem(item)}>Remove From Cart</button></> : <><button onClick={()=>addToCartItem(item)}>Add To Cart</button></>}
-   <button className={Style.buy} onClick={()=>BuyNowItem(item)}>Buy Now</button>
-   </div>
-   </div>
+<ItemCard item={item} key={item._id}/>
    )
    })}
    </>}
@@ -204,17 +130,7 @@ CurrentPageUrl="/FoodItem" CurrentPage="Food Item" SubPage="Item" H1Style={{padd
    </div>
    </div>
    <Footer />
-      <ToastContainer
-        position="bottom-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
+
     </>
   )
 }
@@ -225,9 +141,9 @@ let ress = await fetch(`${HOST}/api/ShowFoodCategory`);
       let data = await ress.json();
       let ResCategory =await data.data;
 
-let ressFood = await fetch(`${HOST}/api/ShowFoodItem`);
+let ressFood = await fetch(`${HOST}/api/ShowFoodItemClient`);
   let FoodData = await ressFood.json();
-  let FoodDatas = await FoodData.dataClient;
+  let FoodDatas = await FoodData.data;
 
 
   return { props: { ResCategory,FoodDatas } }

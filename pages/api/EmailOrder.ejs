@@ -15,8 +15,9 @@
         <div style="margin-top:6%;color:rgb(95, 95, 95);width: 100%;font-size:2vw;">Your Order Items Details:</div>
     <table style="margin-top:2%;width:100%;text-align: center;font-size: 2vw;border:2px solid black">
     <tr style="background-color: rgb(238, 238, 238);color:black">
-    <th>Food Name</th>
+    <th>Item Name</th>
     <th>Price</th>
+    <th>Size</th>
     <th>Qty</th>
     <th>Category</th>
     <th>Total</th>
@@ -25,6 +26,7 @@
        <tr style="border: 1px solid rgb(220, 220, 220);color:rgb(255, 81, 0);text-transform: capitalize;">
     <td><%=item.ItemName %></td>
     <td><%=item.ProductOriginalAmount %></td>
+    <td><%=item.Size %></td>
     <td><%=item.Qty %></td>
     <td><%=item.Category %></td>
     <td><%=item.Amount %></td>

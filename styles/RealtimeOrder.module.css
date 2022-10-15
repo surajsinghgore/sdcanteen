@@ -54,6 +54,7 @@ outline: none;
 .orders .searchBar select{
 width: 23.7%;
 height: 40px;
+cursor: pointer;
 margin-left: 1%;
 text-align: center;
 margin-bottom: 2%;
@@ -279,7 +280,7 @@ width: 100%;
 position: relative;
 user-select: none;
 height: auto;
-padding-top: 1%;
+padding-top: 2%;
 color: rgb(87, 87, 87);
 text-transform: uppercase;
 padding-bottom: 1%;
@@ -310,12 +311,15 @@ height: auto;text-align:center;
 .orders .tables_section .contain .tableheaddatasub .div3,.orders .tables_section .contain .tableheadingsub .div3{
 width: 10%;
 height: auto;text-align:center;
-
 }
 .orders .tables_section .contain .tableheaddatasub .div4,.orders .tables_section .contain .tableheadingsub .div4{
 width: 20%;
 height: auto;text-align:center;
+}
 
+.orders .tables_section .contain .tableheaddatasub .div4 span{
+color: rgb(0, 187, 255);
+float: right;
 }
 .orders .tables_section .contain .tableheaddatasub .div5,.orders .tables_section .contain .tableheadingsub .div5{
 width: 12%;

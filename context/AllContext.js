@@ -64,7 +64,7 @@ await setFilterAllFoodCategoriesData(dd)
 }
 
 const updateFoodItem=async(id)=>{
-let ress=await fetch(`${HOST}/api/ShowFoodItem`);
+let ress=await fetch(`${HOST}/api/ShowFoodItemClient`);
 let datas=await ress.json();
 let d=datas.data;
 let dd=await d.filter((item)=>{
@@ -74,7 +74,7 @@ return item._id==id})
 
 
 const updateCoffeeItem=async(id)=>{
-let ress=await fetch(`${HOST}/api/ShowCoffeeItem`);
+let ress=await fetch(`${HOST}/api/ShowCoffeeItemClient`);
 let datas=await ress.json();
 let d=datas.data;
 let dd=await d.filter((item)=>{
@@ -83,7 +83,7 @@ return item._id==id})
 }
 
 const updateDrinkItem=async(id)=>{
-let ress=await fetch(`${HOST}/api/ShowDrinkItem`);
+let ress=await fetch(`${HOST}/api/ShowDrinkItemClient`);
 let datas=await ress.json();
 let d=datas.data;
 let dd=await d.filter((item)=>{
@@ -91,7 +91,7 @@ return item._id==id})
  setFilterDrinkItemsData(dd)
 }
 const updateJuiceItem=async(id)=>{
-let ress=await fetch(`${HOST}/api/ShowJuiceItem`);
+let ress=await fetch(`${HOST}/api/ShowJuiceItemClient`);
 let datas=await ress.json();
 let d=datas.data;
 let dd=await d.filter((item)=>{

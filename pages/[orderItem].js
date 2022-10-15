@@ -28,6 +28,7 @@ const query=router.query.orderItem;
 
 useEffect(()=>{
 const FindDataUsingSearch=async()=>{
+if(query!=undefined){
  const res = await fetch(`${HOST}/api/ShowSingleItem?item=${query}`);
  const dataRes=await res.json();
 if(res.status==201){
@@ -35,6 +36,7 @@ await setData(dataRes.data)
 await setPrice(dataRes.data[0].ItemCost[0].Price)
 await setSelected(dataRes.data[0].ItemCost[0].sizeName);
 localStorage.setItem("itemOrder",dataRes.data[0].ItemCost[0]._id)
+}
 }
 }
 FindDataUsingSearch();
@@ -54,7 +56,7 @@ let subId=localStorage.getItem("itemOrder");
 let subData=item[0].ItemCost.filter((items)=>{
 return items._id==subId})
 if(subData.length==0 || subData==undefined){
- toast.success(`please try agian `, {
+ toast.warn(`please try agian `, {
       position: "bottom-right",
       autoClose: 2000,
       hideProgressBar: false,
@@ -210,7 +212,7 @@ let subData=item[0].ItemCost.filter((items)=>{
 return items._id==subId})
 
 if(subData.length==0 || subData==undefined){
- toast.success(`please try agian `, {
+ toast.warn(`please try agian `, {
       position: "bottom-right",
       autoClose: 2000,
       hideProgressBar: false,

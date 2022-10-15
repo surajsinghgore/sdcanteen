@@ -263,7 +263,8 @@ const result = arr.map(item => ({
       .filter(child => child.CategoryPrimary.includes(value.toLowerCase()))
   }))
   .filter(item => item.ItemsOrder.length > 0)
-  setData(result)
+let newData=JSON.parse(JSON.stringify(result))
+  setData(newData)
   
     }
   };

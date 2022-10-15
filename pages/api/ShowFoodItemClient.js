@@ -1,13 +1,14 @@
 import DbConnection from "./Middleware/DbConnection";
-import JuiceItemSchema from "./Schema/JuiceItemSchema";
+import FoodItemSchema from "./Schema/FoodItemSchema";
 
-export default async function ShowJuicesItem(req, res) {
+export default async function ShowFoodItem(req, res) {
   if (req.method == "GET") {
     try {
       DbConnection();
-      let data = await JuiceItemSchema.find().select('-createdAt -updatedAt');
+      let data = await FoodItemSchema.find({Active:"ON"}).select('-createdAt -updatedAt');
       res.status(201).json({ data, status: "201" });
     } catch (error) {
+    console.log(error)
       res.status(501).json({ message: error, status: "501" });
     }
   }

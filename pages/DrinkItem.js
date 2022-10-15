@@ -13,18 +13,18 @@ import { useEffect ,useState} from "react";
 import {  useCart } from "react-use-cart";
 import Banner from "../Components/Banner";
 import router from 'next/router'
+import DrinkCard from "../Components/DrinkCard";
 
 
-export default function DrinkItem({ResCategory,DrinkDatas}) {
+export default function CoffeeItem({ResCategory,DrinkDatas}) {
   const {
     items,
-    removeItem,
-    addItem ,
   } = useCart();
 const [drinkCategory,setDrinkCategory]=useState([]);
 const [drinkItem,setDrinkItem]=useState([]);
 const [drinkItem1,setDrinkItem1]=useState([]);
 const [search,setSearch]=useState('');
+
 
 
 const searchHandle=(e)=>{
@@ -73,56 +73,7 @@ return item.Category.toLowerCase().includes(items.DrinkCategoryName.toLowerCase(
 setDrinkItem(filter)
 }
 
-const addToCartItem=(itemss)=>{
-let id=itemss._id;
-let price=itemss.Price;
-let DrinkName=itemss.DrinkName;
-let Qty=itemss.Qty;
-let Image=itemss.Image;
-let Category=itemss.Category;
-let QtyBook=1;
-let totalAmount=itemss.Price;
-addItem({id,price,DrinkName,Qty,Image,Category,QtyBook,totalAmount})
 
- toast.success(`${DrinkName} successfully added to cart`, {
-      position: "bottom-right",
-      autoClose: 2000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
-}
-const RemoveFromCartItem=(item)=>{
-let id=item._id;
-const filteredData = DrinkDatas.filter((item) => item._id == id);
-filteredData[0]['addToCart']=false;
-removeItem(id)
- toast.error(`${item.DrinkName} successfully removed from cart`, {
-      position: "bottom-right",
-      autoClose: 2000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
-}
-
-// buy now item
-const BuyNowItem=(item)=>{
-let id=item._id;
-let price=item.Price;
-let DrinkName=item.DrinkName;
-let Qty=item.Qty;
-let Image=item.Image;
-let Category=item.Category;
-let QtyBook=1;
-let totalAmount=item.Price;
-addItem({id,price,DrinkName,Qty,Image,Category,QtyBook,totalAmount})
-router.push("/Cart")
-}
   return (
     <>
       <div className={Styles.admin}>
@@ -181,23 +132,7 @@ CurrentPageUrl="/DrinkItem" CurrentPage="Drink Item" SubPage="Item" H1Style={{pa
    {drinkItem.length==0? <><h1 className={Style.match}>No Item Found</h1></>: <>
    {drinkItem.map((item)=>{
    return (
-      <div className={Style.card} key={item._id} loading="lazy">
-   <div className={Style.Img} >
-   <Image src={`/DrinkItemImages/${item.Image}`} alt={item.Image} width={385} height={300} loading="lazy" />
-   </div>
-   <div className={Style.deatils}>
-   <h1>{item.DrinkName}</h1>
-<h3>Qty: <span>{item.Qty}</span></h3>
-{(item.Category)?<>
-<h6>Category: <span>{item.Category}</span></h6>
-</> : <>
-<h6>Category: <span>No</span></h6>
-</>}
-   <h4>₹ {item.Price}</h4>
- {(item.addToCart)?<><button onClick={()=>RemoveFromCartItem(item)}>Remove From Cart</button></> : <><button onClick={()=>addToCartItem(item)}>Add To Cart</button></>}
-   <button className={Style.buy} onClick={()=>BuyNowItem(item)}>Buy Now</button>
-   </div>
-   </div>
+<DrinkCard item={item} key={item._id}/>
    )
    })}
    </>}
@@ -206,20 +141,11 @@ CurrentPageUrl="/DrinkItem" CurrentPage="Drink Item" SubPage="Item" H1Style={{pa
    </div>
    </div>
    <Footer />
-      <ToastContainer
-        position="bottom-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
+
     </>
   )
 }
+
 
 export async function getServerSideProps() {
 let HOST = process.env.NEXT_PUBLIC_API_URL;
@@ -227,9 +153,9 @@ let ress = await fetch(`${HOST}/api/ShowDrinkCategory`);
       let data = await ress.json();
       let ResCategory =await data.data;
 
-let ressDrink = await fetch(`${HOST}/api/ShowDrinkItem`);
+let ressDrink = await fetch(`${HOST}/api/ShowDrinkItemClient`);
   let DrinkData = await ressDrink.json();
-  let DrinkDatas = await DrinkData.dataClient;
+  let DrinkDatas = await DrinkData.data;
 
 
   return { props: { ResCategory,DrinkDatas } }
