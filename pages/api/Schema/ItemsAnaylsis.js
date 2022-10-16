@@ -1,18 +1,27 @@
 import mongoose from "mongoose";
 
 const ItemReviwers = new mongoose.Schema({
-  userName: { type: String, required: true ,lowercase:true},
   Rate: { type: String, required: true },
-  Message:{ type: String ,required:true,lowercase:true}
+  userName: { type: String, required: true ,lowercase:true},
+  userId: { type: mongoose.Schema.Types.ObjectId,
+      ref: "ClientData",
+      required: true,},
+  Message:{ type: String ,required:true,lowercase:true},
+  QualityRate: { type: String, required: true },
+  ServiceRate: { type: String, required: true },
+  PriceRate: { type: String, required: true },
 });
 
 
 const anaylsisItems = new mongoose.Schema(
   {
-    productId: {
+  
+   ProductId: {
       type: String,
       required: true,
     },
+
+
 Rating:{
 type: String,
 required: true,
@@ -28,7 +37,7 @@ required:true
 
 mongoose.models = {};
 
-const OrderSchemaDataBase =
+const ItemRatings =
   mongoose.models.anaylsisItems || mongoose.model("anaylsisItems", anaylsisItems);
 
-export default OrderSchemaDataBase;
+export default ItemRatings;

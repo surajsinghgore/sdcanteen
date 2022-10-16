@@ -40,7 +40,7 @@ export default async function AdminLogin(req, res) {
       httpOnly: true,
         path: '/',
     expires:new Date(Date.now()+ 3600000),
-    // secure:true
+    secure:true
     }) );
             return res
         .status(201)

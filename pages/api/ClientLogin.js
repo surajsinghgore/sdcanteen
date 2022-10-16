@@ -50,7 +50,7 @@ res.setHeader('Set-Cookie',[ cookie.serialize('clinetToken', clinetToken, {
       httpOnly: true,
         path: '/',
     expires:new Date(Date.now()+ 86400000),
-    // secure:true
+    secure:true,   
     }),
      cookie.serialize(
             'clinetId', userDetails.id,
@@ -58,7 +58,8 @@ res.setHeader('Set-Cookie',[ cookie.serialize('clinetToken', clinetToken, {
                  httpOnly: true,
     expires:new Date(Date.now()+ 86400000),
                 path: '/',
-    // secure:true
+    secure:true,
+   
 
             }
         )
@@ -106,7 +107,7 @@ res.setHeader('Set-Cookie',[ cookie.serialize('clinetToken', clinetToken, {
       httpOnly: true,
         path: '/',
     expires:new Date(Date.now()+ 86400000),
-    // secure:true,
+    secure:true,    
 
     }),
      cookie.serialize(
@@ -114,8 +115,8 @@ res.setHeader('Set-Cookie',[ cookie.serialize('clinetToken', clinetToken, {
              {
                  httpOnly: true,
     expires:new Date(Date.now()+ 86400000),
-                path: '/'
-    // secure:true,
+                path: '/',
+    secure:true,   
             }
         )
     

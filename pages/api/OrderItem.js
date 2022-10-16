@@ -25,7 +25,12 @@ export default async function AddCoffeeCategory(req, res) {
     try {
       DbConnection();
      let res1=await VerifyClientUser(req, res);
- if(res1!=undefined){
+  if(res1==undefined){
+    return res.status(401).json({ message: "Please login with Client credentails" });
+    }
+
+
+    
       const _id=req.cookies.clinetId;
       const findClientData=await ClientDatas.findById({_id}).select('-Password -createdAt -updatedAt -Age -Gender -Profile');
       if(!findClientData){
@@ -106,8 +111,7 @@ return res.status(401).json({message:error,status:"401"});
 })
 
  return res.status(201).json({status:"201",message:"Success",tokenUser:ress.TokenUser})
- }
-  
+
     }
     catch(e){
     console.log(e)

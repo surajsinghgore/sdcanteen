@@ -6,6 +6,7 @@ import { useEffect } from "react";
 
 export default function HidePagesAfterLogin() {
 useEffect(()=>{
+if(localStorage.getItem("login")!=undefined){
 const getData=async()=>{
 const res = await fetch(`${HOST}/api/ShowClientDetails`, {
       method: "POST",
@@ -20,7 +21,7 @@ router.push("/");
 
 }
 getData();
-
+}
 },[])
 
 

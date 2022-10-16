@@ -207,7 +207,7 @@ text-align: center;
 }
 .reviews .box{
 width: 100%;
-padding-bottom: 5%;
+padding-bottom: 3%;
 border: 1px solid rgb(191, 191, 191);
 }
 .reviews .box .top{
@@ -219,8 +219,65 @@ margin-top: 3%;
 margin-left: 4%;
 height: 200px;
 border-radius: 4px;
+display: flex;
 border: 1px solid rgb(126, 126, 126);
 }
+.reviews .box .top .avgRate h1{
+padding-left: 12%;
+text-align: center;
+padding-top: 8%;
+color: rgb(105, 105, 105);
+}
+.reviews .box .top .avgRate h1::first-letter{
+color: rgb(76, 76, 76);
+}
+.reviews .box .top .avgRate .rates{
+width: 70%;
+padding-top: 10%;
+font-size: 16px;
+padding-left: 10%;
+}
+.reviews .box .top .avgRate .rates p{
+padding-left: 3%;
+}
+.reviews .box .top .totalStar{
+display: block;
+overflow: hidden;
+}
+
+.reviews .box .top .totalStar li{
+width: 100%;
+display: flex;
+margin-top: 4%;
+height: 40px;
+position: relative;
+list-style: none;
+}
+.reviews .box .top .totalStar li .headings{ color: red;
+font-size: 20px;
+width: 18%;
+text-align: left;
+padding-left: 5%;
+}
+.reviews .box .top .totalStar li .progress{ 
+width: 60%;
+border-radius: 10px;
+height: 8px;
+margin-top: 2%;
+margin-left: 5%;
+box-shadow: 0px 0px 10px 2px rgb(220, 220, 220);
+background-color: rgb(0, 152, 217);
+
+}
+.reviews .box .top .totalStar li .percent{ 
+text-align: center;
+color: rgb(52, 52, 52);
+position: absolute;
+top: 0;
+right: 0;
+width: 17%;
+}
+
 .reviews .box .filterReview{
 width: 92%;
 margin-top: 2%;
@@ -228,4 +285,150 @@ margin-left: 4%;
 border: 3px;
 background-color: rgb(242, 242, 242);
 height: 60px;
+display: flex;
+}
+
+.reviews .box .filterReview .titles{
+width: 50%;
+padding-top: 1.5%;
+padding-left: 2%;
+}
+.reviews .box .filterReview .filterSection{
+width: 50%;
+height: 100%;
+display: flex;
+padding-left: 6%;
+}
+
+
+.reviews .box .filterReview .filterSection .sections{
+width: 44%;
+display: flex;
+margin-left: 2%;
+}
+.reviews .box .filterReview .filterSection .sections h1{
+font-size: 18px;
+padding-top: 4%;
+color: rgb(66, 66, 66);
+}
+.reviews .box .filterReview .filterSection .sections select{
+text-align: center;
+color: rgb(87, 87, 87);
+height: 30px;
+margin-left: 5%;
+outline: none;
+border: none;
+margin-top: 8%;
+width: 110px;
+box-shadow: 0px 0px 12px 2px rgb(187, 187, 187);
+}
+
+
+.reviews .box .reviewsSectionField{
+
+ overflow: hidden;
+}
+
+
+.reviews .box .reviewsSectionField .childs{
+width: 92%;
+margin-left: 4%;
+height: 400px;
+padding-bottom: 2%;
+border-bottom: 1px solid rgb(99, 99, 99);
+                overflow-x: hidden;
+                overflow-y: scroll;
+}
+.reviews .box .reviewsSectionField .childs::-webkit-scrollbar {
+                display: none;
+            }
+
+.reviews .box .reviewsSectionField .reviewSection{
+width: 100%;
+background-color: rgb(237, 237, 237);
+height: 100px;
+margin-top: 1%; 
+}
+
+.reviews .box .clientReview{
+margin-left: 4%;
+background-color: rgb(233, 233, 233);
+height: auto;
+width: 92%;
+padding-bottom: 2%;
+margin-top: 3%;
+}
+.reviews .box .clientReview h1{
+color: rgb(62, 62, 62);
+font-size: 25px;
+width: 100%;
+padding-top: 5%;
+padding-left: 3%;
+padding-bottom: 2%;
+}
+.reviews .box .clientReview form input{
+width: 92%;
+padding-top: 1%;
+padding-bottom: 1%;
+padding-left: 2%;
+margin-left: 3%;
+outline: none;
+border: none;
+font-size: 21px;
+}
+.reviews .box .clientReview form textarea{
+width: 92%;
+padding-top: 1%;
+padding-bottom: 17%;
+padding-left: 2%;
+margin-left: 3%;
+outline: none;
+border: none;
+margin-top: 1%;
+resize: none;
+margin-bottom: 4%;
+font-size: 21px;
+}
+.reviews .box .clientReview form .rateSection{
+width: 92%;
+display: flex;
+margin-left: 3%;
+position: relative;
+height: auto;
+}
+.reviews .box .clientReview form .rateSection h2{
+font-size: 17px;
+}
+
+.reviews .box .clientReview form .rateSection .rateClient{
+margin-left: 3%;
+margin-top: 1.2%;
+position: absolute;
+top: 0;
+left: 22%;
+}
+.reviews .box .clientReview form .rateSection .rateClient .tool{
+font-size: 10px;
+}
+.reviews .box .clientReview form .rateSection .rateClient .sizesofStar{
+font-size: 2px;
+}
+.reviews .box .clientReview button{
+width: 200px;
+margin-top: 6%;
+padding-top: 1%;padding-bottom: 1%;
+font-size: 20px;
+cursor: pointer;
+border-radius: 30px;
+margin-bottom: 3%;
+margin-left: 3%;
+border: none;
+box-shadow: 0px 0px 12px 2px rgb(44, 40, 40);
+transition: all 0.5s;
+}
+.reviews .box .clientReview button:hover{
+background-color: rgb(255, 94, 0);
+color: white;
+box-shadow: 0px 0px 12px 2px rgb(252, 180, 180);
+
 }
