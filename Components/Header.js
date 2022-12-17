@@ -278,6 +278,7 @@ progress: undefined,
 });
 setUserLogin(false);
 localStorage.removeItem('login')
+    localStorage.removeItem("itemOrder");
 const redirect=()=>{
 router.push("/");
 }

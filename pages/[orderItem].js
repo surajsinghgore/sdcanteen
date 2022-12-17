@@ -60,8 +60,9 @@ export default function OrderItem() {
     let subData = item[0].ItemCost.filter((items) => {
       return items._id == subId;
     });
-    if (subData.length == 0 || subData == undefined) {
-      toast.warn(`please try agian `, {
+   
+    if ((subData.length==0)||(subData == undefined)) {
+      toast.warn(`sorry something went wrong, please try again later`, {
         position: "bottom-right",
         autoClose: 2000,
         hideProgressBar: false,
@@ -116,7 +117,6 @@ export default function OrderItem() {
         draggable: true,
         progress: undefined,
       });
-      localStorage.removeItem("itemOrder");
       return;
     }
     if (coffeeFind != undefined) {
@@ -142,7 +142,7 @@ export default function OrderItem() {
         draggable: true,
         progress: undefined,
       });
-      localStorage.removeItem("itemOrder");
+
       return;
     }
     if (drinkFind != undefined) {
@@ -168,7 +168,7 @@ export default function OrderItem() {
         draggable: true,
         progress: undefined,
       });
-      localStorage.removeItem("itemOrder");
+     
       return;
     }
     if (juiceFind != undefined) {
@@ -194,7 +194,7 @@ export default function OrderItem() {
         draggable: true,
         progress: undefined,
       });
-      localStorage.removeItem("itemOrder");
+     
       return;
     }
   };
@@ -316,7 +316,7 @@ export default function OrderItem() {
           draggable: true,
           progress: undefined,
         });
-        localStorage.removeItem("itemOrder");
+    
         router.push("/Cart");
         return;
       }
@@ -343,7 +343,7 @@ export default function OrderItem() {
           draggable: true,
           progress: undefined,
         });
-        localStorage.removeItem("itemOrder");
+
         router.push("/Cart");
         return;
       }
@@ -370,7 +370,7 @@ export default function OrderItem() {
           draggable: true,
           progress: undefined,
         });
-        localStorage.removeItem("itemOrder");
+
         router.push("/Cart");
         return;
       }
@@ -397,7 +397,7 @@ export default function OrderItem() {
           draggable: true,
           progress: undefined,
         });
-        localStorage.removeItem("itemOrder");
+  
         router.push("/Cart");
         return;
       }
@@ -587,17 +587,12 @@ export default function OrderItem() {
                 <div className={style.childs}>
                   <div className={style.reviewSection}></div>
 
-                  <div className={style.reviewSection}></div>
-                  <div className={style.reviewSection}></div>
-                  <div className={style.reviewSection}></div>
-                  <div className={style.reviewSection}></div>
-                  <div className={style.reviewSection}></div>
-                  <div className={style.reviewSection}></div>
+            
                 </div>
               </div>
 
               <div className={style.clientReview}>
-                <h1>Leave feedback about Item</h1>
+                <h1>Leave feedback about this Food for others</h1>
 
                 <form>
                   <input type="text" placeholder="Client Name" readOnly />
@@ -856,7 +851,7 @@ export default function OrderItem() {
               </div>
 
               <div className={style.clientReview}>
-                <h1>Leave feedback about Item</h1>
+                <h1>Leave feedback about this Coffee for others</h1>
 
                 <form>
                   <input type="text" placeholder="Client Name" readOnly />
@@ -1375,7 +1370,7 @@ export default function OrderItem() {
               </div>
 
               <div className={style.clientReview}>
-                <h1>Leave feedback about Item</h1>
+                <h1>Leave feedback about this Item</h1>
 
                 <form>
                   <input type="text" placeholder="Client Name" readOnly />

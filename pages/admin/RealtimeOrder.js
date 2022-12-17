@@ -229,7 +229,10 @@ setInterval(changes,1000*seconds);
   // filter using category
   const changingCategory = (e) => {
     setCategory(e.target.value);
-    let value = document.getElementById("category").value;
+  };
+ let result = [];
+useEffect(()=>{
+  let value = document.getElementById("category").value;
     if (value == "null") {
       if (localStorage.getItem("active") == "pending") {
         setData(pendingData);
@@ -243,7 +246,7 @@ setInterval(changes,1000*seconds);
         setData(allData);
       }
     } else {
-      let arr = [];
+     let arr = [];
       if (localStorage.getItem("active") == "pending") {
         arr = pendingData;
       } else if (localStorage.getItem("active") == "complete") {
@@ -256,18 +259,24 @@ setInterval(changes,1000*seconds);
         arr = allData;
       }
 
-
-const result = arr.map(item => ({
-    ...item,
-    ItemsOrder: item.ItemsOrder
-      .filter(child => child.CategoryPrimary.includes(value.toLowerCase()))
-  }))
-  .filter(item => item.ItemsOrder.length > 0)
-let newData=JSON.parse(JSON.stringify(result))
-  setData(newData)
-  
+result=arr.map((element) => {
+  return {...element, ItemsOrder: element.ItemsOrder.filter((subElement) => subElement.CategoryPrimary.includes(value.toLowerCase()))}
+})
+    
     }
-  };
+},[category])
+
+useEffect(()=>{
+if(result.length!=0){
+for(let i=0;i<result.length;i++){
+console.log(result[i].ItemsOrder.length)
+
+}
+let newData=JSON.parse(JSON.stringify(result))
+  setData(result)
+}
+})
+
 
   // filter using anayalsis
 
@@ -485,9 +494,9 @@ let newData=JSON.parse(JSON.stringify(result))
                           <div className={StyleRealtime.div7}>Order Status</div>
                           <div className={StyleRealtime.div8}>Action</div>
                         </div>
-                        {item.ItemsOrder != undefined ? (
-                          <ShowHideInRealtime item={item.ItemsOrder} />
-                        ) : ""}
+                     
+                          <ShowHideInRealtime item={item.ItemsOrder} key={item._id}/>
+                      
                       </div>
                     </div>
                   );
