@@ -13,18 +13,9 @@ import { Rating } from "react-simple-star-rating";
 import { useCart } from "react-use-cart";
 import { FaSort } from "react-icons/fa";
 import { FaFilter } from "react-icons/fa";
+import RateItem from "./RateItem";
 export default function OrderItem() {
   // item rate manage
-  const [itemRate, setItemRate] = useState(0);
-  const [serviceRate, setServiceRate] = useState(0);
-  const [qualityRate, setQualityRate] = useState(0);
-  const [priceRate, setPriceRate] = useState(0);
-
-  const handleItemRate = (rate) => setItemRate(rate);
-  const handleServiceRate = (rate) => setServiceRate(rate);
-  const handlePriceRate = (rate) => setPriceRate(rate);
-  const handleQualityRate = (rate) => setQualityRate(rate);
-
   const [price, setPrice] = useState("");
   const [selected, setSelected] = useState("yes");
   const { addItem, removeItem, items, emptyCart } = useCart();
@@ -32,16 +23,19 @@ export default function OrderItem() {
   const [data, setData] = useState([]);
   const router = useRouter();
   const query = router.query.orderItem;
-
+const [productId,setProductId]=useState();
   useEffect(() => {
+  
     const FindDataUsingSearch = async () => {
       if (query != undefined) {
+
         const res = await fetch(`${HOST}/api/ShowSingleItem?item=${query}`);
         const dataRes = await res.json();
         if (res.status == 201) {
           await setData(dataRes.data);
           await setPrice(dataRes.data[0].ItemCost[0].Price);
           await setSelected(dataRes.data[0].ItemCost[0].sizeName);
+          await setProductId(dataRes.data[0]._id);
           localStorage.setItem("itemOrder", dataRes.data[0].ItemCost[0]._id);
         }
       }
@@ -60,8 +54,8 @@ export default function OrderItem() {
     let subData = item[0].ItemCost.filter((items) => {
       return items._id == subId;
     });
-   
-    if ((subData.length==0)||(subData == undefined)) {
+
+    if (subData.length == 0 || subData == undefined) {
       toast.warn(`sorry something went wrong, please try again later`, {
         position: "bottom-right",
         autoClose: 2000,
@@ -168,7 +162,7 @@ export default function OrderItem() {
         draggable: true,
         progress: undefined,
       });
-     
+
       return;
     }
     if (juiceFind != undefined) {
@@ -194,7 +188,7 @@ export default function OrderItem() {
         draggable: true,
         progress: undefined,
       });
-     
+
       return;
     }
   };
@@ -225,7 +219,6 @@ export default function OrderItem() {
       }
     });
   });
-
   const BuyNow = (item) => {
     let check = false;
     let cartData = items;
@@ -316,7 +309,7 @@ export default function OrderItem() {
           draggable: true,
           progress: undefined,
         });
-    
+
         router.push("/Cart");
         return;
       }
@@ -397,12 +390,13 @@ export default function OrderItem() {
           draggable: true,
           progress: undefined,
         });
-  
+
         router.push("/Cart");
         return;
       }
     }
   };
+
 
   function FilterCard() {
     let foodFind;
@@ -581,100 +575,23 @@ export default function OrderItem() {
                   </div>
                 </div>
               </div>
-
               {/* realreviews Corner */}
               <div className={style.reviewsSectionField}>
                 <div className={style.childs}>
                   <div className={style.reviewSection}></div>
-
-            
                 </div>
-              </div>
+                {(localStorage.getItem('login')!=undefined)? <RateItem productIds={productId}/>:""}
 
-              <div className={style.clientReview}>
-                <h1>Leave feedback about this Food for others</h1>
 
-                <form>
-                  <input type="text" placeholder="Client Name" readOnly />
-                  <textarea
-                    name=""
-                    placeholder="Write Your Reviews*"
-                  ></textarea>
 
-                  {/* Quality Rate */}
-                  <div className={style.rateSection}>
-                    {" "}
-                    <h2>Quality Rate of Item: </h2>
-                    <div className={style.rateClient}>
-                      <Rating
-                        initialValue={qualityRate}
-                        allowFraction="true"
-                        showTooltip
-                        onClick={handleQualityRate}
-                        tooltipClassName={style.tool}
-                        className={style.sizesofStar}
-                        transition
-                      />
-                    </div>
-                  </div>
-
-                  {/* service rate */}
-                  <div className={style.rateSection}>
-                    {" "}
-                    <h2>Service Rate: </h2>
-                    <div className={style.rateClient}>
-                      <Rating
-                        initialValue={serviceRate}
-                        allowFraction="true"
-                        showTooltip
-                        onClick={handleServiceRate}
-                        tooltipClassName={style.tool}
-                        className={style.sizesofStar}
-                        transition
-                      />
-                    </div>
-                  </div>
-                  {/* price rate */}
-                  <div className={style.rateSection}>
-                    {" "}
-                    <h2>Price Rate of Item: </h2>
-                    <div className={style.rateClient}>
-                      <Rating
-                        initialValue={priceRate}
-                        allowFraction="true"
-                        showTooltip
-                        onClick={handlePriceRate}
-                        tooltipClassName={style.tool}
-                        className={style.sizesofStar}
-                        transition
-                      />
-                    </div>
-                  </div>
-
-                  {/* rate Item */}
-                  <div className={style.rateSection}>
-                    {" "}
-                    <h2>Overall Rate of Item: </h2>
-                    <div className={style.rateClient}>
-                      <Rating
-                        initialValue={itemRate}
-                        allowFraction="true"
-                        showTooltip
-                        onClick={handleItemRate}
-                        tooltipClassName={style.tool}
-                        className={style.sizesofStar}
-                        transition
-                      />
-                    </div>
-                  </div>
-                </form>
-                <button>Submit Review</button>
               </div>
             </div>
           </div>
+     
         </>
       );
-    } else if (coffeeFind != undefined) {
+    } 
+    else if (coffeeFind != undefined) {
       return (
         <>
           <div className={style.topSection}>
@@ -837,103 +754,23 @@ export default function OrderItem() {
               </div>
 
               {/* realreviews Corner */}
-              <div className={style.reviewsSectionField}>
+           <div className={style.reviewsSectionField}>
                 <div className={style.childs}>
                   <div className={style.reviewSection}></div>
-
-                  <div className={style.reviewSection}></div>
-                  <div className={style.reviewSection}></div>
-                  <div className={style.reviewSection}></div>
-                  <div className={style.reviewSection}></div>
-                  <div className={style.reviewSection}></div>
-                  <div className={style.reviewSection}></div>
                 </div>
+
+<RateItem />
+
+
               </div>
 
-              <div className={style.clientReview}>
-                <h1>Leave feedback about this Coffee for others</h1>
-
-                <form>
-                  <input type="text" placeholder="Client Name" readOnly />
-                  <textarea
-                    name=""
-                    placeholder="Write Your Reviews*"
-                  ></textarea>
-
-                  {/* Quality Rate */}
-                  <div className={style.rateSection}>
-                    {" "}
-                    <h2>Quality Rate of Item: </h2>
-                    <div className={style.rateClient}>
-                      <Rating
-                        initialValue={qualityRate}
-                        allowFraction="true"
-                        showTooltip
-                        onClick={handleQualityRate}
-                        tooltipClassName={style.tool}
-                        className={style.sizesofStar}
-                        transition
-                      />
-                    </div>
-                  </div>
-
-                  {/* service rate */}
-                  <div className={style.rateSection}>
-                    {" "}
-                    <h2>Service Rate: </h2>
-                    <div className={style.rateClient}>
-                      <Rating
-                        initialValue={serviceRate}
-                        allowFraction="true"
-                        showTooltip
-                        onClick={handleServiceRate}
-                        tooltipClassName={style.tool}
-                        className={style.sizesofStar}
-                        transition
-                      />
-                    </div>
-                  </div>
-                  {/* price rate */}
-                  <div className={style.rateSection}>
-                    {" "}
-                    <h2>Price Rate of Item: </h2>
-                    <div className={style.rateClient}>
-                      <Rating
-                        initialValue={priceRate}
-                        allowFraction="true"
-                        showTooltip
-                        onClick={handlePriceRate}
-                        tooltipClassName={style.tool}
-                        className={style.sizesofStar}
-                        transition
-                      />
-                    </div>
-                  </div>
-
-                  {/* rate Item */}
-                  <div className={style.rateSection}>
-                    {" "}
-                    <h2>Overall Rate of Item: </h2>
-                    <div className={style.rateClient}>
-                      <Rating
-                        initialValue={itemRate}
-                        allowFraction="true"
-                        showTooltip
-                        onClick={handleItemRate}
-                        tooltipClassName={style.tool}
-                        className={style.sizesofStar}
-                        transition
-                      />
-                    </div>
-                  </div>
-                </form>
-                <button>Submit Review</button>
-              </div>
+       
             </div>
           </div>
         </>
       );
-    } else if (drinkFind != undefined) {
+    } 
+    else if (drinkFind != undefined) {
       return (
         <>
           <div className={style.topSection}>
@@ -1108,91 +945,12 @@ export default function OrderItem() {
                   <div className={style.reviewSection}></div>
                 </div>
               </div>
-
-              <div className={style.clientReview}>
-                <h1>Leave feedback about Item</h1>
-
-                <form>
-                  <input type="text" placeholder="Client Name" readOnly />
-                  <textarea
-                    name=""
-                    placeholder="Write Your Reviews*"
-                  ></textarea>
-
-                  {/* Quality Rate */}
-                  <div className={style.rateSection}>
-                    {" "}
-                    <h2>Quality Rate of Item: </h2>
-                    <div className={style.rateClient}>
-                      <Rating
-                        initialValue={qualityRate}
-                        allowFraction="true"
-                        showTooltip
-                        onClick={handleQualityRate}
-                        tooltipClassName={style.tool}
-                        className={style.sizesofStar}
-                        transition
-                      />
-                    </div>
-                  </div>
-
-                  {/* service rate */}
-                  <div className={style.rateSection}>
-                    {" "}
-                    <h2>Service Rate: </h2>
-                    <div className={style.rateClient}>
-                      <Rating
-                        initialValue={serviceRate}
-                        allowFraction="true"
-                        showTooltip
-                        onClick={handleServiceRate}
-                        tooltipClassName={style.tool}
-                        className={style.sizesofStar}
-                        transition
-                      />
-                    </div>
-                  </div>
-                  {/* price rate */}
-                  <div className={style.rateSection}>
-                    {" "}
-                    <h2>Price Rate of Item: </h2>
-                    <div className={style.rateClient}>
-                      <Rating
-                        initialValue={priceRate}
-                        allowFraction="true"
-                        showTooltip
-                        onClick={handlePriceRate}
-                        tooltipClassName={style.tool}
-                        className={style.sizesofStar}
-                        transition
-                      />
-                    </div>
-                  </div>
-
-                  {/* rate Item */}
-                  <div className={style.rateSection}>
-                    {" "}
-                    <h2>Overall Rate of Item: </h2>
-                    <div className={style.rateClient}>
-                      <Rating
-                        initialValue={itemRate}
-                        allowFraction="true"
-                        showTooltip
-                        onClick={handleItemRate}
-                        tooltipClassName={style.tool}
-                        className={style.sizesofStar}
-                        transition
-                      />
-                    </div>
-                  </div>
-                </form>
-                <button>Submit Review</button>
-              </div>
             </div>
           </div>
         </>
       );
-    } else if (juiceFind != undefined) {
+    } 
+    else if (juiceFind != undefined) {
       return (
         <>
           <div className={style.topSection}>
@@ -1369,85 +1127,7 @@ export default function OrderItem() {
                 </div>
               </div>
 
-              <div className={style.clientReview}>
-                <h1>Leave feedback about this Item</h1>
-
-                <form>
-                  <input type="text" placeholder="Client Name" readOnly />
-                  <textarea
-                    name=""
-                    placeholder="Write Your Reviews*"
-                  ></textarea>
-
-                  {/* Quality Rate */}
-                  <div className={style.rateSection}>
-                    {" "}
-                    <h2>Quality Rate of Item: </h2>
-                    <div className={style.rateClient}>
-                      <Rating
-                        initialValue={qualityRate}
-                        allowFraction="true"
-                        showTooltip
-                        onClick={handleQualityRate}
-                        tooltipClassName={style.tool}
-                        className={style.sizesofStar}
-                        transition
-                      />
-                    </div>
-                  </div>
-
-                  {/* service rate */}
-                  <div className={style.rateSection}>
-                    {" "}
-                    <h2>Service Rate: </h2>
-                    <div className={style.rateClient}>
-                      <Rating
-                        initialValue={serviceRate}
-                        allowFraction="true"
-                        showTooltip
-                        onClick={handleServiceRate}
-                        tooltipClassName={style.tool}
-                        className={style.sizesofStar}
-                        transition
-                      />
-                    </div>
-                  </div>
-                  {/* price rate */}
-                  <div className={style.rateSection}>
-                    {" "}
-                    <h2>Price Rate of Item: </h2>
-                    <div className={style.rateClient}>
-                      <Rating
-                        initialValue={priceRate}
-                        allowFraction="true"
-                        showTooltip
-                        onClick={handlePriceRate}
-                        tooltipClassName={style.tool}
-                        className={style.sizesofStar}
-                        transition
-                      />
-                    </div>
-                  </div>
-
-                  {/* rate Item */}
-                  <div className={style.rateSection}>
-                    {" "}
-                    <h2>Overall Rate of Item: </h2>
-                    <div className={style.rateClient}>
-                      <Rating
-                        initialValue={itemRate}
-                        allowFraction="true"
-                        showTooltip
-                        onClick={handleItemRate}
-                        tooltipClassName={style.tool}
-                        className={style.sizesofStar}
-                        transition
-                      />
-                    </div>
-                  </div>
-                </form>
-                <button>Submit Review</button>
-              </div>
+      
             </div>
           </div>
         </>

@@ -8,15 +8,17 @@ import Styles from "../styles/admin.module.css";
 import ClientStyle from "../styles/ClinetLogin.module.css";
 import { MdOutlineAlternateEmail } from 'react-icons/md';
 import { RiLockPasswordLine } from 'react-icons/ri';
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 let HOST = process.env.NEXT_PUBLIC_API_URL;
 import router from 'next/router'
 import HidePagesAfterLogin from "./HidePagesAfterLogin";
-
+import { useContext } from "react";
+import { AllContext } from "../context/AllContext";
 
 export default function ClientLogin() {
+  const { setUserData } = useContext(AllContext);
 const [email,setEmail]=useState("")
 const [password,setPassword]=useState("")
 const Login=async(e)=>{
@@ -86,6 +88,7 @@ return ;
 }
 
 if(res.status==201){
+setUserData(data);
 toast.success("Successfully Login", {
 position: "bottom-right",
 autoClose: 5000,
@@ -143,6 +146,7 @@ return ;
 }
 
 if(res.status===201){
+setUserData(data);
 toast.success("Successfully Login", {
 position: "bottom-right",
 autoClose: 5000,

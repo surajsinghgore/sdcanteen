@@ -15,7 +15,7 @@ const [filterDrinkItemsData,setFilterDrinkItemsData]=useState([]);
 const [filterJuiceItemsData,setFilterJuiceItemsData]=useState([]);
 const [statesForRealtime,setStateForRealtime]=useState(true);
 const [deletes,setDeletes]=useState(false);
-
+const [userData,setUserData]=useState([]);
 
 
 const updateFoodCategories=async(id)=>{
@@ -104,14 +104,14 @@ filterAllFoodCategoriesData,
 deletes,setDeletes,setStateForRealtime,
 filterFoodItemsData,
 filterCoffeeItemsData,
-statesForRealtime,
+statesForRealtime,userData,
 filterDrinkItemsData,
 filterJuiceItemsData,
 updateFoodCategories,
 updateCoffeeCategories,
 updateDrinkCategories,
 updateJuiceCategories,
-updateFoodItem,
+updateFoodItem,setUserData,
 updateCoffeeItem,
 updateDrinkItem,
 updateJuiceItem,

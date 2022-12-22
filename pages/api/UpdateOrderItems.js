@@ -1,6 +1,8 @@
 import DbConnection from "./Middleware/DbConnection";
 import OrderSchemaDataBase from "./Schema/OrderSchema";
 import VerifyAdmin from "./Middleware/MiddlewareAdminVerify";
+
+
 export default async function UpdateorderItems(req, res) {
   if (req.method == "POST") {
     try {
@@ -10,45 +12,41 @@ export default async function UpdateorderItems(req, res) {
     let price=req.body.price;
     let status=req.body.status;
 
+//!1.. reject order 
     if(price==undefined){
      if(id==undefined||status==undefined){
       res.status(400).json({ message: "Please fill All the filed Id,Status" });
 }
   
 let data=await OrderSchemaDataBase.find({ItemsOrder: {$elemMatch: {_id: id}}})
+
 if(data.length==0){
     return  res.status(404).json({ message: "Record Not Found" });
 }
+
+// update status
 await OrderSchemaDataBase.findOneAndUpdate({ItemsOrder: {$elemMatch: {_id: id}}}, {$set:{"ItemsOrder.$.OrderStatus":status}})
+// find updated records tp manage overall update records status update
 let datas=await OrderSchemaDataBase.find({ItemsOrder: {$elemMatch: {_id: id}}})
 let dataUpdate=await OrderSchemaDataBase.find({ItemsOrder: {$elemMatch: {_id: id}}})
 let s=0;
 let com=0;
 for(let i=0;i<dataUpdate.length;i++){
- dataUpdate[i].ItemsOrder.map((item)=>{
- if(item.OrderStatus=="reject"){
-s=s+1;
- }
-  if(item.OrderStatus=="complete"){
-com=com+1;
- }
- })
-
- let totals=s+com;
- if(dataUpdate[i].ItemsOrder.length==totals){
   let ids=dataUpdate[i]._id;
- await OrderSchemaDataBase.findByIdAndUpdate(ids, {
+   await OrderSchemaDataBase.findByIdAndUpdate(ids, {
           OrderStatus: "reject"
         });
-
  }
-}
 
 res.status(201).json({message:datas})
 
 
     }
-    else{
+
+
+
+//!2. complete order manage
+else{
   
     if(id==undefined||price==undefined||status==undefined){
       res.status(400).json({ message: "Please fill All the filed Id,Price,Status" });
@@ -73,6 +71,8 @@ rej=rej+1;
  }
  })
  let totalItemsSize=s+rej;
+
+// complete order
  if(dataUpdate[i].ItemsOrder.length==s){
   let ids=dataUpdate[i]._id;
   let TotalAmount=dataUpdate[i].TotalAmount;
@@ -81,7 +81,19 @@ rej=rej+1;
         });
 
  }
- if(dataUpdate[i].ItemsOrder.length==totalItemsSize){
+//  reject order
+ else{
+  if(dataUpdate[i].ItemsOrder.length==totalItemsSize){
+   let ids=dataUpdate[i]._id;
+  let TotalAmount=dataUpdate[i].TotalAmount;
+ await OrderSchemaDataBase.findByIdAndUpdate(ids, {
+          OrderStatus: "reject",AmountReceived:TotalAmount
+        });
+ 
+ }
+ }
+
+
  let sum=0;
   let ids=dataUpdate[i]._id;
            dataUpdate[i].ItemsOrder.map((itm)=>{
@@ -91,14 +103,20 @@ rej=rej+1;
  
   let TotalAmount=sum;
  await OrderSchemaDataBase.findByIdAndUpdate(ids, {
-          OrderStatus: "reject",AmountReceived:TotalAmount
+       AmountReceived:TotalAmount
         });
- }
+
+
+
+
+
+
 }
 
 res.status(201).json({message:datas})
   
     }
+
 
 
     } catch (error) {

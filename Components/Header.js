@@ -19,9 +19,11 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import boyProfile from '/public/men.png'
 import girlProfile from '/public/girl.png'
-
+import { AllContext } from "../context/AllContext";
+import { useContext } from "react";
 
 export default function Header() {
+  const { setUserData } = useContext(AllContext);
 const [search,setSearch]=useState('');
 const [searchData,setSerachData]=useState([]);
 const [imgs,setImgs]=useState(boyProfile);
@@ -80,6 +82,7 @@ return ;
 
 
 }
+setUserData(data)
 if(data.data!==undefined){
 setUserLogin(true);
   if(data.data.Gender=='male'){
