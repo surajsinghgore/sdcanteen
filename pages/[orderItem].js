@@ -13,9 +13,18 @@ import { Rating } from "react-simple-star-rating";
 import { useCart } from "react-use-cart";
 import { FaSort } from "react-icons/fa";
 import { FaFilter } from "react-icons/fa";
+import { BiTime } from "react-icons/bi";
+import { AiOutlineCalendar } from "react-icons/ai";
 import RateItem from "./RateItem";
 export default function OrderItem() {
   // item rate manage
+  const [ratingData, setRatingData] = useState([]);
+  const [quality, setQuality] = useState(100);
+  const [prices, setPrices] = useState(100);
+  const [service, setService] = useState(100);
+  const [avg, setAvg] = useState(5);
+  const [allowComment, setAllowComment] = useState(false);
+  const [revLen, setRevLen] = useState(0);
   const [price, setPrice] = useState("");
   const [selected, setSelected] = useState("yes");
   const { addItem, removeItem, items, emptyCart } = useCart();
@@ -23,12 +32,10 @@ export default function OrderItem() {
   const [data, setData] = useState([]);
   const router = useRouter();
   const query = router.query.orderItem;
-const [productId,setProductId]=useState();
+  const [productId, setProductId] = useState();
   useEffect(() => {
-  
     const FindDataUsingSearch = async () => {
       if (query != undefined) {
-
         const res = await fetch(`${HOST}/api/ShowSingleItem?item=${query}`);
         const dataRes = await res.json();
         if (res.status == 201) {
@@ -397,7 +404,249 @@ const [productId,setProductId]=useState();
     }
   };
 
+  // load rating data
+  useEffect(() => {
+    const dataRatingFetch = async () => {
+      if (productId != undefined) {
+        let fetchRate = await fetch(
+          `${HOST}/api/ShowRatingOfItems?productId=${productId}`
+        );
+        const dataRess = await fetchRate.json();
+        if (fetchRate.status == 201) {
+          setRatingData(dataRess.data);
+          setAvg(dataRess.data[0].Rating);
+          setRevLen(dataRess.data[0].ItemsReviwers.length);
+          function QualityRateCalculate() {
+            let ZeroPointFive = 0;
+            let OnePointFive = 0;
+            let TwoPointFive = 0;
+            let ThreePointFive = 0;
+            let FourPointFive = 0;
+            let One = 0;
+            let two = 0;
+            let three = 0;
+            let four = 0;
+            let five = 0;
+            dataRess.data[0].ItemsReviwers.map((item) => {
+              if (item.QualityRate == "0.5") {
+                ZeroPointFive++;
+              }
 
+              if (item.QualityRate == "1") {
+                One++;
+              }
+              if (item.QualityRate == "1.5") {
+                OnePointFive++;
+              }
+              if (item.QualityRate == "2") {
+                two++;
+              }
+              if (item.QualityRate == "2.5") {
+                TwoPointFive++;
+              }
+              if (item.QualityRate == "3") {
+                three++;
+              }
+              if (item.QualityRate == "3.5") {
+                ThreePointFive++;
+              }
+              if (item.QualityRate == "4") {
+                four++;
+              }
+              if (item.QualityRate == "4.5") {
+                FourPointFive++;
+              }
+              if (item.QualityRate == "5") {
+                five++;
+              }
+            });
+            ZeroPointFive = ZeroPointFive * 10;
+            One = One * 10;
+            OnePointFive = OnePointFive * 10;
+            two = two * 10;
+            TwoPointFive = TwoPointFive * 10;
+            three = three * 10;
+            ThreePointFive = ThreePointFive * 10;
+            four = four * 10;
+            FourPointFive = FourPointFive * 10;
+            five = five * 10;
+            let OverAllServiceRate =
+              (5 * five +
+                4.5 * FourPointFive +
+                4 * four +
+                3.5 * ThreePointFive +
+                3 * three +
+                2.5 * TwoPointFive +
+                2 * two +
+                1.5 * OnePointFive +
+                1 * One +
+                0.5 * ZeroPointFive) /
+              100;
+            setQuality(OverAllServiceRate * 100);
+          }
+          function PriceRateCalculate() {
+            let ZeroPointFive = 0;
+            let OnePointFive = 0;
+            let TwoPointFive = 0;
+            let ThreePointFive = 0;
+            let FourPointFive = 0;
+            let One = 0;
+            let two = 0;
+            let three = 0;
+            let four = 0;
+            let five = 0;
+            dataRess.data[0].ItemsReviwers.map((item) => {
+              if (item.PriceRate == "0.5") {
+                ZeroPointFive++;
+              }
+              if (item.PriceRate == "1") {
+                One++;
+              }
+              if (item.PriceRate == "1.5") {
+                OnePointFive++;
+              }
+              if (item.PriceRate == "2") {
+                two++;
+              }
+              if (item.PriceRate == "2.5") {
+                TwoPointFive++;
+              }
+              if (item.PriceRate == "3") {
+                three++;
+              }
+              if (item.PriceRate == "3.5") {
+                ThreePointFive++;
+              }
+              if (item.PriceRate == "4") {
+                four++;
+              }
+              if (item.PriceRate == "4.5") {
+                FourPointFive++;
+              }
+              if (item.PriceRate == "5") {
+                five++;
+              }
+            });
+            ZeroPointFive = ZeroPointFive * 10;
+            One = One * 10;
+            OnePointFive = OnePointFive * 10;
+            two = two * 10;
+            TwoPointFive = TwoPointFive * 10;
+            three = three * 10;
+            ThreePointFive = ThreePointFive * 10;
+            four = four * 10;
+            FourPointFive = FourPointFive * 10;
+            five = five * 10;
+            let OverAllServiceRate =
+              (5 * five +
+                4.5 * FourPointFive +
+                4 * four +
+                3.5 * ThreePointFive +
+                3 * three +
+                2.5 * TwoPointFive +
+                2 * two +
+                1.5 * OnePointFive +
+                1 * One +
+                0.5 * ZeroPointFive) /
+              100;
+            setPrices(OverAllServiceRate * 100);
+          }
+          function ServiceRateCalculate() {
+            let ZeroPointFive = 0;
+            let OnePointFive = 0;
+            let TwoPointFive = 0;
+            let ThreePointFive = 0;
+            let FourPointFive = 0;
+            let One = 0;
+            let two = 0;
+            let three = 0;
+            let four = 0;
+            let five = 0;
+            dataRess.data[0].ItemsReviwers.map((item) => {
+              if (item.ServiceRate == "0.5") {
+                ZeroPointFive++;
+              }
+              if (item.ServiceRate == "1") {
+                One++;
+              }
+              if (item.ServiceRate == "1.5") {
+                OnePointFive++;
+              }
+              if (item.ServiceRate == "2") {
+                two++;
+              }
+              if (item.ServiceRate == "2.5") {
+                TwoPointFive++;
+              }
+              if (item.ServiceRate == "3") {
+                three++;
+              }
+              if (item.ServiceRate == "3.5") {
+                ThreePointFive++;
+              }
+              if (item.ServiceRate == "4") {
+                four++;
+              }
+              if (item.ServiceRate == "4.5") {
+                FourPointFive++;
+              }
+              if (item.ServiceRate == "5") {
+                five++;
+              }
+            });
+            ZeroPointFive = ZeroPointFive * 10;
+            One = One * 10;
+            OnePointFive = OnePointFive * 10;
+            two = two * 10;
+            TwoPointFive = TwoPointFive * 10;
+            three = three * 10;
+            ThreePointFive = ThreePointFive * 10;
+            four = four * 10;
+            FourPointFive = FourPointFive * 10;
+            five = five * 10;
+            let OverAllServiceRate =
+              (5 * five +
+                4.5 * FourPointFive +
+                4 * four +
+                3.5 * ThreePointFive +
+                3 * three +
+                2.5 * TwoPointFive +
+                2 * two +
+                1.5 * OnePointFive +
+                1 * One +
+                0.5 * ZeroPointFive) /
+              100;
+            setService(OverAllServiceRate * 100);
+          }
+          QualityRateCalculate();
+          PriceRateCalculate();
+          ServiceRateCalculate();
+        }
+      }
+    };
+    dataRatingFetch();
+  }, [productId]);
+
+
+// check wheater rating is allowed or not
+useEffect(()=>{
+console.log(allowComment)
+const check=async()=>{
+if(localStorage.getItem('login')!=undefined){
+ if (productId != undefined) {
+ let fetchRes = await fetch(`${HOST}/api/ValidateRatingOrNot?productId=${productId}`)
+if(fetchRes.status==404){
+setAllowComment(false);
+}
+if(fetchRes.status==201){
+setAllowComment(true);
+}
+}
+}
+}
+
+check();
+},[productId])
   function FilterCard() {
     let foodFind;
     let coffeeFind;
@@ -429,13 +678,13 @@ const [productId,setProductId]=useState();
               <div className={style.star}>
                 <div className={style.startSection}>
                   <Rating
-                    initialValue="5"
+                    initialValue={avg}
                     readonly="true"
                     className={style.startIcon}
                     allowFraction
                   />
 
-                  <h5>(1 Customer Review)</h5>
+                  <h5>({revLen} Customer Review)</h5>
                 </div>
               </div>
               <h3>₹ {price}</h3>
@@ -514,39 +763,54 @@ const [productId,setProductId]=useState();
             <div className={style.box}>
               <div className={style.top}>
                 <div className={style.avgRate}>
-                  <h1>5 / 5</h1>
+                  <h1>{avg} / 5</h1>
                   <div className={style.rates}>
                     <Rating
-                      initialValue="5"
+                      initialValue={avg}
                       readonly="true"
                       className={style.startIcon}
                       allowFraction
                     />
-                    <p>Based On 1 rating</p>
+                    <p>Based On {revLen} rating</p>
                   </div>
                 </div>
 
                 <div className={style.totalStar}>
                   <li>
                     <div className={style.headings}>Quality</div>
-                    <div className={style.progress}></div>
-                    <div className={style.percent}>100%</div>
+                    <div className={style.progress}>
+                      <div
+                        className={style.pro}
+                        style={{ width: `${quality}%` }}
+                      ></div>
+                    </div>
+                    <div className={style.percent}>{quality}%</div>
                   </li>
                   <li>
                     <div className={style.headings}>Price</div>
-                    <div className={style.progress}></div>
-                    <div className={style.percent}>100%</div>
+                    <div className={style.progress}>
+                      <div
+                        className={style.pro}
+                        style={{ width: `${prices}%` }}
+                      ></div>
+                    </div>
+                    <div className={style.percent}>{prices}%</div>
                   </li>
                   <li>
                     <div className={style.headings}>Service</div>
-                    <div className={style.progress}></div>
-                    <div className={style.percent}>100%</div>
+                    <div className={style.progress}>
+                      <div
+                        className={style.pro}
+                        style={{ width: `${service}%` }}
+                      ></div>
+                    </div>
+                    <div className={style.percent}>{service}%</div>
                   </li>
                 </div>
               </div>
 
               <div className={style.filterReview}>
-                <div className={style.titles}>Reviewed by 1 user</div>
+                <div className={style.titles}>Reviewed by {revLen} user</div>
 
                 <div className={style.filterSection}>
                   <div className={style.sections}>
@@ -578,20 +842,138 @@ const [productId,setProductId]=useState();
               {/* realreviews Corner */}
               <div className={style.reviewsSectionField}>
                 <div className={style.childs}>
-                  <div className={style.reviewSection}></div>
+                  {ratingData[0] != undefined
+                    ? ratingData[0].ItemsReviwers != undefined
+                      ? ratingData[0].ItemsReviwers.map((item) => {
+                          return (
+                            <div className={style.reviewSection} key={item._id}>
+                              <div className={style.topSection}>
+                                <div className={style.starSection}>
+                                  <Rating
+                                    initialValue={item.QualityRate}
+                                    readonly="true"
+                                    size={30}
+                                    fillColor="rgb(254, 58, 58)"
+                                    allowFraction
+                                  />
+                                  <p> {item.QualityRate} / 5</p>
+                                </div>
+                                <div className={style.userDetails}>
+                                  <h2>By : {item.userName}</h2>
+                                </div>
+
+                                <div className={style.icons}>
+                                  <AiOutlineCalendar className={style.icon} />{" "}
+                                  <p> {item.Date}</p>
+                                  <BiTime className={style.icon} />{" "}
+                                  <p>{item.Time} </p>
+                                </div>
+                              </div>
+
+                              <div className={style.commentStyle}>
+                                <p>{item.Message}</p>
+                              </div>
+                            </div>
+                          );
+                        })
+                      :    <div className={style.reviewSection}>
+                              <div className={style.topSection}>
+                                <div className={style.starSection}>
+                                  <Rating
+                                    initialValue={5}
+                                    readonly="true"
+                                    size={30}
+                                    fillColor="rgb(254, 58, 58)"
+                                    allowFraction
+                                  />
+                                  <p> 5 / 5</p>
+                                </div>
+                                <div className={style.userDetails}>
+                                  <h2>By : admin</h2>
+                                </div>
+
+                                <div className={style.icons}>
+                                  <AiOutlineCalendar className={style.icon} />{" "}
+                                  <p> -</p>
+                                  <BiTime className={style.icon} />{" "}
+                                  <p>- </p>
+                                </div>
+                              </div>
+
+                              <div className={style.commentStyle}>
+                                <p>No Comments yet on this Product</p>
+                              </div>
+                            </div>
+                    : <><div className={style.reviewSection}>
+                              <div className={style.topSection}>
+                                <div className={style.starSection}>
+                                  <Rating
+                                    initialValue={5}
+                                    readonly="true"
+                                    size={30}
+                                    fillColor="rgb(254, 58, 58)"
+                                    allowFraction
+                                  />
+                                  <p> 5 / 5</p>
+                                </div>
+                                <div className={style.userDetails}>
+                                  <h2>By : admin</h2>
+                                </div>
+
+                                <div className={style.icons}>
+                                  <AiOutlineCalendar className={style.icon} />{" "}
+                                  <p> -</p>
+                                  <BiTime className={style.icon} />{" "}
+                                  <p>- </p>
+                                </div>
+                              </div>
+
+                              <div className={style.commentStyle}>
+                                <p>No Comments yet on this Product</p>
+                              </div>
+                            </div>
+<div className={style.reviewSection}>
+                              <div className={style.topSection}>
+                                <div className={style.starSection}>
+                                  <Rating
+                                    initialValue={5}
+                                    readonly="true"
+                                    size={30}
+                                    fillColor="rgb(254, 58, 58)"
+                                    allowFraction
+                                  />
+                                  <p> 5 / 5</p>
+                                </div>
+                                <div className={style.userDetails}>
+                                  <h2>By : admin</h2>
+                                </div>
+
+                                <div className={style.icons}>
+                                  <AiOutlineCalendar className={style.icon} />{" "}
+                                  <p> -</p>
+                                  <BiTime className={style.icon} />{" "}
+                                  <p>- </p>
+                                </div>
+                              </div>
+
+                              <div className={style.commentStyle}>
+                                <p>No Comments yet on this Product</p>
+                              </div>
+                            </div>
+</>}
                 </div>
-                {(localStorage.getItem('login')!=undefined)? <RateItem productIds={productId}/>:""}
 
-
-
+                {(allowComment==true)? (
+                  <RateItem productIds={productId} />
+                ) : (
+                  ""
+                )}
               </div>
             </div>
           </div>
-     
         </>
       );
-    } 
-    else if (coffeeFind != undefined) {
+    } else if (coffeeFind != undefined) {
       return (
         <>
           <div className={style.topSection}>
@@ -754,23 +1136,18 @@ const [productId,setProductId]=useState();
               </div>
 
               {/* realreviews Corner */}
-           <div className={style.reviewsSectionField}>
+              <div className={style.reviewsSectionField}>
                 <div className={style.childs}>
                   <div className={style.reviewSection}></div>
                 </div>
 
-<RateItem />
-
-
+                <RateItem />
               </div>
-
-       
             </div>
           </div>
         </>
       );
-    } 
-    else if (drinkFind != undefined) {
+    } else if (drinkFind != undefined) {
       return (
         <>
           <div className={style.topSection}>
@@ -949,8 +1326,7 @@ const [productId,setProductId]=useState();
           </div>
         </>
       );
-    } 
-    else if (juiceFind != undefined) {
+    } else if (juiceFind != undefined) {
       return (
         <>
           <div className={style.topSection}>
@@ -1126,8 +1502,6 @@ const [productId,setProductId]=useState();
                   <div className={style.reviewSection}></div>
                 </div>
               </div>
-
-      
             </div>
           </div>
         </>

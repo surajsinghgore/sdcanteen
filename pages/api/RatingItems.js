@@ -38,7 +38,7 @@ return res.status(400).json({message:"Please Provide User Name"})
 
 }
 if(productId==""){
-return res.status(498).json({message:"Please Provide User Name"})}
+return res.status(498).json({message:"Please Provide Product Id "})}
 if(userMessage==""){return res.status(400).json({message:"Please Fill User Message field"})}
 if(serviceRate==""){return res.status(400).json({message:"Please give service rate field"})}
 if(priceRate==""){return res.status(400).json({message:"Please give price rate field"})}

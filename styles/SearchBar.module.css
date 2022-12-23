@@ -225,7 +225,8 @@ border: 1px solid rgb(126, 126, 126);
 .reviews .box .top .avgRate h1{
 padding-left: 12%;
 text-align: center;
-padding-top: 8%;
+padding-top: 12%;
+font-size: 25px;
 color: rgb(105, 105, 105);
 }
 .reviews .box .top .avgRate h1::first-letter{
@@ -266,6 +267,14 @@ height: 8px;
 margin-top: 2%;
 margin-left: 5%;
 box-shadow: 0px 0px 10px 2px rgb(220, 220, 220);
+/* background-color: rgb(0, 152, 217); */
+border:1px solid rgb(0, 152, 217);
+position: relative;
+top: 0;
+left: 0;
+}
+.reviews .box .top .totalStar li .progress .pro{ 
+height: 100%;
 background-color: rgb(0, 152, 217);
 
 }
@@ -283,7 +292,7 @@ width: 92%;
 margin-top: 2%;
 margin-left: 4%;
 border: 3px;
-background-color: rgb(242, 242, 242);
+background-color: rgb(221, 221, 221);
 height: 60px;
 display: flex;
 }
@@ -333,7 +342,7 @@ box-shadow: 0px 0px 12px 2px rgb(187, 187, 187);
 .reviews .box .reviewsSectionField .childs{
 width: 92%;
 margin-left: 4%;
-height: 400px;
+height: 300px;
 padding-bottom: 2%;
 border-bottom: 1px solid rgb(99, 99, 99);
                 overflow-x: hidden;
@@ -343,12 +352,86 @@ border-bottom: 1px solid rgb(99, 99, 99);
                 display: none;
             }
 
+
+
+
+
+/* user review style */
 .reviews .box .reviewsSectionField .reviewSection{
 width: 100%;
-background-color: rgb(237, 237, 237);
-height: 100px;
-margin-top: 1%; 
+background-color: rgb(243, 243, 243);
+height: auto;
+margin-top:-6.4%; 
+margin-bottom: 4%;
+padding-bottom: 2%;
 }
+.reviews .box .reviewsSectionField .reviewSection .topSection{
+display: flex;
+padding-left: 2%;
+width: 100%;
+padding-top: 1%;
+}
+
+
+.reviews .box .reviewsSectionField .reviewSection .topSection .starSection{
+padding-top: -1%;
+padding-left: 1%;
+display: flex;
+text-align: center;
+width: 26%;
+}
+
+.reviews .box .reviewsSectionField .reviewSection .topSection .starSection p{
+padding-left: 5%;
+font-size: 18px;
+margin-top: 1%;
+}
+.reviews .box .reviewsSectionField .reviewSection .topSection .userDetails{
+width: 55%;
+}
+.reviews .box .reviewsSectionField .reviewSection .topSection .userDetails h2{
+font-size: 18px;
+color: rgb(94, 94, 94);
+text-align: center;
+margin-top: 1%;
+}
+.reviews .box .reviewsSectionField .reviewSection .topSection .icons{
+text-align: center;
+display: flex;
+width: 35%;
+padding-left: 7%;
+padding-top: 1%;
+}
+.reviews .box .reviewsSectionField .reviewSection .topSection  .icons .icon{
+font-size: 20px;
+color: rgb(255, 72, 0);
+}
+.reviews .box .reviewsSectionField .reviewSection .topSection  .icons p{
+padding-left: 1%;
+padding-right: 5%;
+color: rgb(19, 19, 19);
+margin-top: 0.1%;
+font-size: 15px;
+}
+
+
+.reviews .box .reviewsSectionField .reviewSection .commentStyle{
+width: 96%;
+margin-left: 2%;
+height: auto;
+margin-top: -1%;
+text-align: center;
+border: 1px solid rgb(255, 0, 102);
+
+}
+
+.reviews .box .reviewsSectionField .reviewSection .commentStyle p{
+font-size: 18px;
+
+}
+
+
+
 
 .reviews .box .clientReview{
 margin-left: 4%;
