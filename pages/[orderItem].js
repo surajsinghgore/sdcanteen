@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import HeadTag from "../Components/Head";
 import Header from "../Components/Header";
 import Footer from "../Components/Footer";
@@ -9,6 +9,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 let HOST = process.env.NEXT_PUBLIC_API_URL;
 import Image from "next/image";
+import { AllContext } from "../context/AllContext";
 import { Rating } from "react-simple-star-rating";
 import { useCart } from "react-use-cart";
 import { FaSort } from "react-icons/fa";
@@ -18,7 +19,9 @@ import { AiOutlineCalendar } from "react-icons/ai";
 import RateItem from "./RateItem";
 export default function OrderItem() {
   // item rate manage
+  const { refresh } = useContext(AllContext);
   const [ratingData, setRatingData] = useState([]);
+  const [copyData, setCopyData] = useState([]);
   const [quality, setQuality] = useState(100);
   const [prices, setPrices] = useState(100);
   const [service, setService] = useState(100);
@@ -32,6 +35,8 @@ export default function OrderItem() {
   const [data, setData] = useState([]);
   const router = useRouter();
   const query = router.query.orderItem;
+  const [rateSearch, setRateSearch] = useState();
+  const [timeSearch, setTimeSearch] = useState();
   const [productId, setProductId] = useState();
   useEffect(() => {
     const FindDataUsingSearch = async () => {
@@ -413,9 +418,17 @@ export default function OrderItem() {
         );
         const dataRess = await fetchRate.json();
         if (fetchRate.status == 201) {
-          setRatingData(dataRess.data);
-          setAvg(dataRess.data[0].Rating);
-          setRevLen(dataRess.data[0].ItemsReviwers.length);
+          if (dataRess.data.length != 0) {
+            setCopyData(dataRess.data);
+            setRatingData(dataRess.data);
+            setAvg(dataRess.data[0].Rating);
+            setRevLen(dataRess.data[0].ItemsReviwers.length);
+          } else {
+            setCopyData([]);
+            setRatingData([]);
+            setAvg(5);
+            setRevLen(0);
+          }
           function QualityRateCalculate() {
             let ZeroPointFive = 0;
             let OnePointFive = 0;
@@ -426,63 +439,132 @@ export default function OrderItem() {
             let two = 0;
             let three = 0;
             let four = 0;
+            let findAvgCount = 0;
             let five = 0;
-            dataRess.data[0].ItemsReviwers.map((item) => {
-              if (item.QualityRate == "0.5") {
-                ZeroPointFive++;
-              }
+            if (dataRess.data.length != 0) {
+              dataRess.data[0].ItemsReviwers.map((item) => {
+                if (item.QualityRate == "0.5") {
+                  ZeroPointFive++;
+                }
+                if (item.QualityRate == "1") {
+                  One++;
+                }
+                if (item.QualityRate == "1.5") {
+                  OnePointFive++;
+                }
+                if (item.QualityRate == "2") {
+                  two++;
+                }
+                if (item.QualityRate == "2.5") {
+                  TwoPointFive++;
+                }
+                if (item.QualityRate == "3") {
+                  three++;
+                }
+                if (item.QualityRate == "3.5") {
+                  ThreePointFive++;
+                }
+                if (item.QualityRate == "4") {
+                  four++;
+                }
+                if (item.QualityRate == "4.5") {
+                  FourPointFive++;
+                }
+                if (item.QualityRate == "5") {
+                  five++;
+                }
+              });
+            }
+            if (ZeroPointFive != 0) {
+              findAvgCount++;
+            }
+            if (OnePointFive != 0) {
+              findAvgCount++;
+            }
+            if (TwoPointFive != 0) {
+              findAvgCount++;
+            }
+            if (ThreePointFive != 0) {
+              findAvgCount++;
+            }
+            if (FourPointFive != 0) {
+              findAvgCount++;
+            }
+            if (One != 0) {
+              findAvgCount++;
+            }
+            if (two != 0) {
+              findAvgCount++;
+            }
+            if (three != 0) {
+              findAvgCount++;
+            }
+            if (four != 0) {
+              findAvgCount++;
+            }
+            if (five != 0) {
+              findAvgCount++;
+            }
 
-              if (item.QualityRate == "1") {
-                One++;
-              }
-              if (item.QualityRate == "1.5") {
-                OnePointFive++;
-              }
-              if (item.QualityRate == "2") {
-                two++;
-              }
-              if (item.QualityRate == "2.5") {
-                TwoPointFive++;
-              }
-              if (item.QualityRate == "3") {
-                three++;
-              }
-              if (item.QualityRate == "3.5") {
-                ThreePointFive++;
-              }
-              if (item.QualityRate == "4") {
-                four++;
-              }
-              if (item.QualityRate == "4.5") {
-                FourPointFive++;
-              }
-              if (item.QualityRate == "5") {
-                five++;
-              }
-            });
-            ZeroPointFive = ZeroPointFive * 10;
-            One = One * 10;
-            OnePointFive = OnePointFive * 10;
-            two = two * 10;
-            TwoPointFive = TwoPointFive * 10;
-            three = three * 10;
-            ThreePointFive = ThreePointFive * 10;
-            four = four * 10;
-            FourPointFive = FourPointFive * 10;
-            five = five * 10;
-            let OverAllServiceRate =
-              (5 * five +
-                4.5 * FourPointFive +
-                4 * four +
-                3.5 * ThreePointFive +
-                3 * three +
-                2.5 * TwoPointFive +
-                2 * two +
-                1.5 * OnePointFive +
-                1 * One +
-                0.5 * ZeroPointFive) /
-              100;
-            setQuality(OverAllServiceRate * 100);
+            let calZeroPointFive = 0;
+            let calOne = 0;
+            let calOnePointFive = 0;
+            let caltwo = 0;
+            let calTwoPointFive = 0;
+            let calthree = 0;
+            let calThreePointFive = 0;
+            let calfour = 0;
+            let calFourPointFive = 0;
+            let calfive = 0;
+            if (ZeroPointFive != 0) {
+              calZeroPointFive =
+                ((ZeroPointFive * 0.5) / (5 * ZeroPointFive)) * 100;
+            }
+            if (OnePointFive != 0) {
+              calOnePointFive =
+                ((OnePointFive * 1.5) / (5 * OnePointFive)) * 100;
+            }
+            if (TwoPointFive != 0) {
+              calTwoPointFive =
+                ((TwoPointFive * 2.5) / (5 * TwoPointFive)) * 100;
+            }
+            if (ThreePointFive != 0) {
+              calThreePointFive =
+                ((ThreePointFive * 3.5) / (5 * ThreePointFive)) * 100;
+            }
+            if (FourPointFive != 0) {
+              calFourPointFive =
+                ((FourPointFive * 4.5) / (5 * FourPointFive)) * 100;
+            }
+            if (One != 0) {
+              calOne = ((One * 1) / (5 * One)) * 100;
+            }
+            if (two != 0) {
+              caltwo = ((two * 2) / (5 * two)) * 100;
+            }
+            if (three != 0) {
+              calthree = ((three * 3) / (5 * three)) * 100;
+            }
+            if (four != 0) {
+              calfour = ((four * 4) / (5 * four)) * 100;
+            }
+            if (five != 0) {
+              calfive = ((five * 5) / (5 * five)) * 100;
+            }
+
+            let AllPercantegTotal =
+              calZeroPointFive +
+              calOne +
+              calOnePointFive +
+              caltwo +
+              calTwoPointFive +
+              calthree +
+              calThreePointFive +
+              calfour +
+              calFourPointFive +
+              calfive;
+            let avgs = (AllPercantegTotal / (100 * findAvgCount)) * 100;
+            setQuality(avgs);
           }
           function PriceRateCalculate() {
             let ZeroPointFive = 0;
@@ -494,62 +576,133 @@ export default function OrderItem() {
             let two = 0;
             let three = 0;
             let four = 0;
+            let findAvgCount = 0;
             let five = 0;
-            dataRess.data[0].ItemsReviwers.map((item) => {
-              if (item.PriceRate == "0.5") {
-                ZeroPointFive++;
-              }
-              if (item.PriceRate == "1") {
-                One++;
-              }
-              if (item.PriceRate == "1.5") {
-                OnePointFive++;
-              }
-              if (item.PriceRate == "2") {
-                two++;
-              }
-              if (item.PriceRate == "2.5") {
-                TwoPointFive++;
-              }
-              if (item.PriceRate == "3") {
-                three++;
-              }
-              if (item.PriceRate == "3.5") {
-                ThreePointFive++;
-              }
-              if (item.PriceRate == "4") {
-                four++;
-              }
-              if (item.PriceRate == "4.5") {
-                FourPointFive++;
-              }
-              if (item.PriceRate == "5") {
-                five++;
-              }
-            });
-            ZeroPointFive = ZeroPointFive * 10;
-            One = One * 10;
-            OnePointFive = OnePointFive * 10;
-            two = two * 10;
-            TwoPointFive = TwoPointFive * 10;
-            three = three * 10;
-            ThreePointFive = ThreePointFive * 10;
-            four = four * 10;
-            FourPointFive = FourPointFive * 10;
-            five = five * 10;
-            let OverAllServiceRate =
-              (5 * five +
-                4.5 * FourPointFive +
-                4 * four +
-                3.5 * ThreePointFive +
-                3 * three +
-                2.5 * TwoPointFive +
-                2 * two +
-                1.5 * OnePointFive +
-                1 * One +
-                0.5 * ZeroPointFive) /
-              100;
-            setPrices(OverAllServiceRate * 100);
+            if (dataRess.data.length != 0) {
+              dataRess.data[0].ItemsReviwers.map((item) => {
+                if (item.PriceRate == "0.5") {
+                  ZeroPointFive++;
+                }
+                if (item.PriceRate == "1") {
+                  One++;
+                }
+                if (item.PriceRate == "1.5") {
+                  OnePointFive++;
+                }
+                if (item.PriceRate == "2") {
+                  two++;
+                }
+                if (item.PriceRate == "2.5") {
+                  TwoPointFive++;
+                }
+                if (item.PriceRate == "3") {
+                  three++;
+                }
+                if (item.PriceRate == "3.5") {
+                  ThreePointFive++;
+                }
+                if (item.PriceRate == "4") {
+                  four++;
+                }
+                if (item.PriceRate == "4.5") {
+                  FourPointFive++;
+                }
+                if (item.PriceRate == "5") {
+                  five++;
+                }
+              });
+            }
+            if (ZeroPointFive != 0) {
+              findAvgCount++;
+            }
+            if (OnePointFive != 0) {
+              findAvgCount++;
+            }
+            if (TwoPointFive != 0) {
+              findAvgCount++;
+            }
+            if (ThreePointFive != 0) {
+              findAvgCount++;
+            }
+            if (FourPointFive != 0) {
+              findAvgCount++;
+            }
+            if (One != 0) {
+              findAvgCount++;
+            }
+            if (two != 0) {
+              findAvgCount++;
+            }
+            if (three != 0) {
+              findAvgCount++;
+            }
+            if (four != 0) {
+              findAvgCount++;
+            }
+            if (five != 0) {
+              findAvgCount++;
+            }
+
+            let calZeroPointFive = 0;
+            let calOne = 0;
+            let calOnePointFive = 0;
+            let caltwo = 0;
+            let calTwoPointFive = 0;
+            let calthree = 0;
+            let calThreePointFive = 0;
+            let calfour = 0;
+            let calFourPointFive = 0;
+            let calfive = 0;
+            if (ZeroPointFive != 0) {
+              calZeroPointFive =
+                ((ZeroPointFive * 0.5) / (5 * ZeroPointFive)) * 100;
+            }
+            if (OnePointFive != 0) {
+              calOnePointFive =
+                ((OnePointFive * 1.5) / (5 * OnePointFive)) * 100;
+            }
+            if (TwoPointFive != 0) {
+              calTwoPointFive =
+                ((TwoPointFive * 2.5) / (5 * TwoPointFive)) * 100;
+            }
+            if (ThreePointFive != 0) {
+              calThreePointFive =
+                ((ThreePointFive * 3.5) / (5 * ThreePointFive)) * 100;
+            }
+            if (FourPointFive != 0) {
+              calFourPointFive =
+                ((FourPointFive * 4.5) / (5 * FourPointFive)) * 100;
+            }
+            if (One != 0) {
+              calOne = ((One * 1) / (5 * One)) * 100;
+            }
+            if (two != 0) {
+              caltwo = ((two * 2) / (5 * two)) * 100;
+            }
+            if (three != 0) {
+              calthree = ((three * 3) / (5 * three)) * 100;
+            }
+            if (four != 0) {
+              calfour = ((four * 4) / (5 * four)) * 100;
+            }
+            if (five != 0) {
+              calfive = ((five * 5) / (5 * five)) * 100;
+            }
+
+            let AllPercantegTotal =
+              calZeroPointFive +
+              calOne +
+              calOnePointFive +
+              caltwo +
+              calTwoPointFive +
+              calthree +
+              calThreePointFive +
+              calfour +
+              calFourPointFive +
+              calfive;
+            let avgs = (AllPercantegTotal / (100 * findAvgCount)) * 100;
+
+            setPrices(avgs);
           }
           function ServiceRateCalculate() {
             let ZeroPointFive = 0;
@@ -561,63 +714,135 @@ export default function OrderItem() {
             let two = 0;
             let three = 0;
             let four = 0;
+            let findAvgCount = 0;
             let five = 0;
-            dataRess.data[0].ItemsReviwers.map((item) => {
-              if (item.ServiceRate == "0.5") {
-                ZeroPointFive++;
-              }
-              if (item.ServiceRate == "1") {
-                One++;
-              }
-              if (item.ServiceRate == "1.5") {
-                OnePointFive++;
-              }
-              if (item.ServiceRate == "2") {
-                two++;
-              }
-              if (item.ServiceRate == "2.5") {
-                TwoPointFive++;
-              }
-              if (item.ServiceRate == "3") {
-                three++;
-              }
-              if (item.ServiceRate == "3.5") {
-                ThreePointFive++;
-              }
-              if (item.ServiceRate == "4") {
-                four++;
-              }
-              if (item.ServiceRate == "4.5") {
-                FourPointFive++;
-              }
-              if (item.ServiceRate == "5") {
-                five++;
-              }
-            });
-            ZeroPointFive = ZeroPointFive * 10;
-            One = One * 10;
-            OnePointFive = OnePointFive * 10;
-            two = two * 10;
-            TwoPointFive = TwoPointFive * 10;
-            three = three * 10;
-            ThreePointFive = ThreePointFive * 10;
-            four = four * 10;
-            FourPointFive = FourPointFive * 10;
-            five = five * 10;
-            let OverAllServiceRate =
-              (5 * five +
-                4.5 * FourPointFive +
-                4 * four +
-                3.5 * ThreePointFive +
-                3 * three +
-                2.5 * TwoPointFive +
-                2 * two +
-                1.5 * OnePointFive +
-                1 * One +
-                0.5 * ZeroPointFive) /
-              100;
-            setService(OverAllServiceRate * 100);
+            if (dataRess.data.length != 0) {
+              dataRess.data[0].ItemsReviwers.map((item) => {
+                if (item.ServiceRate == "0.5") {
+                  ZeroPointFive++;
+                }
+                if (item.ServiceRate == "1") {
+                  One++;
+                }
+                if (item.ServiceRate == "1.5") {
+                  OnePointFive++;
+                }
+                if (item.ServiceRate == "2") {
+                  two++;
+                }
+                if (item.ServiceRate == "2.5") {
+                  TwoPointFive++;
+                }
+                if (item.ServiceRate == "3") {
+                  three++;
+                }
+                if (item.ServiceRate == "3.5") {
+                  ThreePointFive++;
+                }
+                if (item.ServiceRate == "4") {
+                  four++;
+                }
+                if (item.ServiceRate == "4.5") {
+                  FourPointFive++;
+                }
+                if (item.ServiceRate == "5") {
+                  five++;
+                }
+              });
+            }
+            if (ZeroPointFive != 0) {
+              findAvgCount++;
+            }
+            if (OnePointFive != 0) {
+              findAvgCount++;
+            }
+            if (TwoPointFive != 0) {
+              findAvgCount++;
+            }
+            if (ThreePointFive != 0) {
+              findAvgCount++;
+            }
+            if (FourPointFive != 0) {
+              findAvgCount++;
+            }
+            if (One != 0) {
+              findAvgCount++;
+            }
+            if (two != 0) {
+              findAvgCount++;
+            }
+            if (three != 0) {
+              findAvgCount++;
+            }
+            if (four != 0) {
+              findAvgCount++;
+            }
+            if (five != 0) {
+              findAvgCount++;
+            }
+
+            let calZeroPointFive = 0;
+            let calOne = 0;
+            let calOnePointFive = 0;
+            let caltwo = 0;
+            let calTwoPointFive = 0;
+            let calthree = 0;
+            let calThreePointFive = 0;
+            let calfour = 0;
+            let calFourPointFive = 0;
+            let calfive = 0;
+            if (ZeroPointFive != 0) {
+              calZeroPointFive =
+                ((ZeroPointFive * 0.5) / (5 * ZeroPointFive)) * 100;
+            }
+            if (OnePointFive != 0) {
+              calOnePointFive =
+                ((OnePointFive * 1.5) / (5 * OnePointFive)) * 100;
+            }
+            if (TwoPointFive != 0) {
+              calTwoPointFive =
+                ((TwoPointFive * 2.5) / (5 * TwoPointFive)) * 100;
+            }
+            if (ThreePointFive != 0) {
+              calThreePointFive =
+                ((ThreePointFive * 3.5) / (5 * ThreePointFive)) * 100;
+            }
+            if (FourPointFive != 0) {
+              calFourPointFive =
+                ((FourPointFive * 4.5) / (5 * FourPointFive)) * 100;
+            }
+            if (One != 0) {
+              calOne = ((One * 1) / (5 * One)) * 100;
+            }
+            if (two != 0) {
+              caltwo = ((two * 2) / (5 * two)) * 100;
+            }
+            if (three != 0) {
+              calthree = ((three * 3) / (5 * three)) * 100;
+            }
+            if (four != 0) {
+              calfour = ((four * 4) / (5 * four)) * 100;
+            }
+            if (five != 0) {
+              calfive = ((five * 5) / (5 * five)) * 100;
+            }
+
+            let AllPercantegTotal =
+              calZeroPointFive +
+              calOne +
+              calOnePointFive +
+              caltwo +
+              calTwoPointFive +
+              calthree +
+              calThreePointFive +
+              calfour +
+              calFourPointFive +
+              calfive;
+            let avgs = (AllPercantegTotal / (100 * findAvgCount)) * 100;
+
+            setService(avgs);
           }
+
           QualityRateCalculate();
           PriceRateCalculate();
           ServiceRateCalculate();
@@ -625,28 +850,113 @@ export default function OrderItem() {
       }
     };
     dataRatingFetch();
-  }, [productId]);
+  }, [refresh, productId]);
 
+  // check wheater rating is allowed or not
+  useEffect(() => {
+    const check = async () => {
+      if (localStorage.getItem("login") != undefined) {
+        if (productId != undefined) {
+          let fetchRes = await fetch(
+            `${HOST}/api/ValidateRatingOrNot?productId=${productId}`
+          );
+          if (fetchRes.status == 404) {
+            setAllowComment(false);
+          }
+          if (fetchRes.status == 201) {
+            setAllowComment(true);
+          }
+        }
+      }
+    };
 
-// check wheater rating is allowed or not
-useEffect(()=>{
-console.log(allowComment)
-const check=async()=>{
-if(localStorage.getItem('login')!=undefined){
- if (productId != undefined) {
- let fetchRes = await fetch(`${HOST}/api/ValidateRatingOrNot?productId=${productId}`)
-if(fetchRes.status==404){
-setAllowComment(false);
-}
-if(fetchRes.status==201){
-setAllowComment(true);
-}
-}
-}
-}
+    check();
+  }, [productId, refresh]);
 
-check();
-},[productId])
+  // filter using rating star
+  const filterUsingRate = (e) => {
+    setRateSearch(e.target.value);
+    // orginialData
+    let datas = copyData;
+    if (e.target.value == "all") {
+      const dataRatingFetch = async () => {
+        if (productId != undefined) {
+          let fetchRate = await fetch(
+            `${HOST}/api/ShowRatingOfItems?productId=${productId}`
+          );
+          const dataRess = await fetchRate.json();
+          if (fetchRate.status == 201) {
+            setRatingData(dataRess.data);
+            setCopyData(dataRess.data);
+          }
+        }
+      };
+      dataRatingFetch();
+    }
+
+    if (datas != undefined) {
+      var filteredArray = datas
+        .filter((element) =>
+          element.ItemsReviwers.some(
+            (subElement) => subElement.QualityRate === e.target.value
+          )
+        )
+        .map((element) => {
+          let n = Object.assign({}, element, {
+            ItemsReviwers: element.ItemsReviwers.filter(
+              (subElement) => subElement.QualityRate === e.target.value
+            ),
+          });
+          return n;
+        });
+
+      setRatingData(filteredArray);
+    }
+  };
+  //filter using lattest or oldest
+  const fetchOldData = async () => {
+    if (productId != undefined) {
+      let fetchRate = await fetch(
+        `${HOST}/api/SortRatingOldest?productId=${productId}`
+      );
+      let data = await fetchRate.json();
+      setRatingData(data.data);
+    }
+  };
+  const fetchNewData = async () => {
+    if (productId != undefined) {
+      let fetchRate = await fetch(
+        `${HOST}/api/SortRatingInLatest?productId=${productId}`
+      );
+      let data = await fetchRate.json();
+      setRatingData(data.data);
+    }
+  };
+  const filterUsingTime = (e) => {
+    setTimeSearch(e.target.value);
+    if (e.target.value == "all") {
+      const dataRatingFetch = async () => {
+        if (productId != undefined) {
+          let fetchRate = await fetch(
+            `${HOST}/api/ShowRatingOfItems?productId=${productId}`
+          );
+          const dataRess = await fetchRate.json();
+          if (fetchRate.status == 201) {
+            setRatingData(dataRess.data);
+            setCopyData(dataRess.data);
+          }
+        }
+      };
+      dataRatingFetch();
+    }
+    if (e.target.value == "oldest") {
+      fetchOldData();
+    }
+    if (e.target.value == "latest") {
+      fetchNewData();
+    }
+  };
+
   function FilterCard() {
     let foodFind;
     let coffeeFind;
@@ -763,7 +1073,7 @@ check();
             <div className={style.box}>
               <div className={style.top}>
                 <div className={style.avgRate}>
-                  <h1>{avg} / 5</h1>
+                  <h1>{parseFloat(avg).toFixed(2)} / 5</h1>
                   <div className={style.rates}>
                     <Rating
                       initialValue={avg}
@@ -784,7 +1094,7 @@ check();
                         style={{ width: `${quality}%` }}
                       ></div>
                     </div>
-                    <div className={style.percent}>{quality}%</div>
+                    <div className={style.percent}>{parseInt(quality)}%</div>
                   </li>
                   <li>
                     <div className={style.headings}>Price</div>
@@ -794,7 +1104,7 @@ check();
                         style={{ width: `${prices}%` }}
                       ></div>
                     </div>
-                    <div className={style.percent}>{prices}%</div>
+                    <div className={style.percent}>{parseInt(prices)}%</div>
                   </li>
                   <li>
                     <div className={style.headings}>Service</div>
@@ -804,23 +1114,25 @@ check();
                         style={{ width: `${service}%` }}
                       ></div>
                     </div>
-                    <div className={style.percent}>{service}%</div>
+                    <div className={style.percent}>{parseInt(service)}%</div>
                   </li>
                 </div>
               </div>
-
+              {/* filter search logic */}
               <div className={style.filterReview}>
                 <div className={style.titles}>Reviewed by {revLen} user</div>
-
                 <div className={style.filterSection}>
                   <div className={style.sections}>
                     <h1>
                       <FaSort /> Sort :{" "}
                     </h1>
-                    <select>
-                      <option value="">All Review</option>
-                      <option value="">Latest First</option>
-                      <option value="">Oldest First</option>
+                    <select
+                      value={timeSearch}
+                      onChange={(e) => filterUsingTime(e)}
+                    >
+                      <option value="all">All Reviews</option>
+                      <option value="latest">Latest Order</option>
+                      <option value="oldest">Oldest Order</option>
                     </select>
                   </div>
 
@@ -828,13 +1140,21 @@ check();
                     <h1>
                       <FaFilter /> Filter :
                     </h1>
-                    <select>
-                      <option value="">All Star</option>
-                      <option value="">5 Star</option>
-                      <option value="">4 Star</option>
-                      <option value="">3 Star</option>
-                      <option value="">2 Star</option>
-                      <option value="">1 Star</option>
+                    <select
+                      value={rateSearch}
+                      onChange={(e) => filterUsingRate(e)}
+                    >
+                      <option value="all">All Star</option>
+                      <option value="5">5 Star</option>
+                      <option value="4.5">4.5 Star</option>
+                      <option value="4">4 Star</option>
+                      <option value="3.5">3.5 Star</option>
+                      <option value="3">3 Star</option>
+                      <option value="2.5">2.5 Star</option>
+                      <option value="2">2 Star</option>
+                      <option value="1.5">1.5 Star</option>
+                      <option value="1">1 Star</option>
+                      <option value="0.5">0.5 Star</option>
                     </select>
                   </div>
                 </div>
@@ -842,665 +1162,104 @@ check();
               {/* realreviews Corner */}
               <div className={style.reviewsSectionField}>
                 <div className={style.childs}>
-                  {ratingData[0] != undefined
-                    ? ratingData[0].ItemsReviwers != undefined
-                      ? ratingData[0].ItemsReviwers.map((item) => {
-                          return (
-                            <div className={style.reviewSection} key={item._id}>
-                              <div className={style.topSection}>
-                                <div className={style.starSection}>
-                                  <Rating
-                                    initialValue={item.QualityRate}
-                                    readonly="true"
-                                    size={30}
-                                    fillColor="rgb(254, 58, 58)"
-                                    allowFraction
-                                  />
-                                  <p> {item.QualityRate} / 5</p>
-                                </div>
-                                <div className={style.userDetails}>
-                                  <h2>By : {item.userName}</h2>
-                                </div>
-
-                                <div className={style.icons}>
-                                  <AiOutlineCalendar className={style.icon} />{" "}
-                                  <p> {item.Date}</p>
-                                  <BiTime className={style.icon} />{" "}
-                                  <p>{item.Time} </p>
-                                </div>
+                  {ratingData[0] != undefined ? (
+                    ratingData[0].ItemsReviwers != undefined ? (
+                      ratingData[0].ItemsReviwers.map((item) => {
+                        return (
+                          <div className={style.reviewSection} key={item._id}>
+                            <div className={style.topSection}>
+                              <div className={style.starSection}>
+                                <Rating
+                                  initialValue={item.QualityRate}
+                                  readonly="true"
+                                  size={30}
+                                  fillColor="rgb(18, 124, 156)"
+                                  allowFraction
+                                />
+                                <p> {item.QualityRate} / 5</p>
+                              </div>
+                              <div className={style.userDetails}>
+                                <h2>By : {item.userName}</h2>
                               </div>
 
-                              <div className={style.commentStyle}>
-                                <p>{item.Message}</p>
+                              <div className={style.icons}>
+                                <AiOutlineCalendar className={style.icon} />{" "}
+                                <p> {item.Date}</p>
+                                <BiTime className={style.icon} />{" "}
+                                <p>{item.Time} </p>
                               </div>
                             </div>
-                          );
-                        })
-                      :    <div className={style.reviewSection}>
-                              <div className={style.topSection}>
-                                <div className={style.starSection}>
-                                  <Rating
-                                    initialValue={5}
-                                    readonly="true"
-                                    size={30}
-                                    fillColor="rgb(254, 58, 58)"
-                                    allowFraction
-                                  />
-                                  <p> 5 / 5</p>
-                                </div>
-                                <div className={style.userDetails}>
-                                  <h2>By : admin</h2>
-                                </div>
 
-                                <div className={style.icons}>
-                                  <AiOutlineCalendar className={style.icon} />{" "}
-                                  <p> -</p>
-                                  <BiTime className={style.icon} />{" "}
-                                  <p>- </p>
-                                </div>
-                              </div>
-
-                              <div className={style.commentStyle}>
-                                <p>No Comments yet on this Product</p>
-                              </div>
+                            <div className={style.commentStyle}>
+                              <p>{item.Message}</p>
                             </div>
-                    : <><div className={style.reviewSection}>
-                              <div className={style.topSection}>
-                                <div className={style.starSection}>
-                                  <Rating
-                                    initialValue={5}
-                                    readonly="true"
-                                    size={30}
-                                    fillColor="rgb(254, 58, 58)"
-                                    allowFraction
-                                  />
-                                  <p> 5 / 5</p>
-                                </div>
-                                <div className={style.userDetails}>
-                                  <h2>By : admin</h2>
-                                </div>
+                          </div>
+                        );
+                      })
+                    ) : (
+                      <div className={style.reviewSection}>
+                        <div className={style.topSection}>
+                          <div className={style.starSection}>
+                            <Rating
+                              initialValue={5}
+                              readonly="true"
+                              size={30}
+                              fillColor="rgb(254, 58, 58)"
+                              allowFraction
+                            />
+                            <p> 5 / 5</p>
+                          </div>
+                          <div className={style.userDetails}>
+                            <h2>By : admin</h2>
+                          </div>
 
-                                <div className={style.icons}>
-                                  <AiOutlineCalendar className={style.icon} />{" "}
-                                  <p> -</p>
-                                  <BiTime className={style.icon} />{" "}
-                                  <p>- </p>
-                                </div>
-                              </div>
+                          <div className={style.icons}>
+                            <AiOutlineCalendar className={style.icon} />{" "}
+                            <p> -</p>
+                            <BiTime className={style.icon} /> <p>- </p>
+                          </div>
+                        </div>
 
-                              <div className={style.commentStyle}>
-                                <p>No Comments yet on this Product</p>
-                              </div>
-                            </div>
-<div className={style.reviewSection}>
-                              <div className={style.topSection}>
-                                <div className={style.starSection}>
-                                  <Rating
-                                    initialValue={5}
-                                    readonly="true"
-                                    size={30}
-                                    fillColor="rgb(254, 58, 58)"
-                                    allowFraction
-                                  />
-                                  <p> 5 / 5</p>
-                                </div>
-                                <div className={style.userDetails}>
-                                  <h2>By : admin</h2>
-                                </div>
+                        <div className={style.commentStyle}>
+                          <p>No Comments yet on this Product</p>
+                        </div>
+                      </div>
+                    )
+                  ) : (
+                    <div className={style.reviewSection}>
+                      <div className={style.topSection}>
+                        <div className={style.starSection}>
+                          <Rating
+                            initialValue={0}
+                            readonly="true"
+                            size={30}
+                            fillColor="rgb(254, 58, 58)"
+                            allowFraction
+                          />
+                          <p> - / -</p>
+                        </div>
+                        <div className={style.userDetails}>
+                          <h2>By : admin</h2>
+                        </div>
 
-                                <div className={style.icons}>
-                                  <AiOutlineCalendar className={style.icon} />{" "}
-                                  <p> -</p>
-                                  <BiTime className={style.icon} />{" "}
-                                  <p>- </p>
-                                </div>
-                              </div>
+                        <div className={style.icons}>
+                          <AiOutlineCalendar className={style.icon} /> <p> -</p>
+                          <BiTime className={style.icon} /> <p>- </p>
+                        </div>
+                      </div>
 
-                              <div className={style.commentStyle}>
-                                <p>No Comments yet on this Product</p>
-                              </div>
-                            </div>
-</>}
+                      <div className={style.commentStyle}>
+                        <p>No Reviews Found</p>
+                      </div>
+                    </div>
+                  )}
                 </div>
 
-                {(allowComment==true)? (
+                {allowComment == true ? (
                   <RateItem productIds={productId} />
                 ) : (
                   ""
                 )}
-              </div>
-            </div>
-          </div>
-        </>
-      );
-    } else if (coffeeFind != undefined) {
-      return (
-        <>
-          <div className={style.topSection}>
-            <div className={style.left}>
-              <img
-                src={`/CoffeeItemImages/${data[0].Image}`}
-                alt="image"
-                className={style.coffeImage}
-              />
-            </div>
-            <div className={style.right}>
-              <h1>{data[0].CoffeeName}</h1>
-              <div className={style.star}>
-                <div className={style.startSection}>
-                  <Rating
-                    initialValue="5"
-                    readonly="true"
-                    className={style.startIcon}
-                    allowFraction
-                  />
-
-                  <h5>(1 Customer Review)</h5>
-                </div>
-              </div>
-              <h3>₹ {price}</h3>
-              <div className={style.subSection}>
-                <div className={style.subHeading}>Qty :</div>
-                <div className={style.subData}>{data[0].Qty}</div>
-                <div className={style.subHeading}>Category :</div>
-                <div className={style.subData}>{data[0].Category}</div>
-              </div>
-              <hr />
-
-              <div className={style.filterItem}>
-                <h1>Select Size</h1>
-                <div className={style.form}>
-                  {data[0].ItemCost.map((itemss) => {
-                    return (
-                      <div className={style.radioCard} key={itemss._id}>
-                        <li>
-                          <label>
-                            <span>
-                              <input
-                                type="radio"
-                                name="size"
-                                onClick={() =>
-                                  setItems(
-                                    itemss.sizeName,
-                                    itemss.Price,
-                                    itemss._id
-                                  )
-                                }
-                                value={itemss.sizeName}
-                                defaultChecked={selected === itemss.sizeName}
-                              />
-                              {itemss.sizeName == "largesize"
-                                ? "Large"
-                                : itemss.sizeName == "smallsize"
-                                ? "Small"
-                                : itemss.sizeName == "mediumsize"
-                                ? "Medium"
-                                : itemss.sizeName == "halfsize"
-                                ? "Half"
-                                : itemss.sizeName == "normalsize"
-                                ? "Normal"
-                                : ""}
-                            </span>
-                          </label>
-                        </li>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-              {!add ? (
-                <button
-                  className={style.btn3}
-                  onClick={() => RemoveFromCart(data)}
-                >
-                  Remove From Cart
-                </button>
-              ) : (
-                <button className={style.btn1} onClick={() => AddToCart(data)}>
-                  Add To Cart
-                </button>
-              )}
-              <button className={style.btn2} onClick={() => BuyNow(data)}>
-                Buy Now
-              </button>
-            </div>
-          </div>
-          <div className={style.description}>{data[0].Description}</div>
-
-          <div className={style.reviews} id="reviews">
-            <div className={style.heading}>Rating & Reviews</div>
-
-            <div className={style.box}>
-              <div className={style.top}>
-                <div className={style.avgRate}>
-                  <h1>5 / 5</h1>
-                  <div className={style.rates}>
-                    <Rating
-                      initialValue="5"
-                      readonly="true"
-                      className={style.startIcon}
-                      allowFraction
-                    />
-                    <p>Based On 1 rating</p>
-                  </div>
-                </div>
-
-                <div className={style.totalStar}>
-                  <li>
-                    <div className={style.headings}>Quality</div>
-                    <div className={style.progress}></div>
-                    <div className={style.percent}>100%</div>
-                  </li>
-                  <li>
-                    <div className={style.headings}>Price</div>
-                    <div className={style.progress}></div>
-                    <div className={style.percent}>100%</div>
-                  </li>
-                  <li>
-                    <div className={style.headings}>Service</div>
-                    <div className={style.progress}></div>
-                    <div className={style.percent}>100%</div>
-                  </li>
-                </div>
-              </div>
-
-              <div className={style.filterReview}>
-                <div className={style.titles}>Reviewed by 1 user</div>
-
-                <div className={style.filterSection}>
-                  <div className={style.sections}>
-                    <h1>
-                      <FaSort /> Sort :{" "}
-                    </h1>
-                    <select>
-                      <option value="">All Review</option>
-                      <option value="">Latest First</option>
-                      <option value="">Oldest First</option>
-                    </select>
-                  </div>
-
-                  <div className={style.sections}>
-                    <h1>
-                      <FaFilter /> Filter :
-                    </h1>
-                    <select>
-                      <option value="">All Star</option>
-                      <option value="">5 Star</option>
-                      <option value="">4 Star</option>
-                      <option value="">3 Star</option>
-                      <option value="">2 Star</option>
-                      <option value="">1 Star</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-
-              {/* realreviews Corner */}
-              <div className={style.reviewsSectionField}>
-                <div className={style.childs}>
-                  <div className={style.reviewSection}></div>
-                </div>
-
-                <RateItem />
-              </div>
-            </div>
-          </div>
-        </>
-      );
-    } else if (drinkFind != undefined) {
-      return (
-        <>
-          <div className={style.topSection}>
-            <div className={style.left}>
-              <img
-                src={`/DrinkItemImages/${data[0].Image}`}
-                alt="image"
-                className={style.drinkImage}
-              />
-            </div>
-            <div className={style.right}>
-              <h1>{data[0].DrinkName}</h1>
-              <div className={style.star}>
-                <div className={style.startSection}>
-                  <Rating
-                    initialValue="5"
-                    readonly="true"
-                    className={style.startIcon}
-                    allowFraction
-                  />
-
-                  <h5>(1 Customer Review)</h5>
-                </div>
-              </div>
-              <h3>₹ {price}</h3>
-              <div className={style.subSection}>
-                <div className={style.subHeading}>Qty :</div>
-                <div className={style.subData}>{data[0].Qty}</div>
-                <div className={style.subHeading}>Category :</div>
-                <div className={style.subData}>{data[0].Category}</div>
-              </div>
-              <hr />
-
-              <div className={style.filterItem}>
-                <h1>Select Size</h1>
-                <div className={style.form}>
-                  {data[0].ItemCost.map((itemss) => {
-                    return (
-                      <div className={style.radioCard} key={itemss._id}>
-                        <li>
-                          <label>
-                            <span>
-                              <input
-                                type="radio"
-                                name="size"
-                                onClick={() =>
-                                  setItems(
-                                    itemss.sizeName,
-                                    itemss.Price,
-                                    itemss._id
-                                  )
-                                }
-                                value={itemss.sizeName}
-                                defaultChecked={selected === itemss.sizeName}
-                              />
-                              {itemss.sizeName == "largesize"
-                                ? "Large"
-                                : itemss.sizeName == "smallsize"
-                                ? "Small"
-                                : itemss.sizeName == "mediumsize"
-                                ? "Medium"
-                                : itemss.sizeName == "halfsize"
-                                ? "Half"
-                                : itemss.sizeName == "normalsize"
-                                ? "Normal"
-                                : ""}
-                            </span>
-                          </label>
-                        </li>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-              {!add ? (
-                <button
-                  className={style.btn3}
-                  onClick={() => RemoveFromCart(data)}
-                >
-                  Remove From Cart
-                </button>
-              ) : (
-                <button className={style.btn1} onClick={() => AddToCart(data)}>
-                  Add To Cart
-                </button>
-              )}
-              <button className={style.btn2} onClick={() => BuyNow(data)}>
-                Buy Now
-              </button>
-            </div>
-          </div>
-          <div className={style.description}>{data[0].Description}</div>
-
-          <div className={style.reviews} id="reviews">
-            <div className={style.heading}>Rating & Reviews</div>
-
-            <div className={style.box}>
-              <div className={style.top}>
-                <div className={style.avgRate}>
-                  <h1>5 / 5</h1>
-                  <div className={style.rates}>
-                    <Rating
-                      initialValue="5"
-                      readonly="true"
-                      className={style.startIcon}
-                      allowFraction
-                    />
-                    <p>Based On 1 rating</p>
-                  </div>
-                </div>
-
-                <div className={style.totalStar}>
-                  <li>
-                    <div className={style.headings}>Quality</div>
-                    <div className={style.progress}></div>
-                    <div className={style.percent}>100%</div>
-                  </li>
-                  <li>
-                    <div className={style.headings}>Price</div>
-                    <div className={style.progress}></div>
-                    <div className={style.percent}>100%</div>
-                  </li>
-                  <li>
-                    <div className={style.headings}>Service</div>
-                    <div className={style.progress}></div>
-                    <div className={style.percent}>100%</div>
-                  </li>
-                </div>
-              </div>
-
-              <div className={style.filterReview}>
-                <div className={style.titles}>Reviewed by 1 user</div>
-
-                <div className={style.filterSection}>
-                  <div className={style.sections}>
-                    <h1>
-                      <FaSort /> Sort :{" "}
-                    </h1>
-                    <select>
-                      <option value="">All Review</option>
-                      <option value="">Latest First</option>
-                      <option value="">Oldest First</option>
-                    </select>
-                  </div>
-
-                  <div className={style.sections}>
-                    <h1>
-                      <FaFilter /> Filter :
-                    </h1>
-                    <select>
-                      <option value="">All Star</option>
-                      <option value="">5 Star</option>
-                      <option value="">4 Star</option>
-                      <option value="">3 Star</option>
-                      <option value="">2 Star</option>
-                      <option value="">1 Star</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-
-              {/* realreviews Corner */}
-              <div className={style.reviewsSectionField}>
-                <div className={style.childs}>
-                  <div className={style.reviewSection}></div>
-
-                  <div className={style.reviewSection}></div>
-                  <div className={style.reviewSection}></div>
-                  <div className={style.reviewSection}></div>
-                  <div className={style.reviewSection}></div>
-                  <div className={style.reviewSection}></div>
-                  <div className={style.reviewSection}></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </>
-      );
-    } else if (juiceFind != undefined) {
-      return (
-        <>
-          <div className={style.topSection}>
-            <div className={style.left}>
-              <img
-                src={`/JuiceItemImages/${data[0].Image}`}
-                alt="image"
-                className={style.juiceImage}
-              />
-            </div>
-            <div className={style.right}>
-              <h1>{data[0].JuiceName}</h1>
-              <div className={style.star}>
-                <div className={style.startSection}>
-                  <Rating
-                    initialValue="5"
-                    readonly="true"
-                    className={style.startIcon}
-                    allowFraction
-                  />
-
-                  <h5>(1 Customer Review)</h5>
-                </div>
-              </div>
-              <h3>₹ {price}</h3>
-              <div className={style.subSection}>
-                <div className={style.subHeading}>Qty :</div>
-                <div className={style.subData}>{data[0].Qty}</div>
-                <div className={style.subHeading}>Category :</div>
-                <div className={style.subData}>{data[0].Category}</div>
-              </div>
-              <hr />
-
-              <div className={style.filterItem}>
-                <h1>Select Size</h1>
-
-                <div className={style.form}>
-                  {data[0].ItemCost.map((itemss) => {
-                    return (
-                      <div className={style.radioCard} key={itemss._id}>
-                        <li>
-                          <label>
-                            <span>
-                              <input
-                                type="radio"
-                                name="size"
-                                onClick={() =>
-                                  setItems(
-                                    itemss.sizeName,
-                                    itemss.Price,
-                                    itemss._id
-                                  )
-                                }
-                                value={itemss.sizeName}
-                                defaultChecked={selected === itemss.sizeName}
-                              />
-                              {itemss.sizeName == "largesize"
-                                ? "Large"
-                                : itemss.sizeName == "smallsize"
-                                ? "Small"
-                                : itemss.sizeName == "mediumsize"
-                                ? "Medium"
-                                : itemss.sizeName == "halfsize"
-                                ? "Half"
-                                : itemss.sizeName == "normalsize"
-                                ? "Normal"
-                                : ""}
-                            </span>
-                          </label>
-                        </li>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-              {!add ? (
-                <button
-                  className={style.btn3}
-                  onClick={() => RemoveFromCart(data)}
-                >
-                  Remove From Cart
-                </button>
-              ) : (
-                <button className={style.btn1} onClick={() => AddToCart(data)}>
-                  Add To Cart
-                </button>
-              )}
-              <button className={style.btn2} onClick={() => BuyNow(data)}>
-                Buy Now
-              </button>
-            </div>
-          </div>
-          <div className={style.description}>{data[0].Description}</div>
-
-          <div className={style.reviews} id="reviews">
-            <div className={style.heading}>Rating & Reviews</div>
-
-            <div className={style.box}>
-              <div className={style.top}>
-                <div className={style.avgRate}>
-                  <h1>5 / 5</h1>
-                  <div className={style.rates}>
-                    <Rating
-                      initialValue="5"
-                      readonly="true"
-                      className={style.startIcon}
-                      allowFraction
-                    />
-                    <p>Based On 1 rating</p>
-                  </div>
-                </div>
-
-                <div className={style.totalStar}>
-                  <li>
-                    <div className={style.headings}>Quality</div>
-                    <div className={style.progress}></div>
-                    <div className={style.percent}>100%</div>
-                  </li>
-                  <li>
-                    <div className={style.headings}>Price</div>
-                    <div className={style.progress}></div>
-                    <div className={style.percent}>100%</div>
-                  </li>
-                  <li>
-                    <div className={style.headings}>Service</div>
-                    <div className={style.progress}></div>
-                    <div className={style.percent}>100%</div>
-                  </li>
-                </div>
-              </div>
-
-              <div className={style.filterReview}>
-                <div className={style.titles}>Reviewed by 1 user</div>
-
-                <div className={style.filterSection}>
-                  <div className={style.sections}>
-                    <h1>
-                      <FaSort /> Sort :{" "}
-                    </h1>
-                    <select>
-                      <option value="">All Review</option>
-                      <option value="">Latest First</option>
-                      <option value="">Oldest First</option>
-                    </select>
-                  </div>
-
-                  <div className={style.sections}>
-                    <h1>
-                      <FaFilter /> Filter :
-                    </h1>
-                    <select>
-                      <option value="">All Star</option>
-                      <option value="">5 Star</option>
-                      <option value="">4 Star</option>
-                      <option value="">3 Star</option>
-                      <option value="">2 Star</option>
-                      <option value="">1 Star</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-
-              {/* realreviews Corner */}
-              <div className={style.reviewsSectionField}>
-                <div className={style.childs}>
-                  <div className={style.reviewSection}></div>
-
-                  <div className={style.reviewSection}></div>
-                  <div className={style.reviewSection}></div>
-                  <div className={style.reviewSection}></div>
-                  <div className={style.reviewSection}></div>
-                  <div className={style.reviewSection}></div>
-                  <div className={style.reviewSection}></div>
-                </div>
               </div>
             </div>
           </div>

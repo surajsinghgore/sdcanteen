@@ -3,11 +3,10 @@ let HOST=process.env.NEXT_PUBLIC_API_URL;
 const AllContext=createContext();
 
 
-
 const Provider=({children})=>{
 
 // useState
-
+const [refresh,setRefresh]=useState(false);
 const [filterAllFoodCategoriesData,setFilterAllFoodCategoriesData]=useState([]);
 const [filterFoodItemsData,setFilterFoodItemsData]=useState([]);
 const [filterCoffeeItemsData,setFilterCoffeeItemsData]=useState([]);
@@ -114,7 +113,7 @@ updateJuiceCategories,
 updateFoodItem,setUserData,
 updateCoffeeItem,
 updateDrinkItem,
-updateJuiceItem,
+updateJuiceItem,refresh,setRefresh
 }}>{children}</AllContext.Provider>)
 }
 

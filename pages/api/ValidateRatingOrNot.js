@@ -68,7 +68,7 @@ var filterProduct = findProduct
   )})
   return n;
 })
-console.log(checkUserEatthisProduct)
+
 // if res get means already comment
 if(filterProduct.length!==0 ){
 return res.status(404).send('sorry not allowed');

@@ -13,6 +13,30 @@ const ItemRates = new mongoose.Schema({
   ServiceRate: { type: String, required: true },
   PriceRate: { type: String, required: true },
   Time: {type:String,required:true},
+  CDate:{
+      type: Number,
+      required: true,
+    },
+  CMonth:{
+      type: Number,
+      required: true,
+    },
+  CYear:{
+      type: Number,
+      required: true,
+    },
+  CHours:{
+      type: Number,
+      required: true,
+    },
+  CMins:{
+      type: Number,
+      required: true,
+    },
+  LocalString:{
+      type: String,
+      required: true,
+    },
   Date:{type:String, required:true}
 });
 
@@ -27,7 +51,7 @@ const ItemRating = new mongoose.Schema(
       type: String,
       required: true,
     },
-    NumberOfOrders: {
+    NumberOfReviews: {
       type: Number,
       required: true,
     },

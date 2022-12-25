@@ -8,7 +8,7 @@ import { Rating } from "react-simple-star-rating";
 import { AllContext } from "../context/AllContext";
 import { useContext } from "react";
 export default function RateItem({productIds}) {
-  const { userData } = useContext(AllContext);
+  const { userData ,refresh,setRefresh} = useContext(AllContext);
   // item rate manage
   const [itemRate, setItemRate] = useState(0);
   const [serviceRate, setServiceRate] = useState(0);
@@ -190,6 +190,8 @@ progress: undefined,
 return ;
 }
 if(res.status==201){
+setRefresh(!refresh)
+   window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
 toast.success("Thanks For Giving Valuable Fedback for This Item", {
 position: "bottom-right",
 autoClose: 5000,

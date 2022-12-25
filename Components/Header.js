@@ -283,7 +283,7 @@ setUserLogin(false);
 localStorage.removeItem('login')
     localStorage.removeItem("itemOrder");
 const redirect=()=>{
-router.push("/");
+router.push("/ClientLogin");
 }
 setTimeout(redirect,2000);
 }
