@@ -5,6 +5,11 @@ let HOST = process.env.NEXT_PUBLIC_API_URL;
 import { useEffect } from "react";
 
 export default function VerifyAdminLogin() {
+function RedirectFunction(){
+  router.push('/admin/Login')
+}
+
+
 useEffect(()=>{
 const getData=async()=>{
 const res = await fetch(`${HOST}/api/VerifyAdminLogin`, {
@@ -24,12 +29,11 @@ pauseOnHover: true,
 draggable: true,
 progress: undefined,
 });
+
+setTimeout(RedirectFunction,500);
+
 localStorage.removeItem('adminlogin');
-function RedirectFunction(){
-  router.push('/admin/Login')
-}
-setTimeout(RedirectFunction,1500);
-return ;
+
 }
 }
 

@@ -7,6 +7,33 @@
   height: auto;
   background-color: rgb(255, 255, 255);
 }
+@keyframes example {
+  from {box-shadow: 2px 5px 30px rgb(200, 200, 200);}
+  to {box-shadow: 2px 5px 30px rgb(56, 56, 56);}
+}
+
+.admin .refresh{
+position: absolute;
+bottom: 2%;
+right: 2%;
+width: 50px;
+height: 50px; 
+  animation: example 5s linear 2s infinite alternate;
+background-color: rgb(98, 62, 62);
+border-radius: 50px;
+}
+.admin .refresh .icon{
+font-size: 6vh;
+margin-top: 14%;
+margin-left: 14%;
+transition: all 0.4s;
+cursor: pointer;
+color: white;
+}
+.admin .refresh:hover .icon{
+color: rgb(255, 196, 151);
+rotate: 350deg;
+}
 
 /* left panel*/
 

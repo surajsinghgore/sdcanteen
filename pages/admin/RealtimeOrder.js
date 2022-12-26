@@ -11,9 +11,10 @@ import ShowHideInRealtime from "../../Components/ShowHideInRealtime";
 let HOST = process.env.NEXT_PUBLIC_API_URL;
 import { AllContext } from "../../context/AllContext";
 import router from "next/router";
+import { MdRefresh } from 'react-icons/md';
 export default function RealtimeOrder() {
-  const { statesForRealtime } = useContext(AllContext);
 
+  const { statesForRealtime } = useContext(AllContext);
   const [datas, setData] = useState([]);
   const [token, setToken] = useState("");
   const [customerName, setCustomerName] = useState("");
@@ -229,53 +230,25 @@ setInterval(changes,1000*seconds);
   // filter using category
   const changingCategory = (e) => {
     setCategory(e.target.value);
-  };
- let result = [];
-useEffect(()=>{
-  let value = document.getElementById("category").value;
-    if (value == "null") {
-      if (localStorage.getItem("active") == "pending") {
-        setData(pendingData);
-      } else if (localStorage.getItem("active") == "complete") {
-        setData(completeData);
-      } else if (localStorage.getItem("active") == "reject") {
-        setData(rejectData);
-      } else if (localStorage.getItem("active") == "notpick") {
-        setData(pickUpNotData);
-      } else {
-        setData(allData);
-      }
-    } else {
-     let arr = [];
-      if (localStorage.getItem("active") == "pending") {
-        arr = pendingData;
-      } else if (localStorage.getItem("active") == "complete") {
-        arr = completeData;
-      } else if (localStorage.getItem("active") == "reject") {
-        arr = rejectData;
-      } else if (localStorage.getItem("active") == "notpick") {
-        arr = pickUpNotData;
-      } else {
-        arr = allData;
-      }
-
-result=arr.map((element) => {
-  return {...element, ItemsOrder: element.ItemsOrder.filter((subElement) => subElement.CategoryPrimary.includes(value.toLowerCase()))}
-})
-    
+    if(e.target.value=='null'){
+    fetchData()
+  
     }
-},[category])
+    else{
+ 
+    const fetchData=async()=>{
+    let res=await fetch(`${HOST}/api/FilterOrderInRealTimePanelCategory?CategoryPrimary=${e.target.value}`)
+    let dataRes=await res.json();
+    if(res.status==201){
+  setData(dataRes.data)
+    }
 
-useEffect(()=>{
-if(result.length!=0){
-for(let i=0;i<result.length;i++){
-console.log(result[i].ItemsOrder.length)
+    }
 
-}
-let newData=JSON.parse(JSON.stringify(result))
-  setData(result)
-}
-})
+    fetchData();
+       
+    }
+  };
 
 
   // filter using anayalsis
@@ -327,6 +300,11 @@ let newData=JSON.parse(JSON.stringify(result))
     router.push("/admin/RealtimeOrder");
   };
 
+  // fetch new data buy button
+const newData=()=>{
+fetchData();
+
+}
   return (
     <div className={Styles.admin}>
       <HeadTag title="Realtime Order" />
@@ -495,7 +473,7 @@ let newData=JSON.parse(JSON.stringify(result))
                           <div className={StyleRealtime.div8}>Action</div>
                         </div>
                      
-                          <ShowHideInRealtime item={item.ItemsOrder} key={item._id}/>
+                          <ShowHideInRealtime item={item.ItemsOrder} key={item._id} />
                       
                       </div>
                     </div>
@@ -507,6 +485,11 @@ let newData=JSON.parse(JSON.stringify(result))
             )}
           </div>
         </div>
+      </div>
+
+
+      <div className={Styles.refresh} onClick={newData}>
+      <MdRefresh className={Styles.icon}  />
       </div>
     </div>
   );
