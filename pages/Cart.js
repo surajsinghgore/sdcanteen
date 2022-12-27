@@ -9,11 +9,12 @@ import { useCart } from "react-use-cart";
 import "react-toastify/dist/ReactToastify.css";
 import Image from 'next/image'
 import router from 'next/router'
-
+import { useRouter } from "next/router";
 import { RiDeleteBin2Line } from 'react-icons/ri';
 import { useEffect, useState } from "react";
 
 export default function Cart() {
+const routers=useRouter();
 const [state,setState]=useState(true);
 const [foodItem,setFoodItem]=useState([""]);
 const [coffeeItem,setCoffeeItem]=useState([""])
@@ -325,7 +326,7 @@ return(
 
 
 <div className={CartStyle.bottom}>
-<Link href="/"><button className={CartStyle.more}>Continue Shopping</button></Link>
+<button className={CartStyle.more} onClick={()=>routers.back()}>Continue Shopping</button>
 <div className={CartStyle.subtotal}>
 <h1>Total Payabal Amount: <span> ₹ {payableAmount}</span></h1>
 {(length==0)? <button className={CartStyle.disables}>Add Item</button>:<button onClick={reirectToOrderPage}>Order Now</button>}

@@ -127,8 +127,6 @@ const res = await fetch(`${HOST}/api/RatingItems`, {
       }),
     });
 let data=await res.json();
-
-
 if(res.status==501){
 toast.error('Internal Server Error.Please try Again', {
 position: "bottom-right",

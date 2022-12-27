@@ -11,313 +11,99 @@ import ShowHideInRealtime from "../../Components/ShowHideInRealtime";
 let HOST = process.env.NEXT_PUBLIC_API_URL;
 import { AllContext } from "../../context/AllContext";
 import router from "next/router";
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function AllOrders() {
-  const { statesForRealtime } = useContext(AllContext);
-  const [datas, setData] = useState([]);
-  const [token, setToken] = useState("");
-  const [customerName, setCustomerName] = useState("");
+  // const { statesForRealtime } = useContext(AllContext);
+  const [placeHolders, setPlaceHolders] = useState('Search...');
   const [category, setCategory] = useState("");
-  const [time, setTime] = useState("");
-  const [totalPrice, setTotalPrice] = useState(0);
-  const [totalOrder, setTotalOrder] = useState(0);
-  const [completeOrder, setCompleteOrder] = useState(0);
-  const [pendingOrder, setPendingOrder] = useState(0);
-  const [rejectOrder, setRejectOrder] = useState(0);
-  const [notPickOrder, setNotPickOrder] = useState(0);
-  const [allData, setAllData] = useState([]);
-  const [rejectData, setRejectData] = useState([]);
-  const [pendingData, setPendingData] = useState([]);
-  const [completeData, setCompleteData] = useState([]);
-  const [pickUpNotData, setPickUpNotData] = useState([]);
-  const [rt,setRt]=useState(true)
-  // fetch realtime data
-  const fetchData = async () => {
-    let ress = await fetch(`${HOST}/api/ShowOrdersRealtime`);
-    let datass = await ress.json();
-    if (datass.data != undefined) {
-      //! pending Data Fetch
-      let pendingRes = datass.data.filter((item) => {
-        return item.OrderStatus.toLowerCase() == "pending";
-      });
-      setPendingOrder(pendingRes.length);
-      setPendingData(pendingRes);
-      if (localStorage.getItem("active") == "pending") {
-        setData(pendingRes);
-      }
-      //! complete Data Fetch
-      let completeRes = datass.data.filter((item) => {
-        return item.OrderStatus.toLowerCase() == "complete";
-      });
-let sum=0;
-datass.data.map((item) => {
-           item.ItemsOrder.map((itm)=>{
-         let pricess=parseInt(itm.AmountReceived)
-          sum=sum+pricess;
-          });
-      });
-setTotalPrice(sum)
-      setCompleteOrder(completeRes.length);
-      setCompleteData(completeRes);
-      if (localStorage.getItem("active") == "complete") {
-        setData(completeRes);
-      }
-      //! reject Data
-      let rejectRes = datass.data.filter((item) => {
-        return item.OrderStatus.toLowerCase() == "reject";
-      });
-      setRejectOrder(rejectRes.length);
-      setRejectData(rejectRes);
-      if (localStorage.getItem("active") == "reject") {
-        setData(rejectRes);
-      }
-      //! not pickedup order
-      let currentDate = new Date();
-      let m = parseInt(currentDate.getMinutes());
-      if (parseInt(m) <= 9) {
-        m = "0" + m;
-      }
-      let t = currentDate.getHours() + "." + m;
-      let time = parseFloat(t).toFixed(2);
-      let pickupNotRes = datass.data.filter((x) => {
-        return (
-          x.OrderStatus.toLowerCase() == "pending" &&
-          parseFloat(time) >= parseFloat(x.PickUpTime2)
-        );
-      });
-      setPickUpNotData(pickupNotRes);
-      setNotPickOrder(pickupNotRes.length);
-      setTotalOrder(datass.data.length);
-      setAllData(datass.data);
-      if (localStorage.getItem("active") == "notpick") {
-        setData(pickupNotRes);
-      }
-      if (
-        localStorage.getItem("active") == "all" ||
-        localStorage.getItem("active") == undefined
-      ) {
-        setData(datass.data);
-      }
-    }
-  };
+  const [searchInput, setSearchInput] = useState("");
+const [tag,setTag]=useState('all')
+ const [data,setData]=useState([]);
 
-  useEffect(() => {
-    fetchData();
-  }, [statesForRealtime]);
-
- let date=new Date();
- useEffect(() => {
- let seconds=60-date.getSeconds();
- const changes=()=>{
-    fetchData();
-    setRt(!rt);
+const fetchAllData=async()=>{
+let data=await fetch(`${HOST}/api/ShowAllOrders?tag=all&search=${""}`);
+let resData=await data.json();
+if(data.status==201){
+setData(resData.data)
 }
-if(localStorage.getItem('active')=="pending"){
-setInterval(changes,1000*seconds);
 }
-  }, [rt]);
-  // filter using token
-  const changingToken = (e) => {
-    setToken(e.target.value);
-    let namesId = document.getElementById("token").value.length;
-    let value = document.getElementById("token").value;
-    if (namesId == 0) {
-      if (localStorage.getItem("active") == "pending") {
-        setData(pendingData);
-      } else if (localStorage.getItem("active") == "complete") {
-        setData(completeData);
-      } else if (localStorage.getItem("active") == "reject") {
-        setData(rejectData);
-      } else if (localStorage.getItem("active") == "notpick") {
-        pickUpNotData;
-      } else {
-        setData(allData);
-      }
-    } else {
-      let arr = [];
-      if (localStorage.getItem("active") == "pending") {
-        arr = pendingData;
-      } else if (localStorage.getItem("active") == "complete") {
-        arr = completeData;
-      } else if (localStorage.getItem("active") == "reject") {
-        arr = rejectData;
-      } else if (localStorage.getItem("active") == "notpick") {
-        arr = pickUpNotData;
-      } else {
-        arr = allData;
-      }
-      let aa = arr.filter((item) => {
-        return item.TokenUser.toLowerCase().includes(value.toLowerCase());
-      });
-      setData(aa);
-    }
-  };
 
-  // filter using curstomer name
-  const changingName = (e) => {
-    setCustomerName(e.target.value);
-    let namesId = document.getElementById("names").value.length;
-    let value = document.getElementById("names").value;
-    if (namesId == 0) {
-      if (localStorage.getItem("active") == "pending") {
-        setData(pendingData);
-      } else if (localStorage.getItem("active") == "complete") {
-        setData(completeData);
-      } else if (localStorage.getItem("active") == "reject") {
-        setData(rejectData);
-      } else if (localStorage.getItem("active") == "notpick") {
-        setData(pickUpNotData);
-      } else {
-        setData(allData);
-      }
-    } else {
-      let arr = [];
-      if (localStorage.getItem("active") == "pending") {
-        arr = pendingData;
-      } else if (localStorage.getItem("active") == "complete") {
-        arr = completeData;
-      } else if (localStorage.getItem("active") == "reject") {
-        arr = rejectData;
-      } else if (localStorage.getItem("active") == "notpick") {
-        arr = pickUpNotData;
-      } else {
-        arr = allData;
-      }
-      let aa = arr.filter((item) => {
-        return item.FullName.toLowerCase().includes(value.toLowerCase());
-      });
-      setData(aa);
-    }
-  };
+ useEffect(()=>{
+ fetchAllData();
+ },[])
+// manage category
+const manageCategory=async(e)=>{
+setCategory(e.target.value)
+setSearchInput('')
+if(e.target.value=='all'){
+setPlaceHolders('Search');
+setTag('all');
+fetchAllData();
+}
 
-  // filter using time
-  const changingTime = (e) => {
-    setTime(e.target.value);
-    let value = document.getElementById("time").value;
-    if (value == "null") {
-      if (localStorage.getItem("active") == "pending") {
-        setData(pendingData);
-      } else if (localStorage.getItem("active") == "complete") {
-        setData(completeData);
-      } else if (localStorage.getItem("active") == "reject") {
-        setData(rejectData);
-      } else if (localStorage.getItem("active") == "notpick") {
-        setData(pickUpNotData);
-      } else {
-        setData(allData);
-      }
-    } else {
-      let arr = [];
-      if (localStorage.getItem("active") == "pending") {
-        arr = pendingData;
-      } else if (localStorage.getItem("active") == "complete") {
-        arr = completeData;
-      } else if (localStorage.getItem("active") == "reject") {
-        arr = rejectData;
-      } else if (localStorage.getItem("active") == "notpick") {
-        arr = pickUpNotData;
-      } else {
-        arr = allData;
-      }
-      let aa = arr.filter((item) => {
-        return item.PickUpTime.toLowerCase().includes(value.toLowerCase());
-      });
-      setData(aa);
-    }
-  };
+if(e.target.value=='token'){setPlaceHolders('Enter 6 Digit Token eg [xxxxxx] ')
+setTag('TokenUser');
+}
 
-  // filter using category
-  const changingCategory = (e) => {
-    setCategory(e.target.value);
-    let value = document.getElementById("category").value;
-    if (value == "null") {
-      if (localStorage.getItem("active") == "pending") {
-        setData(pendingData);
-      } else if (localStorage.getItem("active") == "complete") {
-        setData(completeData);
-      } else if (localStorage.getItem("active") == "reject") {
-        setData(rejectData);
-      } else if (localStorage.getItem("active") == "notpick") {
-        setData(pickUpNotData);
-      } else {
-        setData(allData);
-      }
-    } else {
-      let arr = [];
-      if (localStorage.getItem("active") == "pending") {
-        arr = pendingData;
-      } else if (localStorage.getItem("active") == "complete") {
-        arr = completeData;
-      } else if (localStorage.getItem("active") == "reject") {
-        arr = rejectData;
-      } else if (localStorage.getItem("active") == "notpick") {
-        arr = pickUpNotData;
-      } else {
-        arr = allData;
-      }
+if(e.target.value=='clinetname'){setPlaceHolders('Enter Client Full Name eg [s----- -----]')
+setTag('FullName')
+}
+if(e.target.value=='clinetemail'){setPlaceHolders('Enter Client Email Address eg [---@fg.com]')
+setTag('Email')
+}
+if(e.target.value=='clinetphone'){setPlaceHolders('Enter Client 10 Digit Phone Number eg [91---------]')
+setTag('Mobile')
+}
+if(e.target.value=='fulldate'){setPlaceHolders('Enter Order\'s Full Date eg [--.--.----]')
+setTag('OrderDate')
+}
+if(e.target.value=='fulltime'){setPlaceHolders('Enter Order\'s Full Time   eg [10.11-am]')
+setTag('PickUpTime')
+}
+if(e.target.value=='paymentmethod'){setPlaceHolders('Enter Payment Method eg [complete]')
+setTag('PaymentMethod')
+}
+if(e.target.value=='productname'){setPlaceHolders('Enter Item Name eg [maggi]')
+setTag('ItemName')
+}
+if(e.target.value=='productcategory'){setPlaceHolders('Enter Item Category eg [foodcategory]')
+setTag('CategoryPrimary')
+}
+if(e.target.value=='orderstatus'){setPlaceHolders('Enter Order\' Status eg [pending]')
+setTag('OrderStatus')
+}
+if(e.target.value=='totalamount'){setPlaceHolders('Enter Order Total Amount eg [100]')
+setTag('TotalAmount')
+}
+
+}
 
 
-const result = arr.map(item => ({
-    ...item,
-    ItemsOrder: item.ItemsOrder
-      .filter(child => child.CategoryPrimary.includes(value.toLowerCase()))
-  }))
-  .filter(item => item.ItemsOrder.length > 0)
-  setData(result)
-  
-    }
-  };
+const manageSearch=async(e)=>{
+setSearchInput(e.target.value)
+if(tag=='all'){
+toast.warn('Please Select Category from Dropdown Menu', {
+      position: "bottom-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+    setSearchInput('')
+    return ;
+}
 
-  // filter using anayalsis
-
-  const allDatasFunction = () => {
-    localStorage.setItem("active", "all");
-    setData(allData);
-    setToken("");
-    setCustomerName("");
-    setCategory("");
-    setTime("");
-    router.push("/admin/RealtimeOrder");
-  };
-
-  const completeFunction = () => {
-    localStorage.setItem("active", "complete");
-    setData(completeData);
-    setToken("");
-    setCustomerName("");
-    setCategory("");
-    setTime("");
-    router.push("/admin/RealtimeOrder");
-  };
-  const pendingFunction = () => {
-    localStorage.setItem("active", "pending");
-    setData(pendingData);
-    setToken("");
-    setCustomerName("");
-    setCategory("");
-    setTime("");
-    router.push("/admin/RealtimeOrder");
-  };
-  const rejectFunction = () => {
-    localStorage.setItem("active", "reject");
-    setData(rejectData);
-    setToken("");
-    setCustomerName("");
-    setCategory("");
-    setTime("");
-    router.push("/admin/RealtimeOrder");
-  };
-  const notpickFunction = () => {
-    localStorage.setItem("active", "notpick");
-    setData(pickUpNotData);
-    setToken("");
-    setCustomerName("");
-    setCategory("");
-    setTime("");
-    router.push("/admin/RealtimeOrder");
-  };
-
+let data=await fetch(`${HOST}/api/ShowAllOrders?tag=${tag}&search=${e.target.value}`);
+let resData=await data.json();
+if(data.status==201){
+setData([]);
+setData(resData.data)
+}
+}
   return (
     <div className={Styles.admin}>
       <HeadTag title="All Orders" />
@@ -332,90 +118,33 @@ const result = arr.map(item => ({
         <AdminRightInnerHeader title="All Orders Details" />
 
         <div className={StyleRealtime.orders}>
-          <h1>Filter Records</h1>
-          <h5>Today's Collection : <span>₹ {totalPrice}</span></h5>
-
-          {/*! search bar section */}
-          <div className={StyleRealtime.searchBar}>
-            <input
-              type="search"
-              name="token"
-              value={token}
-              placeholder="Search Token Id ..."
-              onChange={changingToken}
-              id="token"
-            />
-            <input
-              type="search"
-              name="curstomername"
-              value={customerName}
-              placeholder="Search Customer Name..."
-              onChange={changingName}
-              id="names"
-            />
-            <select value={time} onChange={changingTime} name="time" id="time">
-              <option value="null">Search Time Slot...</option>
-              <option value="8.00-Am">8.00 Am</option>
-              <option value="8.15-Am">8.15 Am</option>
-              <option value="8.30-Am">8.30 Am</option>
-              <option value="8.45-Am">8.45 Am</option>
-              <option value="9.00-AM">9.00 Am</option>
-              <option value="9.15-AM">9.15 Am</option>
-              <option value="9.30-AM">9.30 Am</option>
-              <option value="9.45-AM">9.45 Am</option>
-              <option value="10.00-Am">10.00 Am</option>
-              <option value="10.15-Am">10.15 Am</option>
-              <option value="10.30-Am">10.30 Am</option>
-              <option value="10.45-Am">10.45 Am</option>
-              <option value="11.00-Am">11.00 Am</option>
-              <option value="11.15-Am">11.15 Am</option>
-              <option value="11.30-Am">11.30 Am</option>
-              <option value="11.45-Am">11.45 Am</option>
-              <option value="12.00-Pm">12.00 Pm</option>
-              <option value="12.15-Pm">12.15 Pm</option>
-              <option value="12.30-Pm">12.30 Pm</option>
-              <option value="12.45-Pm">12.45 Pm</option>
-              <option value="1.00-Pm">1.00 Pm</option>
-              <option value="1.15-Pm">1.15 Pm</option>
-              <option value="1.30-Pm">1.30 Pm</option>
-              <option value="1.45-Pm">1.45 Pm</option>
-              <option value="2.00-Pm">2.00 Pm</option>
-              <option value="2.15-Pm">2.15 Pm</option>
-              <option value="2.30-Pm">2.30 Pm</option>
-              <option value="2.45-Pm">2.45 Pm</option>
-              <option value="3.00-Pm">3.00 Pm</option>
-              <option value="3.15-Pm">3.15 Pm</option>
-              <option value="3.30-Pm">3.30 Pm</option>
-              <option value="3.45-Pm">3.45 Pm</option>
-              <option value="4.00-Pm">4.00 Pm</option>
-              <option value="4.15-Pm">4.15 Pm</option>
-              <option value="4.30-Pm">4.30 Pm</option>
-              <option value="4.45-Pm">4.45 Pm</option>
-              <option value="5.00-Pm">5.00 Pm</option>
-              <option value="5.15-Pm">5.15 Pm</option>
-              <option value="5.30-Pm">5.30 Pm</option>
-              <option value="5.45-Pm">5.45 Pm</option>
-              <option value="6.00-Pm">6.00 Pm</option>
+         <h1>Filter Records</h1>
+          <h5>Total Order's : <span>{(data.length!=0)? data.length:"0"}</span></h5>
+          <div className={StyleRealtime.searchBar1}>
+            <select name="time" id="time" value={category} onChange={(e)=>manageCategory(e)}>
+              <option value="all">All Records</option>
+              <option value="token">Search Using Client Token</option>
+              <option value="clinetname">Search Using Client Name</option>
+              <option value="clinetemail">Search Using Client Email Address</option>
+              <option value="clinetphone">Search Using Client Phone Number</option>
+              <option value="fulldate">Search Using Full Date</option>
+              <option value="fulltime">Search Using Full Time</option>
+              <option value="paymentmethod">Search Using Payment Method</option>
+              <option value="productname">Search Using Product Name</option>
+              <option value="productcategory">Search Using Product Category</option>
+              <option value="orderstatus">Search Using Order Status</option>
+              <option value="totalamount">Search Using Total Amount</option>
             </select>
-            <select
-              value={category}
-              onChange={changingCategory}
-              name="category"
-              id="category"
-            >
-              <option value="null">Select Category..</option>
-              <option value="foodcategory">Food Category</option>
-              <option value="coffeecategory">Coffee Category</option>
-              <option value="drinkcategory">Drink Category</option>
-              <option value="juicecategory">Juice Category</option>
-            </select>
+           <input type="search" placeholder={placeHolders} value={searchInput} onChange={(e)=>manageSearch(e)}/>
           </div>
-          <div className={StyleRealtime.tables_section}>
+
+
+      <div className={StyleRealtime.tables_section}>
             {/* .pen .con .rej */}
 
-            {datas != 0 ? (
+            {data != 0 ? (
               <div>
-                {datas.map((item) => {
+                {data.map((item) => {
                   return (
                     <div key={item._id}>
                       <div className={StyleRealtime.tableheading}>
@@ -465,9 +194,9 @@ const result = arr.map(item => ({
                           <div className={StyleRealtime.div7}>Order Status</div>
                           <div className={StyleRealtime.div8}>Action</div>
                         </div>
-                        {item.ItemsOrder != undefined ? (
-                          <ShowHideInRealtime item={item.ItemsOrder} />
-                        ) : ""}
+                     
+                          <ShowHideInRealtime item={item.ItemsOrder} key={item._id} />
+                      
                       </div>
                     </div>
                   );
@@ -477,8 +206,21 @@ const result = arr.map(item => ({
               <h6>No Orders Found</h6>
             )}
           </div>
+
         </div>
       </div>
+
+        <ToastContainer
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </div>
   );
 }

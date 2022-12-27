@@ -62,7 +62,6 @@ font-size: 18px;
 outline: none;
 }
 
-
 .orders .searchBar option {
     overflow: hidden;  
     white-space: nowrap;
@@ -70,6 +69,64 @@ outline: none;
     height: 110px;
     font-size: 18px;
 }
+
+/* all orders search bar */
+.orders .searchBar1{
+width: 100%;
+height: auto;
+display: flex;
+}
+.orders .searchBar1 input{
+width: 72%;
+
+height: 40px;
+padding-left: 3%;
+margin-bottom: 2%;
+font-size: 18px;
+outline: none;
+}
+.orders .searchBar1 select{
+width: 25%;
+height: 40px;
+cursor: pointer;
+margin-left: 1%;
+text-align: center;
+margin-bottom: 2%;
+font-size: 18px;
+outline: none;
+}
+
+/* monthwise chart js style */
+.orders .charts{
+width: 80%;
+height: 500px;
+display: flex;
+margin-left:9%;
+}
+
+
+
+/* all orders search bar */
+.orders .searchBar2{
+width: 100%;
+height: auto;
+display: flex;
+}
+
+.orders .searchBar2 select{
+width: 40%;
+height: 40px;
+cursor: pointer;
+margin-left: 6%;
+text-align: center;
+margin-bottom: 2%;
+font-size: 18px;
+outline: none;
+}
+
+
+
+
 
 
 /* analysis section*/

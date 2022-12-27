@@ -356,6 +356,7 @@
   background-color: rgb(243, 243, 243);
   height: auto;
   margin-top: -6.4%;
+  position: relative;
   margin-bottom: 4%;
   padding-bottom: 1%;
 }
@@ -412,11 +413,19 @@
   height: auto;
   margin-top: -1%;
   text-align: center;
-  border: 1px solid rgb(95, 95, 95);
+  border: 1px solid rgb(200, 200, 200);
 }
 
 .reviews .box .reviewsSectionField .reviewSection .commentStyle p {
   font-size: 18px;
+}
+.reviews .box .reviewsSectionField .reviewSection .reportBtn {
+color: rgb(255, 0, 0);
+position: absolute;
+cursor: pointer;
+top: 15%;
+font-size: 22px;
+right:1%;
 }
 
 .reviews .box .clientReview {

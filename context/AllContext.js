@@ -15,7 +15,7 @@ const [filterJuiceItemsData,setFilterJuiceItemsData]=useState([]);
 const [statesForRealtime,setStateForRealtime]=useState(true);
 const [deletes,setDeletes]=useState(false);
 const [userData,setUserData]=useState([]);
-
+const [barData,setBarData]=useState([]);
 
 const updateFoodCategories=async(id)=>{
 
@@ -113,7 +113,7 @@ updateJuiceCategories,
 updateFoodItem,setUserData,
 updateCoffeeItem,
 updateDrinkItem,
-updateJuiceItem,refresh,setRefresh
+updateJuiceItem,refresh,setRefresh,barData,setBarData
 }}>{children}</AllContext.Provider>)
 }
 

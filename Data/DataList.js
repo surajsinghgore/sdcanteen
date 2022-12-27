@@ -182,8 +182,8 @@ title:"All Orders",
 path:"/admin/AllOrders",
 },
 {
-title:"Monthwise Orders",
-path:"/admin/AddOrder",
+title:"Anaylsis Order",
+path:"/admin/AnaylsisOrder",
 },
 ]
 },

@@ -5,6 +5,7 @@ import styles from "../../styles/Login.module.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import router from "next/router";
+import {useRouter} from "next/router";
 // login images banner
 import loginImage from "../../public/admin/loginImg.svg";
 import USerProfile from "../../public/admin/loginProfile.png";
@@ -12,6 +13,7 @@ import { useEffect } from "react";
 import Link from "next/link";
 
 const Login = () => {
+const routers=useRouter();
   const [secret, setSecret] = useState("");
   const [password, setPassword] = useState("");
   let HOST = process.env.NEXT_PUBLIC_API_URL;
@@ -102,7 +104,7 @@ router.push('/admin')
 localStorage.setItem('adminlogin',"true")
     setTimeout(myGreeting, 1200);
     function myGreeting() {
-      router.push("/admin");
+      routers.back();
     }
   };
 

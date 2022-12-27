@@ -12,12 +12,13 @@ import {  useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 let HOST = process.env.NEXT_PUBLIC_API_URL;
-import router from 'next/router'
+import {useRouter } from 'next/router'
 import HidePagesAfterLogin from "./HidePagesAfterLogin";
 import { useContext } from "react";
 import { AllContext } from "../context/AllContext";
 
 export default function ClientLogin() {
+const router = useRouter()
   const { setUserData } = useContext(AllContext);
 const [email,setEmail]=useState("")
 const [password,setPassword]=useState("")
@@ -99,9 +100,8 @@ draggable: true,
 progress: undefined,
 });
 localStorage.setItem('login',"true");
-function Redirect() {
-      
-      router.push("/");
+function Redirect() { 
+   router.back();
     }
  setTimeout(Redirect, 1200);
     
@@ -159,7 +159,7 @@ progress: undefined,
 
 localStorage.setItem('login',"true");
     function Redirect() {
-      router.push("/");
+router.back();
     }
  setTimeout(Redirect, 1200);
   }

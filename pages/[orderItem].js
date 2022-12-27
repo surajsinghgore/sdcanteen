@@ -14,6 +14,9 @@ import { Rating } from "react-simple-star-rating";
 import { useCart } from "react-use-cart";
 import { FaSort } from "react-icons/fa";
 import { FaFilter } from "react-icons/fa";
+import { GoReport } from "react-icons/go";
+import "react-confirm-alert/src/react-confirm-alert.css";
+import { confirmAlert } from "react-confirm-alert";
 import { BiTime } from "react-icons/bi";
 import { AiOutlineCalendar } from "react-icons/ai";
 import RateItem from "./RateItem";
@@ -957,6 +960,140 @@ export default function OrderItem() {
     }
   };
 
+
+// report comment
+const reportComment=(item)=>{
+console.log(item)
+if(localStorage.getItem('login')!='true'||localStorage.getItem('login')==undefined){
+      toast.warn("Please Login With Clinet Credentials", {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      const redirectClient=()=>{
+      router.push('/ClientLogin')
+      }
+      setTimeout(redirectClient,1500);
+      return ;
+}
+ confirmAlert({
+      title: "Confirm to Report ",
+      message: "Are you sure to report this comment ?",
+      buttons: [
+        {
+          label: "Yes",
+          onClick: async () => {
+         let CommentReportId=item._id;
+         let Message=item.Message;
+         let UserId=item.userId;
+
+         if(CommentReportId==undefined || CommentReportId==""){
+          toast.warn("Please Try Again", {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      return ;
+         } 
+          if(Message==undefined || Message==""){
+          toast.warn("Please Try Again", {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      return ;
+         } 
+          if(UserId==undefined || UserId==""){
+          toast.warn("Please Try Again", {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      return ;
+         } 
+            let res = await fetch(`${HOST}/api/ReportComments`, {
+              method: "POST",
+              headers: {
+                "Content-type": "application/json",
+              },
+              body: JSON.stringify({
+                CommentReportId: CommentReportId,
+                Message: Message,UserId:UserId
+              }),
+            });
+
+            let data = await res.json();
+  if (res.status == 401) {
+         toast.error(`${data.message}`, {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      return ;
+      }
+        if (res.status == 400) {
+         toast.warn(`${data.message}`, {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      return ;
+      }
+      if (res.status == 501) {
+         toast.warn("Internal Server Error", {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      return ;
+      }
+ toast.success(`${data.message}`, {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+
+          },
+        },
+        {
+          label: "No",
+          onClick: () => {},
+        },
+      ],
+    });
+}
   function FilterCard() {
     let foodFind;
     let coffeeFind;
@@ -1159,6 +1296,8 @@ export default function OrderItem() {
                   </div>
                 </div>
               </div>
+
+
               {/* realreviews Corner */}
               <div className={style.reviewsSectionField}>
                 <div className={style.childs}>
@@ -1193,6 +1332,7 @@ export default function OrderItem() {
                             <div className={style.commentStyle}>
                               <p>{item.Message}</p>
                             </div>
+                          <GoReport className={style.reportBtn} title="Report This Comment" onClick={()=>reportComment(item)}/>
                           </div>
                         );
                       })
