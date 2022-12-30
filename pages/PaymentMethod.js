@@ -4,6 +4,7 @@ import Footer from "../Components/Footer";
 import CartStyle from "../styles/Cart.module.css";
 import Styles from "../styles/admin.module.css";
 import Link from "next/link";
+var randtoken = require('rand-token');
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import router from "next/router";
@@ -14,6 +15,8 @@ import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 let HOST = process.env.NEXT_PUBLIC_API_URL;
 import { useCart } from "react-use-cart";
+import Head from "next/head";
+import Script from "next/script";
 export default function PaymentMethod() {
   const [totals, setTotal] = useState("0");
   const [arrays, setArrays] = useState([]);
@@ -26,7 +29,6 @@ export default function PaymentMethod() {
     const dataFetch = async () => {
       const items = localStorage.getItem("react-use-cart");
       let cartData = JSON.parse(items);
-console.log(cartData.items.length)
       let array = [];
       let sum = 0;
       let coffeeData = [];
@@ -288,11 +290,161 @@ console.log(cartData.items.length)
     setOrderFoodTime(localStorage.getItem("OrderFoodTime"));
   }, []);
 
-  // cod method
+  
   const InitaitePayment = () => {
     let value = document.querySelector(
       "input[type='radio'][name=payment]:checked"
     ).value;
+
+
+
+// online payment
+if(value == "Online"){
+
+
+confirmAlert({
+        title: "Confirm To Placed Order Using Online Payment ?",
+        message: "Order can't cancelled Onced Placed ",
+        buttons: [
+          {
+            label: "Yes",
+            onClick: async () => {
+
+
+let d=new Date();
+var token = randtoken.generate(15)+d.getDate()+d.getMonth()+d.getFullYear();
+const TokenId=token;
+ let TxnToken;
+  if(TotalAmount==0){
+   toast.warn(     "Amount Not Zero",
+                  {
+                    position: "bottom-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                  }
+                );
+              
+return;
+
+  }
+ const PickUpTime = localStorage.getItem("OrderFoodTime");
+              const PaymentMethod = value;
+              if (totals <= 0) {
+                emptyCart();
+                toast.warn(
+                  "Tempering Is Not Allowed In Cart,Plese Add Item Again",
+                  {
+                    position: "bottom-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                  }
+                );
+
+                const pushToCompleteOrder = () => {
+                  router.push("/");
+                };
+                setTimeout(pushToCompleteOrder, 2000);
+                return;
+              }
+              if (arrays.length == 0 || arrays == undefined || arrays == "") {
+                emptyCart();
+                toast.warn(
+                  "Tempering Is Not Allowed In Cart,Plese Add Item Again",
+                  {
+                    position: "bottom-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                  }
+                );
+                const pushToCompleteOrder = () => {
+                  router.push("/");
+                };
+                setTimeout(pushToCompleteOrder, 2000);
+                return;
+              }
+              const TotalAmount = totals;
+              const PickUpTime1 = localStorage.getItem("PickUpTime1");
+
+const InitiatePayment=async()=>{
+
+// get token for transcation
+let ress = await fetch(`${HOST}/api/PreTransaction`, {
+                method: "POST",
+                headers: {
+                  "Content-type": "application/json",
+                },
+                body: JSON.stringify({
+                amount:TotalAmount,orderId:TokenId, PickUpTime,
+                  PickUpTime1,
+                  PaymentMethod,
+                  ItemsOrder: arrays,
+                  TotalAmount,
+                }),
+              });
+
+              let datas=await ress.json();
+              TxnToken=datas.body.txnToken;
+             
+
+        var config = {
+         "root": "",
+         "flow": "DEFAULT",
+         "data": {
+          "orderId": TokenId,
+          "token": TxnToken,
+          "tokenType": "TXN_TOKEN",
+          "amount":TotalAmount
+         },
+         "handler": {
+            "notifyMerchant": function(eventName,data){
+              console.log("notifyMerchant handler function called");
+              console.log("eventName => ",eventName);
+              console.log("data => ",data);
+            } 
+          }
+        };
+
+window.Paytm.CheckoutJS.init(config).then(function onSuccess() {
+window.Paytm.CheckoutJS.invoke();
+}).catch(function onError(error){
+console.log("error => ",error);
+});
+
+
+   
+}
+
+InitiatePayment();
+
+            },
+          },
+          {
+            label: "No",
+            onClick: () => {},
+          },
+        ],
+      });
+
+
+
+
+
+
+
+}
+
     if (value == "COD") {
       confirmAlert({
         title: "Confirm To Placed Order ?",
@@ -345,7 +497,6 @@ console.log(cartData.items.length)
                 return;
               }
               const TotalAmount = totals;
-
               const PickUpTime1 = localStorage.getItem("PickUpTime1");
               let res = await fetch(`${HOST}/api/OrderItem`, {
                 method: "POST",
@@ -390,7 +541,6 @@ console.log(cartData.items.length)
                 emptyCart();
                 localStorage.removeItem("OrderFoodTime");
                 localStorage.removeItem("PickUpTime1");
-                localStorage.setItem("orderToken", data.tokenUser);
                 toast.success("Order Successfully Placed", {
                   position: "bottom-right",
                   autoClose: 5000,
@@ -418,6 +568,16 @@ console.log(cartData.items.length)
 
   return (
     <>
+    {/* 1.0 */}
+    <Head>
+        <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0"/>
+        <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0"/>
+    </Head>
+
+    {/* 1.1 */}
+   
+    <Script type="application/javascript" src={`${process.env.NEXT_PUBLIC_PAYTM_HOST}/merchantpgpui/checkoutjs/merchants/${process.env.NEXT_PUBLIC_MID}.js`} crossorigin="anonymous"></Script>
+
       <VerifyClientMiddleware />
       <div className={Styles.admin}>
         <HeadTag title="Payment Method" />
@@ -559,6 +719,8 @@ console.log(cartData.items.length)
         </div>
       </div>
       <Footer />
+
+     
       <ToastContainer
         position="bottom-right"
         autoClose={5000}

@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 // items Order Schema
-const ItemsOrderSchema = new mongoose.Schema({
+const PaymentOrderSchema = new mongoose.Schema({
   ItemName: { type: String, required: true },
   Qty: { type: Number, required: true },
   ProductOriginalAmount: { type: Number, required: true },
@@ -11,9 +11,9 @@ const ItemsOrderSchema = new mongoose.Schema({
   OrderStatus: { type: String, default: "Pending", required: true },
   AmountReceived: { type: Number, default: 0, required: true },
   CategoryPrimary:{ type: String ,required:true,lowercase:true},
-    paymentStatus:{type:String,required:true,default:"pending"}
+  paymentStatus:{type:String,required:true,default:"pending"}
 });
-const OrderSchema = new mongoose.Schema(
+const PaymentSchema = new mongoose.Schema(
   {
     UserId: {
       type: mongoose.Schema.Types.ObjectId,
@@ -69,7 +69,7 @@ const OrderSchema = new mongoose.Schema(
     },
     TotalAmount: { type: Number, required: true },
     OrderStatus: { type: String, default: "Pending", required: true },
-     PaymentOrderStatus: { type: String, default: "pending", required: true },
+    PaymentOrderStatus: { type: String, default: "initiated", required: true },
     AmountReceived: { type: Number, default: 0, required: true },
     OrderId: {
       type: String,
@@ -84,14 +84,14 @@ const OrderSchema = new mongoose.Schema(
       lowercase: true,
     },
     PaymentInfo:{ type: Object,default:""},
-    ItemsOrder: [ItemsOrderSchema],
+    ItemsOrder: [PaymentOrderSchema],
   },
   { timestamps: true }
 );
 
 mongoose.models = {};
 
-const OrderSchemaDataBase =
-  mongoose.models.OrderSchema || mongoose.model("OrderItems", OrderSchema);
+const PaymentSchemaDataBase =
+  mongoose.models.PaymentSchema || mongoose.model("PaymentSchema", PaymentSchema);
 
-export default OrderSchemaDataBase;
+export default PaymentSchemaDataBase;

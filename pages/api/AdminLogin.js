@@ -33,13 +33,13 @@ export default async function AdminLogin(req, res) {
     id: secret
   }
 }
-      const token = jwt.sign(data, JWT_SECRET, { expiresIn: "1h" });
+      const token = jwt.sign(data, JWT_SECRET, { expiresIn: "16h" });
 
       // generate cookies for admin
       res.setHeader('Set-Cookie',cookie.serialize('adminToken', token, {
       httpOnly: true,
         path: '/',
-    expires:new Date(Date.now()+ 3600000),
+    expires:new Date(Date.now()+ 57600000),
     secure:true
     }) );
             return res

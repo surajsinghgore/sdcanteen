@@ -86,23 +86,386 @@ height: 3em;
 
 
 .order{
-user-select: none;
 position: relative;
-margin-top: 6%;
-text-align: center;
+margin-top: 3%;
 width: 100%;
 height: auto;
 }
-.order h1{
-font-size: 70px;
-color: rgb(243, 101, 13);
+/* order failed */
+.order .failed{
+width: 100%;
+height: 94vh;
+background-color: #eff1f3;
 }
-.order p{
-margin-top: -5%;
-font-size: 130px;
-color: rgb(4, 165, 53);
+.order .failed .Div1{
+margin-top: 4%;
+width: 100%;
+margin-left: 0%;
+}
+.order .failed h2{
+color: red;
+padding-top: 4%;
+}
+.order .failed .icon{
+text-align: center;
+font-size: 70px;
+color: rgb(255, 38, 0);
+}
+.order .failed h3{
+text-align: center;
+padding-top: 5%;
+font-size: 40px;
+color: rgb(3, 69, 110);
+}
+.order .failed h3 span{
+color: rgb(24, 162, 213);
+}
+.order .failed h4{
+text-align: center;
+font-size: 35px;
+color: rgb(3, 69, 110);
 
 }
+.order .failed h4 span{
+color: rgb(254, 33, 3);
+}
+.order .temp{
+width: 100%;
+height: 94vh;
+background-color: #eff1f3;
+
+}
+.order .temp h2{
+padding-top: 20%;
+padding-bottom: 20%;
+
+}
+
+
+
+.order .orders{
+height: auto;
+padding-bottom: 3%;
+border-radius: 3px;
+border: 1px solid rgb(189, 189, 189);
+width: 92%;
+margin-left: 4%;
+box-shadow: 0px 0px 10px rgb(242, 242, 242);
+margin-bottom: 5%;
+}
+
+.order .titleSection{
+width: 100%;
+display: flex;
+}
+.order .titleSection h1{
+padding-top: 5%;
+font-size: 30px;
+padding-left: 5%;
+width: 77%;
+color: rgb(243, 101, 13);
+}
+
+.order .titleSection h2{
+padding-top: 5%;
+font-size: 26px;
+padding-right: 1%;
+margin-bottom: 3%;
+color: rgb(86, 85, 85);
+}
+.order .titleSection h2 span{color: rgb(240, 51, 51);}
+
+.order  .orderToday {
+width: 100%;
+display: flex;
+}
+.order  .orderToday h5{
+padding-top: 1%;
+font-size: 20px;
+padding-left: 5%;
+width: 80%;
+margin-bottom: 3%;
+color: black;
+}
+.order  .orderToday h6{
+padding-top: 1%;
+font-size: 20px;
+padding-left: 5%;
+width: 20%;
+margin-bottom: 3%;
+color: rgb(84, 84, 83) !important;
+}
+.order .orders .top{
+width: 100%;
+display: flex;
+padding-bottom: 1%;
+}
+.order .orders .top .left{width: 40%;}
+.order .orders .top .left h3{
+color: rgb(85, 85, 85);
+padding-top: 8%;
+padding-left: 8%;
+font-size: 23px;
+}
+.order .orders .top .left p{
+padding-left: 8%;
+font-size: 16px;
+font-weight: 500;
+}
+.order .orders .top .left h3 span{
+color: rgb(241, 3, 31);
+font-weight: 700;
+text-transform: uppercase;
+}
+
+
+.order .orders .top .right{
+width: 60%;
+display: flex;  
+}
+.order .orders .top .right div:first-child{
+margin-left: 56%;
+}
+.order .orders .top .right .hours,.order .orders .top .right .mins,.order .orders .top .right .sec{
+background-color: rgb(252, 28, 28);
+width: 11%;
+text-align: center;
+line-height: 70px;
+font-size: 30px;
+color: white;
+margin-left: 3%;
+border-radius: 10px;
+height: 70px;
+margin-top: 4.5%;
+}
+
+.order .orders .hr{
+
+width: 94%;
+}
+.order .orders .hr1{
+background-color: rgb(0, 0, 0);
+width: 94%;
+}
+.order .orders .hr2{
+background-color: rgb(0, 0, 0);
+width: 70%;
+margin-top: 3%;
+margin-left: 7%;
+}
+.order .orders .detials{
+width: 100%;
+height: auto;
+display: flex;
+padding-bottom: 3%;
+}
+.order .orders  h3{
+color: rgb(85, 85, 85);
+padding-top: 2%;
+padding-left: 3.5%;
+font-size: 20px;
+}
+.order .orders .detials .personal,.order .orders .detials .orderRealted{width: 50%;}
+.order .orders .detials .personal h3,.order .orders .detials .orderRealted h3{padding-left: 7%;
+font-size: 18px;
+}
+
+
+.order .orders .detials .detialsInner{
+margin-left: 1%;
+display: flex;
+width: 80%;
+margin-left: 7%;
+padding-top: 1%;
+}
+
+
+
+.order .orders .detials .detialsInner .card{
+font-size: 40px;
+color: #0189ae;
+margin-left: 1%;
+}
+.order .orders .detials .detialsInner .title1{
+color: rgb(5, 136, 207);
+font-size: 19px;
+padding-right: 4%;
+margin-left: 5%;
+padding-top: 1%;
+font-weight: 500;
+width: 45%;
+}
+.order .orders .detials .detialsInner .title{
+color: rgb(49, 49, 49);
+font-size: 19px;
+padding-right: 4%;
+font-weight: 500;
+width: 45%;
+}
+.order .orders .detials .detialsInner .data{
+color: rgb(240, 54, 8);
+font-size: 19px;
+width: 50%;
+font-weight: 700;
+text-align: left;
+padding-right: 4%;
+}
+.order .orders .detials .detialsInner .data1{
+color: rgb(5, 5, 255);
+font-size: 19px;
+width: 50%;
+font-weight: 700;
+text-align: left;
+padding-right: 4%;
+}
+
+
+
+
+
+
+
+
+
+
+
+.order .orders .items{
+height: auto;
+width: 100%;
+
+}
+
+
+.order .orders .items .ItemcardHeading{
+width: 94%;
+margin-left: 6%;
+
+display: flex;
+list-style: none;
+padding-top: 1%;
+padding-bottom: 1%;
+height: auto;
+margin-bottom: 2%;
+}
+
+.order .orders .items .ItemcardHeading .size{
+width: 23%;
+text-align: center;
+font-size: 20px;
+line-height: 10px;
+margin-left: -0%;
+}
+.order .orders .items .ItemcardHeading .foodName{
+width: 23%;
+text-align: center;
+font-size: 20px;
+line-height: 10px;
+}
+.order .orders .items .ItemcardHeading .price{
+width: 23%;
+text-align: center;
+font-size: 20px;
+line-height: 10px;
+}
+.order .orders .items .ItemcardHeading .qty{
+width: 8%;
+text-align: center;
+font-size: 20px;
+line-height: 10px;
+}
+
+.order .orders .items .ItemcardHeading .rupee{
+width: 23%;
+text-align: center;
+font-size: 20px;
+line-height: 10px;
+}
+
+
+
+
+
+
+/* data */
+.order .orders .items .Itemcard{
+width: 94%;
+margin-left: 6%;
+display: flex;
+list-style: none;
+padding-top: 1%;
+padding-bottom: 1%;
+height: auto;
+}
+
+
+.order .orders .items .Itemcard .foodName{
+width: 23%;
+text-align: center;
+font-size: 20px;
+line-height: 40px;
+}
+.order .orders .items .Itemcard .size{
+width: 23%;
+text-align: center;
+font-size: 20px;
+line-height: 40px;
+}
+.order .orders .items .Itemcard .price{
+width: 23%;
+text-align: center;
+font-size: 20px;
+line-height: 40px;
+}
+.order .orders .items .Itemcard .qty{
+width: 8%;
+text-align: center;
+font-size: 20px;
+line-height: 40px;
+}
+
+.order .orders .items .Itemcard .rupee{
+width: 23%;
+text-align: center;
+font-size: 20px;
+line-height: 40px;
+}
+
+
+
+
+.order .notFood{
+height: auto;
+padding-bottom: 3%;
+border-radius: 3px;
+border: 1px solid rgb(189, 189, 189);
+width: 92%;
+margin-left: 4%;
+box-shadow: 0px 0px 10px rgb(242, 242, 242);
+margin-bottom: 5%;
+}
+.order .notFood h3{
+text-align: center;
+margin-top: 4%;
+}
+.order .notFood button{
+width: 250px;
+padding: 1% 2% 1% 2%;
+height: auto;
+font-size: 20px;
+margin-bottom: 2%;
+margin-left: 40%;
+border: none;
+cursor: pointer;
+color: white;
+border-radius: 0;
+background-color: rgb(255, 77, 0);
+transition: all 0.4s;
+}
+.order .notFood button:hover{
+border-radius: 10px;
+box-shadow: 0px 0px 20px rgb(219, 219, 219);
+}
+
 
 .order .Div1{
 margin-top: -3%;

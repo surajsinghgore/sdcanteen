@@ -96,6 +96,7 @@ let d=await Timing.filter((time)=>{
 return time.time>=times;
 })
 setTime(d);
+// setTime(Timing);
 }
 }
 // zero is for sunday

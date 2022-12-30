@@ -24,8 +24,11 @@ if(data.length==0){
     return  res.status(404).json({ message: "Record Not Found" });
 }
 
+
 // update status
-await OrderSchemaDataBase.findOneAndUpdate({ItemsOrder: {$elemMatch: {_id: id}}}, {$set:{"ItemsOrder.$.OrderStatus":status}})
+await OrderSchemaDataBase.findOneAndUpdate({ItemsOrder: {$elemMatch: {_id: id}}}, {$set:{"ItemsOrder.$.OrderStatus":status,"ItemsOrder.$.paymentStatus":status}})
+
+
 // find updated records tp manage overall update records status update
 let datas=await OrderSchemaDataBase.find({ItemsOrder: {$elemMatch: {_id: id}}})
 let dataUpdate=await OrderSchemaDataBase.find({ItemsOrder: {$elemMatch: {_id: id}}})
@@ -34,8 +37,9 @@ let com=0;
 for(let i=0;i<dataUpdate.length;i++){
   let ids=dataUpdate[i]._id;
    await OrderSchemaDataBase.findByIdAndUpdate(ids, {
-          OrderStatus: "reject"
+          OrderStatus: "reject",PaymentOrderStatus:"reject"
         });
+        
  }
 
 res.status(201).json({message:datas})
@@ -56,7 +60,8 @@ let data=await OrderSchemaDataBase.find({ItemsOrder: {$elemMatch: {_id: id}}})
 if(data.length==0){
     return  res.status(404).json({ message: "Record Not Found" });
 }
-await OrderSchemaDataBase.findOneAndUpdate({ItemsOrder: {$elemMatch: {_id: id}}}, {$set:{"ItemsOrder.$.AmountReceived":price,"ItemsOrder.$.OrderStatus":status}})
+await OrderSchemaDataBase.findOneAndUpdate({ItemsOrder: {$elemMatch: {_id: id}}}, {$set:{"ItemsOrder.$.AmountReceived":price,"ItemsOrder.$.OrderStatus":status,"ItemsOrder.$.paymentStatus":"complete"}})
+
 let datas=await OrderSchemaDataBase.find({ItemsOrder: {$elemMatch: {_id: id}}})
 let dataUpdate=await OrderSchemaDataBase.find({ItemsOrder: {$elemMatch: {_id: id}}})
 let s=0;
@@ -77,7 +82,7 @@ rej=rej+1;
   let ids=dataUpdate[i]._id;
   let TotalAmount=dataUpdate[i].TotalAmount;
  await OrderSchemaDataBase.findByIdAndUpdate(ids, {
-          OrderStatus: "complete",AmountReceived:TotalAmount
+          OrderStatus: "complete",AmountReceived:TotalAmount,PaymentOrderStatus:"complete"
         });
 
  }
@@ -87,7 +92,7 @@ rej=rej+1;
    let ids=dataUpdate[i]._id;
   let TotalAmount=dataUpdate[i].TotalAmount;
  await OrderSchemaDataBase.findByIdAndUpdate(ids, {
-          OrderStatus: "reject",AmountReceived:TotalAmount
+          OrderStatus: "reject",AmountReceived:TotalAmount,PaymentOrderStatus:"reject"
         });
  
  }

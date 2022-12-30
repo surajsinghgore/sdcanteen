@@ -14,7 +14,6 @@ if(open){
 setShow(true);
  if(item.title=='Logout'){
  if(localStorage.getItem('adminlogin')==undefined){
- 
 toast.error('Please Login first with admin credentials', {
 position: "bottom-right",
 autoClose: 5000,
@@ -50,7 +49,7 @@ localStorage.removeItem("orderStatus");
 localStorage.removeItem("active");
 localStorage.removeItem("adminlogin");
 const redirect=()=>{
-router.push("/");
+router.push("/admin/Login");
 }
 setTimeout(redirect,100);
 }

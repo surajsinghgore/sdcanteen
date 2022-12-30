@@ -2,10 +2,6 @@ import VerifyClientUser from "./Middleware/ClientVerifyMiddleware";
 import DbConnection from "./Middleware/DbConnection";
 import ClientDatas from "./Schema/ClientData";
 import OrderSchemaDataBase from "./Schema/OrderSchema";
-
-
-
-
 var randtoken = require('rand-token');
 // email Send Initilaized
  const nodemailer = require("nodemailer");
@@ -27,9 +23,6 @@ export default async function AddCoffeeCategory(req, res) {
   if(res1==undefined){
     return res.status(401).json({ message: "Please login with Client credentails" });
     }
-
-
-    
       const _id=req.cookies.clinetId;
       const findClientData=await ClientDatas.findById({_id}).select('-Password -createdAt -updatedAt -Age -Gender -Profile');
       if(!findClientData){
@@ -51,8 +44,8 @@ OrderTimes=currentDate.getHours()+"-"+m+" PM";
 else{
 OrderTimes=currentDate.getHours()+"-"+m+" AM";
 }
-      
-const Email=findClientData.Email;
+    
+    const Email=findClientData.Email;
       const Mobile=findClientData.Mobile;
       const FullAddress=findClientData.FullAddress;
       const FullName=findClientData.FullName;
@@ -68,9 +61,18 @@ const Email=findClientData.Email;
 
 let array=[];
 // geneate unqiue token 
-    var token = randtoken.generate(16);
+let d=new Date();
+    var token = randtoken.generate(15)+d.getDate()+d.getMonth()+d.getFullYear();
     var token1 = randtoken.generate(6);
-    const TokenNumber=token;
+    let TokenNumber;
+    // get token in online
+    if(req.body.OrderId!=undefined){
+         TokenNumber=token;
+    }
+    // not get
+    else{
+     TokenNumber=token;    
+    }
     const TokenUser=token1;
 
 for(let i=0;i<req.body.ItemsOrder.length;i++){
@@ -84,17 +86,21 @@ for(let i=0;i<req.body.ItemsOrder.length;i++){
       array.push({ItemName,Qty,Amount,Category,Size,CategoryPrimary,ProductOriginalAmount})  
 }
  const sendItem=new OrderSchemaDataBase({UserId,
-      Email,Mobile,FullAddress,FullName,PickUpTime,PickUpTime1,PaymentMethod,OrderTime,OrderDate,TotalAmount,TokenNumber,TokenUser,PickUpTime2,
+      Email,Mobile,FullAddress,FullName,PickUpTime,PickUpTime1,PaymentMethod,OrderTime,OrderDate,TotalAmount,OrderId:TokenNumber,TokenUser,PickUpTime2,
       ItemsOrder:array
       })
       let ress=await sendItem.save();
-
-      let data=[];
+   const PaymentMethods=ress.PaymentMethod;
+         const AmountReceived=ress.AmountReceived;
+let data=[];
 if(ress.ItemsOrder){
 data=ress.ItemsOrder
 }
 let dataFile="./pages/api/EmailOrder.ejs";
-let datas=await ejs.renderFile(dataFile,{data:data,userName:FullName,TotalAmount:TotalAmount,TokenUser:TokenUser,PickUpTime:PickUpTime,OrderTime:OrderTime,OrderDate:OrderDate,totalItem:req.body.ItemsOrder.length})
+
+let datas=await ejs.renderFile(dataFile,{data:data,userName:FullName,TotalAmount:TotalAmount,TokenUser:TokenUser,PickUpTime:PickUpTime,OrderTime:OrderTime,OrderDate:OrderDate,totalItem:req.body.ItemsOrder.length,PaymentMethod:PaymentMethods,AmountReceived:AmountReceived})
+
+
 // send Mail
  const mailoption={
 from:process.env.NODEMAILER_GMAIL_ID,
@@ -109,7 +115,7 @@ return res.status(401).json({message:error,status:"401"});
 }
 })
 
- return res.status(201).json({status:"201",message:"Success",tokenUser:ress.TokenUser})
+ return res.status(201).json({status:"201",message:"Success",tokenUser:ress._id})
 
     }
     catch(e){

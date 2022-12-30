@@ -15,7 +15,6 @@ const OrderDate=`${day}.${month}.${year}`;
 
 
 let Alldata=await OrderSchemaDataBase.find().sort({PickUpTime1:1}).select('-createdAt -updatedAt -UserId -TokenNumber');
-
 let data=await Alldata.filter((item)=>{
 return item.OrderDate.includes(OrderDate)
 })

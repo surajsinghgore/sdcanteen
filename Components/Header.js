@@ -11,6 +11,7 @@ import { BiUserCircle } from 'react-icons/bi';
 import { BiLogIn } from 'react-icons/bi';
 import { BiSearchAlt2 } from 'react-icons/bi';
 import { MdLogout } from 'react-icons/md';
+import { MdToday } from 'react-icons/md';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
 import { useState } from 'react';
 import {  useCart } from "react-use-cart";
@@ -353,6 +354,12 @@ suggestion.style.display="none"
     </div>
 
 {(userLogin)?<div className="clinetOption" id="clientOption">
+<div>
+<Link href={"/OrderComplete"}><a>
+<i><MdToday /></i>
+<h1>Today's Order</h1>
+</a></Link>
+</div>
 <div>
 <i><BiPaste /></i>
 <h1>Past Order</h1>
