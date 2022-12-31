@@ -8,7 +8,7 @@ const ItemRates = new mongoose.Schema({
   ref: "clientdata",
     required: true,
   },
-  Message: { type: String, required: true, lowercase: true },
+  Message: { type: String, lowercase: true },
   QualityRate: { type: String, required: true },
   ServiceRate: { type: String, required: true },
   PriceRate: { type: String, required: true },

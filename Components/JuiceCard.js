@@ -47,9 +47,9 @@ let subData=item.item.ItemCost.filter((items)=>{
 return items._id==subId})
 
 if(subData.length==0 || subData==undefined){
- toast.warn(`please try agian `, {
+ toast.warn("please try again", {
       position: "bottom-right",
-      autoClose: 2000,
+      autoClose: 1500,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -57,7 +57,7 @@ if(subData.length==0 || subData==undefined){
       progress: undefined,
     });
     emptyCart();
-    localStorage.removeItem("itemOrder")
+ localStorage.removeItem("itemOrder");
     return ;
 }
 let id=item.item._id;
@@ -73,16 +73,31 @@ foodFind=item.item.JuiceName;
 if(foodFind!=undefined){
 let JuiceName=item.item.JuiceName;
 addItem({id,price,JuiceName,Qty,Image,Size,subId,Category,QtyBook,totalAmount})
- toast.success(`${JuiceName} successfully added to cart`, {
+if(JuiceName==undefined){
+ toast.success("Juice successfully added to cart", {
       position: "bottom-right",
-      autoClose: 2000,
+      autoClose: 1500,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
     });
-    localStorage.removeItem("itemOrder")
+}
+
+else{
+ toast.success(`${JuiceName} successfully added to cart`, {
+      position: "bottom-right",
+      autoClose: 1500,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+}
+
+
     return ;
 }
   
@@ -93,9 +108,9 @@ if(item.item._id!=undefined){
 let id=item.item._id;
 item.item.addToCart=false
 removeItem(id);
- toast.error(`Item successfully removed from cart`, {
+ toast.error("Item successfully removed from cart", {
       position: "bottom-right",
-      autoClose: 2000,
+      autoClose: 1500,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -139,9 +154,9 @@ let subId=localStorage.getItem("itemOrder");
 let subData=item.item.ItemCost.filter((items)=>{
 return items._id==subId})
 if(subData.length==0 || subData==undefined){
- toast.warn(`please try agian `, {
+ toast.warn("please try again ", {
       position: "bottom-right",
-      autoClose: 2000,
+      autoClose: 1500,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -149,7 +164,7 @@ if(subData.length==0 || subData==undefined){
       progress: undefined,
     });
     emptyCart();
-    localStorage.removeItem("itemOrder")
+     localStorage.removeItem("itemOrder");
     return ;
 }
 let id=item.item._id;
@@ -165,20 +180,34 @@ foodFind=item.item.JuiceName;
 if(foodFind!=undefined){
 let JuiceName=item.item.JuiceName;
 addItem({id,price,JuiceName,Qty,Image,Size,subId,Category,QtyBook,totalAmount})
- toast.success(`${JuiceName} successfully added to cart`, {
+ if(JuiceName==undefined){
+ toast.success("Juice successfully added to cart", {
       position: "bottom-right",
-      autoClose: 2000,
+      autoClose: 1500,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
     });
-    localStorage.removeItem("itemOrder")
+}
+
+else{
+ toast.success(`${JuiceName} successfully added to cart`, {
+      position: "bottom-right",
+      autoClose: 1500,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+}
+
     function redirect(){
      router.push("/Cart");
 }
-     setTimeout(redirect,1200)
+     setTimeout(redirect,1500)
     return ;
 }
   
@@ -245,7 +274,7 @@ localStorage.setItem("itemOrder",itm._id)
    </div></div>
          <ToastContainer
         position="bottom-right"
-        autoClose={5000}
+        autoClose={1500}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick

@@ -47,7 +47,7 @@ let subData=item.item.ItemCost.filter((items)=>{
 return items._id==subId})
 
 if(subData.length==0 || subData==undefined){
- toast.warn(`please try agian `, {
+ toast.warn("please try again ", {
       position: "bottom-right",
       autoClose: 2000,
       hideProgressBar: false,
@@ -56,8 +56,7 @@ if(subData.length==0 || subData==undefined){
       draggable: true,
       progress: undefined,
     });
-    emptyCart();
-    localStorage.removeItem("itemOrder")
+    emptyCart(); localStorage.removeItem("itemOrder");
     return ;
 }
 let id=item.item._id;
@@ -73,16 +72,31 @@ foodFind=item.item.DrinkName;
 if(foodFind!=undefined){
 let DrinkName=item.item.DrinkName;
 addItem({id,price,DrinkName,Qty,Image,Size,subId,Category,QtyBook,totalAmount})
- toast.success(`${DrinkName} successfully added to cart`, {
+if(DrinkName==undefined){
+ toast.success("Drink successfully added to cart", {
       position: "bottom-right",
-      autoClose: 2000,
+      autoClose: 1500,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
     });
-    localStorage.removeItem("itemOrder")
+}
+
+else{
+ toast.success(`${DrinkName} successfully added to cart`, {
+      position: "bottom-right",
+      autoClose: 1500,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+}
+
+  
     return ;
 }
   
@@ -93,7 +107,7 @@ if(item.item._id!=undefined){
 let id=item.item._id;
 item.item.addToCart=false
 removeItem(id);
- toast.error(`Item successfully removed from cart`, {
+ toast.error("Item successfully removed from cart", {
       position: "bottom-right",
       autoClose: 2000,
       hideProgressBar: false,
@@ -139,7 +153,7 @@ let subId=localStorage.getItem("itemOrder");
 let subData=item.item.ItemCost.filter((items)=>{
 return items._id==subId})
 if(subData.length==0 || subData==undefined){
- toast.warn(`please try agian `, {
+ toast.warn("please try again ", {
       position: "bottom-right",
       autoClose: 2000,
       hideProgressBar: false,
@@ -148,8 +162,7 @@ if(subData.length==0 || subData==undefined){
       draggable: true,
       progress: undefined,
     });
-    emptyCart();
-    localStorage.removeItem("itemOrder")
+    emptyCart(); localStorage.removeItem("itemOrder");
     return ;
 }
 let id=item.item._id;
@@ -165,16 +178,33 @@ foodFind=item.item.DrinkName;
 if(foodFind!=undefined){
 let DrinkName=item.item.DrinkName;
 addItem({id,price,DrinkName,Qty,Image,Size,subId,Category,QtyBook,totalAmount})
- toast.success(`${DrinkName} successfully added to cart`, {
+if(DrinkName==undefined){
+ toast.success("Drink successfully added to cart", {
       position: "bottom-right",
-      autoClose: 2000,
+      autoClose: 1500,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
     });
+}
+
+else{
+ toast.success(`${DrinkName} successfully added to cart`, {
+      position: "bottom-right",
+      autoClose: 1500,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+}
+
+    if(localStorage.getItem("itemOrder")){
     localStorage.removeItem("itemOrder")
+    }
     function redirect(){
      router.push("/Cart");
 }
@@ -245,7 +275,7 @@ localStorage.setItem("itemOrder",itm._id)
    </div></div>
          <ToastContainer
         position="bottom-right"
-        autoClose={5000}
+        autoClose={1500}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick

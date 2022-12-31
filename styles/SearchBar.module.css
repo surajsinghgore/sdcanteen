@@ -294,7 +294,7 @@
   margin-top: 2%;
   margin-left: 4%;
   border: 3px;
-  background-color: rgb(221, 221, 221);
+  background-color: rgb(246, 246, 246);
   height: 60px;
   display: flex;
 }
@@ -340,7 +340,7 @@
 .reviews .box .reviewsSectionField .childs {
   width: 92%;
   margin-left: 4%;
-  height: 300px;
+  height: 400px;
   padding-bottom: 2%;
   border-bottom: 1px solid rgb(99, 99, 99);
   overflow-x: hidden;
@@ -353,10 +353,11 @@
 /* user review style */
 .reviews .box .reviewsSectionField .reviewSection {
   width: 100%;
-  background-color: rgb(243, 243, 243);
+    background-color: #f7f7f7;
   height: auto;
   margin-top: -6.4%;
   position: relative;
+  border-radius: 3px;
   margin-bottom: 4%;
   padding-bottom: 1%;
 }
@@ -381,18 +382,18 @@
   margin-top: 1%;
 }
 .reviews .box .reviewsSectionField .reviewSection .topSection .userDetails {
-  width: 55%;
+  width: 50%;
 }
 .reviews .box .reviewsSectionField .reviewSection .topSection .userDetails h2 {
   font-size: 18px;
   color: rgb(94, 94, 94);
-  text-align: center;
-  margin-top: 1%;
+  margin-top: 0.1%;
+text-align: center;
 }
 .reviews .box .reviewsSectionField .reviewSection .topSection .icons {
   text-align: center;
   display: flex;
-  width: 35%;
+  width:40%;
   padding-left: 7%;
   padding-top: 1%;
 }
@@ -409,23 +410,29 @@
 }
 
 .reviews .box .reviewsSectionField .reviewSection .commentStyle {
-  width: 100%;
+  width: 94%;
   height: auto;
   margin-top: -1%;
-  text-align: center;
-  border: 1px solid rgb(200, 200, 200);
+margin-left: 3%;
 }
 
 .reviews .box .reviewsSectionField .reviewSection .commentStyle p {
-  font-size: 18px;
+  font-size: 20px;
+  text-transform: capitalize;
+  color: #3e3e3e;
 }
 .reviews .box .reviewsSectionField .reviewSection .reportBtn {
 color: rgb(255, 0, 0);
 position: absolute;
 cursor: pointer;
-top: 15%;
+top: 4%;
 font-size: 22px;
-right:1%;
+right: 1%;
+transition: all 0.5s;
+}
+.reviews .box .reviewsSectionField .reviewSection .reportBtn:hover{
+box-shadow: -3px 10px 50px rgb(14, 14, 14);
+color: rgb(3, 27, 246);
 }
 
 .reviews .box .clientReview {

@@ -102,10 +102,10 @@ router.push('/admin')
       progress: undefined,
     });
 localStorage.setItem('adminlogin',"true")
-    setTimeout(myGreeting, 1200);
     function myGreeting() {
-      routers.back();
+      router.push("/admin");
     }
+    setTimeout(myGreeting, 1200);
   };
 
   return (

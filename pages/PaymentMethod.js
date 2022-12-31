@@ -7,6 +7,7 @@ import Link from "next/link";
 var randtoken = require('rand-token');
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Loader from "../Components/Loader";
 import router from "next/router";
 import VerifyClientMiddleware from "./VerifyClientMiddleware";
 import { useEffect, useState } from "react";
@@ -15,272 +16,57 @@ import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 let HOST = process.env.NEXT_PUBLIC_API_URL;
 import { useCart } from "react-use-cart";
+import LoadingBar from "react-top-loading-bar";
 import Head from "next/head";
 import Script from "next/script";
 export default function PaymentMethod() {
+const [loader,setLoader]=useState(false);
   const [totals, setTotal] = useState("0");
+  const [checkCod, setCheckCod] = useState(true);
+ const [progress, setProgress] = useState(0);
   const [arrays, setArrays] = useState([]);
   const [carts, setCarts] = useState([]);
   const [OrderFoodTime, setOrderFoodTime] = useState();
   const { emptyCart, updateItem } = useCart();
 
-  useEffect(() => {
+const tempringSave=async()=>{
+    setLoader(true)
     setCarts(JSON.parse(localStorage.getItem("react-use-cart")));
-    const dataFetch = async () => {
       const items = localStorage.getItem("react-use-cart");
       let cartData = JSON.parse(items);
-      let array = [];
       let sum = 0;
-      let coffeeData = [];
-      let drinkData = [];
-      let foodData = [];
-      let juiceData = [];
-
-      const coffeeItem = await fetch(`${HOST}/api/ShowCoffeeItemClient`);
-      const drinkItem = await fetch(`${HOST}/api/ShowDrinkItemClient`);
-      const foodItem = await fetch(`${HOST}/api/ShowFoodItemClient`);
-      const juiceItem = await fetch(`${HOST}/api/ShowJuiceItemClient`);
-      coffeeData = await coffeeItem.json();
-      drinkData = await drinkItem.json();
-      foodData = await foodItem.json();
-      juiceData = await juiceItem.json();
-
-      for (let j = 0; j < cartData.items.length; j++) {
-        //  filter food Price
-
-        if (cartData.items[j].FoodName) {
-          for (let i = 0; i < foodData.data.length; i++) {
-            if (foodData.data[i].FoodName == cartData.items[j].FoodName) {
-              if (foodData.data[i].Category == cartData.items[j].Category) {
-                let QtyBook = parseInt(cartData.items[j].QtyBook);
-                let pricesFilter = foodData.data[i].ItemCost.filter((itx) => {
-                  return itx._id == cartData.items[j].subId;
+let datatemp = await fetch(`${HOST}/api/CheckItemTempering`, {
+                method: "POST",
+                headers: {
+                  "Content-type": "application/json",
+                },
+                body: JSON.stringify({
+                data:cartData
+                }),
+              });
+let Datas=await datatemp.json();
+if(datatemp.status==201){
+ setArrays(Datas.data)
+sum=Datas.sum
+}
+for(let i=0;i<arrays.length;i++){
+for(let j=0;j<cartData.items.length;j++){
+if(cartData.items[j].id==arrays[i].id){
+ updateItem(cartData.items[j].id, {
+                  QtyBook: arrays[i].Qty,
+                  price: arrays[i].ProductOriginalAmount,
+                  totalAmount: ( arrays[i].ProductOriginalAmount)*( arrays[i].Qty),
                 });
-                let OriginalPrice = parseInt(pricesFilter[0].Price);
-                let Size = pricesFilter[0].sizeName;
-                if (QtyBook < 1) {
-                  emptyCart();
-                  toast.error(
-                    "Sorry Tempering Is Not Allowed with Food Details",
-                    {
-                      position: "bottom-right",
-                      autoClose: 5000,
-                      hideProgressBar: false,
-                      closeOnClick: true,
-                      pauseOnHover: true,
-                      draggable: true,
-                      progress: undefined,
-                    }
-                  );
-                  const pushToCompleteOrder = () => {
-                    router.push("/");
-                  };
-                  setTimeout(pushToCompleteOrder, 1500);
-                }
-                let ItemName = foodData.data[i].FoodName;
-                let Qty = QtyBook;
-                sum += QtyBook * OriginalPrice;
-                              let Category = foodData.data[i].Category;
-                let ProductOriginalAmount = OriginalPrice;
-                let Amount = QtyBook * OriginalPrice;
-                let CategoryPrimary = "foodcategory";
-                updateItem(cartData.items[j].id, {
-                  QtyBook: Qty,
-                  price: ProductOriginalAmount,
-                  totalAmount: Amount,
-                });
-                array.push({
-                  ItemName,
-                  Qty,
-                  Amount,
-                  Category,
-                  Size,
-                  ProductOriginalAmount,
-                  CategoryPrimary,
-                });
-              }
-            }
-          }
-        }
-
-        //! filter using coffee
-        if (cartData.items[j].CoffeeName) {
-          for (let i = 0; i < coffeeData.data.length; i++) {
-            if (coffeeData.data[i].CoffeeName == cartData.items[j].CoffeeName) {
-              if (coffeeData.data[i].Category == cartData.items[j].Category) {
-                let QtyBook = parseInt(cartData.items[j].QtyBook);
-                let pricesFilter = coffeeData.data[i].ItemCost.filter((itx) => {
-                  return itx._id == cartData.items[j].subId;
-                });
-                let OriginalPrice = parseInt(pricesFilter[0].Price);
-                let Size = pricesFilter[0].sizeName;
-                if (QtyBook < 1) {
-                  emptyCart();
-                  toast.error(
-                    "Sorry Tempering Is Not Allowed with Food Details",
-                    {
-                      position: "bottom-right",
-                      autoClose: 5000,
-                      hideProgressBar: false,
-                      closeOnClick: true,
-                      pauseOnHover: true,
-                      draggable: true,
-                      progress: undefined,
-                    }
-                  );
-                  const pushToCompleteOrder = () => {
-                    router.push("/");
-                  };
-                  setTimeout(pushToCompleteOrder, 1500);
-                }
-                sum += QtyBook * OriginalPrice;
-                            let ItemName = coffeeData.data[i].CoffeeName;
-                let Qty = QtyBook;
-                let Category = coffeeData.data[i].Category;
-                let ProductOriginalAmount = OriginalPrice;
-                let Amount = QtyBook * OriginalPrice;
-                let CategoryPrimary = "coffeecategory";
-                updateItem(cartData.items[j].id, {
-                  QtyBook: Qty,
-                  price: ProductOriginalAmount,
-                  totalAmount: Amount,
-                });
-                array.push({
-                  ItemName,
-                  Qty,
-                  Amount,
-                  Category,
-                  Size,
-                  ProductOriginalAmount,
-                  CategoryPrimary,
-                });
-              }
-            }
-          }
-        }
-
-        // !Drink Name
-
-        if (cartData.items[j].DrinkName) {
-          for (let i = 0; i < drinkData.data.length; i++) {
-            if (drinkData.data[i].DrinkName == cartData.items[j].DrinkName) {
-              if (drinkData.data[i].Category == cartData.items[j].Category) {
-                let QtyBook = parseInt(cartData.items[j].QtyBook);
-                let pricesFilter = drinkData.data[i].ItemCost.filter((itx) => {
-                  return itx._id == cartData.items[j].subId;
-                });
-                let OriginalPrice = parseInt(pricesFilter[0].Price);
-                let Size = pricesFilter[0].sizeName;
-                if (QtyBook < 1) {
-                  emptyCart();
-                  toast.error(
-                    "Sorry Tempering Is Not Allowed with Food Details",
-                    {
-                      position: "bottom-right",
-                      autoClose: 5000,
-                      hideProgressBar: false,
-                      closeOnClick: true,
-                      pauseOnHover: true,
-                      draggable: true,
-                      progress: undefined,
-                    }
-                  );
-                  const pushToCompleteOrder = () => {
-                    router.push("/");
-                  };
-                  setTimeout(pushToCompleteOrder, 1500);
-                }
-                sum += QtyBook * OriginalPrice;
-                            let ItemName = drinkData.data[i].DrinkName;
-                let Qty = QtyBook;
-                let Category = drinkData.data[i].Category;
-                let ProductOriginalAmount = OriginalPrice;
-                let Amount = QtyBook * OriginalPrice;
-                let CategoryPrimary = "drinkcategory";
-                updateItem(cartData.items[j].id, {
-                  QtyBook: Qty,
-                  price: ProductOriginalAmount,
-                  totalAmount: Amount,
-                });
-                array.push({
-                  ItemName,
-                  Qty,
-                  Amount,
-                  Category,
-                  Size,
-                  ProductOriginalAmount,
-                  CategoryPrimary,
-                });
-              }
-            }
-          }
-        }
-
-        // !Juice Data
-
-
- 
-        if (cartData.items[j].JuiceName) {
-          for (let i = 0; i < juiceData.data.length; i++) {
-            if (juiceData.data[i].JuiceName == cartData.items[j].JuiceName) {
-              if (juiceData.data[i].Category == cartData.items[j].Category) {
-                let QtyBook = parseInt(cartData.items[j].QtyBook);
-                let pricesFilter = juiceData.data[i].ItemCost.filter((itx) => {
-                  return itx._id == cartData.items[j].subId;
-                });
-                let OriginalPrice = parseInt(pricesFilter[0].Price);
-                let Size = pricesFilter[0].sizeName;
-                if (QtyBook < 1) {
-                  emptyCart();
-                  toast.error(
-                    "Sorry Tempering Is Not Allowed with Food Details",
-                    {
-                      position: "bottom-right",
-                      autoClose: 5000,
-                      hideProgressBar: false,
-                      closeOnClick: true,
-                      pauseOnHover: true,
-                      draggable: true,
-                      progress: undefined,
-                    }
-                  );
-                  const pushToCompleteOrder = () => {
-                    router.push("/");
-                  };
-                  setTimeout(pushToCompleteOrder, 1500);
-                }
-                sum += QtyBook * OriginalPrice;
-                let ItemName = juiceData.data[i].JuiceName;
-                let Qty = QtyBook;
-                let Category = juiceData.data[i].Category;
-                let ProductOriginalAmount = OriginalPrice;
-                let Amount = QtyBook * OriginalPrice;
-                let CategoryPrimary = "juicecategory";
-                updateItem(cartData.items[j].id, {
-                  QtyBook: Qty,
-                  price: ProductOriginalAmount,
-                  totalAmount: Amount,
-                });
-                array.push({
-                  ItemName,
-                  Qty,
-                  Amount,
-                  Category,
-                  Size,
-                  ProductOriginalAmount,
-                  CategoryPrimary,
-                });
-              }
-            }
-          }
-        }
-      }
-
-      setArrays(array);
+}
+}
+}
+  setLoader(false)
       setTotal(sum);
-    };
+}
 
-    dataFetch();
+
+  useEffect(() => {
+tempringSave();
   }, []);
 
   useEffect(() => {
@@ -290,12 +76,27 @@ export default function PaymentMethod() {
     setOrderFoodTime(localStorage.getItem("OrderFoodTime"));
   }, []);
 
+
+// cod enable disable logic
+  useEffect(()=>{
+
+  const check=async()=>{
+  const res=await fetch(`${HOST}/api/CodEnableCheck`)
+  if(res.status==400){
+  setCheckCod(false);
+  }
+  }
+  if(localStorage.getItem('login')!=undefined){
+  check();
   
+  }
+  },[])
+
   const InitaitePayment = () => {
+  tempringSave();
     let value = document.querySelector(
       "input[type='radio'][name=payment]:checked"
     ).value;
-
 
 
 // online payment
@@ -310,7 +111,7 @@ confirmAlert({
             label: "Yes",
             onClick: async () => {
 
-
+ 
 let d=new Date();
 var token = randtoken.generate(15)+d.getDate()+d.getMonth()+d.getFullYear();
 const TokenId=token;
@@ -378,7 +179,7 @@ return;
               const PickUpTime1 = localStorage.getItem("PickUpTime1");
 
 const InitiatePayment=async()=>{
-
+setProgress(20)
 // get token for transcation
 let ress = await fetch(`${HOST}/api/PreTransaction`, {
                 method: "POST",
@@ -394,9 +195,11 @@ let ress = await fetch(`${HOST}/api/PreTransaction`, {
                 }),
               });
 
+setProgress(40)
               let datas=await ress.json();
               TxnToken=datas.body.txnToken;
-             
+         
+setProgress(60)
 
         var config = {
          "root": "",
@@ -415,8 +218,11 @@ let ress = await fetch(`${HOST}/api/PreTransaction`, {
             } 
           }
         };
+setProgress(80)
 
 window.Paytm.CheckoutJS.init(config).then(function onSuccess() {
+setProgress(100)
+  
 window.Paytm.CheckoutJS.invoke();
 }).catch(function onError(error){
 console.log("error => ",error);
@@ -456,6 +262,7 @@ InitiatePayment();
               const PickUpTime = localStorage.getItem("OrderFoodTime");
               const PaymentMethod = value;
               if (totals <= 0) {
+             
                 emptyCart();
                 toast.warn(
                   "Tempering Is Not Allowed In Cart,Plese Add Item Again",
@@ -471,13 +278,14 @@ InitiatePayment();
                 );
 
                 const pushToCompleteOrder = () => {
-                  router.push("/");
+                  router.push("/Cart");
                 };
                 setTimeout(pushToCompleteOrder, 2000);
                 return;
               }
               if (arrays.length == 0 || arrays == undefined || arrays == "") {
                 emptyCart();
+            
                 toast.warn(
                   "Tempering Is Not Allowed In Cart,Plese Add Item Again",
                   {
@@ -491,12 +299,14 @@ InitiatePayment();
                   }
                 );
                 const pushToCompleteOrder = () => {
-                  router.push("/");
+                  router.push("/Cart");
                 };
                 setTimeout(pushToCompleteOrder, 2000);
                 return;
               }
               const TotalAmount = totals;
+setProgress(40)
+
               const PickUpTime1 = localStorage.getItem("PickUpTime1");
               let res = await fetch(`${HOST}/api/OrderItem`, {
                 method: "POST",
@@ -523,6 +333,8 @@ InitiatePayment();
                   draggable: true,
                   progress: undefined,
                 });
+setProgress(100)
+
                 return;
               }
               if (data.status == "404") {
@@ -535,11 +347,14 @@ InitiatePayment();
                   draggable: true,
                   progress: undefined,
                 });
+setProgress(100)
+
                 return;
               }
               if (data.status == "201") {
                 emptyCart();
                 localStorage.removeItem("OrderFoodTime");
+                localStorage.removeItem("itemOrder");
                 localStorage.removeItem("PickUpTime1");
                 toast.success("Order Successfully Placed", {
                   position: "bottom-right",
@@ -550,6 +365,9 @@ InitiatePayment();
                   draggable: true,
                   progress: undefined,
                 });
+setProgress(100)
+
+
                 const pushToCompleteOrder = () => {
                   router.push("/OrderComplete");
                 };
@@ -568,6 +386,14 @@ InitiatePayment();
 
   return (
     <>
+<Loader loader={loader}/>
+ <LoadingBar
+        color="rgb(255 82 0)"
+        height={3.5}
+        waitingTime={400}
+        progress={progress}
+        transitionTime={100}
+      />  
     {/* 1.0 */}
     <Head>
         <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0"/>
@@ -643,12 +469,16 @@ InitiatePayment();
                     <h4>: Online Payment</h4>
                   </label>
                 </div>
-                <div className={Style1.div}>
+                
+                {(checkCod)? <div className={Style1.div}>
                   <input type="radio" name="payment" id="cod" value="COD" />
                   <label htmlFor="cod" style={{ cursor: "pointer" }}>
                     <h4>: Cash On Delivery</h4>
                   </label>
-                </div>
+                </div>: " "}
+               
+
+
               </form>
             </div>
             <h4

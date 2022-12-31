@@ -71,7 +71,7 @@ var filterProduct = findProduct
 
 // if res get means already comment
 if(filterProduct.length!==0 ){
-return res.status(404).send('sorry not allowed');
+return res.status(404).json({message: "you already given review"});
 }
 
 
@@ -94,12 +94,13 @@ var filteredArray = checkUserEatthisProduct
 
 // if null means not eat
 if(filteredArray==null|| filteredArray==undefined|| filteredArray.length==0){
-return res.status(404).send('not allowed');
+return res.status(404).json({message: "not eat yet"});
 }
 
-      return res.status(201).send('allowed');
+      return res.status(201).json({message: "allowed"});
 
   } catch (error) {
+  console.log(error)
     res.status(501).json({ message: error, status: "501" });
   }
 }

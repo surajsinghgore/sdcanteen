@@ -18,7 +18,7 @@ export default async function ReportComments(req, res) {
 let ReportUserId=res1.id;
 
 if(ReportUserId==UserId){
-    return res.status(400).json({ message: "You Themselves Not Report Your Comment" });
+    return res.status(400).json({ message: "You Can't report Your Own Comment" });
 }
 
 let findWheatherNewOrNot=await CommentReports.find({CommentReportId:CommentReportId});

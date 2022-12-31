@@ -3,7 +3,6 @@ import Header from "../Components/Header";
 import Footer from "../Components/Footer";
 import CartStyle from "../styles/Cart.module.css";
 import Styles from "../styles/admin.module.css";
-import Link from "next/link";
 import { ToastContainer, toast } from "react-toastify";
 import { useCart } from "react-use-cart";
 import "react-toastify/dist/ReactToastify.css";
@@ -136,7 +135,9 @@ else{
 
 
 
-
+const backBtn=()=>{
+routers.back()
+}
 // increment
 const increment=(item)=>{
 let book=parseInt(item.QtyBook);
@@ -326,7 +327,7 @@ return(
 
 
 <div className={CartStyle.bottom}>
-<button className={CartStyle.more} onClick={()=>routers.back()}>Continue Shopping</button>
+<button className={CartStyle.more} onClick={backBtn}>Continue Shopping</button>
 <div className={CartStyle.subtotal}>
 <h1>Total Payabal Amount: <span> ₹ {payableAmount}</span></h1>
 {(length==0)? <button className={CartStyle.disables}>Add Item</button>:<button onClick={reirectToOrderPage}>Order Now</button>}

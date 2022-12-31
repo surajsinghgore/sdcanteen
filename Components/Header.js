@@ -24,6 +24,7 @@ import { AllContext } from "../context/AllContext";
 import { useContext } from "react";
 
 export default function Header() {
+
   const { setUserData } = useContext(AllContext);
 const [search,setSearch]=useState('');
 const [searchData,setSerachData]=useState([]);
@@ -195,52 +196,6 @@ page.style.display="none";
 
 })
 
-// search bar logic
-useEffect(()=>{
-const getDatas=async()=>{
- const coffeeItem = await fetch(`${HOST}/api/ShowCoffeeItemClient`)
-  const drinkItem = await fetch(`${HOST}/api/ShowDrinkItemClient`)
-  const foodItem = await fetch(`${HOST}/api/ShowFoodItemClient`)
-  const juiceItem = await fetch(`${HOST}/api/ShowJuiceItemClient`)
-  const coffeeData = await coffeeItem.json()
-  const drinkData = await drinkItem.json()
-  const foodData = await foodItem.json()
-  const juiceData = await juiceItem.json()
-let coffeeNames=[];
-let drinkNames=[];
-let foodNameNames=[];
-let juiceNames=[];
-if(coffeeData.data){
- coffeeNames=coffeeData.data.map((item)=>{
-return item.CoffeeName
-})
-}
-if(drinkData.data){
- drinkNames=drinkData.data.map((item)=>{
-return item.DrinkName
-})
-}
-if(foodData.data){
- foodNameNames=foodData.data.map((item)=>{
-return item.FoodName
-})
-}
-if(juiceData.data){
- juiceNames=juiceData.data.map((item)=>{
-return item.JuiceName
-})
-}
-  let arr1=coffeeNames;
-  let arr2=arr1.concat(drinkNames)
- let arr3=arr2.concat(foodNameNames)
-  let arr4=arr3.concat(juiceNames)
-setSerachData(arr4.filter((item)=>{
-return item.toUpperCase().includes(search.toUpperCase())
-}))
-  
-  }
-getDatas();
-},[search])
 
 
 // search bar
@@ -250,8 +205,44 @@ let search=document.getElementById('search');
 let suggestion=document.getElementById('suggestion');
 suggestion.style.display="block"
 if(search.value==''){
-suggestion.style.display="none"
+suggestion.style.display="none";
+return ;
 }
+
+const getDatas=async()=>{
+ const res = await fetch(`${HOST}/api/MainSearch?search=${e.target.value}`)
+ const data=await res.json()
+let allData=[];
+
+if(data.coffeeData.length!=0){
+await data.coffeeData.map((item)=>{
+return allData.push(item.CoffeeName);
+})
+
+}
+if(data.foodData.length!=0){
+await data.foodData.map((item)=>{
+return allData.push(item.FoodName);
+})
+
+}
+if(data.drinkData.length!=0){
+await data.drinkData.map((item)=>{
+return allData.push(item.DrinkName);
+})
+
+}
+
+if(data.juiceData.length!=0){
+await data.juiceData.map((item)=>{
+return allData.push(item.JuiceName);
+})
+
+}
+setSerachData(allData)
+
+  }
+getDatas();
 }
 
 
@@ -297,7 +288,21 @@ getData();
 
 
 // on click on search suggesttion
-const firedClick=()=>{
+const firedClick=async(item)=>{
+// number of hits
+let ItemName=item[0];
+if(!ItemName){
+return;
+}
+ await fetch(`${HOST}/api/NumberOfSearch`, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({
+        ItemName: ItemName,
+      }),
+    });
 setSearch("");
 let suggestion=document.getElementById('suggestion');
 suggestion.style.display="none"
@@ -312,7 +317,7 @@ suggestion.style.display="none"
     <input type="search" name="search" id="search" value={search} onChange={SetSearchValue}placeholder='Search Items...'/>
     <div className="suggestion" id="suggestion">
     {(searchData.length!=0)?<>{searchData.slice(0,4).map((item,index)=>{
-    return(<Link href={`/${item}`} key={index}><a><li onClick={firedClick}><BiSearchAlt2 className="fixed"/>{item}</li></a></Link>)
+    return(<Link href={`/${item}`} key={index}><a><li onClick={()=>firedClick(item)}><BiSearchAlt2 className="fixed"/>{item}</li></a></Link>)
     })}</> : <><h1 id="searchHeading">No Item Match</h1></>}
     </div>
     </div>

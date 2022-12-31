@@ -11,6 +11,11 @@ import Link from 'next/link'
 import router from 'next/router'
 
 export default function ItemCard(item) {
+ const {
+    items,   emptyCart,
+    removeItem,
+    addItem ,
+  } = useCart();
 const [useSize,setUseSize]=useState(false);
 const [showBtn,SetShowBtn]=useState(false);
 const [price,setPrice]=useState('');
@@ -22,11 +27,7 @@ setSize(item.item.ItemCost[0].sizeName)
 setPrice(item.item.ItemCost[0].Price)
 }
 },[])
-  const {
-    items,   emptyCart,
-    removeItem,
-    addItem ,
-  } = useCart();
+ 
 
 const AddToCart=(item)=>{
 if(item.item.ItemCost.length==1){
@@ -47,9 +48,9 @@ let subData=item.item.ItemCost.filter((items)=>{
 return items._id==subId})
 
 if(subData.length==0 || subData==undefined){
- toast.warn(`please try agian `, {
+ toast.warn("please try agian ", {
       position: "bottom-right",
-      autoClose: 2000,
+      autoClose: 1500,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -57,7 +58,7 @@ if(subData.length==0 || subData==undefined){
       progress: undefined,
     });
     emptyCart();
-    localStorage.removeItem("itemOrder")
+     localStorage.removeItem("itemOrder");
     return ;
 }
 let id=item.item._id;
@@ -73,16 +74,34 @@ foodFind=item.item.FoodName;
 if(foodFind!=undefined){
 let FoodName=item.item.FoodName;
 addItem({id,price,FoodName,Qty,Image,Size,subId,Category,QtyBook,totalAmount})
- toast.success(`${FoodName} successfully added to cart`, {
+
+
+
+if(FoodName==undefined){
+ toast.success("Food successfully added to cart", {
       position: "bottom-right",
-      autoClose: 2000,
+      autoClose: 1500,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
     });
-    localStorage.removeItem("itemOrder")
+}
+
+else{
+ toast.success(`${FoodName} successfully added to cart`, {
+      position: "bottom-right",
+      autoClose: 1500,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+}
+
+    
     return ;
 }
   
@@ -93,9 +112,9 @@ if(item.item._id!=undefined){
 let id=item.item._id;
 item.item.addToCart=false
 removeItem(id);
- toast.error(`Item successfully removed from cart`, {
+ toast.error("Item successfully removed from cart", {
       position: "bottom-right",
-      autoClose: 2000,
+      autoClose: 1500,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -119,7 +138,6 @@ check=true;
 }
 }
 if(check==false){
-
 if(item.item.ItemCost.length==1){
 localStorage.setItem("itemOrder",item.item.ItemCost[0]._id)
 }
@@ -139,9 +157,9 @@ let subId=localStorage.getItem("itemOrder");
 let subData=item.item.ItemCost.filter((items)=>{
 return items._id==subId})
 if(subData.length==0 || subData==undefined){
- toast.warn(`please try agian `, {
+ toast.warn("please try again ", {
       position: "bottom-right",
-      autoClose: 2000,
+      autoClose: 1500,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -149,7 +167,7 @@ if(subData.length==0 || subData==undefined){
       progress: undefined,
     });
     emptyCart();
-    localStorage.removeItem("itemOrder")
+ localStorage.removeItem("itemOrder");
     return ;
 }
 let id=item.item._id;
@@ -165,20 +183,36 @@ foodFind=item.item.FoodName;
 if(foodFind!=undefined){
 let FoodName=item.item.FoodName;
 addItem({id,price,FoodName,Qty,Image,Size,subId,Category,QtyBook,totalAmount})
- toast.success(`${FoodName} successfully added to cart`, {
+if(FoodName==undefined){
+ toast.success("Food successfully added to cart", {
       position: "bottom-right",
-      autoClose: 2000,
+      autoClose: 1500,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
     });
-    localStorage.removeItem("itemOrder")
+}
+
+else{
+ toast.success(`${FoodName} successfully added to cart`, {
+      position: "bottom-right",
+      autoClose: 1500,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+}
+
+    
+
 function redirect(){
      router.push("/Cart");
 }
-     setTimeout(redirect,1200)
+     setTimeout(redirect,1500)
     return ;
 }
   
@@ -188,8 +222,6 @@ function redirect(){
 
 const ControlSizes=()=>{
 SetShowBtn(!showBtn);
-
-
 }
 
 
@@ -245,7 +277,7 @@ localStorage.setItem("itemOrder",itm._id)
    </div></div>
          <ToastContainer
         position="bottom-right"
-        autoClose={5000}
+        autoClose={1500}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick

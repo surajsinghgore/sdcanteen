@@ -5,6 +5,7 @@ import Styles from "../styles/admin.module.css";
 import Style1 from "../styles/OrderDetails.module.css";
 let HOST = process.env.NEXT_PUBLIC_API_URL;
 import router from 'next/router'
+import Loader from "../Components/Loader";
 import Link from 'next/link'
 import VerifyClientMiddleware from "./VerifyClientMiddleware";
 import { useState } from "react";
@@ -19,6 +20,7 @@ let year = date.getFullYear();
 let fullDate=day+"/"+month+"/"+year;
 export default function OrderComplete() {
 const [data,setData]=useState([]);
+const [loader,setLoader]=useState(true);
  const [totalOrderLen, setTotalOrderLen] = useState(0);
 const [timefull,setTimeFull]=useState('');
 function showTime() {
@@ -57,15 +59,15 @@ setInterval(showTime, 1000);
 
 
 useEffect(()=>{
+   setLoader(true);
 const fetchOrder=async()=>{
 let ress = await fetch(`${HOST}/api/ShowOrderDeatilsClient`);
 
               let datas=await ress.json();
-              if(datas.data.length==0){
-              router.push('/')
-              }
+        
               setData(datas.data)
                 setTotalOrderLen(datas.data.length)
+                setLoader(false);
 }
 fetchOrder();
 },[])
@@ -73,6 +75,7 @@ fetchOrder();
 
   return (
     <>
+<Loader loader={loader}/>
     <VerifyClientMiddleware />
       <div className={Styles.admin}>
         <HeadTag title="Order Placed" />

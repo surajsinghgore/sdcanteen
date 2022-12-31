@@ -20,8 +20,13 @@ import { confirmAlert } from "react-confirm-alert";
 import { BiTime } from "react-icons/bi";
 import { AiOutlineCalendar } from "react-icons/ai";
 import RateItem from "./RateItem";
+import Loader from "../Components/Loader";
+
 export default function OrderItem() {
-  // item rate manage
+
+
+const [loader,setLoader]=useState(true);
+
   const { refresh } = useContext(AllContext);
   const [ratingData, setRatingData] = useState([]);
   const [copyData, setCopyData] = useState([]);
@@ -32,6 +37,7 @@ export default function OrderItem() {
   const [allowComment, setAllowComment] = useState(false);
   const [revLen, setRevLen] = useState(0);
   const [price, setPrice] = useState("");
+  const [client,setClient]=useState([])
   const [selected, setSelected] = useState("yes");
   const { addItem, removeItem, items, emptyCart } = useCart();
   const [add, setAdd] = useState(true);
@@ -42,6 +48,7 @@ export default function OrderItem() {
   const [timeSearch, setTimeSearch] = useState();
   const [productId, setProductId] = useState();
   useEffect(() => {
+  setLoader(true)
     const FindDataUsingSearch = async () => {
       if (query != undefined) {
         const res = await fetch(`${HOST}/api/ShowSingleItem?item=${query}`);
@@ -51,6 +58,7 @@ export default function OrderItem() {
           await setPrice(dataRes.data[0].ItemCost[0].Price);
           await setSelected(dataRes.data[0].ItemCost[0].sizeName);
           await setProductId(dataRes.data[0]._id);
+           setLoader(false)
           localStorage.setItem("itemOrder", dataRes.data[0].ItemCost[0]._id);
         }
       }
@@ -73,7 +81,7 @@ export default function OrderItem() {
     if (subData.length == 0 || subData == undefined) {
       toast.warn(`sorry something went wrong, please try again later`, {
         position: "bottom-right",
-        autoClose: 2000,
+        autoClose: 1500,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -119,7 +127,7 @@ export default function OrderItem() {
       });
       toast.success(`${FoodName} successfully added to cart`, {
         position: "bottom-right",
-        autoClose: 2000,
+        autoClose: 1500,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -144,7 +152,7 @@ export default function OrderItem() {
       });
       toast.success(`${CoffeeName} successfully added to cart`, {
         position: "bottom-right",
-        autoClose: 2000,
+        autoClose: 1500,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -170,7 +178,7 @@ export default function OrderItem() {
       });
       toast.success(`${DrinkName} successfully added to cart`, {
         position: "bottom-right",
-        autoClose: 2000,
+        autoClose: 1500,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -196,7 +204,7 @@ export default function OrderItem() {
       });
       toast.success(`${JuiceName} successfully added to cart`, {
         position: "bottom-right",
-        autoClose: 2000,
+        autoClose: 1500,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -213,7 +221,7 @@ export default function OrderItem() {
       removeItem(id);
       toast.error(`Item successfully removed from cart`, {
         position: "bottom-right",
-        autoClose: 2000,
+        autoClose: 1500,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -269,9 +277,9 @@ export default function OrderItem() {
       });
 
       if (subData.length == 0 || subData == undefined) {
-        toast.warn(`please try agian `, {
+        toast.warn(`please try again `, {
           position: "bottom-right",
-          autoClose: 2000,
+          autoClose: 1500,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
@@ -315,9 +323,10 @@ export default function OrderItem() {
           QtyBook,
           totalAmount,
         });
-        toast.success(`${FoodName} successfully added to cart`, {
+        if(FoodName==undefined){
+         toast.success(`Food successfully added to cart`, {
           position: "bottom-right",
-          autoClose: 2000,
+          autoClose: 1500,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
@@ -325,7 +334,24 @@ export default function OrderItem() {
           progress: undefined,
         });
 
+        }
+        else{
+         toast.success(`${FoodName} successfully added to cart`, {
+          position: "bottom-right",
+          autoClose: 1500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+
+        }
+       const redirect=()=>{
+       
         router.push("/Cart");
+       }
+       setTimeout(redirect,1500);
         return;
       }
       if (coffeeFind != undefined) {
@@ -342,9 +368,10 @@ export default function OrderItem() {
           QtyBook,
           totalAmount,
         });
-        toast.success(`${CoffeeName} successfully added to cart`, {
+            if(CoffeeName==undefined){
+         toast.success(`Coffee successfully added to cart`, {
           position: "bottom-right",
-          autoClose: 2000,
+          autoClose: 1500,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
@@ -352,7 +379,25 @@ export default function OrderItem() {
           progress: undefined,
         });
 
+        }
+        else{
+         toast.success(`${CoffeeName} successfully added to cart`, {
+          position: "bottom-right",
+          autoClose: 1500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+
+        }
+        
+        const redirect=()=>{
+        
         router.push("/Cart");
+        }
+        setTimeout(redirect,1500);
         return;
       }
       if (drinkFind != undefined) {
@@ -369,9 +414,10 @@ export default function OrderItem() {
           QtyBook,
           totalAmount,
         });
-        toast.success(`${DrinkName} successfully added to cart`, {
+           if(DrinkName==undefined){
+         toast.success(`Drink successfully added to cart`, {
           position: "bottom-right",
-          autoClose: 2000,
+          autoClose: 1500,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
@@ -379,7 +425,23 @@ export default function OrderItem() {
           progress: undefined,
         });
 
+        }
+        else{
+         toast.success(`${DrinkName} successfully added to cart`, {
+          position: "bottom-right",
+          autoClose: 1500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+
+        }const redirect=()=>{
+        
         router.push("/Cart");
+        }
+        setTimeout(redirect,1500);
         return;
       }
       if (juiceFind != undefined) {
@@ -398,40 +460,58 @@ export default function OrderItem() {
         });
         toast.success(`${JuiceName} successfully added to cart`, {
           position: "bottom-right",
-          autoClose: 2000,
+          autoClose: 1500,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
         });
+const redirect=()=>{
 
         router.push("/Cart");
+}
+setTimeout(redirect,1500);
         return;
       }
     }
   };
+    const dataRatingFetchOfClient = async () => {
+      if ((productId != undefined) && (localStorage.getItem('login'))) {
+        let fetchRate = await fetch(`${HOST}/api/ShowRatingOfClient?productId=${productId}`);
+        const dataRess = await fetchRate.json();
+        if(dataRess.data.length!=0){
+        if(dataRess.data[0].ItemsReviwers.length!=0){
+        setClient(dataRess.data[0])
+        }
+        
+        }
+    };
+    }
+  useEffect(() => {
+  if(localStorage.getItem('login')){
+    dataRatingFetchOfClient();
+    }
+  },[productId,refresh]);
+
+
 
   // load rating data
-  useEffect(() => {
-    const dataRatingFetch = async () => {
+   const dataRatingFetch = async () => {
       if (productId != undefined) {
         let fetchRate = await fetch(
           `${HOST}/api/ShowRatingOfItems?productId=${productId}`
         );
         const dataRess = await fetchRate.json();
+       
         if (fetchRate.status == 201) {
-          if (dataRess.data.length != 0) {
+          if (dataRess.data.length != 0) {    
             setCopyData(dataRess.data);
             setRatingData(dataRess.data);
             setAvg(dataRess.data[0].Rating);
-            setRevLen(dataRess.data[0].ItemsReviwers.length);
-          } else {
-            setCopyData([]);
-            setRatingData([]);
-            setAvg(5);
-            setRevLen(0);
-          }
+            setRevLen(dataRess.data[0].ItemsReviwers.length);        
+          
+          } 
           function QualityRateCalculate() {
             let ZeroPointFive = 0;
             let OnePointFive = 0;
@@ -845,24 +925,31 @@ export default function OrderItem() {
 
             setService(avgs);
           }
+if(ratingData.length!=0){
 
           QualityRateCalculate();
           PriceRateCalculate();
           ServiceRateCalculate();
+
+}
         }
       }
     };
+  useEffect(() => {
+   
     dataRatingFetch();
   }, [refresh, productId]);
+  // load rating data
 
   // check wheater rating is allowed or not
-  useEffect(() => {
-    const check = async () => {
+   const check = async () => {
       if (localStorage.getItem("login") != undefined) {
         if (productId != undefined) {
           let fetchRes = await fetch(
             `${HOST}/api/ValidateRatingOrNot?productId=${productId}`
           );
+          const datas=await fetchRes.json();
+    
           if (fetchRes.status == 404) {
             setAllowComment(false);
           }
@@ -873,20 +960,25 @@ export default function OrderItem() {
       }
     };
 
+  useEffect(() => {
+   if(localStorage.getItem("login") != undefined){
     check();
+      }
   }, [productId, refresh]);
 
   // filter using rating star
   const filterUsingRate = (e) => {
     setRateSearch(e.target.value);
+   
     // orginialData
     let datas = copyData;
-    if (e.target.value == "all") {
+    if (e.target.value == "all") { setLoader(true)
       const dataRatingFetch = async () => {
         if (productId != undefined) {
           let fetchRate = await fetch(
             `${HOST}/api/ShowRatingOfItems?productId=${productId}`
           );
+           setLoader(false)
           const dataRess = await fetchRate.json();
           if (fetchRate.status == 201) {
             setRatingData(dataRess.data);
@@ -898,6 +990,7 @@ export default function OrderItem() {
     }
 
     if (datas != undefined) {
+     setLoader(true)
       var filteredArray = datas
         .filter((element) =>
           element.ItemsReviwers.some(
@@ -913,30 +1006,35 @@ export default function OrderItem() {
           return n;
         });
 
-      setRatingData(filteredArray);
+      setRatingData(filteredArray); setLoader(false)
     }
   };
   //filter using lattest or oldest
   const fetchOldData = async () => {
+   setLoader(true)
     if (productId != undefined) {
       let fetchRate = await fetch(
         `${HOST}/api/SortRatingOldest?productId=${productId}`
       );
+       setLoader(false)
       let data = await fetchRate.json();
       setRatingData(data.data);
+
     }
   };
   const fetchNewData = async () => {
+   setLoader(true)
     if (productId != undefined) {
       let fetchRate = await fetch(
         `${HOST}/api/SortRatingInLatest?productId=${productId}`
       );
       let data = await fetchRate.json();
       setRatingData(data.data);
+       setLoader(false)
     }
   };
   const filterUsingTime = (e) => {
-    setTimeSearch(e.target.value);
+    setTimeSearch(e.target.value); setLoader(true)
     if (e.target.value == "all") {
       const dataRatingFetch = async () => {
         if (productId != undefined) {
@@ -944,6 +1042,7 @@ export default function OrderItem() {
             `${HOST}/api/ShowRatingOfItems?productId=${productId}`
           );
           const dataRess = await fetchRate.json();
+           setLoader(false)
           if (fetchRate.status == 201) {
             setRatingData(dataRess.data);
             setCopyData(dataRess.data);
@@ -953,10 +1052,10 @@ export default function OrderItem() {
       dataRatingFetch();
     }
     if (e.target.value == "oldest") {
-      fetchOldData();
+      fetchOldData(); setLoader(false)
     }
     if (e.target.value == "latest") {
-      fetchNewData();
+      fetchNewData(); setLoader(false)
     }
   };
 
@@ -1099,7 +1198,6 @@ if(localStorage.getItem('login')!='true'||localStorage.getItem('login')==undefin
     let coffeeFind;
     let drinkFind;
     let juiceFind;
-
     for (let i = 0; i < data.length; i++) {
       foodFind = data[i].FoodName;
       coffeeFind = data[i].CoffeeName;
@@ -1312,13 +1410,13 @@ if(localStorage.getItem('login')!='true'||localStorage.getItem('login')==undefin
                                   initialValue={item.QualityRate}
                                   readonly="true"
                                   size={30}
-                                  fillColor="rgb(18, 124, 156)"
+                                  fillColor="rgb(245, 93, 5)"
                                   allowFraction
                                 />
                                 <p> {item.QualityRate} / 5</p>
                               </div>
                               <div className={style.userDetails}>
-                                <h2>By : {item.userName}</h2>
+                                <h2>{item.userName}</h2>
                               </div>
 
                               <div className={style.icons}>
@@ -1395,13 +1493,935 @@ if(localStorage.getItem('login')!='true'||localStorage.getItem('login')==undefin
                   )}
                 </div>
 
+
+{(client.length!=0)?   <RateItem items={client} />: ""}
                 {allowComment == true ? (
                   <RateItem productIds={productId} />
                 ) : (
                   ""
                 )}
               </div>
+
+              
             </div>
+
+
+            
+          </div>
+        </>
+      );
+    }
+    // coffee item
+  else if (coffeeFind != undefined) {
+      return (
+        <>
+          <div className={style.topSection}>
+            <div className={style.left}>
+              <Image
+                src={`/CoffeeItemImages/${data[0].Image}`}
+                alt="image"
+                width={"480px"}
+                height={"400px"}
+                objectFit="cover"
+              />
+            </div>
+            <div className={style.right}>
+              <h1>{data[0].CoffeeName}</h1>
+              <div className={style.star}>
+                <div className={style.startSection}>
+                  <Rating
+                    initialValue={avg}
+                    readonly="true"
+                    className={style.startIcon}
+                    allowFraction
+                  />
+
+                  <h5>({revLen} Customer Review)</h5>
+                </div>
+              </div>
+              <h3>₹ {price}</h3>
+              <div className={style.subSection}>
+                <div className={style.subHeading}>Qty :</div>
+                <div className={style.subData}>{data[0].Qty}</div>
+                <div className={style.subHeading}>Category :</div>
+                <div className={style.subData}>{data[0].Category}</div>
+              </div>
+              <hr />
+
+              <div className={style.filterItem}>
+                <h1>Select Size</h1>
+
+                <div className={style.form}>
+                  {data[0].ItemCost.map((itemss) => {
+                    return (
+                      <div className={style.radioCard} key={itemss._id}>
+                        <li>
+                          <label>
+                            <span>
+                              <input
+                                type="radio"
+                                name="size"
+                                onClick={() =>
+                                  setItems(
+                                    itemss.sizeName,
+                                    itemss.Price,
+                                    itemss._id
+                                  )
+                                }
+                                value={itemss.sizeName}
+                                defaultChecked={selected === itemss.sizeName}
+                              />
+                              {itemss.sizeName == "largesize"
+                                ? "Large"
+                                : itemss.sizeName == "smallsize"
+                                ? "Small"
+                                : itemss.sizeName == "mediumsize"
+                                ? "Medium"
+                                : itemss.sizeName == "halfsize"
+                                ? "Half"
+                                : itemss.sizeName == "normalsize"
+                                ? "Normal"
+                                : ""}
+                            </span>
+                          </label>
+                        </li>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+              {!add ? (
+                <button
+                  className={style.btn3}
+                  onClick={() => RemoveFromCart(data)}
+                >
+                  Remove From Cart
+                </button>
+              ) : (
+                <button className={style.btn1} onClick={() => AddToCart(data)}>
+                  Add To Cart
+                </button>
+              )}
+              <button className={style.btn2} onClick={() => BuyNow(data)}>
+                Buy Now
+              </button>
+            </div>
+          </div>
+          <div className={style.description}>{data[0].Description}</div>
+
+          <div className={style.reviews} id="reviews">
+            <div className={style.heading}>Rating & Reviews</div>
+            <div className={style.box}>
+              <div className={style.top}>
+                <div className={style.avgRate}>
+                  <h1>{parseFloat(avg).toFixed(2)} / 5</h1>
+                  <div className={style.rates}>
+                    <Rating
+                      initialValue={avg}
+                      readonly="true"
+                      className={style.startIcon}
+                      allowFraction
+                    />
+                    <p>Based On {revLen} rating</p>
+                  </div>
+                </div>
+
+                <div className={style.totalStar}>
+                  <li>
+                    <div className={style.headings}>Quality</div>
+                    <div className={style.progress}>
+                      <div
+                        className={style.pro}
+                        style={{ width: `${quality}%` }}
+                      ></div>
+                    </div>
+                    <div className={style.percent}>{parseInt(quality)}%</div>
+                  </li>
+                  <li>
+                    <div className={style.headings}>Price</div>
+                    <div className={style.progress}>
+                      <div
+                        className={style.pro}
+                        style={{ width: `${prices}%` }}
+                      ></div>
+                    </div>
+                    <div className={style.percent}>{parseInt(prices)}%</div>
+                  </li>
+                  <li>
+                    <div className={style.headings}>Service</div>
+                    <div className={style.progress}>
+                      <div
+                        className={style.pro}
+                        style={{ width: `${service}%` }}
+                      ></div>
+                    </div>
+                    <div className={style.percent}>{parseInt(service)}%</div>
+                  </li>
+                </div>
+              </div>
+              {/* filter search logic */}
+              <div className={style.filterReview}>
+                <div className={style.titles}>Reviewed by {revLen} user</div>
+                <div className={style.filterSection}>
+                  <div className={style.sections}>
+                    <h1>
+                      <FaSort /> Sort :{" "}
+                    </h1>
+                    <select
+                      value={timeSearch}
+                      onChange={(e) => filterUsingTime(e)}
+                    >
+                      <option value="all">All Reviews</option>
+                      <option value="latest">Latest Order</option>
+                      <option value="oldest">Oldest Order</option>
+                    </select>
+                  </div>
+
+                  <div className={style.sections}>
+                    <h1>
+                      <FaFilter /> Filter :
+                    </h1>
+                    <select
+                      value={rateSearch}
+                      onChange={(e) => filterUsingRate(e)}
+                    >
+                      <option value="all">All Star</option>
+                      <option value="5">5 Star</option>
+                      <option value="4.5">4.5 Star</option>
+                      <option value="4">4 Star</option>
+                      <option value="3.5">3.5 Star</option>
+                      <option value="3">3 Star</option>
+                      <option value="2.5">2.5 Star</option>
+                      <option value="2">2 Star</option>
+                      <option value="1.5">1.5 Star</option>
+                      <option value="1">1 Star</option>
+                      <option value="0.5">0.5 Star</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+
+              {/* realreviews Corner */}
+              <div className={style.reviewsSectionField}>
+                <div className={style.childs}>
+                  {ratingData[0] != undefined ? (
+                    ratingData[0].ItemsReviwers != undefined ? (
+                      ratingData[0].ItemsReviwers.map((item) => {
+                        return (
+                          <div className={style.reviewSection} key={item._id}>
+                            <div className={style.topSection}>
+                              <div className={style.starSection}>
+                                <Rating
+                                  initialValue={item.QualityRate}
+                                  readonly="true"
+                                  size={30}
+                                  fillColor="rgb(245, 93, 5)"
+                                  allowFraction
+                                />
+                                <p> {item.QualityRate} / 5</p>
+                              </div>
+                              <div className={style.userDetails}>
+                                <h2>{item.userName}</h2>
+                              </div>
+
+                              <div className={style.icons}>
+                                <AiOutlineCalendar className={style.icon} />{" "}
+                                <p> {item.Date}</p>
+                                <BiTime className={style.icon} />{" "}
+                                <p>{item.Time} </p>
+                              </div>
+                            </div>
+
+                            <div className={style.commentStyle}>
+                              <p>{item.Message}</p>
+                            </div>
+                          <GoReport className={style.reportBtn} title="Report This Comment" onClick={()=>reportComment(item)}/>
+                          </div>
+                        );
+                      })
+                    ) : (
+                      <div className={style.reviewSection}>
+                        <div className={style.topSection}>
+                          <div className={style.starSection}>
+                            <Rating
+                              initialValue={5}
+                              readonly="true"
+                              size={30}
+                              fillColor="rgb(254, 58, 58)"
+                              allowFraction
+                            />
+                            <p> 5 / 5</p>
+                          </div>
+                          <div className={style.userDetails}>
+                            <h2>By : admin</h2>
+                          </div>
+
+                          <div className={style.icons}>
+                            <AiOutlineCalendar className={style.icon} />{" "}
+                            <p> -</p>
+                            <BiTime className={style.icon} /> <p>- </p>
+                          </div>
+                        </div>
+
+                        <div className={style.commentStyle}>
+                          <p>No Comments yet on this Product</p>
+                        </div>
+                      </div>
+                    )
+                  ) : (
+                    <div className={style.reviewSection}>
+                      <div className={style.topSection}>
+                        <div className={style.starSection}>
+                          <Rating
+                            initialValue={0}
+                            readonly="true"
+                            size={30}
+                            fillColor="rgb(254, 58, 58)"
+                            allowFraction
+                          />
+                          <p> - / -</p>
+                        </div>
+                        <div className={style.userDetails}>
+                          <h2>By : admin</h2>
+                        </div>
+
+                        <div className={style.icons}>
+                          <AiOutlineCalendar className={style.icon} /> <p> -</p>
+                          <BiTime className={style.icon} /> <p>- </p>
+                        </div>
+                      </div>
+
+                      <div className={style.commentStyle}>
+                        <p>No Reviews Found</p>
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+
+{(client.length!=0)?   <RateItem items={client} />: ""}
+                {(allowComment)? (
+                  <RateItem productIds={productId} />
+                ) : (
+                  ""
+                )}
+              </div>
+
+              
+            </div>
+
+
+            
+          </div>
+        </>
+      );
+    }
+  else  if (drinkFind != undefined) {
+      return (
+        <>
+          <div className={style.topSection}>
+            <div className={style.left}>
+              <Image
+                src={`/DrinkItemImages/${data[0].Image}`}
+                alt="image"
+                width={"440px"}
+                height={"400px"}
+           
+              />
+            </div>
+            <div className={style.right}>
+              <h1>{data[0].DrinkName}</h1>
+              <div className={style.star}>
+                <div className={style.startSection}>
+                  <Rating
+                    initialValue={avg}
+                    readonly="true"
+                    className={style.startIcon}
+                    allowFraction
+                  />
+
+                  <h5>({revLen} Customer Review)</h5>
+                </div>
+              </div>
+              <h3>₹ {price}</h3>
+              <div className={style.subSection}>
+                <div className={style.subHeading}>Qty :</div>
+                <div className={style.subData}>{data[0].Qty}</div>
+                <div className={style.subHeading}>Category :</div>
+                <div className={style.subData}>{data[0].Category}</div>
+              </div>
+              <hr />
+
+              <div className={style.filterItem}>
+                <h1>Select Size</h1>
+
+                <div className={style.form}>
+                  {data[0].ItemCost.map((itemss) => {
+                    return (
+                      <div className={style.radioCard} key={itemss._id}>
+                        <li>
+                          <label>
+                            <span>
+                              <input
+                                type="radio"
+                                name="size"
+                                onClick={() =>
+                                  setItems(
+                                    itemss.sizeName,
+                                    itemss.Price,
+                                    itemss._id
+                                  )
+                                }
+                                value={itemss.sizeName}
+                                defaultChecked={selected === itemss.sizeName}
+                              />
+                              {itemss.sizeName == "largesize"
+                                ? "Large"
+                                : itemss.sizeName == "smallsize"
+                                ? "Small"
+                                : itemss.sizeName == "mediumsize"
+                                ? "Medium"
+                                : itemss.sizeName == "halfsize"
+                                ? "Half"
+                                : itemss.sizeName == "normalsize"
+                                ? "Normal"
+                                : ""}
+                            </span>
+                          </label>
+                        </li>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+              {!add ? (
+                <button
+                  className={style.btn3}
+                  onClick={() => RemoveFromCart(data)}
+                >
+                  Remove From Cart
+                </button>
+              ) : (
+                <button className={style.btn1} onClick={() => AddToCart(data)}>
+                  Add To Cart
+                </button>
+              )}
+              <button className={style.btn2} onClick={() => BuyNow(data)}>
+                Buy Now
+              </button>
+            </div>
+          </div>
+          <div className={style.description}>{data[0].Description}</div>
+          <div className={style.reviews} id="reviews">
+            <div className={style.heading}>Rating & Reviews</div>
+            <div className={style.box}>
+              <div className={style.top}>
+                <div className={style.avgRate}>
+                  <h1>{parseFloat(avg).toFixed(2)} / 5</h1>
+                  <div className={style.rates}>
+                    <Rating
+                      initialValue={avg}
+                      readonly="true"
+                      className={style.startIcon}
+                      allowFraction
+                    />
+                    <p>Based On {revLen} rating</p>
+                  </div>
+                </div>
+
+                <div className={style.totalStar}>
+                  <li>
+                    <div className={style.headings}>Quality</div>
+                    <div className={style.progress}>
+                      <div
+                        className={style.pro}
+                        style={{ width: `${quality}%` }}
+                      ></div>
+                    </div>
+                    <div className={style.percent}>{parseInt(quality)}%</div>
+                  </li>
+                  <li>
+                    <div className={style.headings}>Price</div>
+                    <div className={style.progress}>
+                      <div
+                        className={style.pro}
+                        style={{ width: `${prices}%` }}
+                      ></div>
+                    </div>
+                    <div className={style.percent}>{parseInt(prices)}%</div>
+                  </li>
+                  <li>
+                    <div className={style.headings}>Service</div>
+                    <div className={style.progress}>
+                      <div
+                        className={style.pro}
+                        style={{ width: `${service}%` }}
+                      ></div>
+                    </div>
+                    <div className={style.percent}>{parseInt(service)}%</div>
+                  </li>
+                </div>
+              </div>
+              {/* filter search logic */}
+              <div className={style.filterReview}>
+                <div className={style.titles}>Reviewed by {revLen} user</div>
+                <div className={style.filterSection}>
+                  <div className={style.sections}>
+                    <h1>
+                      <FaSort /> Sort :{" "}
+                    </h1>
+                    <select
+                      value={timeSearch}
+                      onChange={(e) => filterUsingTime(e)}
+                    >
+                      <option value="all">All Reviews</option>
+                      <option value="latest">Latest Order</option>
+                      <option value="oldest">Oldest Order</option>
+                    </select>
+                  </div>
+
+                  <div className={style.sections}>
+                    <h1>
+                      <FaFilter /> Filter :
+                    </h1>
+                    <select
+                      value={rateSearch}
+                      onChange={(e) => filterUsingRate(e)}
+                    >
+                      <option value="all">All Star</option>
+                      <option value="5">5 Star</option>
+                      <option value="4.5">4.5 Star</option>
+                      <option value="4">4 Star</option>
+                      <option value="3.5">3.5 Star</option>
+                      <option value="3">3 Star</option>
+                      <option value="2.5">2.5 Star</option>
+                      <option value="2">2 Star</option>
+                      <option value="1.5">1.5 Star</option>
+                      <option value="1">1 Star</option>
+                      <option value="0.5">0.5 Star</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+
+              {/* realreviews Corner */}
+              <div className={style.reviewsSectionField}>
+                <div className={style.childs}>
+                  {ratingData[0] != undefined ? (
+                    ratingData[0].ItemsReviwers != undefined ? (
+                      ratingData[0].ItemsReviwers.map((item) => {
+                        return (
+                          <div className={style.reviewSection} key={item._id}>
+                            <div className={style.topSection}>
+                              <div className={style.starSection}>
+                                <Rating
+                                  initialValue={item.QualityRate}
+                                  readonly="true"
+                                  size={30}
+                                  fillColor="rgb(245, 93, 5)"
+                                  allowFraction
+                                />
+                                <p> {item.QualityRate} / 5</p>
+                              </div>
+                              <div className={style.userDetails}>
+                                <h2>{item.userName}</h2>
+                              </div>
+
+                              <div className={style.icons}>
+                                <AiOutlineCalendar className={style.icon} />{" "}
+                                <p> {item.Date}</p>
+                                <BiTime className={style.icon} />{" "}
+                                <p>{item.Time} </p>
+                              </div>
+                            </div>
+
+                            <div className={style.commentStyle}>
+                              <p>{item.Message}</p>
+                            </div>
+                          <GoReport className={style.reportBtn} title="Report This Comment" onClick={()=>reportComment(item)}/>
+                          </div>
+                        );
+                      })
+                    ) : (
+                      <div className={style.reviewSection}>
+                        <div className={style.topSection}>
+                          <div className={style.starSection}>
+                            <Rating
+                              initialValue={5}
+                              readonly="true"
+                              size={30}
+                              fillColor="rgb(254, 58, 58)"
+                              allowFraction
+                            />
+                            <p> 5 / 5</p>
+                          </div>
+                          <div className={style.userDetails}>
+                            <h2>By : admin</h2>
+                          </div>
+
+                          <div className={style.icons}>
+                            <AiOutlineCalendar className={style.icon} />{" "}
+                            <p> -</p>
+                            <BiTime className={style.icon} /> <p>- </p>
+                          </div>
+                        </div>
+
+                        <div className={style.commentStyle}>
+                          <p>No Comments yet on this Product</p>
+                        </div>
+                      </div>
+                    )
+                  ) : (
+                    <div className={style.reviewSection}>
+                      <div className={style.topSection}>
+                        <div className={style.starSection}>
+                          <Rating
+                            initialValue={0}
+                            readonly="true"
+                            size={30}
+                            fillColor="rgb(254, 58, 58)"
+                            allowFraction
+                          />
+                          <p> - / -</p>
+                        </div>
+                        <div className={style.userDetails}>
+                          <h2>By : admin</h2>
+                        </div>
+
+                        <div className={style.icons}>
+                          <AiOutlineCalendar className={style.icon} /> <p> -</p>
+                          <BiTime className={style.icon} /> <p>- </p>
+                        </div>
+                      </div>
+
+                      <div className={style.commentStyle}>
+                        <p>No Reviews Found</p>
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+
+{(client.length!=0)?   <RateItem items={client} />: ""}
+                {(allowComment)? (
+                  <RateItem productIds={productId} />
+                ) : (
+                  ""
+                )}
+              </div>
+
+              
+            </div>
+
+
+            
+          </div>
+        </>
+      );
+    }
+     else  if (juiceFind != undefined) {
+      return (
+        <>
+          <div className={style.topSection}>
+            <div className={style.left}>
+              <Image
+                src={`/JuiceItemImages/${data[0].Image}`}
+                alt="image"
+                width={"480px"}
+                height={"400px"}
+                objectFit="cover"
+              />
+            </div>
+            <div className={style.right}>
+              <h1>{data[0].JuiceName}</h1>
+              <div className={style.star}>
+                <div className={style.startSection}>
+                  <Rating
+                    initialValue={avg}
+                    readonly="true"
+                    className={style.startIcon}
+                    allowFraction
+                  />
+
+                  <h5>({revLen} Customer Review)</h5>
+                </div>
+              </div>
+              <h3>₹ {price}</h3>
+              <div className={style.subSection}>
+                <div className={style.subHeading}>Qty :</div>
+                <div className={style.subData}>{data[0].Qty}</div>
+                <div className={style.subHeading}>Category :</div>
+                <div className={style.subData}>{data[0].Category}</div>
+              </div>
+              <hr />
+
+              <div className={style.filterItem}>
+                <h1>Select Size</h1>
+
+                <div className={style.form}>
+                  {data[0].ItemCost.map((itemss) => {
+                    return (
+                      <div className={style.radioCard} key={itemss._id}>
+                        <li>
+                          <label>
+                            <span>
+                              <input
+                                type="radio"
+                                name="size"
+                                onClick={() =>
+                                  setItems(
+                                    itemss.sizeName,
+                                    itemss.Price,
+                                    itemss._id
+                                  )
+                                }
+                                value={itemss.sizeName}
+                                defaultChecked={selected === itemss.sizeName}
+                              />
+                              {itemss.sizeName == "largesize"
+                                ? "Large"
+                                : itemss.sizeName == "smallsize"
+                                ? "Small"
+                                : itemss.sizeName == "mediumsize"
+                                ? "Medium"
+                                : itemss.sizeName == "halfsize"
+                                ? "Half"
+                                : itemss.sizeName == "normalsize"
+                                ? "Normal"
+                                : ""}
+                            </span>
+                          </label>
+                        </li>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+              {!add ? (
+                <button
+                  className={style.btn3}
+                  onClick={() => RemoveFromCart(data)}
+                >
+                  Remove From Cart
+                </button>
+              ) : (
+                <button className={style.btn1} onClick={() => AddToCart(data)}>
+                  Add To Cart
+                </button>
+              )}
+              <button className={style.btn2} onClick={() => BuyNow(data)}>
+                Buy Now
+              </button>
+            </div>
+          </div>
+          <div className={style.description}>{data[0].Description}</div>
+
+          <div className={style.reviews} id="reviews">
+            <div className={style.heading}>Rating & Reviews</div>
+            <div className={style.box}>
+              <div className={style.top}>
+                <div className={style.avgRate}>
+                  <h1>{parseFloat(avg).toFixed(2)} / 5</h1>
+                  <div className={style.rates}>
+                    <Rating
+                      initialValue={avg}
+                      readonly="true"
+                      className={style.startIcon}
+                      allowFraction
+                    />
+                    <p>Based On {revLen} rating</p>
+                  </div>
+                </div>
+
+                <div className={style.totalStar}>
+                  <li>
+                    <div className={style.headings}>Quality</div>
+                    <div className={style.progress}>
+                      <div
+                        className={style.pro}
+                        style={{ width: `${quality}%` }}
+                      ></div>
+                    </div>
+                    <div className={style.percent}>{parseInt(quality)}%</div>
+                  </li>
+                  <li>
+                    <div className={style.headings}>Price</div>
+                    <div className={style.progress}>
+                      <div
+                        className={style.pro}
+                        style={{ width: `${prices}%` }}
+                      ></div>
+                    </div>
+                    <div className={style.percent}>{parseInt(prices)}%</div>
+                  </li>
+                  <li>
+                    <div className={style.headings}>Service</div>
+                    <div className={style.progress}>
+                      <div
+                        className={style.pro}
+                        style={{ width: `${service}%` }}
+                      ></div>
+                    </div>
+                    <div className={style.percent}>{parseInt(service)}%</div>
+                  </li>
+                </div>
+              </div>
+              {/* filter search logic */}
+              <div className={style.filterReview}>
+                <div className={style.titles}>Reviewed by {revLen} user</div>
+                <div className={style.filterSection}>
+                  <div className={style.sections}>
+                    <h1>
+                      <FaSort /> Sort :{" "}
+                    </h1>
+                    <select
+                      value={timeSearch}
+                      onChange={(e) => filterUsingTime(e)}
+                    >
+                      <option value="all">All Reviews</option>
+                      <option value="latest">Latest Order</option>
+                      <option value="oldest">Oldest Order</option>
+                    </select>
+                  </div>
+
+                  <div className={style.sections}>
+                    <h1>
+                      <FaFilter /> Filter :
+                    </h1>
+                    <select
+                      value={rateSearch}
+                      onChange={(e) => filterUsingRate(e)}
+                    >
+                      <option value="all">All Star</option>
+                      <option value="5">5 Star</option>
+                      <option value="4.5">4.5 Star</option>
+                      <option value="4">4 Star</option>
+                      <option value="3.5">3.5 Star</option>
+                      <option value="3">3 Star</option>
+                      <option value="2.5">2.5 Star</option>
+                      <option value="2">2 Star</option>
+                      <option value="1.5">1.5 Star</option>
+                      <option value="1">1 Star</option>
+                      <option value="0.5">0.5 Star</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+
+              {/* realreviews Corner */}
+              <div className={style.reviewsSectionField}>
+                <div className={style.childs}>
+                  {ratingData[0] != undefined ? (
+                    ratingData[0].ItemsReviwers != undefined ? (
+                      ratingData[0].ItemsReviwers.map((item) => {
+                        return (
+                          <div className={style.reviewSection} key={item._id}>
+                            <div className={style.topSection}>
+                              <div className={style.starSection}>
+                                <Rating
+                                  initialValue={item.QualityRate}
+                                  readonly="true"
+                                  size={30}
+                                  fillColor="rgb(245, 93, 5)"
+                                  allowFraction
+                                />
+                                <p> {item.QualityRate} / 5</p>
+                              </div>
+                              <div className={style.userDetails}>
+                                <h2>{item.userName}</h2>
+                              </div>
+
+                              <div className={style.icons}>
+                                <AiOutlineCalendar className={style.icon} />{" "}
+                                <p> {item.Date}</p>
+                                <BiTime className={style.icon} />{" "}
+                                <p>{item.Time} </p>
+                              </div>
+                            </div>
+
+                            <div className={style.commentStyle}>
+                              <p>{item.Message}</p>
+                            </div>
+                          <GoReport className={style.reportBtn} title="Report This Comment" onClick={()=>reportComment(item)}/>
+                          </div>
+                        );
+                      })
+                    ) : (
+                      <div className={style.reviewSection}>
+                        <div className={style.topSection}>
+                          <div className={style.starSection}>
+                            <Rating
+                              initialValue={5}
+                              readonly="true"
+                              size={30}
+                              fillColor="rgb(254, 58, 58)"
+                              allowFraction
+                            />
+                            <p> 5 / 5</p>
+                          </div>
+                          <div className={style.userDetails}>
+                            <h2>By : admin</h2>
+                          </div>
+
+                          <div className={style.icons}>
+                            <AiOutlineCalendar className={style.icon} />{" "}
+                            <p> -</p>
+                            <BiTime className={style.icon} /> <p>- </p>
+                          </div>
+                        </div>
+
+                        <div className={style.commentStyle}>
+                          <p>No Comments yet on this Product</p>
+                        </div>
+                      </div>
+                    )
+                  ) : (
+                    <div className={style.reviewSection}>
+                      <div className={style.topSection}>
+                        <div className={style.starSection}>
+                          <Rating
+                            initialValue={0}
+                            readonly="true"
+                            size={30}
+                            fillColor="rgb(254, 58, 58)"
+                            allowFraction
+                          />
+                          <p> - / -</p>
+                        </div>
+                        <div className={style.userDetails}>
+                          <h2>By : admin</h2>
+                        </div>
+
+                        <div className={style.icons}>
+                          <AiOutlineCalendar className={style.icon} /> <p> -</p>
+                          <BiTime className={style.icon} /> <p>- </p>
+                        </div>
+                      </div>
+
+                      <div className={style.commentStyle}>
+                        <p>No Reviews Found</p>
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+
+{(client.length!=0)?   <RateItem items={client} />: ""}
+                {(allowComment)? (
+                  <RateItem productIds={productId} />
+                ) : (
+                  ""
+                )}
+              </div>
+
+              
+            </div>
+
+
+            
           </div>
         </>
       );
@@ -1410,6 +2430,12 @@ if(localStorage.getItem('login')!='true'||localStorage.getItem('login')==undefin
 
   return (
     <>
+    
+    
+
+<Loader loader={loader}/>
+
+
       <div className={Styles.admin}>
         <HeadTag title="Search Item" />
         <Header />
@@ -1424,7 +2450,7 @@ if(localStorage.getItem('login')!='true'||localStorage.getItem('login')==undefin
       <Footer />
       <ToastContainer
         position="bottom-right"
-        autoClose={5000}
+        autoClose={1500}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick

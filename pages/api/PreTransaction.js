@@ -75,7 +75,21 @@ for(let i=0;i<req.body.ItemsOrder.length;i++){
       Email,Mobile,FullAddress,FullName,PickUpTime,PickUpTime1,PaymentMethod,OrderTime,OrderDate,TotalAmount:amount,OrderId:TokenNumber,TokenUser,PickUpTime2,
       ItemsOrder:array
       })
-      let ress=await sendItem.save();
+let findData=await PaymentSchemaDataBase.findOne({UserId:CustomerId,PaymentOrderStatus:"initiated"});
+if(findData==null){
+      await sendItem.save();
+}
+else{
+if(findData.PaymentOrderStatus=="initiated"){
+await PaymentSchemaDataBase.findByIdAndDelete(findData._id)
+}
+     await sendItem.save();
+
+}
+
+
+
+
 
 var paytmParams = {};
 paytmParams.body = {

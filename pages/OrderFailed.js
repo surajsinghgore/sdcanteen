@@ -28,9 +28,9 @@ setRej(true)
 setTemp(false)
 }  
  }
-setInterval(reject,600)
+reject()
 
-   },[]);
+   });
 
 
  useEffect(() => {
@@ -42,10 +42,10 @@ setRej(false)
 setPen(true);
 }    
  }
-setInterval(pending,600)
+pending();
 
 
- },[]);
+ });
  useEffect(() => {
  const temp=()=>{
       if(router.query.temp){
@@ -55,16 +55,23 @@ setRej(false)
 setPen(false);
 }    
  }
-setInterval(temp,600)
+temp();
 
- },[]);
+ });
 
  useEffect(() => {
         history.pushState(null, '', router.asPath);
         window.addEventListener('popstate', function (event) {
             history.pushState(null, '', router.asPath);
         });
-    }, []);
+    });
+
+
+    useEffect(()=>{
+    console.log(router.query.pending)
+    console.log(router.query.id)
+    console.log(router.query.temp)
+    })
   return (
     <>
     <VerifyClientMiddleware />
@@ -82,10 +89,12 @@ setInterval(temp,600)
 {/* <h3>Bank Transaction Id : <span>{token}</span></h3> */}
 <h3>Bank Transaction Id : <span>{token}</span></h3>
 <h4>Payment Status: <span>Pending</span></h4>
+<button onClick={()=>router.push("/")}>Go Back</button>
     </div>: ""}
 
 
-    {(rej==true)? <div className={Style1.failed}>
+    {(rej==true)?
+     <div className={Style1.failed}>
 <h2>Sorry Payment Failed</h2>
 <div className={Style1.Div1} >
 <Image src={failed} alt="payment reject" width={390} height={240}/>
@@ -93,15 +102,18 @@ setInterval(temp,600)
 {/* <h3>Bank Transaction Id : <span>{token}</span></h3> */}
 <h3>Bank Transaction Id : <span>{token}</span></h3>
 <h4>Payment Status: <span>Failed</span></h4>
+<button onClick={()=>router.push("/")}>Go Back</button>
     </div>: ""}
-    {(temp==true)? <div className={Style1.temp}>
+
+
+    {(temp==true)? <div className={Style1.failed}>
 <h2 >Sorry Something Went Wrong </h2>
-    </div>: ""}
+<button onClick={()=>router.push("/")}>Go Back</button>
+    </div>
+    : ""}
    
 
     </div> 
-
-
 
       <Footer />
       <ToastContainer

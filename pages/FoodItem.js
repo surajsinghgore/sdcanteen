@@ -63,7 +63,6 @@ const filterWithCategory=(items)=>{
 let filter=FoodDatas.filter((item)=>{
 return item.Category.toLowerCase().includes(items.FoodCategoryName.toLowerCase())})
 setFoodItem(filter)
-
 }
 
   return (

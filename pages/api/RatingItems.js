@@ -50,17 +50,7 @@ if(qualityRate==""){return res.status(400).json({message:"Please give quality ra
 //set default time and date
 let dates=new Date();
 let Dates=dates.getDate()+"-"+(dates.getMonth()+1)+"-"+dates.getFullYear();
-
  let LocalString=dates.toLocaleString()
-
-
-
-
-
-
-
-
-
 let hours=dates.getHours();
 let OrderTimes;
 let m=parseInt(dates.getMinutes());
