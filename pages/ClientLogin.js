@@ -1,6 +1,7 @@
 import HeadTag from "../Components/Head";
 import Header from "../Components/Header";
 import Footer from "../Components/Footer";
+import LoadingBar from "react-top-loading-bar";
 import Image from 'next/image'
 import Link from 'next/link'
 import LoginImage from '../public/login.webp'
@@ -18,10 +19,12 @@ import { useContext } from "react";
 import { AllContext } from "../context/AllContext";
 
 export default function ClientLogin() {
+ const [progress, setProgress] = useState(0);
 const router = useRouter()
   const { setUserData } = useContext(AllContext);
 const [email,setEmail]=useState("")
 const [password,setPassword]=useState("")
+
 const Login=async(e)=>{
 e.preventDefault();
 if(email===""){
@@ -51,6 +54,7 @@ return ;
 
 let Mobile=parseInt(email);
 if(!Mobile){
+setProgress(40)
 // login using email
 const res=await fetch(`${HOST}/api/ClientLogin`,{
     method: "POST",
@@ -62,7 +66,9 @@ const res=await fetch(`${HOST}/api/ClientLogin`,{
         Email:email,Password:password
     })
 });
+
 let data=await res.json();
+setProgress(60)
 if(res.status==501){
 toast.warn(`${data.message}`, {
 position: "bottom-right",
@@ -73,6 +79,7 @@ pauseOnHover: true,
 draggable: true,
 progress: undefined,
 });
+setProgress(100)
 return ;
 }
 if(res.status==400){
@@ -85,6 +92,7 @@ pauseOnHover: true,
 draggable: true,
 progress: undefined,
 });
+setProgress(100)
 return ;
 }
 
@@ -98,17 +106,20 @@ closeOnClick: true,
 pauseOnHover: true,
 draggable: true,
 progress: undefined,
+
 });
+setProgress(100)
 localStorage.setItem('login',"true");
 function Redirect() { 
    router.back();
     }
- setTimeout(Redirect, 1200);
+ setTimeout(Redirect, 1500);
     
   }
 
 }
 else{
+setProgress(40)
 // login with Mobile Number
 const res=await fetch(`${HOST}/api/ClientLogin`,{
     method: "POST",
@@ -120,6 +131,7 @@ const res=await fetch(`${HOST}/api/ClientLogin`,{
     })
 });
 let data=await res.json();
+setProgress(60)
 if(res.status==501){
 toast.warn(`${data.message}`, {
 position: "bottom-right",
@@ -130,6 +142,8 @@ pauseOnHover: true,
 draggable: true,
 progress: undefined,
 });
+setProgress(100)
+
 return ;
 }
 if(res.status==400){
@@ -142,6 +156,8 @@ pauseOnHover: true,
 draggable: true,
 progress: undefined,
 });
+setProgress(100)
+
 return ;
 }
 
@@ -158,10 +174,12 @@ progress: undefined,
 });
 
 localStorage.setItem('login',"true");
+setProgress(100)
+
     function Redirect() {
 router.back();
     }
- setTimeout(Redirect, 1200);
+ setTimeout(Redirect, 1500);
   }
 
 
@@ -169,7 +187,13 @@ router.back();
 }
 }
   return (
-    <div>
+    <div> <LoadingBar
+        color="rgb(255 82 0)"
+        height={3.5}
+        waitingTime={400}
+        progress={progress}
+        transitionTime={100}
+      />  
     <HidePagesAfterLogin />
     <div className={Styles.admin}>
       <HeadTag title="Client Login" />

@@ -10,10 +10,15 @@ export default async function MainSearch(req, res) {
     try {
       DbConnection();
       let search=req.query.search;
-let foodData=await FoodItemSchema.find({'FoodName':{$regex : search}}).select("-Active -Category -Description -Image -ItemCost -Qty -createdAt -updatedAt -_id")
-let coffeeData=await CoffeeItemSchema.find({'CoffeeName':{$regex : search}}).select("-Active -Category -Description -Image -ItemCost -Qty -createdAt -updatedAt -_id")
-let drinkData=await DrinkItemSchema.find({'DrinkName':{$regex : search}}).select("-Active -Category -Description -Image -ItemCost -Qty -createdAt -updatedAt -_id")
-let juiceData=await JuiceItemSchema.find({'JuiceName':{$regex : search}}).select("-Active -Category -Description -Image -ItemCost -Qty -createdAt -updatedAt -_id")
+let foodRes=await FoodItemSchema.find({'FoodName':{$regex : search},Active:"ON"}).select("-Active -Category -Description -Image -ItemCost -Qty -createdAt -updatedAt -_id")
+let coffeeRes=await CoffeeItemSchema.find({'CoffeeName':{$regex : search},Active:"ON"}).select("-Active -Category -Description -Image -ItemCost -Qty -createdAt -updatedAt -_id")
+let drinkRes=await DrinkItemSchema.find({'DrinkName':{$regex : search},Active:"ON"}).select("-Active -Category -Description -Image -ItemCost -Qty -createdAt -updatedAt -_id")
+let juiceRes=await JuiceItemSchema.find({'JuiceName':{$regex : search},Active:"ON"}).select("-Active -Category -Description -Image -ItemCost -Qty -createdAt -updatedAt -_id")
+
+let foodData=await foodRes.slice(0,2); 
+let coffeeData=await coffeeRes.slice(0,2);
+let drinkData=await drinkRes.slice(0,2)
+let juiceData=await juiceRes.slice(0,2)
 return res.status(201).json({foodData,coffeeData,drinkData,juiceData})
 
 }

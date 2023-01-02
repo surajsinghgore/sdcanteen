@@ -21,8 +21,8 @@ function UpdateCoffeeImage() {
   const [files, setFiles] = useState("");
 
 useEffect(()=>{
-if(filterCoffeeItemsData!=undefined){
-setImgs(`/CoffeeItemImages/${filterCoffeeItemsData[0].Image}`)
+if(filterCoffeeItemsData.datas!=undefined){
+setImgs(`/CoffeeItemImages/${filterCoffeeItemsData.datas.Image}`)
 }
 else{
     router.push('/admin/UpdateCoffeeItem')
@@ -42,8 +42,8 @@ else{
     e.preventDefault();
 
     const dataImage = new FormData();
-    dataImage.append("_id", filterCoffeeItemsData[0]._id);
-    dataImage.append("oldImage", filterCoffeeItemsData[0].Image);
+    dataImage.append("_id", filterCoffeeItemsData.datas._id);
+    dataImage.append("oldImage", filterCoffeeItemsData.datas.Image);
     dataImage.append("Image", files);
 
     if (!files) {
@@ -117,7 +117,7 @@ else{
 
     if (datas.status == "201") {
       toast.success(
-        `${filterCoffeeItemsData[0].CoffeeName} Image Successfully Updated`,
+        `${filterCoffeeItemsData.datas.CoffeeName} Image Successfully Updated`,
         {
           position: "bottom-right",
           autoClose: 5000,

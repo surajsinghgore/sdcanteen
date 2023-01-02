@@ -14,22 +14,20 @@ import VerifyAdminLogin from './VerifyAdminLogin';
 import Switch from "react-switch";
 let HOST = process.env.NEXT_PUBLIC_API_URL;
 export default function UpdateJuiceItemForm() {
-let array=[];
   const { filterJuiceItemsData,updateJuiceItem } = useContext(AllContext);
  const [checked, setChecked] = useState(true);
-   const [normalPrice, setNormalPrice] = useState("");
+   const [normalPrice, setNormalPrice] = useState(0);
 const [normalPriceName,setNormalPriceName]=useState("Normal Price")
-  const [mediumPrice, setMediumPrice] = useState("");
-  const [mediumPriceName, setMediumPriceName] = useState("Medium Size Price");
-  const [smallPrice, setSmallPrice] = useState("");
-  const [smallPriceName, setSmallPriceName] = useState("Small Size Price");
-  const [largePrice, setLargePrice] = useState("");
-  const [largePriceName, setLargePriceName] = useState("Large Size Price");
+  const [mediumPrice, setMediumPrice] = useState(0);
+  const [mediumPriceName, setMediumPriceName] = useState("Medium Price");
+  const [smallPrice, setSmallPrice] = useState(0);
+  const [smallPriceName, setSmallPriceName] = useState("small Price");
+  const [largePrice, setLargePrice] = useState(0);
+  const [largePriceName, setLargePriceName] = useState("Large Price");
   const [data, setData] = useState([]);
   const [juiceName, setJuiceName] = useState();
   const [Qtys, setQtys] = useState();
   const [Category, setCategory] = useState();
-  const [subCategory, setSubCategory] = useState('');
   const [description, setDescription] = useState("");
 
 
@@ -37,53 +35,55 @@ const [normalPriceName,setNormalPriceName]=useState("Normal Price")
   setChecked(!checked)
   }
 
-
-  useEffect(() => {
-    if (filterJuiceItemsData[0]!=undefined) {
-      setJuiceName(filterJuiceItemsData[0].JuiceName);
-      setQtys(filterJuiceItemsData[0].Qty);
-      setCategory(filterJuiceItemsData[0].Category);
-         setSubCategory(filterJuiceItemsData[0].Category)
-               setDescription(filterJuiceItemsData[0].Description)
-if(filterJuiceItemsData[0].Active=="ON"){
+  const send=()=>{
+   if (filterJuiceItemsData.datas==undefined) {
+          function back(){
+    router.push('/admin/UpdateJuiceItem')
+          }
+    setTimeout(back,1500);
+   
+}
+    else  {
+      setJuiceName(filterJuiceItemsData.datas.JuiceName);
+      setQtys(filterJuiceItemsData.datas.Qty);
+      setCategory(filterJuiceItemsData.datas.Category);
+               setDescription(filterJuiceItemsData.datas.Description)
+if(filterJuiceItemsData.datas.Active=="ON"){
 setChecked(true)
 }
 else{
 setChecked(false)
 }
 
-filterJuiceItemsData[0].ItemCost.map((item)=>{
-if(item.sizeName=="normalsize"){
-setNormalPrice(item.Price)
+if(filterJuiceItemsData.normal!=null){setNormalPrice(parseInt(filterJuiceItemsData.normal))}else{setNormalPrice("")}
+if(filterJuiceItemsData.medium!=null){setMediumPrice(parseInt(filterJuiceItemsData.medium))}else{
+setMediumPrice("")
 }
-if(item.sizeName=="mediumsize"){
-setMediumPrice(item.Price)
+if(filterJuiceItemsData.large!=null){setLargePrice(parseInt(filterJuiceItemsData.large))}else{
+setLargePrice("")
 }
-if(item.sizeName=="largesize"){
-setLargePrice(item.Price)
+if(filterJuiceItemsData.small!=null){setSmallPrice(parseInt(filterJuiceItemsData.small))}else{
+setSmallPrice("")
 }
-if(item.sizeName=="smallsize"){
-setSmallPrice(item.Price)
-}
-})
-   }
-   else{
-        function back(){
-    router.push('/admin/UpdateJuiceItem')
-          }
-    setTimeout(2000,back);
-}
-    async function dataFetch() {
+
+    }
+  }
+  useEffect(() => {
+ 
+send();
+  
+       async function dataFetch() {
       let ress = await fetch(`${HOST}/api/ShowJuiceCategory`);
       let datas = await ress.json();
       await setData(datas.data);
     }
     dataFetch();
-  }, [filterJuiceItemsData]);
+ },[filterJuiceItemsData]);
 
-  const updateItems = async (e) => {
-    e.preventDefault();
-    if (!juiceName) {
+
+
+  const updateItems = async () => {
+       if (!juiceName) {
       toast.warn("Please Enter Juice Name", {
         position: "bottom-right",
         autoClose: 5000,
@@ -131,22 +131,7 @@ setSmallPrice(item.Price)
       });
       return ;
     }
-    // matching Weather Data Change OR Not
- if(normalPrice){
-array.push({"normalsize":normalPrice})
-}
-if(mediumPrice){
-array.push({"mediumsize":mediumPrice})
-
-}
-if(largePrice){
-array.push({"largesize":largePrice})
-}
-if(smallPrice){
-array.push({"smallsize":smallPrice})
-}
-
-
+// normal Prize Get
 if((smallPrice=="")&&(mediumPrice=="")&&(largePrice=="")){
 if(normalPrice==""){
    toast.warn("Please Enter Atleast Normal Price Of Item", {
@@ -193,7 +178,8 @@ toast.warn("Price Not Be Zero Or Below Zero", {
 let active;
 if(checked==true){
 active="ON"
-}else{
+}
+else{
 active="OFF"
 }
 
@@ -204,15 +190,16 @@ active="OFF"
         
       },
       body: JSON.stringify({
-        _id: filterJuiceItemsData[0]._id,
+        _id: filterJuiceItemsData.datas._id,
         JuiceName: juiceName,
         Qty: Qtys,
         Category: Category,
-          Description:description ,
-          ItemCost:array,
-          Active:active
+          Description:description ,largesize:largePrice,mediumsize:mediumPrice,
+          Active:active,normalsize:normalPrice,smallsize:smallPrice,
       }),
     });
+
+  let datas=await response.json();
   if (response.status == 401) {
       toast.error("Please Login With Admin Credentials", {
         position: "bottom-right",
@@ -228,7 +215,7 @@ active="OFF"
         router.push("/admin/Login");
       }
       }
-    let datas = await response.json();
+  
     if (response.status == 204) {
       toast.error(`${datas.message}`, {
         position: "bottom-right",
@@ -241,7 +228,6 @@ active="OFF"
       });
       return ;
     }
-
     if (response.status == 409) {
       toast.warn(`${datas.message}`, {
         position: "bottom-right",
@@ -289,13 +275,15 @@ active="OFF"
         draggable: true,
         progress: undefined,
       });
-      updateJuiceItem();
-      setTimeout(RedirectFunction, 1000);
+        setTimeout(RedirectFunction, 1000);
       function RedirectFunction() {
         router.push("/admin/UpdateJuiceItem");
+      updateJuiceItem(filterJuiceItemsData.datas._id)
       }
     }
   };
+
+
 
   return (
     <div className={Styles.admin}>

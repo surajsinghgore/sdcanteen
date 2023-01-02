@@ -8,62 +8,93 @@ import "react-toastify/dist/ReactToastify.css";
 import { IoMdArrowDropright } from 'react-icons/io';
 import { FaSearch } from 'react-icons/fa';
 import { useEffect ,useState} from "react";
-import {  useCart } from "react-use-cart";
 import Banner from "../Components/Banner";
+let HOST = process.env.NEXT_PUBLIC_API_URL;
 import ItemCard from "../Components/ItemCard";
-
-export default function FoodItem({ResCategory,FoodDatas}) {
-  const {
-    items,
-  } = useCart();
+  import InfiniteScroll from 'react-infinite-scroll-component';
+export default function FoodItem() {
 const [foodCategory,setFoodCategory]=useState([]);
-const [foodItem,setFoodItem]=useState([]);
-const [foodItem1,setFoodItem1]=useState([]);
 const [search,setSearch]=useState('');
+const [count,setCount]=useState(10);
+const [counts,setCounts]=useState(10);
+const [length,setLen]=useState(10)
+const [lengths,setLens]=useState(10)
+const [FoodDatas,setFoodDatas]=useState([])
+const [cate,setCate]=useState(false);
+const [sear,setSear]=useState(false);
 
+useEffect(()=>{
+localStorage.removeItem("names")
+const getCategory=async()=>{
+let ress1 = await fetch(`${HOST}/api/ShowFoodCategoryClient`);
+      let data = await ress1.json();
+setFoodCategory(data.data)
+ let ressFood = await fetch(`${HOST}/api/ShowFoodItemClient?count=${count}`);
+setCount(count+10)
+  let datas = await ressFood.json();
+setLen(datas.allLen)
+setFoodDatas(datas.data)
+}
+getCategory();
+},[])
 
 const searchHandle=(e)=>{
 setSearch(e.target.value);
-let filter=FoodDatas.filter((item)=>{
-return item.FoodName.toLowerCase().includes(search.toLowerCase())})
-setFoodItem(filter)
+setSear(true)
+const getCategory=async()=>{
+let ress1 = await fetch(`${HOST}/api/SearchItemsClient?category=foodItems&search=${e.target.value}`);
+      let datas = await ress1.json();
+      if(ress1.status==201){
+setFoodDatas(datas.data)
+      
+      }
+}
+getCategory();
+
 let ss=document.getElementById('search1');
 if(ss.value==""){
-setFoodItem(FoodDatas)
+setSear(false)
+AllDataFetch();
 }
 }
 
-useEffect(()=>{
-items.map((itemm)=>{
-if(itemm.FoodName){
- let filter1=FoodDatas.filter((item)=>{
-return item._id.toLowerCase().includes(itemm.id.toLowerCase())})
-filter1[0]['addToCart']=true;
-}
-})
 
-},[items])
+const filterWithCategory=async(items)=>{
+setCate(true)
+counts=10;
+localStorage.setItem("names",items[0].FoodCategoryName)
+let itemSend=items[0].FoodCategoryName;
+let ressFood = await fetch(`${HOST}/api/ShowFoodItemClient?itemName=${itemSend}&counts=${counts}`);
+setCounts(counts+10)
+  let data = await ressFood.json();
+setFoodDatas(data.data)
+setLens(data.allLen)
 
+}
+const fetchCategory=async()=>{
+setCate(true)
+setCounts(counts+10)
+let itemSend=localStorage.getItem("names");
+let ressFood = await fetch(`${HOST}/api/ShowFoodItemClient?itemName=${itemSend}&counts=${counts}`);
+  let data = await ressFood.json();
+setFoodDatas(data.data)
+setLens(data.allLen)
+}
 
+const fetchData = async() => {
+let ressFood = await fetch(`${HOST}/api/ShowFoodItemClient?count=${count}`);
+setCount(count+10)
+  let data = await ressFood.json();
+setLen(data.allLen)
+setFoodDatas(data.data)
+  };
+const AllDataFetch=()=>{
+setCate(false);
+count=10;
+localStorage.removeItem("names")
+fetchData();
+}
 
-useEffect(()=>{
-if(ResCategory){
-setFoodCategory(ResCategory);
-}
-if(FoodDatas){
-setFoodItem(FoodDatas)
-setFoodItem1(FoodDatas)
-}
-},[])
-
-const filterWithCategory1=()=>{
-setFoodItem(FoodDatas)
-}
-const filterWithCategory=(items)=>{
-let filter=FoodDatas.filter((item)=>{
-return item.Category.toLowerCase().includes(items.FoodCategoryName.toLowerCase())})
-setFoodItem(filter)
-}
 
   return (
     <>
@@ -82,17 +113,18 @@ CurrentPageUrl="/FoodItem" CurrentPage="Food Item" SubPage="Item" H1Style={{padd
    <h2>Categories</h2>
    <hr />
    <div className={Style.menu}>
-     <li><span className={Style.heading} onClick={filterWithCategory1}><IoMdArrowDropright /> All</span>
-     <span className={Style.length}>({foodItem1.length})</span></li>
+     <li><span className={Style.heading} onClick={AllDataFetch}><IoMdArrowDropright /> All</span>
+     <span className={Style.length}>({length})</span></li>
+
+
+     
    {foodCategory.length==0? "" : <>
    {foodCategory.map((item,index)=>{
-  let a=foodItem1.filter((items)=>{
-     return items.Category.includes(item.FoodCategoryName);
-     })
+  
    
    return (
-     <li key={index}><span className={Style.heading} onClick={()=>filterWithCategory(item)}><IoMdArrowDropright /> {item.FoodCategoryName}</span>
-     <span className={Style.length}>({a.length})</span></li>
+     <li key={index}><span className={Style.heading} onClick={()=>filterWithCategory(item)}><IoMdArrowDropright /> {item[0].FoodCategoryName}</span>
+     <span className={Style.length}>  {item[1]}  </span></li>
    )
    })}
    </>}
@@ -104,10 +136,8 @@ CurrentPageUrl="/FoodItem" CurrentPage="Food Item" SubPage="Item" H1Style={{padd
    <div className={Style.right}>
    <div className={Style.top}>
    
-   <h4>Showing all {foodItem.length? <>{foodItem.length} </>:"0"} results</h4>
-  
-
-   <div className={Style.search}>
+   <h4>Showing all {(length)? <>{length} </>:"0"} results</h4>
+     <div className={Style.search}>
    <input type="search" name="search" id="search1" placeholder="Search Item ..." value={search} onChange={searchHandle}/>
   <div className={Style.btn}>
   <FaSearch />
@@ -115,35 +145,53 @@ CurrentPageUrl="/FoodItem" CurrentPage="Food Item" SubPage="Item" H1Style={{padd
    </div>
    </div>
 
-
-   <div className={Style.cards}>
-   {foodItem.length==0? <><h1 className={Style.match}>No Item Found</h1></>: <>
-   {foodItem.map((item)=>{
+   
+   {(sear==false)?<> 
+{(cate)? <div className={Style.cards}>
+<InfiniteScroll
+  dataLength={FoodDatas.length} 
+  next={fetchCategory}
+  hasMore={lengths!==FoodDatas.length}
+ >
+{FoodDatas.map((items)=>{
    return (
-<ItemCard item={item} key={item._id}/>
+<ItemCard item={items} key={items._id}/>
    )
    })}
-   </>}
-
+</InfiniteScroll>
+  
    </div>
+   : 
+   <div className={Style.cards}>
+<InfiniteScroll
+  dataLength={FoodDatas.length} //This is important field to render the next data
+  next={fetchData}
+  hasMore={length!==FoodDatas.length}
+ >
+ {(FoodDatas.length==0) ? <h1 className={Style.match}>No Item Found</h1>:""}
+
+{FoodDatas.map((items)=>{
+   return (
+<ItemCard item={items} key={items._id}/>
+   )
+   })}
+</InfiniteScroll>
+   </div>}
+</>:""}
+
+{(sear)? <div className={Style.cards}>
+
+{FoodDatas.map((items)=>{
+   return (
+<ItemCard item={items} key={items._id}/>
+   )
+   })}
+  
+   </div>:""}
    </div>
    </div>
    <Footer />
 
     </>
   )
-}
-
-export async function getServerSideProps() {
-let HOST = process.env.NEXT_PUBLIC_API_URL;
-let ress = await fetch(`${HOST}/api/ShowFoodCategory`);
-      let data = await ress.json();
-      let ResCategory =await data.data;
-
-let ressFood = await fetch(`${HOST}/api/ShowFoodItemClient`);
-  let FoodData = await ressFood.json();
-  let FoodDatas = await FoodData.data;
-
-
-  return { props: { ResCategory,FoodDatas } }
 }

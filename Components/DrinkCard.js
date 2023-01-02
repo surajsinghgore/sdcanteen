@@ -15,6 +15,9 @@ const [useSize,setUseSize]=useState(false);
 const [showBtn,SetShowBtn]=useState(false);
 const [price,setPrice]=useState('');
 const [size,setSize]=useState('');
+const [adds,setAdds]=useState(false);
+
+  
 
 useEffect(()=>{
 if(item.item!=undefined){
@@ -27,7 +30,16 @@ setPrice(item.item.ItemCost[0].Price)
     removeItem,
     addItem ,
   } = useCart();
-
+useEffect(() => {
+    items.map((itemm) => {
+      if (item.item != undefined) {
+        if (itemm.id ==item.item._id) {
+          setAdds(true);
+     
+        }
+      }
+    });
+  },[items]);
 const AddToCart=(item)=>{
 if(item.item.ItemCost.length==1){
 localStorage.setItem("itemOrder",item.item.ItemCost[0]._id)
@@ -49,14 +61,15 @@ return items._id==subId})
 if(subData.length==0 || subData==undefined){
  toast.warn("please try again ", {
       position: "bottom-right",
-      autoClose: 2000,
+      autoClose: 1500,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
     });
-    emptyCart(); localStorage.removeItem("itemOrder");
+    emptyCart();
+ localStorage.removeItem("itemOrder");
     return ;
 }
 let id=item.item._id;
@@ -72,7 +85,7 @@ foodFind=item.item.DrinkName;
 if(foodFind!=undefined){
 let DrinkName=item.item.DrinkName;
 addItem({id,price,DrinkName,Qty,Image,Size,subId,Category,QtyBook,totalAmount})
-if(DrinkName==undefined){
+ if(DrinkName==undefined){
  toast.success("Drink successfully added to cart", {
       position: "bottom-right",
       autoClose: 1500,
@@ -95,28 +108,29 @@ else{
       progress: undefined,
     });
 }
-
-  
+  setAdds(true);
     return ;
 }
   
 }
 
 const RemoveFromCart=(item)=>{
+
 if(item.item._id!=undefined){
 let id=item.item._id;
+ setAdds(false);
 item.item.addToCart=false
 removeItem(id);
- toast.error("Item successfully removed from cart", {
+ toast.error(`Item successfully removed from cart`, {
       position: "bottom-right",
-      autoClose: 2000,
+      autoClose: 1500,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
     });
-
+    
 }
 }
 
@@ -153,9 +167,9 @@ let subId=localStorage.getItem("itemOrder");
 let subData=item.item.ItemCost.filter((items)=>{
 return items._id==subId})
 if(subData.length==0 || subData==undefined){
- toast.warn("please try again ", {
+ toast.warn("please try again", {
       position: "bottom-right",
-      autoClose: 2000,
+      autoClose: 1500,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -202,13 +216,11 @@ else{
     });
 }
 
-    if(localStorage.getItem("itemOrder")){
-    localStorage.removeItem("itemOrder")
-    }
-    function redirect(){
+  
+function redirect(){
      router.push("/Cart");
 }
-     setTimeout(redirect,1200)
+     setTimeout(redirect,1500)
     return ;
 }
   
@@ -235,7 +247,7 @@ localStorage.setItem("itemOrder",itm._id)
   
      <div className={Style.card} key={item.item._id} loading="lazy">
    <div className={Style.Img}>
-  <Link href={`/${item.item.DrinkName}`}><a> <Image src={`/DrinkItemImages/${item.item.Image}`} alt={item.item.Image} width={395} height={280} loading="lazy" /></a></Link>
+  <Link href={`/${item.item.DrinkName}`}><a> <Image src={`/DrinkItemImages/${item.item.Image}`} alt={item.item.Image} width={385} height={250} loading="lazy" /></a></Link>
    </div>
    <div className={Style.deatils}>
    <Link href={`/${item.item.DrinkName}`}><a><h1>{item.item.DrinkName}</h1></a></Link>
@@ -267,9 +279,12 @@ localStorage.setItem("itemOrder",itm._id)
  </div>
  </div>
 <div className={Style.btnSection}>
- {(item.item.addToCart)?
+
+ {(adds)?
  <><button onClick={()=>RemoveFromCart(item)}>Remove Item</button></> :
   <><button onClick={()=>AddToCart(item)}>Add To Cart</button></>}
+
+
    <button className={Style.buy} onClick={()=>BuyNow(item)}>Buy Now</button>
    </div>
    </div></div>

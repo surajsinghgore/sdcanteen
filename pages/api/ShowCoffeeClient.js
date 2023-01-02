@@ -1,13 +1,13 @@
 import DbConnection from "./Middleware/DbConnection";
-import FoodItemSchema from "./Schema/FoodItemSchema";
+import CoffeeItemSchema from "./Schema/CoffeeItemSchema";
 
-export default async function ShowFoodItemClient(req, res) {
+export default async function ShowCoffeeClient(req, res) {
   if (req.method == "GET") {
     try {
       DbConnection();
       if(req.query.count!=undefined){
        let count=(req.query.count)||10;
-      let dataFetch = await FoodItemSchema.find({Active:"ON"}).select('-createdAt -updatedAt');
+      let dataFetch = await CoffeeItemSchema.find({Active:"ON"}).select('-createdAt -updatedAt');
 let len=dataFetch.length;
       let data=await dataFetch.slice(0,parseInt(count));
       res.status(201).json({ data, status: "201" ,allLen:len});
@@ -16,7 +16,7 @@ let len=dataFetch.length;
      if(req.query.itemName!=undefined){
       let itemName=req.query.itemName;
       let count=parseInt(req.query.counts)||2;
-      let Resdata = await FoodItemSchema.find({Active:"ON",Category:itemName}).select("-Active -createdAt -updatedAt");
+      let Resdata = await CoffeeItemSchema.find({Active:"ON",Category:itemName}).select("-Active -createdAt -updatedAt")
 let len=Resdata.length;
       let data=await Resdata.slice(0,parseInt(count));
       res.status(201).json({ data, status: "201" ,allLen:len});

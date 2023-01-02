@@ -16,84 +16,78 @@ import Switch from "react-switch";
 
  function UpdateCoffeeItemForm() {
   const { filterCoffeeItemsData ,updateCoffeeItem} = useContext(AllContext);
-let array=[];
 const [checked, setChecked] = useState(true);
-   const [normalPrice, setNormalPrice] = useState("");
-const [normalPriceName,setNormalPriceName]=useState("")
-  const [mediumPrice, setMediumPrice] = useState("");
-  const [mediumPriceName, setMediumPriceName] = useState("");
-  const [smallPrice, setSmallPrice] = useState("");
-  const [smallPriceName, setSmallPriceName] = useState("");
-  const [largePrice, setLargePrice] = useState("");
-  const [largePriceName, setLargePriceName] = useState("");
+   const [normalPrice, setNormalPrice] = useState(0);
+const [normalPriceName,setNormalPriceName]=useState("Normal Price")
+  const [mediumPrice, setMediumPrice] = useState(0);
+  const [mediumPriceName, setMediumPriceName] = useState("Medium Price");
+  const [smallPrice, setSmallPrice] = useState(0);
+  const [smallPriceName, setSmallPriceName] = useState("small Price");
+  const [largePrice, setLargePrice] = useState(0);
+  const [largePriceName, setLargePriceName] = useState("Large Price");
+  const [data, setData] = useState([]);
+  const [CoffeeName, setCoffeeName] = useState();
+  const [Qtys, setQtys] = useState();
+  const [Category, setCategory] = useState();
   const [description, setDescription] = useState("");
-  const [data, setData] = useState(['']);
-  const [CoffeeName, setCoffeeName] = useState('');
-  const [Price, setPrice] = useState('');
-  const [Qtys, setQtys] = useState('');
-  const [Category, setCategory] = useState('');
-  const [subCategory, setSubCategory] = useState('');
-
 
 const handleChanges=()=>{
   setChecked(!checked)
   }
 
-  useEffect(() => {
-  setNormalPriceName("Normal Price")
-  setMediumPriceName("Medium Size Price")
-  setSmallPriceName("Small Size Price")
-  setLargePriceName("Large Size Price")
-    if (filterCoffeeItemsData[0]!=undefined) {
-      setCoffeeName(filterCoffeeItemsData[0].CoffeeName);
-      setPrice(filterCoffeeItemsData[0].Price);
-      setQtys(filterCoffeeItemsData[0].Qty);
-      setCategory(filterCoffeeItemsData[0].Category);
-      setSubCategory(filterCoffeeItemsData[0].Category)
-      setDescription(filterCoffeeItemsData[0].Description)
+
+
+ const send=()=>{
+   if (filterCoffeeItemsData.datas==undefined) {
+          function back(){
+    router.push('/admin/UpdateCoffeeItem')
+          }
+    setTimeout(back,1500);
    
-   
-   
-if(filterCoffeeItemsData[0].Active=="ON"){
+}
+    else  {
+      setCoffeeName(filterCoffeeItemsData.datas.CoffeeName);
+      setQtys(filterCoffeeItemsData.datas.Qty);
+      setCategory(filterCoffeeItemsData.datas.Category);
+               setDescription(filterCoffeeItemsData.datas.Description)
+if(filterCoffeeItemsData.datas.Active=="ON"){
 setChecked(true)
 }
 else{
 setChecked(false)
 }
 
-filterCoffeeItemsData[0].ItemCost.map((item)=>{
-if(item.sizeName=="normalsize"){
-setNormalPrice(item.Price)
+if(filterCoffeeItemsData.normal!=null){setNormalPrice(parseInt(filterCoffeeItemsData.normal))}else{setNormalPrice("")}
+if(filterCoffeeItemsData.medium!=null){setMediumPrice(parseInt(filterCoffeeItemsData.medium))}else{
+setMediumPrice("")
 }
-if(item.sizeName=="mediumsize"){
-setMediumPrice(item.Price)
+if(filterCoffeeItemsData.large!=null){setLargePrice(parseInt(filterCoffeeItemsData.large))}else{
+setLargePrice("")
 }
-if(item.sizeName=="largesize"){
-setLargePrice(item.Price)
+if(filterCoffeeItemsData.small!=null){setSmallPrice(parseInt(filterCoffeeItemsData.small))}else{
+setSmallPrice("")
 }
-if(item.sizeName=="smallsize"){
-setSmallPrice(item.Price)
-}
-})
-    }
 
-    else{
-         function back(){
-    router.push('/admin/UpdateCoffeeItem')
-          }
-    setTimeout(2000,back);
     }
-    async function dataFetch() {
+  }
+  useEffect(() => {
+ 
+send();
+  
+       async function dataFetch() {
       let ress = await fetch(`${HOST}/api/ShowCoffeeCategory`);
       let datas = await ress.json();
       await setData(datas.data);
     }
     dataFetch();
-  }, [filterCoffeeItemsData]);
+ },[filterCoffeeItemsData]);
 
-  const updateItems = async (e) => {
-   e.preventDefault();
-    if (!CoffeeName) {
+
+
+
+
+const updateItems = async () => {
+       if (!CoffeeName) {
       toast.warn("Please Enter Coffee Name", {
         position: "bottom-right",
         autoClose: 5000,
@@ -141,23 +135,7 @@ setSmallPrice(item.Price)
       });
       return ;
     }
-
-    // matching Weather Data Change OR Not
- if(normalPrice){
-array.push({"normalsize":normalPrice})
-}
-if(mediumPrice){
-array.push({"mediumsize":mediumPrice})
-
-}
-if(largePrice){
-array.push({"largesize":largePrice})
-}
-if(smallPrice){
-array.push({"smallsize":smallPrice})
-}
-
-
+// normal Prize Get
 if((smallPrice=="")&&(mediumPrice=="")&&(largePrice=="")){
 if(normalPrice==""){
    toast.warn("Please Enter Atleast Normal Price Of Item", {
@@ -204,12 +182,10 @@ toast.warn("Price Not Be Zero Or Below Zero", {
 let active;
 if(checked==true){
 active="ON"
-}else{
+}
+else{
 active="OFF"
 }
-
-
-
 
     let response = await fetch(`${HOST}/api/UpdateCoffeeItem`, {
       method: "POST",
@@ -218,15 +194,16 @@ active="OFF"
         
       },
       body: JSON.stringify({
-        _id: filterCoffeeItemsData[0]._id,
+        _id: filterCoffeeItemsData.datas._id,
         CoffeeName: CoffeeName,
         Qty: Qtys,
         Category: Category,
-          Description:description ,
-          ItemCost:array,
-          Active:active
+          Description:description ,largesize:largePrice,mediumsize:mediumPrice,
+          Active:active,normalsize:normalPrice,smallsize:smallPrice,
       }),
     });
+
+  let datas=await response.json();
   if (response.status == 401) {
       toast.error("Please Login With Admin Credentials", {
         position: "bottom-right",
@@ -242,7 +219,7 @@ active="OFF"
         router.push("/admin/Login");
       }
       }
-    let datas = await response.json();
+  
     if (response.status == 204) {
       toast.error(`${datas.message}`, {
         position: "bottom-right",
@@ -255,7 +232,6 @@ active="OFF"
       });
       return ;
     }
-
     if (response.status == 409) {
       toast.warn(`${datas.message}`, {
         position: "bottom-right",
@@ -303,13 +279,13 @@ active="OFF"
         draggable: true,
         progress: undefined,
       });
-      updateCoffeeItem();
-      setTimeout(RedirectFunction, 1000);
+        setTimeout(RedirectFunction, 1000);
       function RedirectFunction() {
         router.push("/admin/UpdateCoffeeItem");
+      updateCoffeeItem(filterCoffeeItemsData.datas._id)
       }
     }
-  };
+  }
 
   return (
     <div className={Styles.admin}>

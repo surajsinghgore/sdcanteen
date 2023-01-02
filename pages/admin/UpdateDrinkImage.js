@@ -22,8 +22,8 @@ export default function UpdateDrinkImage() {
   const [imgs, setImgs] = useState(imges);
   const [files, setFiles] = useState("");
 useEffect(()=>{
-if(filterDrinkItemsData!=undefined){
-setImgs(`/DrinkItemImages/${filterDrinkItemsData[0].Image}`)
+if(filterDrinkItemsData.datas!=undefined){
+setImgs(`/DrinkItemImages/${filterDrinkItemsData.datas.Image}`)
 }
  else{
     router.push('/admin/UpdateDrinkItem')
@@ -43,8 +43,8 @@ setImgs(`/DrinkItemImages/${filterDrinkItemsData[0].Image}`)
     e.preventDefault();
 
     const dataImage = new FormData();
-    dataImage.append("_id", filterDrinkItemsData[0]._id);
-    dataImage.append("oldImage", filterDrinkItemsData[0].Image);
+    dataImage.append("_id", filterDrinkItemsData.datas._id);
+    dataImage.append("oldImage", filterDrinkItemsData.datas.Image);
     dataImage.append("Image", files);
 
     if (!files) {
@@ -119,7 +119,7 @@ setImgs(`/DrinkItemImages/${filterDrinkItemsData[0].Image}`)
 
     if (datas.status == "201") {
       toast.success(
-        `${filterDrinkItemsData[0].DrinkName} Image Successfully Updated`,
+        `${filterDrinkItemsData.datas.DrinkName} Image Successfully Updated`,
         {
           position: "bottom-right",
           autoClose: 5000,

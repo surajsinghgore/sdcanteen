@@ -18,7 +18,6 @@ const [userData,setUserData]=useState([]);
 const [barData,setBarData]=useState([]);
 
 const updateFoodCategories=async(id)=>{
-
 let ress=await fetch(`${HOST}/api/ShowFoodCategory`);
 let datas=await ress.json();
 let d=datas.data;
@@ -63,40 +62,121 @@ await setFilterAllFoodCategoriesData(dd)
 }
 
 const updateFoodItem=async(id)=>{
-let ress=await fetch(`${HOST}/api/ShowFoodItemClient`);
+let ress=await fetch(`${HOST}/api/ShowFoodItemById?id=${id}`);
 let datas=await ress.json();
-let d=datas.data;
-let dd=await d.filter((item)=>{
-return item._id==id})
- setFilterFoodItemsData(dd)
+if(ress.status==201){
+let nor=null;
+let mm=null;
+let lar=null;
+let small=null;
+datas.data.ItemCost.map((item)=>{
+if(item.sizeName=="normalsize"){
+nor=item.Price
+}
+if(item.sizeName=="mediumsize"){
+mm=item.Price
+}
+if(item.sizeName=="largesize"){
+lar=item.Price
+}
+if(item.sizeName=="halfsize"){
+small=item.Price
+}
+})
+
+ setFilterFoodItemsData({datas:datas.data,normal:nor,medium:mm,large:lar,small:small})
+}
+
 }
 
 
 const updateCoffeeItem=async(id)=>{
-let ress=await fetch(`${HOST}/api/ShowCoffeeItemClient`);
+ let ress=await fetch(`${HOST}/api/ShowCoffeeItemById?id=${id}`);
 let datas=await ress.json();
-let d=datas.data;
-let dd=await d.filter((item)=>{
-return item._id==id})
- setFilterCoffeeItemsData(dd)
+if(ress.status==201){
+let nor=null;
+let mm=null;
+let lar=null;
+let small=null;
+datas.data.ItemCost.map((item)=>{
+if(item.sizeName=="normalsize"){
+nor=item.Price
+}
+if(item.sizeName=="mediumsize"){
+mm=item.Price
+}
+if(item.sizeName=="largesize"){
+lar=item.Price
+}
+if(item.sizeName=="smallsize"){
+small=item.Price
+}
+})
+
+ setFilterCoffeeItemsData({datas:datas.data,normal:nor,medium:mm,large:lar,small:small})
+}
+
 }
 
 const updateDrinkItem=async(id)=>{
-let ress=await fetch(`${HOST}/api/ShowDrinkItemClient`);
+ let ress=await fetch(`${HOST}/api/ShowDrinkItemById?id=${id}`);
 let datas=await ress.json();
-let d=datas.data;
-let dd=await d.filter((item)=>{
-return item._id==id})
- setFilterDrinkItemsData(dd)
+if(ress.status==201){
+let nor=null;
+let mm=null;
+let lar=null;
+let small=null;
+datas.data.ItemCost.map((item)=>{
+if(item.sizeName=="normalsize"){
+nor=item.Price
 }
+if(item.sizeName=="mediumsize"){
+mm=item.Price
+}
+if(item.sizeName=="largesize"){
+lar=item.Price
+}
+if(item.sizeName=="smallsize"){
+small=item.Price
+}
+})
+
+ setFilterDrinkItemsData({datas:datas.data,normal:nor,medium:mm,large:lar,small:small})
+}
+}
+
+
+
 const updateJuiceItem=async(id)=>{
-let ress=await fetch(`${HOST}/api/ShowJuiceItemClient`);
+ let ress=await fetch(`${HOST}/api/ShowJuiceItemById?id=${id}`);
 let datas=await ress.json();
-let d=datas.data;
-let dd=await d.filter((item)=>{
-return item._id==id})
- setFilterJuiceItemsData(dd)
+if(ress.status==201){
+let nor=null;
+let mm=null;
+let lar=null;
+let small=null;
+datas.data.ItemCost.map((item)=>{
+if(item.sizeName=="normalsize"){
+nor=item.Price
 }
+if(item.sizeName=="mediumsize"){
+mm=item.Price
+}
+if(item.sizeName=="largesize"){
+lar=item.Price
+}
+if(item.sizeName=="smallsize"){
+small=item.Price
+}
+})
+
+ setFilterJuiceItemsData({datas:datas.data,normal:nor,medium:mm,large:lar,small:small})
+}
+ 
+}
+
+
+
 return (<AllContext.Provider value={{
 // useState
 filterAllFoodCategoriesData,

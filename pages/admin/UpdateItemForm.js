@@ -18,69 +18,77 @@ let HOST = process.env.NEXT_PUBLIC_API_URL;
 
 
  function UpdateFoodItemForm() {
-  const { filterFoodItemsData,updateFoodItem } = useContext(AllContext);
-let array=[];
+  const { filterFoodItemsData ,updateFoodItem} = useContext(AllContext);
  const [checked, setChecked] = useState(true);
-   const [normalPrice, setNormalPrice] = useState("");
+   const [normalPrice, setNormalPrice] = useState(0);
 const [normalPriceName,setNormalPriceName]=useState("Normal Price")
-  const [mediumPrice, setMediumPrice] = useState("");
+  const [mediumPrice, setMediumPrice] = useState(0);
   const [mediumPriceName, setMediumPriceName] = useState("Medium Price");
-  const [smallPrice, setSmallPrice] = useState("");
+  const [smallPrice, setSmallPrice] = useState(0);
   const [smallPriceName, setSmallPriceName] = useState("Half Price");
-  const [largePrice, setLargePrice] = useState("");
+  const [largePrice, setLargePrice] = useState(0);
   const [largePriceName, setLargePriceName] = useState("Large Price");
   const [data, setData] = useState([]);
   const [FoodName, setFoodName] = useState();
   const [Qtys, setQtys] = useState();
   const [Category, setCategory] = useState();
-  const [subCategory, setSubCategory] = useState('');
   const [description, setDescription] = useState("");
-  useEffect(() => {
-    if (filterFoodItemsData[0]!=undefined) {
-      setFoodName(filterFoodItemsData[0].FoodName);
-      setQtys(filterFoodItemsData[0].Qty);
-      setCategory(filterFoodItemsData[0].Category);
-         setSubCategory(filterFoodItemsData[0].Category)
-               setDescription(filterFoodItemsData[0].Description)
-if(filterFoodItemsData[0].Active=="ON"){
+  
+  const send=()=>{
+   if (filterFoodItemsData.datas==undefined) {
+          function back(){
+    router.push('/admin/UpdateFoodItem')
+          }
+    setTimeout(back,1500);
+   
+}
+    else  {
+      setFoodName(filterFoodItemsData.datas.FoodName);
+      setQtys(filterFoodItemsData.datas.Qty);
+      setCategory(filterFoodItemsData.datas.Category);
+               setDescription(filterFoodItemsData.datas.Description)
+if(filterFoodItemsData.datas.Active=="ON"){
 setChecked(true)
 }
 else{
 setChecked(false)
 }
 
-filterFoodItemsData[0].ItemCost.map((item)=>{
-if(item.sizeName=="normalsize"){
-setNormalPrice(item.Price)
+if(filterFoodItemsData.normal!=null){setNormalPrice(parseInt(filterFoodItemsData.normal))}else{setNormalPrice("")}
+if(filterFoodItemsData.medium!=null){setMediumPrice(parseInt(filterFoodItemsData.medium))}else{
+setMediumPrice("")
 }
-if(item.sizeName=="mediumsize"){
-setMediumPrice(item.Price)
+if(filterFoodItemsData.large!=null){setLargePrice(parseInt(filterFoodItemsData.large))}else{
+setLargePrice("")
 }
-if(item.sizeName=="largesize"){
-setLargePrice(item.Price)
+if(filterFoodItemsData.small!=null){setSmallPrice(parseInt(filterFoodItemsData.small))}else{
+setSmallPrice("")
 }
-if(item.sizeName=="halfsize"){
-setSmallPrice(item.Price)
-}
-})
+
     }
-     else{
-          function back(){
-    router.push('/admin/UpdateFoodItem')
-          }
-    setTimeout(2000,back);
-}
+  }
+  useEffect(() => {
+ 
+send();
+  
     async function dataFetch() {
       let ress = await fetch(`${HOST}/api/ShowFoodCategory`);
       let datas = await ress.json();
       await setData(datas.data);
     }
     dataFetch();
-  }, [filterFoodItemsData]);
+ },[filterFoodItemsData]);
+
+
+
+
   const handleChanges=()=>{
   setChecked(!checked)
   }
-  const updateItems = async (e) => {
+
+  
+  const updateItems = async () => {
+  
      if (!FoodName) {
       toast.warn("Please Enter Food Name", {
         position: "bottom-right",
@@ -129,20 +137,7 @@ setSmallPrice(item.Price)
       });
       return ;
     }
- if(normalPrice){
-array.push({"normalsize":normalPrice})
-}
-if(mediumPrice){
-array.push({"mediumsize":mediumPrice})
-
-}
-if(largePrice){
-array.push({"largesize":largePrice})
-}
-if(smallPrice){
-array.push({"halfsize":smallPrice})
-}
-
+// normal Prize Get
 if((smallPrice=="")&&(mediumPrice=="")&&(largePrice=="")){
 if(normalPrice==""){
    toast.warn("Please Enter Atleast Normal Price Of Item", {
@@ -194,6 +189,7 @@ else{
 active="OFF"
 }
 
+
     let response = await fetch(`${HOST}/api/UpdateFoodItem`, {
       method: "POST",
       headers: {
@@ -201,13 +197,12 @@ active="OFF"
         
       },
       body: JSON.stringify({
-        _id: filterFoodItemsData[0]._id,
+        _id: filterFoodItemsData.datas._id,
         FoodName: FoodName,
         Qty: Qtys,
         Category: Category,
-          Description:description ,
-          ItemCost:array,
-          Active:active
+          Description:description ,largesize:largePrice,mediumsize:mediumPrice,
+          Active:active,normalsize:normalPrice,halfsize:smallPrice,
       }),
     });
   
@@ -287,13 +282,12 @@ active="OFF"
         draggable: true,
         progress: undefined,
       });
-      updateFoodItem()
+      updateFoodItem(filterFoodItemsData.datas._id)
         setTimeout(RedirectFunction, 1000);
       function RedirectFunction() {
         router.push("/admin/UpdateFoodItem");
       }
     }
-
   };
 
   return (
@@ -333,7 +327,7 @@ active="OFF"
             </div>
              <li>
               <p>
-                Enter Juice Name <span>*</span>
+                Enter Food Name <span>*</span>
               </p>
               <input
                 type="text"

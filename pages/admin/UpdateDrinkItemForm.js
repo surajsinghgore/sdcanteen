@@ -16,89 +16,76 @@ import Switch from "react-switch";
 
 export default function UpdateDrinkItemForm() {
   const { filterDrinkItemsData,updateDrinkItem } = useContext(AllContext);
-let array=[];
 const [checked, setChecked] = useState(true);
-   const [normalPrice, setNormalPrice] = useState("");
-const [normalPriceName,setNormalPriceName]=useState("")
-  const [mediumPrice, setMediumPrice] = useState("");
-  const [mediumPriceName, setMediumPriceName] = useState("");
-  const [smallPrice, setSmallPrice] = useState("");
-  const [smallPriceName, setSmallPriceName] = useState("");
-  const [largePrice, setLargePrice] = useState("");
-  const [largePriceName, setLargePriceName] = useState("");
+   const [normalPrice, setNormalPrice] = useState(0);
+const [normalPriceName,setNormalPriceName]=useState("Normal Price")
+  const [mediumPrice, setMediumPrice] = useState(0);
+  const [mediumPriceName, setMediumPriceName] = useState("Medium Price");
+  const [smallPrice, setSmallPrice] = useState(0);
+  const [smallPriceName, setSmallPriceName] = useState("small Price");
+  const [largePrice, setLargePrice] = useState(0);
+  const [largePriceName, setLargePriceName] = useState("Large Price");
   const [data, setData] = useState([]);
-  const [drinkName, setDrinkName] = useState()
+  const [drinkName, setDrinkName] = useState();
   const [Qtys, setQtys] = useState();
   const [Category, setCategory] = useState();
-  const [subCategory, setSubCategory] = useState('');
   const [description, setDescription] = useState("");
+
 const handleChanges=()=>{
   setChecked(!checked)
   }
 
 
 
-  useEffect(() => {
-  setNormalPriceName("Normal Price")
-  setMediumPriceName("Medium Size Price")
-  setSmallPriceName("Small Size Price")
-  setLargePriceName("Large Size Price")
-    if (filterDrinkItemsData[0]!=undefined) {
-      setDrinkName(filterDrinkItemsData[0].DrinkName);
-      setQtys(filterDrinkItemsData[0].Qty);
-      setCategory(filterDrinkItemsData[0].Category);
-         setSubCategory(filterDrinkItemsData[0].Category)
-               setDescription(filterDrinkItemsData[0].Description)
-
-
-
-
-
-if(filterDrinkItemsData[0].Active=="ON"){
+ const send=()=>{
+   if (filterDrinkItemsData.datas==undefined) {
+          function back(){
+    router.push('/admin/UpdateDrinkItem')
+          }
+    setTimeout(back,1500);
+   
+}
+    else  {
+      setDrinkName(filterDrinkItemsData.datas.DrinkName);
+      setQtys(filterDrinkItemsData.datas.Qty);
+      setCategory(filterDrinkItemsData.datas.Category);
+               setDescription(filterDrinkItemsData.datas.Description)
+if(filterDrinkItemsData.datas.Active=="ON"){
 setChecked(true)
 }
 else{
 setChecked(false)
 }
 
-filterDrinkItemsData[0].ItemCost.map((item)=>{
-if(item.sizeName=="normalsize"){
-setNormalPrice(item.Price)
+if(filterDrinkItemsData.normal!=null){setNormalPrice(parseInt(filterDrinkItemsData.normal))}else{setNormalPrice("")}
+if(filterDrinkItemsData.medium!=null){setMediumPrice(parseInt(filterDrinkItemsData.medium))}else{
+setMediumPrice("")
 }
-if(item.sizeName=="mediumsize"){
-setMediumPrice(item.Price)
+if(filterDrinkItemsData.large!=null){setLargePrice(parseInt(filterDrinkItemsData.large))}else{
+setLargePrice("")
 }
-if(item.sizeName=="largesize"){
-setLargePrice(item.Price)
+if(filterDrinkItemsData.small!=null){setSmallPrice(parseInt(filterDrinkItemsData.small))}else{
+setSmallPrice("")
 }
-if(item.sizeName=="smallsize"){
-setSmallPrice(item.Price)
-}
-})
-
-
-
 
     }
-     else{
-     function back(){
-    router.push('/admin/UpdateDrinkItem')
-          }
-    setTimeout(2000,back);
-}
-    async function dataFetch() {
+  }
+  useEffect(() => {
+ 
+send();
+  
+       async function dataFetch() {
       let ress = await fetch(`${HOST}/api/ShowDrinkCategory`);
       let datas = await ress.json();
       await setData(datas.data);
     }
     dataFetch();
-  }, [filterDrinkItemsData]);
+ },[filterDrinkItemsData]);
 
 
 
-  const updateItems = async (e) => {
-    e.preventDefault();
-    if (!drinkName) {
+  const updateItems = async () => {
+       if (!drinkName) {
       toast.warn("Please Enter Drink Name", {
         position: "bottom-right",
         autoClose: 5000,
@@ -146,23 +133,7 @@ setSmallPrice(item.Price)
       });
       return ;
     }
-
-    // matching Weather Data Change OR Not
- if(normalPrice){
-array.push({"normalsize":normalPrice})
-}
-if(mediumPrice){
-array.push({"mediumsize":mediumPrice})
-
-}
-if(largePrice){
-array.push({"largesize":largePrice})
-}
-if(smallPrice){
-array.push({"smallsize":smallPrice})
-}
-
-
+// normal Prize Get
 if((smallPrice=="")&&(mediumPrice=="")&&(largePrice=="")){
 if(normalPrice==""){
    toast.warn("Please Enter Atleast Normal Price Of Item", {
@@ -209,12 +180,10 @@ toast.warn("Price Not Be Zero Or Below Zero", {
 let active;
 if(checked==true){
 active="ON"
-}else{
+}
+else{
 active="OFF"
 }
-
-
-
 
     let response = await fetch(`${HOST}/api/UpdateDrinkItem`, {
       method: "POST",
@@ -223,15 +192,16 @@ active="OFF"
         
       },
       body: JSON.stringify({
-        _id: filterDrinkItemsData[0]._id,
+        _id: filterDrinkItemsData.datas._id,
         DrinkName: drinkName,
         Qty: Qtys,
         Category: Category,
-          Description:description ,
-          ItemCost:array,
-          Active:active
+          Description:description ,largesize:largePrice,mediumsize:mediumPrice,
+          Active:active,normalsize:normalPrice,smallsize:smallPrice,
       }),
     });
+
+  let datas=await response.json();
   if (response.status == 401) {
       toast.error("Please Login With Admin Credentials", {
         position: "bottom-right",
@@ -247,7 +217,7 @@ active="OFF"
         router.push("/admin/Login");
       }
       }
-    let datas = await response.json();
+  
     if (response.status == 204) {
       toast.error(`${datas.message}`, {
         position: "bottom-right",
@@ -260,7 +230,6 @@ active="OFF"
       });
       return ;
     }
-
     if (response.status == 409) {
       toast.warn(`${datas.message}`, {
         position: "bottom-right",
@@ -308,14 +277,13 @@ active="OFF"
         draggable: true,
         progress: undefined,
       });
-      updateDrinkItem();
-      setTimeout(RedirectFunction, 1000);
+        setTimeout(RedirectFunction, 1000);
       function RedirectFunction() {
         router.push("/admin/UpdateDrinkItem");
+      updateDrinkItem(filterDrinkItemsData.datas._id)
       }
     }
-  };
-
+  }
   return (
     <div className={Styles.admin}>
       <HeadTag title="Update Drink Item Form" />
@@ -359,7 +327,7 @@ active="OFF"
               </p>
               <input
                 type="text"
-                name="juiceName"
+                name="DrinkName"
                 value={drinkName}
                 onChange={(e) => setDrinkName(e.target.value)}
               />

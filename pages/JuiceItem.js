@@ -8,94 +8,131 @@ import "react-toastify/dist/ReactToastify.css";
 import { IoMdArrowDropright } from 'react-icons/io';
 import { FaSearch } from 'react-icons/fa';
 import { useEffect ,useState} from "react";
-import {  useCart } from "react-use-cart";
 import Banner from "../Components/Banner";
+let HOST = process.env.NEXT_PUBLIC_API_URL;
 import JuiceCard from "../Components/JuiceCard";
 
+  import InfiniteScroll from 'react-infinite-scroll-component';
 
-export default function CoffeeItem({ResCategory,JuiceDatas}) {
-  const {
-    items,
-  } = useCart();
-const [juiceCategory,setJuiceCategory]=useState([]);
-const [juiceItem,setJuiceItem]=useState([]);
-const [juiceItem1,setJuiceItem1]=useState([]);
+
+export default function JuiceItem() {
+
+const [foodCategory,setFoodCategory]=useState([]);
 const [search,setSearch]=useState('');
+const [count,setCount]=useState(10);
+const [counts,setCounts]=useState(10);
+const [length,setLen]=useState(10)
+const [lengths,setLens]=useState(10)
+const [FoodDatas,setFoodDatas]=useState([])
+const [cate,setCate]=useState(false);
+const [sear,setSear]=useState(false);
 
-
+useEffect(()=>{
+localStorage.removeItem("names")
+const getCategory=async()=>{
+let ress1 = await fetch(`${HOST}/api/ShowJuiceCategoryClient`);
+      let data = await ress1.json();
+setFoodCategory(data.data)
+ let ressFood = await fetch(`${HOST}/api/ShowJuiceClient?count=${count}`);
+setCount(count+10)
+  let datas = await ressFood.json();
+setLen(datas.allLen)
+setFoodDatas(datas.data)
+}
+getCategory();
+},[])
 
 
 const searchHandle=(e)=>{
 setSearch(e.target.value);
-let filter=JuiceDatas.filter((item)=>{
-return item.JuiceName.toLowerCase().includes(search.toLowerCase())})
-setJuiceItem(filter)
+setSear(true)
+const getCategory=async()=>{
+let ress1 = await fetch(`${HOST}/api/SearchItemsClient?category=juiceItems&search=${e.target.value}`);
+      let datas = await ress1.json();
+      if(ress1.status==201){
+setFoodDatas(datas.data)   
+      }
+}
+getCategory();
+
 let ss=document.getElementById('search1');
 if(ss.value==""){
-setJuiceItem(JuiceDatas)
+setSear(false)
+AllDataFetch();
 }
 }
 
-useEffect(()=>{
-items.map((itemm)=>{
-if(itemm.JuiceName){
- let filter1=JuiceDatas.filter((item)=>{
-return item._id.toLowerCase().includes(itemm.id.toLowerCase())})
-filter1[0]['addToCart']=true;
-}
-})
-
-},[items])
 
 
+const filterWithCategory=async(items)=>{
+setCate(true)
+counts=10;
+localStorage.setItem("names",items[0].JuiceCategoryName)
+let itemSend=items[0].JuiceCategoryName;
+let ressFood = await fetch(`${HOST}/api/ShowJuiceClient?itemName=${itemSend}&counts=${counts}`);
+setCounts(counts+10)
+  let data = await ressFood.json();
+setFoodDatas(data.data)
+setLens(data.allLen)
+}
+const fetchCategory=async()=>{
+setCate(true)
+setCounts(counts+10)
+let itemSend=localStorage.getItem("names");
+let ressFood = await fetch(`${HOST}/api/ShowJuiceClient?itemName=${itemSend}&counts=${counts}`);
+  let data = await ressFood.json();
+setFoodDatas(data.data)
+setLens(data.allLen)
+}
 
-useEffect(()=>{
-if(ResCategory){
-setJuiceCategory(ResCategory);
+const fetchData = async() => {
+let ressFood = await fetch(`${HOST}/api/ShowJuiceClient?count=${count}`);
+setCount(count+10)
+  let data = await ressFood.json();
+setLen(data.allLen)
+setFoodDatas(data.data)
+  };
+const AllDataFetch=()=>{
+setCate(false);
+count=10;
+localStorage.removeItem("names")
+fetchData();
 }
-if(JuiceDatas){
-setJuiceItem(JuiceDatas)
-setJuiceItem1(JuiceDatas)
-}
-},[])
 
-const filterWithCategory1=()=>{
-setJuiceItem(JuiceDatas)
-}
-const filterWithCategory=(items)=>{
-let filter=JuiceDatas.filter((item)=>{
-return item.Category.toLowerCase().includes(items.JuiceCategoryName.toLowerCase())})
-setJuiceItem(filter)
-}
+
+
+
 
 
   return (
     <>
-       <div className={Styles.admin}>
+     <div className={Styles.admin}>
      <HeadTag title="Juice Item" />
    <Header />
+
+
 
 <Banner BannerImage={banner} Height={500} Width={1350} 
 CurrentPageUrl="/JuiceItem" CurrentPage="Juice Item" SubPage="Item" H1Style={{paddingRight:"20%"}} PStyle={{paddingRight:"16%"}}/>
    </div>
    <div className={Style.main_food}>
-
    {/* left */}
    <div className={Style.left}>
    <h2>Categories</h2>
    <hr />
    <div className={Style.menu}>
-     <li><span className={Style.heading} onClick={filterWithCategory1}><IoMdArrowDropright /> All</span>
-     <span className={Style.length}>({juiceItem1.length})</span></li>
-   {juiceCategory.length==0? "" : <>
-   {juiceCategory.map((item,index)=>{
-  let a=juiceItem1.filter((items)=>{
-     return items.Category.includes(item.JuiceCategoryName);
-     })
+     <li><span className={Style.heading} onClick={AllDataFetch}><IoMdArrowDropright /> All</span>
+     <span className={Style.length}>({length})</span></li>
+
+
+     
+   {foodCategory.length==0? "" : <>
+   {foodCategory.map((item,index)=>{
+  
    
    return (
-     <li key={index}><span className={Style.heading} onClick={()=>filterWithCategory(item)}><IoMdArrowDropright /> {item.JuiceCategoryName}</span>
-     <span className={Style.length}>({a.length})</span></li>
+     <li key={index}><span className={Style.heading} onClick={()=>filterWithCategory(item)}><IoMdArrowDropright /> {item[0].JuiceCategoryName}</span>
+     <span className={Style.length}>  {item[1]}  </span></li>
    )
    })}
    </>}
@@ -103,11 +140,11 @@ CurrentPageUrl="/JuiceItem" CurrentPage="Juice Item" SubPage="Item" H1Style={{pa
    </div>
 
 
-
+{/* right side card section */}
    <div className={Style.right}>
    <div className={Style.top}>
    
-   <h4>Showing all {juiceItem.length? <>{juiceItem.length} </>:"0"} results</h4>
+   <h4>Showing all {(length)? <>{length} </>:"0"} results</h4>
   
 
    <div className={Style.search}>
@@ -119,37 +156,52 @@ CurrentPageUrl="/JuiceItem" CurrentPage="Juice Item" SubPage="Item" H1Style={{pa
    </div>
 
 
-   <div className={Style.cards}>
-
-
-
-   {juiceItem.length==0? <><h1 className={Style.match}>No Item Found</h1></>: <>
-   {juiceItem.map((item)=>{
+   {(sear==false)?<>   
+{(cate)? <div className={Style.cards}>
+<InfiniteScroll
+  dataLength={FoodDatas.length} 
+  next={fetchCategory}
+  hasMore={lengths!==FoodDatas.length}
+ >
+{FoodDatas.map((items)=>{
    return (
-<JuiceCard item={item} key={item._id}/>
+<JuiceCard item={items} key={items._id}/>
    )
    })}
-   </>}
-
+</InfiniteScroll>
+  
    </div>
+   : <div className={Style.cards}>
+<InfiniteScroll
+  dataLength={FoodDatas.length} //This is important field to render the next data
+  next={fetchData}
+  hasMore={length!==FoodDatas.length}
+ >
+ {(FoodDatas.length==0) ? <h1 className={Style.match}>No Item Found</h1>:""}
+{FoodDatas.map((items)=>{
+   return (
+<JuiceCard item={items} key={items._id}/>
+   )
+   })}
+</InfiniteScroll>
+
+   
+   </div>}
+</>:""}
+
+{(sear)? <div className={Style.cards}>
+
+{FoodDatas.map((items)=>{
+   return (
+<JuiceCard item={items} key={items._id}/>
+   )
+   })}
+  
+   </div>:""}
    </div>
    </div>
    <Footer />
 
     </>
   )
-}
-
-export async function getServerSideProps() {
-let HOST = process.env.NEXT_PUBLIC_API_URL;
-let ress = await fetch(`${HOST}/api/ShowJuiceCategory`);
-      let data = await ress.json();
-      let ResCategory =await data.data;
-
-let ressJuice = await fetch(`${HOST}/api/ShowJuiceItemClient`);
-  let JuiceData = await ressJuice.json();
-  let JuiceDatas = await JuiceData.data;
-
-
-  return { props: { ResCategory,JuiceDatas } }
 }

@@ -27,7 +27,7 @@ export default function ShowFoodItem({ datas }) {
     let newData = await demmyData.filter((item) => {
       return item.FoodName.toLowerCase().includes(foodNameSearch.toLowerCase());
     });
-    setFetchData(newData);
+    setFetchData(newData);setDummyData(newData)
     let foodNameSearchs = document.getElementById("foodNameSearchs");
     if (foodNameSearchs.value == "") {
       setFetchData(demmyData);

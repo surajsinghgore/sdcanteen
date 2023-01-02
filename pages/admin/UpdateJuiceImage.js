@@ -22,8 +22,8 @@ export default function UpdateJuiceImage() {
   const [files, setFiles] = useState("");
 
 useEffect(()=>{
-if(filterJuiceItemsData!=undefined){
-setImgs(`/JuiceItemImages/${filterJuiceItemsData[0].Image}`)
+if(filterJuiceItemsData.datas!=undefined){
+setImgs(`/JuiceItemImages/${filterJuiceItemsData.datas.Image}`)
 } else{
     router.push('/admin/UpdateJuiceItem')
 }
@@ -42,8 +42,8 @@ setImgs(`/JuiceItemImages/${filterJuiceItemsData[0].Image}`)
     e.preventDefault();
 
     const dataImage = new FormData();
-    dataImage.append("_id", filterJuiceItemsData[0]._id);
-    dataImage.append("oldImage", filterJuiceItemsData[0].Image);
+    dataImage.append("_id", filterJuiceItemsData.datas._id);
+    dataImage.append("oldImage", filterJuiceItemsData.datas.Image);
     dataImage.append("Image", files);
 
     if (!files) {
@@ -118,7 +118,7 @@ setImgs(`/JuiceItemImages/${filterJuiceItemsData[0].Image}`)
 
     if (datas.status == "201") {
       toast.success(
-        `${filterJuiceItemsData[0].JuiceName} Image Successfully Updated`,
+        `${filterJuiceItemsData.datas.JuiceName} Image Successfully Updated`,
         {
           position: "bottom-right",
           autoClose: 5000,

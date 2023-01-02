@@ -8,93 +8,131 @@ import "react-toastify/dist/ReactToastify.css";
 import { IoMdArrowDropright } from 'react-icons/io';
 import { FaSearch } from 'react-icons/fa';
 import { useEffect ,useState} from "react";
-import {  useCart } from "react-use-cart";
 import Banner from "../Components/Banner";
+let HOST = process.env.NEXT_PUBLIC_API_URL;
 import CoffeeCard from "../Components/CoffeeCard";
 
+  import InfiniteScroll from 'react-infinite-scroll-component';
 
-export default function CoffeeItem({ResCategory,CoffeeDatas}) {
-  const {
-    items,
-  } = useCart();
-const [coffeeCategory,setCoffeeCategory]=useState([]);
-const [coffeeItem,setCoffeeItem]=useState([]);
-const [coffeeItem1,setCoffeeItem1]=useState([]);
+
+export default function CoffeeItem() {
+
+const [foodCategory,setFoodCategory]=useState([]);
 const [search,setSearch]=useState('');
+const [count,setCount]=useState(10);
+const [counts,setCounts]=useState(10);
+const [length,setLen]=useState(10)
+const [lengths,setLens]=useState(10)
+const [FoodDatas,setFoodDatas]=useState([])
+const [cate,setCate]=useState(false);
+const [sear,setSear]=useState(false);
+
+useEffect(()=>{
+localStorage.removeItem("names")
+const getCategory=async()=>{
+let ress1 = await fetch(`${HOST}/api/ShowCoffeeCategoryClient`);
+      let data = await ress1.json();
+setFoodCategory(data.data)
+ let ressFood = await fetch(`${HOST}/api/ShowCoffeeClient?count=${count}`);
+setCount(count+10)
+  let datas = await ressFood.json();
+setLen(datas.allLen)
+setFoodDatas(datas.data)
+}
+getCategory();
+},[])
 
 
 const searchHandle=(e)=>{
 setSearch(e.target.value);
-let filter=CoffeeDatas.filter((item)=>{
-return item.CoffeeName.toLowerCase().includes(search.toLowerCase())})
-setCoffeeItem(filter)
+setSear(true)
+const getCategory=async()=>{
+let ress1 = await fetch(`${HOST}/api/SearchItemsClient?category=coffeeItems&search=${e.target.value}`);
+      let datas = await ress1.json();
+      if(ress1.status==201){
+setFoodDatas(datas.data)   
+      }
+}
+getCategory();
+
 let ss=document.getElementById('search1');
 if(ss.value==""){
-setCoffeeItem(CoffeeDatas)
+setSear(false)
+AllDataFetch();
 }
 }
 
-useEffect(()=>{
-
-items.map((itemm)=>{
-if(itemm.CoffeeName){
- let filter1=CoffeeDatas.filter((item)=>{
-return item._id.toLowerCase().includes(itemm.id.toLowerCase())})
-filter1[0]['addToCart']=true;
-}
-})
-
-},[items])
 
 
-useEffect(()=>{
-if(ResCategory){
-setCoffeeCategory(ResCategory);
+const filterWithCategory=async(items)=>{
+setCate(true)
+counts=10;
+localStorage.setItem("names",items[0].CoffeeCategoryName)
+let itemSend=items[0].CoffeeCategoryName;
+let ressFood = await fetch(`${HOST}/api/ShowCoffeeClient?itemName=${itemSend}&counts=${counts}`);
+setCounts(counts+10)
+  let data = await ressFood.json();
+setFoodDatas(data.data)
+setLens(data.allLen)
 }
-if(CoffeeDatas){
-setCoffeeItem(CoffeeDatas)
-setCoffeeItem1(CoffeeDatas)
+const fetchCategory=async()=>{
+setCate(true)
+setCounts(counts+10)
+let itemSend=localStorage.getItem("names");
+let ressFood = await fetch(`${HOST}/api/ShowCoffeeClient?itemName=${itemSend}&counts=${counts}`);
+  let data = await ressFood.json();
+setFoodDatas(data.data)
+setLens(data.allLen)
 }
-},[])
 
-const filterWithCategory1=()=>{
-setCoffeeItem(CoffeeDatas)
+const fetchData = async() => {
+let ressFood = await fetch(`${HOST}/api/ShowCoffeeClient?count=${count}`);
+setCount(count+10)
+  let data = await ressFood.json();
+setLen(data.allLen)
+setFoodDatas(data.data)
+  };
+const AllDataFetch=()=>{
+setCate(false);
+count=10;
+localStorage.removeItem("names")
+fetchData();
 }
-const filterWithCategory=(items)=>{
-let filter=CoffeeDatas.filter((item)=>{
-return item.Category.toLowerCase().includes(items.CoffeeCategoryName.toLowerCase())})
-setCoffeeItem(filter)
-}
+
+
+
+
 
 
   return (
     <>
-      <div className={Styles.admin}>
+     <div className={Styles.admin}>
      <HeadTag title="Coffee Item" />
    <Header />
+
 
 
 <Banner BannerImage={banner} Height={500} Width={1350} 
 CurrentPageUrl="/CoffeeItem" CurrentPage="Coffee Item" SubPage="Item" H1Style={{paddingRight:"20%"}} PStyle={{paddingRight:"16%"}}/>
    </div>
    <div className={Style.main_food}>
-
    {/* left */}
    <div className={Style.left}>
    <h2>Categories</h2>
    <hr />
    <div className={Style.menu}>
-     <li><span className={Style.heading} onClick={filterWithCategory1}><IoMdArrowDropright /> All</span>
-     <span className={Style.length}>({coffeeItem1.length})</span></li>
-   {coffeeCategory.length==0? "" : <>
-   {coffeeCategory.map((item,index)=>{
-  let a=coffeeItem1.filter((items)=>{
-     return items.Category.includes(item.CoffeeCategoryName);
-     })
+     <li><span className={Style.heading} onClick={AllDataFetch}><IoMdArrowDropright /> All</span>
+     <span className={Style.length}>({length})</span></li>
+
+
+     
+   {foodCategory.length==0? "" : <>
+   {foodCategory.map((item,index)=>{
+  
    
    return (
-     <li key={index}><span className={Style.heading} onClick={()=>filterWithCategory(item)}><IoMdArrowDropright /> {item.CoffeeCategoryName}</span>
-     <span className={Style.length}>({a.length})</span></li>
+     <li key={index}><span className={Style.heading} onClick={()=>filterWithCategory(item)}><IoMdArrowDropright /> {item[0].CoffeeCategoryName}</span>
+     <span className={Style.length}>  {item[1]}  </span></li>
    )
    })}
    </>}
@@ -106,10 +144,10 @@ CurrentPageUrl="/CoffeeItem" CurrentPage="Coffee Item" SubPage="Item" H1Style={{
    <div className={Style.right}>
    <div className={Style.top}>
    
-   <h4>Showing all {coffeeItem.length? <>{coffeeItem.length} </>:"0"} results</h4>
+   <h4>Showing all {(length)? <>{length} </>:"0"} results</h4>
   
 
-    <div className={Style.search}>
+   <div className={Style.search}>
    <input type="search" name="search" id="search1" placeholder="Search Item ..." value={search} onChange={searchHandle}/>
   <div className={Style.btn}>
   <FaSearch />
@@ -118,35 +156,52 @@ CurrentPageUrl="/CoffeeItem" CurrentPage="Coffee Item" SubPage="Item" H1Style={{
    </div>
 
 
-   <div className={Style.cards}>
- 
-   {coffeeItem.length==0? <><h1 className={Style.match}>No Item Found</h1></>: <>
-  {coffeeItem.map((item)=>{
+   {(sear==false)?<>   
+{(cate)? <div className={Style.cards}>
+<InfiniteScroll
+  dataLength={FoodDatas.length} 
+  next={fetchCategory}
+  hasMore={lengths!==FoodDatas.length}
+ >
+{FoodDatas.map((items)=>{
    return (
-<CoffeeCard item={item} key={item._id}/>
+<CoffeeCard item={items} key={items._id}/>
    )
    })}
-   </>}
-
+</InfiniteScroll>
+  
    </div>
+   : <div className={Style.cards}>
+<InfiniteScroll
+  dataLength={FoodDatas.length} //This is important field to render the next data
+  next={fetchData}
+  hasMore={length!==FoodDatas.length}
+ >
+ {(FoodDatas.length==0) ? <h1 className={Style.match}>No Item Found</h1>:""}
+{FoodDatas.map((items)=>{
+   return (
+<CoffeeCard item={items} key={items._id}/>
+   )
+   })}
+</InfiniteScroll>
+
+   
+   </div>}
+</>:""}
+
+{(sear)? <div className={Style.cards}>
+
+{FoodDatas.map((items)=>{
+   return (
+<CoffeeCard item={items} key={items._id}/>
+   )
+   })}
+  
+   </div>:""}
    </div>
    </div>
    <Footer />
 
     </>
   )
-}
-
-export async function getServerSideProps() {
-let HOST = process.env.NEXT_PUBLIC_API_URL;
-let ress = await fetch(`${HOST}/api/ShowCoffeeCategory`);
-      let data = await ress.json();
-      let ResCategory =await data.data;
-
-let ressCoffee = await fetch(`${HOST}/api/ShowCoffeeItemClient`);
-  let CoffeeData = await ressCoffee.json();
-  let CoffeeDatas = await CoffeeData.data;
-
-
-  return { props: { ResCategory,CoffeeDatas } }
 }

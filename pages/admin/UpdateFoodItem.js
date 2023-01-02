@@ -17,8 +17,8 @@ let HOST = process.env.NEXT_PUBLIC_API_URL;
 
 export default function UpdateFoodItem() {
   const { updateFoodItem } = useContext(AllContext);
-  const [foodNameSearch, setFoodNameSearch] = useState("");
-  const [categorySearch, setCategorySearch] = useState("");
+  const [foodNameSearch, setFoodNameSearch] = useState();
+  const [categorySearch, setCategorySearch] = useState();
   const [data, setData] = useState([]);
 
   const [fetchData, setFetchData] = useState([]);
@@ -53,10 +53,10 @@ export default function UpdateFoodItem() {
 
   // update food
   const UpdateFoodItems = async (_id) => {
-    updateFoodItem(_id);
+    updateFoodItem(_id._id);
     router.push("/admin/UpdateItemForm");
   };
-
+// category and food items fetch
   useEffect(() => {
     async function dataFetch() {
       let ress = await fetch(`${HOST}/api/ShowFoodCategory`);
@@ -196,7 +196,7 @@ export default function UpdateFoodItem() {
                           }}
                           title="Click To Update"
                         >
-                          <FiEdit onClick={() => UpdateFoodItems(item._id)} />
+                          <FiEdit onClick={() => UpdateFoodItems(item)} />
                         </p>
                       </li>
                     </div>

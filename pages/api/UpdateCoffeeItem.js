@@ -3,7 +3,7 @@ import CoffeeItemSchema from "./Schema/CoffeeItemSchema";
 import VerifyAdmin from "./Middleware/MiddlewareAdminVerify";
 export default async function UpdateCoffeeItem(req, res) {
   if (req.method == "POST") {
-    try {
+   try {
       DbConnection();
       let verify = await VerifyAdmin(req, res);
       if (verify == undefined) {
@@ -11,286 +11,418 @@ export default async function UpdateCoffeeItem(req, res) {
           .status(401)
           .json({ message: "Please login with admin credentails" });
       }
-      let nss = false,
-        nsc = false,
-        sss = false,
-        ssc = false,
-        lss = false,
-        lsc = false,
-        mss = false,
-        msc = false;
-      let _id = req.body._id;
-      let CoffeeName = req.body.CoffeeName;
-      let Qty = req.body.Qty;
-      let Description = req.body.Description;
-      let Category = req.body.Category;
-      let Active = req.body.Active;
-      let ItemCost = req.body.ItemCost;
-      let size = ItemCost.length;
-      if (!_id) {
-        return res.status(204).json({ message: "Please Provide Id" });
-      } else if (!CoffeeName) {
-        return res.status(204).json({ message: "Please Enter Juice Name" });
-      } else if (!Description) {
-        return res
-          .status(204)
-          .json({ message: "Please Enter Description Of Item" });
-      } else if (!Category) {
-        return res
-          .status(204)
-          .json({ message: "Please Enter Category Of Item" });
-      }
-      if (size >= 4) {
-        return res
-          .status(400)
-          .json({ message: "Item Price Size must be not more than 4 " });
-      }
-      if (size < 0) {
-        return res
-          .status(400)
-          .json({ message: "Item Price Size must goes below 1" });
+      let id=req.body._id;
+      if(id==undefined){
+      return res.status(400).json({message:"please Provide Id Of Item"})
       }
 
-      // compare data ItemCost From Client
-      for (let i = 0; i < ItemCost.length; i++) {
-        if (ItemCost[i].mediumsize != undefined) {
-          msc = true;
-        }
+      let CoffeeName=req.body.CoffeeName;
+      let qty=req.body.Qty;
+      let category=req.body.Category;
+      let Active=req.body.Active;
+let mediumsize=req.body.mediumsize;
+let largesize=req.body.largesize;
+let smallsize=req.body.smallsize;
+let Description=req.body.Description;
+let normalsize=req.body.normalsize;
 
-        if (ItemCost[i].smallsize != undefined) {
-          ssc = true;
-        }
-        if (ItemCost[i].largesize != undefined) {
-          lsc = true;
-        }
-        if (ItemCost[i].normalsize != undefined) {
-          nsc = true;
-        }
-      }
 
-      let resCheck = await CoffeeItemSchema.findById({ _id: _id });
 
-      if (CoffeeName != resCheck.CoffeeName) {
-        let resDouble = await CoffeeItemSchema.find({ CoffeeName: CoffeeName });
-        if (resDouble.length != 0) {
-          return res
-            .status(409)
-            .json({ message: "Item Already Exits with this Item Name" });
-        }
-      }
+// find records and check new name not dublicated
+let findData=await CoffeeItemSchema.findById(id);
+if(CoffeeName!=findData.CoffeeName){
+let resDouble=await CoffeeItemSchema.find({CoffeeName:CoffeeName});
+if(resDouble.length!=0){
+      return  res.status(400).json({ message: "Item Already Exits with this Item Name" });
+ }
+}
+await CoffeeItemSchema.findOneAndUpdate({_id:id},{$set:{"CoffeeName":CoffeeName,"Qty":qty,"Category":category,"Active":Active,"Description":Description}})
 
-      if (resCheck.length == 0) {
-        return res.status(404).json({ message: "Invalid Id Provided" });
-      } else {
-        // compare data ItemCost From server
-        for (let i = 0; i < resCheck.ItemCost.length; i++) {
-          if (resCheck.ItemCost[i].sizeName == "mediumsize") {
-            mss = true;
-          }
+if((normalsize!='')){
+// already exists update price
+let ms=false;
+let ss=false;
+let ls=false;
 
-          if (resCheck.ItemCost[i].sizeName == "smallsize") {
-            sss = true;
-          }
-          if (resCheck.ItemCost[i].sizeName == "largesize") {
-            lss = true;
-          }
-          if (resCheck.ItemCost[i].sizeName == "normalsize") {
-            nss = true;
-          }
-        }
-      }
+findData.ItemCost.map((item)=>{
+if(item.sizeName=="normalsize"){
+const fired=async()=>{
+await CoffeeItemSchema.findOneAndUpdate({ItemCost: {$elemMatch: {_id: item._id}}}, {$set:{"ItemCost.$.Price":normalsize}})
+return res.status(201).json({message:"successfully updated1"})
+}
+fired();
+}
+if(item.sizeName=="smallsize"){ss=true}
+if(item.sizeName=="mediumsize"){ms=true}
+if(item.sizeName=="largesize"){ls=true}
+})
+if(ms){
+ await CoffeeItemSchema.updateOne({_id:id},{$pull:{"ItemCost" : {"sizeName":"mediumsize"}}})
+}
+if(ss){
+ await CoffeeItemSchema.updateOne({_id:id},{$pull:{"ItemCost" : {"sizeName":"smallsize"}}})
 
-      let ress = await CoffeeItemSchema.findByIdAndUpdate(_id, {
-        CoffeeName: CoffeeName,
-        Qty,
-        Active,
-        Description,
-        Category: Category,
-      });
+}
+if(ls){
+ await CoffeeItemSchema.updateOne({_id:id},{$pull:{"ItemCost" : {"sizeName":"largesize"}}})
+}
+let ns=false;
+let newData=await CoffeeItemSchema.findById(id);
+newData.ItemCost.map((item)=>{
+if(item.sizeName=="normalsize"){
+ns=true;
+}
+})
+if(ns==false){
 
-      for (let i = 0; i < ItemCost.length; i++) {
-        if (ItemCost[i].mediumsize) {
-          if (msc == true && mss == false) {
-            await CoffeeItemSchema.updateOne({
-              $pull: { ItemCost: { sizeName: "normalsize" } },
-            });
-            await CoffeeItemSchema.updateOne(
-              { _id: _id },
-              {
-                $push: {
-                  ItemCost: {
-                    sizeName: "mediumsize",
-                    Price: ItemCost[i].mediumsize,
-                  },
-                },
-              }
-            );
-          }
+await CoffeeItemSchema.updateOne( { _id: id},{ $push: { "ItemCost": {"sizeName":"normalsize","Price":normalsize} }})
+}
+return res.status(201).json({message:"successfully updated"})
+}
 
-          if (sss == true && ssc == false) {
-            await CoffeeItemSchema.updateOne({
-              $pull: { ItemCost: { sizeName: "smallsize" } },
-            });
-          }
-          if (lss == true && lsc == false) {
-            await CoffeeItemSchema.updateOne({
-              $pull: { ItemCost: { sizeName: "largesize" } },
-            });
-          }
-          if (mss == true && msc == false) {
-            await CoffeeItemSchema.updateOne({
-              $pull: { ItemCost: { sizeName: "mediumsize" } },
-            });
-          }
-          if (nss == true && nsc == false) {
-            await CoffeeItemSchema.updateOne({
-              $pull: { ItemCost: { sizeName: "normalsize" } },
-            });
-          }
-          await CoffeeItemSchema.updateOne(
-            { "ItemCost.sizeName": "mediumsize" },
-            { $set: { "ItemCost.$.Price": parseInt(ItemCost[i].mediumsize) } }
-          );
-        }
 
-        if (ItemCost[i].smallsize) {
-          if (ssc == true && sss == false) {
-            await CoffeeItemSchema.updateOne({
-              $pull: { ItemCost: { sizeName: "normalsize" } },
-            });
-            await CoffeeItemSchema.updateOne(
-              { _id: _id },
-              {
-                $push: {
-                  ItemCost: {
-                    sizeName: "smallsize",
-                    Price: ItemCost[i].smallsize,
-                  },
-                },
-              }
-            );
-          }
+if((mediumsize!='')&&(smallsize!='')&&(largesize!='')){
+let nss=false;
+// update exiting login
+findData.ItemCost.map((item)=>{
+if(item.sizeName=="normalsize"){nss=true}
+if(item.sizeName=="mediumsize"){
+const fired=async()=>{
+await CoffeeItemSchema.findOneAndUpdate({ItemCost: {$elemMatch: {_id: item._id}}}, {$set:{"ItemCost.$.Price":mediumsize}})
+}
+fired();
+}
+if(item.sizeName=="smallsize"){
+const fired=async()=>{
+await CoffeeItemSchema.findOneAndUpdate({ItemCost: {$elemMatch: {_id: item._id}}}, {$set:{"ItemCost.$.Price":smallsize}})
+}
+fired();
+}
+if(item.sizeName=="largesize"){
+const fired=async()=>{
+await CoffeeItemSchema.findOneAndUpdate({ItemCost: {$elemMatch: {_id: item._id}}}, {$set:{"ItemCost.$.Price":largesize}})
+}
+fired();
+}
 
-          if (sss == true && ssc == false) {
-            await CoffeeItemSchema.updateOne({
-              $pull: { ItemCost: { sizeName: "smallsize" } },
-            });
-          }
-          if (lss == true && lsc == false) {
-            await CoffeeItemSchema.updateOne({
-              $pull: { ItemCost: { sizeName: "largesize" } },
-            });
-          }
-          if (mss == true && msc == false) {
-            await CoffeeItemSchema.updateOne({
-              $pull: { ItemCost: { sizeName: "mediumsize" } },
-            });
-          }
-          if (nss == true && nsc == false) {
-            await CoffeeItemSchema.updateOne({
-              $pull: { ItemCost: { sizeName: "normalsize" } },
-            });
-          }
-          await CoffeeItemSchema.updateOne(
-            { "ItemCost.sizeName": "smallsize" },
-            { $set: { "ItemCost.$.Price": parseInt(ItemCost[i].smallsize) } }
-          );
-        }
-        if (ItemCost[i].largesize) {
-          if (lsc == true && lss == false) {
-            await CoffeeItemSchema.updateOne({
-              $pull: { ItemCost: { sizeName: "normalsize" } },
-            });
-            await CoffeeItemSchema.updateOne(
-              { _id: _id },
-              {
-                $push: {
-                  ItemCost: {
-                    sizeName: "largesize",
-                    Price: ItemCost[i].largesize,
-                  },
-                },
-              }
-            );
-          }
-          if (sss == true && ssc == false) {
-            await CoffeeItemSchema.updateOne({
-              $pull: { ItemCost: { sizeName: "smallsize" } },
-            });
-          }
-          if (lss == true && lsc == false) {
-            await CoffeeItemSchema.updateOne({
-              $pull: { ItemCost: { sizeName: "largesize" } },
-            });
-          }
-          if (mss == true && msc == false) {
-            await CoffeeItemSchema.updateOne({
-              $pull: { ItemCost: { sizeName: "mediumsize" } },
-            });
-          }
-          if (nss == true && nsc == false) {
-            await CoffeeItemSchema.updateOne({
-              $pull: { ItemCost: { sizeName: "normalsize" } },
-            });
-          }
-          await CoffeeItemSchema.updateOne(
-            { "ItemCost.sizeName": "largesize" },
-            { $set: { "ItemCost.$.Price": parseInt(ItemCost[i].largesize) } }
-          );
-        }
+})
+if(nss){
+ await CoffeeItemSchema.updateOne({_id:id},{$pull:{"ItemCost" : {"sizeName":"normalsize"}}})
+}
+// new entry
 
-        if (ItemCost[i].normalsize) {
-          if (nsc == true && nss == false) {
-            await CoffeeItemSchema.updateOne({
-              $pull: { ItemCost: { sizeName: "mediumsize" } },
-            });
-            await CoffeeItemSchema.updateOne({
-              $pull: { ItemCost: { sizeName: "largesize" } },
-            });
-            await CoffeeItemSchema.updateOne({
-              $pull: { ItemCost: { sizeName: "smallsize" } },
-            });
-            let ss = await CoffeeItemSchema.updateOne(
-              { _id: _id },
-              {
-                $push: {
-                  ItemCost: {
-                    sizeName: "normalsize",
-                    Price: ItemCost[i].normalsize,
-                  },
-                },
-              }
-            );
-          }
-          if (sss == true && ssc == false) {
-            await CoffeeItemSchema.updateOne({
-              $pull: { ItemCost: { sizeName: "smallsize" } },
-            });
-          }
-          if (lss == true && lsc == false) {
-            await CoffeeItemSchema.updateOne({
-              $pull: { ItemCost: { sizeName: "largesize" } },
-            });
-          }
-          if (mss == true && msc == false) {
-            await CoffeeItemSchema.updateOne({
-              $pull: { ItemCost: { sizeName: "mediumsize" } },
-            });
-          }
-          if (nss == true && nsc == false) {
-            await CoffeeItemSchema.updateOne({
-              $pull: { ItemCost: { sizeName: "normalsize" } },
-            });
-          }
-          await CoffeeItemSchema.updateOne(
-            { "ItemCost.sizeName": "normalsize" },
-            { $set: { "ItemCost.$.Price": parseInt(ItemCost[i].normalsize) } }
-          );
-        }
-      }
-      if (ress) {
-        return res.status(201).json({ ress, status: "201" });
-      }
+let ms=false;
+let ls=false
+let ss=false
+let newData=await CoffeeItemSchema.findById(id);
+newData.ItemCost.map((item)=>{
+if(item.sizeName=="mediumsize"){
+ms=true;
+}
+if(item.sizeName=="largesize"){
+ls=true;
+}
+if(item.sizeName=="smallsize"){
+ss=true;
+}
+})
+if(ms==false){
+await CoffeeItemSchema.updateOne( { _id: id},{ $push: { "ItemCost": {"sizeName":"mediumsize","Price":mediumsize} }})
+}
+if(ls==false){
+await CoffeeItemSchema.updateOne( { _id: id},{ $push: { "ItemCost": {"sizeName":"largesize","Price":largesize} }})
+}
+
+if(ss==false){
+await CoffeeItemSchema.updateOne( { _id: id},{ $push: { "ItemCost": {"sizeName":"smallsize","Price":smallsize} }})
+}
+
+
+return res.status(201).json({message:"successfully updated"})
+
+}
+
+if((mediumsize!='')&&(smallsize!='')){
+let nss=false;
+let ls=false;
+// update exiting login
+findData.ItemCost.map((item)=>{
+if(item.sizeName=="normalsize"){nss=true}
+if(item.sizeName=="largesize"){ls=true}
+if(item.sizeName=="mediumsize"){
+const fired=async()=>{
+await CoffeeItemSchema.findOneAndUpdate({ItemCost: {$elemMatch: {_id: item._id}}}, {$set:{"ItemCost.$.Price":mediumsize}})
+}
+fired();
+}
+if(item.sizeName=="smallsize"){
+const fired=async()=>{
+await CoffeeItemSchema.findOneAndUpdate({ItemCost: {$elemMatch: {_id: item._id}}}, {$set:{"ItemCost.$.Price":smallsize}})
+}
+fired();
+}
+
+})
+if(nss){
+ await CoffeeItemSchema.updateOne({_id:id},{$pull:{"ItemCost" : {"sizeName":"normalsize"}}})
+}
+if(ls){
+ await CoffeeItemSchema.updateOne({_id:id},{$pull:{"ItemCost" : {"sizeName":"largesize"}}})
+}
+// new entry
+let ms=false;
+let ss=false
+let newData=await CoffeeItemSchema.findById(id);
+newData.ItemCost.map((item)=>{
+if(item.sizeName=="mediumsize"){
+ms=true;
+}
+if(item.sizeName=="smallsize"){
+ss=true;
+}
+})
+if(ms==false){
+await CoffeeItemSchema.updateOne( { _id: id},{ $push: { "ItemCost": {"sizeName":"mediumsize","Price":mediumsize} }})
+}
+if(ss==false){
+await CoffeeItemSchema.updateOne( { _id: id},{ $push: { "ItemCost": {"sizeName":"smallsize","Price":smallsize} }})
+}
+
+
+return res.status(201).json({message:"successfully updated"})
+
+}
+
+if((mediumsize!='')&&(largesize!='')){
+let nss=false;
+let hs=false;
+// update exiting login
+findData.ItemCost.map((item)=>{
+if(item.sizeName=="normalsize"){nss=true}
+if(item.sizeName=="smallsize"){hs=true}
+if(item.sizeName=="mediumsize"){
+const fired=async()=>{
+await CoffeeItemSchema.findOneAndUpdate({ItemCost: {$elemMatch: {_id: item._id}}}, {$set:{"ItemCost.$.Price":mediumsize}})
+}
+fired();
+}
+
+if(item.sizeName=="largesize"){
+const fired=async()=>{
+await CoffeeItemSchema.findOneAndUpdate({ItemCost: {$elemMatch: {_id: item._id}}}, {$set:{"ItemCost.$.Price":largesize}})
+}
+fired();
+}
+})
+if(nss){
+ await CoffeeItemSchema.updateOne({_id:id},{$pull:{"ItemCost" : {"sizeName":"normalsize"}}})
+}
+if(hs){
+ await CoffeeItemSchema.updateOne({_id:id},{$pull:{"ItemCost" : {"sizeName":"smallsize"}}})
+}
+// new entry
+let ms=false;
+let ls=false
+let newData=await CoffeeItemSchema.findById(id);
+newData.ItemCost.map((item)=>{
+if(item.sizeName=="mediumsize"){
+ms=true;
+}
+if(item.sizeName=="largesize"){
+ls=true;
+}
+})
+if(ms==false){
+await CoffeeItemSchema.updateOne( { _id: id},{ $push: { "ItemCost": {"sizeName":"mediumsize","Price":mediumsize} }})
+}
+if(ls==false){
+await CoffeeItemSchema.updateOne( { _id: id},{ $push: { "ItemCost": {"sizeName":"largesize","Price":largesize} }})
+}
+
+
+return res.status(201).json({message:"successfully updated"})
+
+}
+
+if((smallsize!='')&&(largesize!='')){
+let nss=false;
+let ms=false;
+// update exiting login
+findData.ItemCost.map((item)=>{
+if(item.sizeName=="normalsize"){nss=true}
+if(item.sizeName=="normalsize"){ms=true}
+if(item.sizeName=="smallsize"){
+const fired=async()=>{
+await CoffeeItemSchema.findOneAndUpdate({ItemCost: {$elemMatch: {_id: item._id}}}, {$set:{"ItemCost.$.Price":smallsize}})
+}
+fired();
+}
+if(item.sizeName=="largesize"){
+const fired=async()=>{
+await CoffeeItemSchema.findOneAndUpdate({ItemCost: {$elemMatch: {_id: item._id}}}, {$set:{"ItemCost.$.Price":largesize}})
+}
+fired();
+}
+
+})
+if(nss){
+ await CoffeeItemSchema.updateOne({_id:id},{$pull:{"ItemCost" : {"sizeName":"normalsize"}}})
+}
+if(ms){
+ await CoffeeItemSchema.updateOne({_id:id},{$pull:{"ItemCost" : {"sizeName":"mediumsize"}}})
+}
+// new entry
+
+let ls=false
+let ss=false
+let newData=await CoffeeItemSchema.findById(id);
+newData.ItemCost.map((item)=>{
+if(item.sizeName=="largesize"){
+ls=true;
+}
+if(item.sizeName=="smallsize"){
+ss=true;
+}
+})
+
+if(ls==false){
+await CoffeeItemSchema.updateOne( { _id: id},{ $push: { "ItemCost": {"sizeName":"largesize","Price":largesize} }})
+}
+
+if(ss==false){
+await CoffeeItemSchema.updateOne( { _id: id},{ $push: { "ItemCost": {"sizeName":"smallsize","Price":smallsize} }})
+}
+
+
+return res.status(201).json({message:"successfully updated"})
+
+}
+
+if((mediumsize!='')){
+let nss=false;let ss=false;let ls=false;
+// update exiting login
+findData.ItemCost.map((item)=>{
+if(item.sizeName=="normalsize"){nss=true}
+if(item.sizeName=="smallsize"){ss=true}
+if(item.sizeName=="largesize"){ls=true}
+if(item.sizeName=="mediumsize"){
+const fired=async()=>{
+await CoffeeItemSchema.findOneAndUpdate({ItemCost: {$elemMatch: {_id: item._id}}}, {$set:{"ItemCost.$.Price":mediumsize}})
+}
+fired();
+}
+
+})
+if(nss){
+ await CoffeeItemSchema.updateOne({_id:id},{$pull:{"ItemCost" : {"sizeName":"normalsize"}}})
+}
+if(ss){
+ await CoffeeItemSchema.updateOne({_id:id},{$pull:{"ItemCost" : {"sizeName":"smallsize"}}})
+}
+if(ls){
+ await CoffeeItemSchema.updateOne({_id:id},{$pull:{"ItemCost" : {"sizeName":"largesize"}}})
+}
+// new entry
+
+let ms=false;
+let newData=await CoffeeItemSchema.findById(id);
+newData.ItemCost.map((item)=>{
+if(item.sizeName=="mediumsize"){
+ms=true;
+}
+})
+if(ms==false){
+await CoffeeItemSchema.updateOne( { _id: id},{ $push: { "ItemCost": {"sizeName":"mediumsize","Price":mediumsize} }})
+}
+
+return res.status(201).json({message:"successfully updated"})
+
+}
+
+if((smallsize!='')){
+let nss=false;
+let ms=false;
+let ls=false;
+// update exiting login
+findData.ItemCost.map((item)=>{
+if(item.sizeName=="normalsize"){nss=true}
+if(item.sizeName=="mediumsize"){ms=true}
+if(item.sizeName=="largesize"){ls=true}
+if(item.sizeName=="smallsize"){
+const fired=async()=>{
+await CoffeeItemSchema.findOneAndUpdate({ItemCost: {$elemMatch: {_id: item._id}}}, {$set:{"ItemCost.$.Price":smallsize}})
+}
+fired();
+}
+})
+if(nss){
+ await CoffeeItemSchema.updateOne({_id:id},{$pull:{"ItemCost" : {"sizeName":"normalsize"}}})
+}
+if(ms){
+ await CoffeeItemSchema.updateOne({_id:id},{$pull:{"ItemCost" : {"sizeName":"mediumsize"}}})
+}
+if(ls){
+ await CoffeeItemSchema.updateOne({_id:id},{$pull:{"ItemCost" : {"sizeName":"largesize"}}})
+}
+// new entry
+let ss=false
+let newData=await CoffeeItemSchema.findById(id);
+newData.ItemCost.map((item)=>{
+if(item.sizeName=="smallsize"){
+ss=true;
+}
+})
+if(ss==false){
+await CoffeeItemSchema.updateOne( { _id: id},{ $push: { "ItemCost": {"sizeName":"smallsize","Price":smallsize} }})
+}
+return res.status(201).json({message:"successfully updated"})
+
+}
+
+if((largesize!='')){
+let nss=false;
+let ss=false;
+let ms=false;
+// update exiting login
+findData.ItemCost.map((item)=>{
+if(item.sizeName=="normalsize"){nss=true}
+if(item.sizeName=="mediumsize"){ms=true}
+if(item.sizeName=="smallsize"){ss=true}
+if(item.sizeName=="largesize"){
+const fired=async()=>{
+await CoffeeItemSchema.findOneAndUpdate({ItemCost: {$elemMatch: {_id: item._id}}}, {$set:{"ItemCost.$.Price":largesize}})
+}
+fired();
+}
+})
+if(nss){
+ await CoffeeItemSchema.updateOne({_id:id},{$pull:{"ItemCost" : {"sizeName":"normalsize"}}})
+}
+if(ms){
+ await CoffeeItemSchema.updateOne({_id:id},{$pull:{"ItemCost" : {"sizeName":"mediumsize"}}})
+}
+if(ss){
+ await CoffeeItemSchema.updateOne({_id:id},{$pull:{"ItemCost" : {"sizeName":"smallsize"}}})
+}
+// new entry
+
+
+let ls=false
+let newData=await CoffeeItemSchema.findById(id);
+newData.ItemCost.map((item)=>{
+if(item.sizeName=="largesize"){
+ls=true;
+}
+
+})
+
+if(ls==false){
+await CoffeeItemSchema.updateOne( { _id: id},{ $push: { "ItemCost": {"sizeName":"largesize","Price":largesize} }})
+}
+return res.status(201).json({message:"successfully updated"})
+
+}
+
     } catch (error) {
       console.log(error);
       res.status(501).json({ message: error, status: "501" });

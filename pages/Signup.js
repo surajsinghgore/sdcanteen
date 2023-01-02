@@ -2,6 +2,7 @@ import HeadTag from "../Components/Head";
 import Header from "../Components/Header";
 import Footer from "../Components/Footer";
 let HOST = process.env.NEXT_PUBLIC_API_URL;
+import LoadingBar from "react-top-loading-bar";
 import Link from 'next/link'
 import Styles from "../styles/admin.module.css";
 import ClientStyle from "../styles/Signup.module.css";
@@ -20,6 +21,7 @@ import HidePagesAfterLogin from "./HidePagesAfterLogin";
 export default function Signup() {
  const [fullName,setFullName]=useState("");
  const [age,setAge]=useState("");
+ const [progress, setProgress] = useState(0);
  const [email,setEmail]=useState("");
  const [mobile,setMobile]=useState("");
  const [gender,setGender]=useState("Select your gender");
@@ -46,7 +48,7 @@ if(!fullName){
     return ;
 }
 if(!age){
- toast.warn(`Please Enter Age`, {
+ toast.warn("Please Enter Age", {
       position: "bottom-right",
       autoClose: 2000,
       hideProgressBar: false,
@@ -135,6 +137,7 @@ if(password!==cpassword){
     });
       return ;
 }
+setProgress(30)
 const res = await fetch(`${HOST}/api/ClientRegister`, {
       method: "POST",
       headers: {
@@ -145,8 +148,11 @@ const res = await fetch(`${HOST}/api/ClientRegister`, {
       }),
     });
 let data=await res.json();
+setProgress(60)
+
 if(data.status==501){
-  toast.warn(`${data.message}`, {
+if(data.message!=undefined){
+ toast.warn(`${data.message}`, {
 position: "bottom-right",
 autoClose: 5000,
 hideProgressBar: false,
@@ -155,6 +161,20 @@ pauseOnHover: true,
 draggable: true,
 progress: undefined,
 });
+}
+else{
+ toast.warn('Internal Server Error', {
+position: "bottom-right",
+autoClose: 5000,
+hideProgressBar: false,
+closeOnClick: true,
+pauseOnHover: true,
+draggable: true,
+progress: undefined,
+});
+}
+ 
+setProgress(100)
 return ;
 }
 if(data.otpError){
@@ -167,7 +187,8 @@ pauseOnHover: true,
 draggable: true,
 progress: undefined,
 });
-  setTimeout(Redirect, 1200);
+setProgress(100)
+  setTimeout(Redirect, 1500);
     function Redirect() {
       router.push("/Signup");
     }
@@ -185,6 +206,7 @@ pauseOnHover: true,
 draggable: true,
 progress: undefined,
 });
+setProgress(100)
 continue;
 }
 }
@@ -200,6 +222,8 @@ pauseOnHover: true,
 draggable: true,
 progress: undefined,
 });
+setProgress(100)
+
 return ;
 }
 if(data.status==401){
@@ -212,6 +236,8 @@ pauseOnHover: true,
 draggable: true,
 progress: undefined,
 });
+setProgress(100)
+
 return ;
 }
 
@@ -225,15 +251,23 @@ pauseOnHover: true,
 draggable: true,
 progress: undefined,
 });
+
 localStorage.setItem('clientRegistrationEmail',data.data.Email)
-  setTimeout(Redirect, 1200);
+setProgress(100)
+  setTimeout(Redirect, 1500);
     function Redirect() {
       router.push("/OtpVerifyClientRegister");
     }
 }
   }
   return (
-    <div>
+    <div> <LoadingBar
+        color="rgb(255 82 0)"
+        height={3.5}
+        waitingTime={400}
+        progress={progress}
+        transitionTime={100}
+      />  
     <HidePagesAfterLogin />
     <div className={Styles.admin}>
       <HeadTag title="Client Signup" />

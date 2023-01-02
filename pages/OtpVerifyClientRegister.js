@@ -9,18 +9,19 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { TbDeviceMobileMessage } from "react-icons/tb";
 import { useEffect, useState } from "react";
+import LoadingBar from "react-top-loading-bar";
 import router from "next/router";
 let HOST = process.env.NEXT_PUBLIC_API_URL;
 
 export default function OtpVerifyClientRegister() {
   const [email, setEmail] = useState("");
   const [otp, setOtp] = useState("");
+ const [progress, setProgress] = useState(0);
   useEffect(() => {
     setEmail(localStorage.getItem("clientRegistrationEmail"));
-
     setTimeout(Redirect, 1000);
     function Redirect() {
-      if (email == null) {
+      if (email == null || email==undefined) {
         router.push("/");
       }
     }
@@ -61,6 +62,7 @@ export default function OtpVerifyClientRegister() {
       });
       return ;
     }
+setProgress(40)
 
     const res = await fetch(`${HOST}/api/VerifyOtp`, {
       method: "POST",
@@ -73,6 +75,7 @@ export default function OtpVerifyClientRegister() {
       }),
     });
     let data = await res.json();
+setProgress(60)
 
     if (data.status == 401) {
       toast.warn(`${data.message}`, {
@@ -84,6 +87,8 @@ export default function OtpVerifyClientRegister() {
         draggable: true,
         progress: undefined,
       });
+setProgress(100)
+
       return ;
     }
 
@@ -99,7 +104,9 @@ export default function OtpVerifyClientRegister() {
       });
       localStorage.removeItem("clientRegistrationEmail");
       localStorage.removeItem("clientRegistrationId");
-      setTimeout(Redirect, 1200);
+setProgress(100)
+
+      setTimeout(Redirect, 1500);
       function Redirect() {
         router.push("/Signup");
       }
@@ -116,7 +123,7 @@ export default function OtpVerifyClientRegister() {
         progress: undefined,
       });
       localStorage.removeItem("clientRegistrationEmail");
-      setTimeout(Redirect, 1200);
+      setTimeout(Redirect, 1500);
       function Redirect() {
         router.push("/Signup");
       }
@@ -145,7 +152,7 @@ export default function OtpVerifyClientRegister() {
         progress: undefined,
       });
       localStorage.removeItem("clientRegistrationEmail");
-      setTimeout(Redirect, 1200);
+      setTimeout(Redirect, 1500);
       function Redirect() {
         router.push("/ClientLogin");
       }
@@ -153,6 +160,13 @@ export default function OtpVerifyClientRegister() {
   };
   return (
     <div>
+     <LoadingBar
+        color="rgb(255 82 0)"
+        height={3.5}
+        waitingTime={400}
+        progress={progress}
+        transitionTime={100}
+      />  
       <div className={Styles.admin}>
         <HeadTag title="Client Otp Verify" />
         <Header />

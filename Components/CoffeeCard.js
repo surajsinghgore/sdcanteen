@@ -15,6 +15,9 @@ const [useSize,setUseSize]=useState(false);
 const [showBtn,SetShowBtn]=useState(false);
 const [price,setPrice]=useState('');
 const [size,setSize]=useState('');
+const [adds,setAdds]=useState(false);
+
+  
 
 useEffect(()=>{
 if(item.item!=undefined){
@@ -27,7 +30,16 @@ setPrice(item.item.ItemCost[0].Price)
     removeItem,
     addItem ,
   } = useCart();
-
+useEffect(() => {
+    items.map((itemm) => {
+      if (item.item != undefined) {
+        if (itemm.id ==item.item._id) {
+          setAdds(true);
+     
+        }
+      }
+    });
+  },[items]);
 const AddToCart=(item)=>{
 if(item.item.ItemCost.length==1){
 localStorage.setItem("itemOrder",item.item.ItemCost[0]._id)
@@ -96,15 +108,17 @@ else{
       progress: undefined,
     });
 }
-  
+  setAdds(true);
     return ;
 }
   
 }
 
 const RemoveFromCart=(item)=>{
+
 if(item.item._id!=undefined){
 let id=item.item._id;
+ setAdds(false);
 item.item.addToCart=false
 removeItem(id);
  toast.error(`Item successfully removed from cart`, {
@@ -116,7 +130,7 @@ removeItem(id);
       draggable: true,
       progress: undefined,
     });
-
+    
 }
 }
 
@@ -265,9 +279,12 @@ localStorage.setItem("itemOrder",itm._id)
  </div>
  </div>
 <div className={Style.btnSection}>
- {(item.item.addToCart)?
+
+ {(adds)?
  <><button onClick={()=>RemoveFromCart(item)}>Remove Item</button></> :
   <><button onClick={()=>AddToCart(item)}>Add To Cart</button></>}
+
+
    <button className={Style.buy} onClick={()=>BuyNow(item)}>Buy Now</button>
    </div>
    </div></div>

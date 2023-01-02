@@ -15,6 +15,9 @@ const [useSize,setUseSize]=useState(false);
 const [showBtn,SetShowBtn]=useState(false);
 const [price,setPrice]=useState('');
 const [size,setSize]=useState('');
+const [adds,setAdds]=useState(false);
+
+  
 
 useEffect(()=>{
 if(item.item!=undefined){
@@ -27,7 +30,16 @@ setPrice(item.item.ItemCost[0].Price)
     removeItem,
     addItem ,
   } = useCart();
-
+useEffect(() => {
+    items.map((itemm) => {
+      if (item.item != undefined) {
+        if (itemm.id ==item.item._id) {
+          setAdds(true);
+     
+        }
+      }
+    });
+  },[items]);
 const AddToCart=(item)=>{
 if(item.item.ItemCost.length==1){
 localStorage.setItem("itemOrder",item.item.ItemCost[0]._id)
@@ -47,7 +59,7 @@ let subData=item.item.ItemCost.filter((items)=>{
 return items._id==subId})
 
 if(subData.length==0 || subData==undefined){
- toast.warn("please try again", {
+ toast.warn("please try again ", {
       position: "bottom-right",
       autoClose: 1500,
       hideProgressBar: false,
@@ -58,6 +70,113 @@ if(subData.length==0 || subData==undefined){
     });
     emptyCart();
  localStorage.removeItem("itemOrder");
+    return ;
+}
+let id=item.item._id;
+let price=subData[0].Price;
+let Qty=item.item.Qty;
+let Image=item.item.Image;
+let Category=item.item.Category;
+let Size=subData[0].sizeName;
+let QtyBook=1;
+let totalAmount=subData[0].Price;
+let foodFind;
+foodFind=item.item.JuiceName;
+if(foodFind!=undefined){
+let JuiceName=item.item.JuiceName;
+addItem({id,price,JuiceName,Qty,Image,Size,subId,Category,QtyBook,totalAmount})
+ if(JuiceName==undefined){
+ toast.success("Juice successfully added to cart", {
+      position: "bottom-right",
+      autoClose: 1500,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+}
+
+else{
+ toast.success(`${JuiceName} successfully added to cart`, {
+      position: "bottom-right",
+      autoClose: 1500,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+}
+  setAdds(true);
+    return ;
+}
+  
+}
+
+const RemoveFromCart=(item)=>{
+
+if(item.item._id!=undefined){
+let id=item.item._id;
+ setAdds(false);
+item.item.addToCart=false
+removeItem(id);
+ toast.error(`Item successfully removed from cart`, {
+      position: "bottom-right",
+      autoClose: 1500,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+    
+}
+}
+
+// buy now item
+const BuyNow=(item)=>{
+let check=false;
+let cartData=items
+
+for(let j=0;j<cartData.length;j++){
+if(item.JuiceName!=undefined){
+if(cartData[j].JuiceName==item.item.JuiceName){
+check=true;
+}
+}
+}
+if(check==false){
+
+if(item.item.ItemCost.length==1){
+localStorage.setItem("itemOrder",item.item.ItemCost[0]._id)
+}
+else if(useSize==false){
+localStorage.setItem("itemOrder",item.item.ItemCost[0]._id)
+}
+else {
+item.item.ItemCost.map((itx)=>{
+if(itx.Price==price){
+localStorage.setItem("itemOrder",itx._id)
+}
+})
+}
+}
+
+let subId=localStorage.getItem("itemOrder");
+let subData=item.item.ItemCost.filter((items)=>{
+return items._id==subId})
+if(subData.length==0 || subData==undefined){
+ toast.warn("please try again", {
+      position: "bottom-right",
+      autoClose: 1500,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+    emptyCart(); localStorage.removeItem("itemOrder");
     return ;
 }
 let id=item.item._id;
@@ -97,114 +216,8 @@ else{
     });
 }
 
-
-    return ;
-}
   
-}
-
-const RemoveFromCart=(item)=>{
-if(item.item._id!=undefined){
-let id=item.item._id;
-item.item.addToCart=false
-removeItem(id);
- toast.error("Item successfully removed from cart", {
-      position: "bottom-right",
-      autoClose: 1500,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
-
-}
-}
-
-// buy now item
-const BuyNow=(item)=>{
-let check=false;
-let cartData=items
-
-for(let j=0;j<cartData.length;j++){
-if(item.JuiceName!=undefined){
-if(cartData[j].JuiceName==item.item.JuiceName){
-check=true;
-}
-}
-}
-if(check==false){
-
-if(item.item.ItemCost.length==1){
-localStorage.setItem("itemOrder",item.item.ItemCost[0]._id)
-}
-else if(useSize==false){
-localStorage.setItem("itemOrder",item.item.ItemCost[0]._id)
-}
-else {
-item.item.ItemCost.map((itx)=>{
-if(itx.Price==price){
-localStorage.setItem("itemOrder",itx._id)
-}
-})
-}
-}
-
-let subId=localStorage.getItem("itemOrder");
-let subData=item.item.ItemCost.filter((items)=>{
-return items._id==subId})
-if(subData.length==0 || subData==undefined){
- toast.warn("please try again ", {
-      position: "bottom-right",
-      autoClose: 1500,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
-    emptyCart();
-     localStorage.removeItem("itemOrder");
-    return ;
-}
-let id=item.item._id;
-let price=subData[0].Price;
-let Qty=item.item.Qty;
-let Image=item.item.Image;
-let Category=item.item.Category;
-let Size=subData[0].sizeName;
-let QtyBook=1;
-let totalAmount=subData[0].Price;
-let foodFind;
-foodFind=item.item.JuiceName;
-if(foodFind!=undefined){
-let JuiceName=item.item.JuiceName;
-addItem({id,price,JuiceName,Qty,Image,Size,subId,Category,QtyBook,totalAmount})
- if(JuiceName==undefined){
- toast.success("Juice successfully added to cart", {
-      position: "bottom-right",
-      autoClose: 1500,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
-}
-
-else{
- toast.success(`${JuiceName} successfully added to cart`, {
-      position: "bottom-right",
-      autoClose: 1500,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
-}
-
-    function redirect(){
+function redirect(){
      router.push("/Cart");
 }
      setTimeout(redirect,1500)
@@ -266,9 +279,12 @@ localStorage.setItem("itemOrder",itm._id)
  </div>
  </div>
 <div className={Style.btnSection}>
- {(item.item.addToCart)?
+
+ {(adds)?
  <><button onClick={()=>RemoveFromCart(item)}>Remove Item</button></> :
   <><button onClick={()=>AddToCart(item)}>Add To Cart</button></>}
+
+
    <button className={Style.buy} onClick={()=>BuyNow(item)}>Buy Now</button>
    </div>
    </div></div>

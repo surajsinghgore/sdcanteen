@@ -16,19 +16,21 @@ import Link from "next/link";
 import Image from "next/image";
 
 export default function UpdateFoodImage() {
+
   const { filterFoodItemsData } = useContext(AllContext);
   const [imgs, setImgs] = useState(imges);
   const [files, setFiles] = useState("");
 useEffect(()=>{
-if(filterFoodItemsData[0]!=undefined){
-setImgs(`/FoodItemImages/${filterFoodItemsData[0].Image}`)
+
+if(filterFoodItemsData.datas!=undefined){
+setImgs(`/FoodItemImages/${filterFoodItemsData.datas.Image}`)
 }
  else{
     router.push('/admin/UpdateFoodItem')
 }
 },[filterFoodItemsData])
   // images handle
-  const handleChange = async (e) => {
+ const handleChange = async (e) => {
     if (e.target.files[0]) {
       var file = e.target.files[0];
       setFiles(file);
@@ -41,8 +43,8 @@ setImgs(`/FoodItemImages/${filterFoodItemsData[0].Image}`)
     e.preventDefault();
 
     const dataImage = new FormData();
-    dataImage.append("_id", filterFoodItemsData[0]._id);
-    dataImage.append("oldImage", filterFoodItemsData[0].Image);
+    dataImage.append("_id", filterFoodItemsData.datas._id);
+    dataImage.append("oldImage", filterFoodItemsData.datas.Image);
     dataImage.append("Image", files);
 
     if (!files) {
@@ -116,7 +118,7 @@ setImgs(`/FoodItemImages/${filterFoodItemsData[0].Image}`)
 
     if (datas.status == "201") {
       toast.success(
-        `${filterFoodItemsData[0].FoodName} Image Successfully Updated`,
+        `${filterFoodItemsData.datas.FoodName} Image Successfully Updated`,
         {
           position: "bottom-right",
           autoClose: 5000,
