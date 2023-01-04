@@ -40,7 +40,8 @@ const [address,setAddress]=useState("")
 const [gen,setGen]=useState(true);
 const [uprofile,setUprofile]=useState(false)
 const [data,setData]=useState([]);
-useEffect(()=>{
+
+const getDataClient=async()=>{
 setLoader(true)
 if(localStorage.getItem('login')!=undefined){
 const getData=async()=>{
@@ -106,7 +107,9 @@ getData();
 else{
 router.push("/ClientLogin");
 }
-
+}
+useEffect(()=>{
+getDataClient();
 },[])
 const generalActive=()=>{
 setGeneral(true)
@@ -157,9 +160,10 @@ getData();
 
 
 // update general details function fire
-const updateGeneral=(e)=>{
+const updateGeneral=async(e)=>{
  e.preventDefault();
-if((data.FullAddress==address) &&(data.FullName==fullname) &&(data.Age==age) &&(data.Email==email) &&(data.Mobile==mobile) &&(data.Gender==gender) ){
+if((data.FullAddress==address) &&(data.FullName==fullname) &&(data.Age==age) &&(data.Email==email) &&(data.Mobile==mobile) &&(data.Gender==gender) )
+{
 toast.warn('Same Record Not Update', {
       position: "bottom-right",
       autoClose: 2000,
@@ -238,15 +242,77 @@ if(!address){
       progress: undefined,
     });
 }
-}
-let count=0;
-let n=parseInt(mobile);
-  do {
-    n /= 10;
-    ++count;
-  } while (n != 0);
 
-console.log(count)
+
+setLoader(true)
+const res = await fetch(`${HOST}/api/UpdateClientDetails`, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({
+        FullName:fullname,Age:age,Email:email,Mobile:mobile,Gender:gender,FullAddress:address
+      }),
+    });
+ setLoader(false)
+    let datass=await res.json();
+if(datass.status=="400"){
+for(let i=0;i<datass.errors.length;i++){
+if(i<1){
+  toast.warn(`${datass.errors[i].msg}`, {
+position: "bottom-right",
+autoClose: 5000,
+hideProgressBar: false,
+closeOnClick: true,
+pauseOnHover: true,
+draggable: true,
+progress: undefined,
+});
+
+continue;
+}
+}
+return ;
+}
+if(res.status==401){
+toast.warn("Please Login with Client Account", {
+      position: "bottom-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });  return ;
+}
+if(res.status==400){
+toast.warn(`${datass.message}`, {
+      position: "bottom-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });  return ;
+}
+if(res.status==201){
+toast.success("Data Successfully update", {
+      position: "bottom-right",
+      autoClose: 1300,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    }); 
+
+ getDataClient();
+setUd(false)
+
+}
+}
+
 
  const handleChange = async (e) => {
     if (e.target.files[0]) {
@@ -274,7 +340,7 @@ return ;
 }
 const data = new FormData();
     data.append("Profile", files);
- let res = await fetch(`${HOST}/api/ClientProfile`, {
+ let res = await fetch(`${HOST}/api/UpdateClientProfile`, {
       method: "POST",
       body: data,
     });
@@ -293,8 +359,8 @@ progress: undefined,
 return ;
     } 
     if(res.status==401){
-const redirects=()=>{
-toast.error('Please Login First', {
+
+toast.error(`${datas.message}`, {
 position: "bottom-right",
 autoClose: 5000,
 hideProgressBar: false,
@@ -303,10 +369,7 @@ pauseOnHover: true,
 draggable: true,
 progress: undefined,
 });
-router.push("/ClientLogin");
 return ;
-}
-setTimeout(redirects,2000);
 }
  if(res.status==501){
       toast.warn(`${datas.message}`, {
@@ -321,7 +384,7 @@ progress: undefined,
 return ;
     } 
     if(res.status==201){
-         toast.success('Profile Photo Successfully uploaded', {
+ toast.success('Profile Photo Successfully updated', {
 position: "bottom-right",
 autoClose: 5000,
 hideProgressBar: false,
@@ -330,12 +393,135 @@ pauseOnHover: true,
 draggable: true,
 progress: undefined,
 });   
- setTimeout(Redirect, 1200);
-    function Redirect() {
-  router.push('/')
+getDataClient();
+    setUprofile(false);
+
     }
-    
+}
+
+
+const passwordChange=async(e)=>{
+e.preventDefault();
+
+if(!opass){
+toast.warn('Please Enter Current Password', {
+position: "bottom-right",
+autoClose: 5000,
+hideProgressBar: false,
+closeOnClick: true,
+pauseOnHover: true,
+draggable: true,
+progress: undefined,
+});   
+return ;
+}
+if(!npass){
+toast.warn('New Password field not be Empty', {
+position: "bottom-right",
+autoClose: 5000,
+hideProgressBar: false,
+closeOnClick: true,
+pauseOnHover: true,
+draggable: true,
+progress: undefined,
+});   
+return ;
+}
+if(!cnpass){
+toast.warn('Re-enter field of Password not be Empty', {
+position: "bottom-right",
+autoClose: 5000,
+hideProgressBar: false,
+closeOnClick: true,
+pauseOnHover: true,
+draggable: true,
+progress: undefined,
+});   
+return ;
+}
+if(npass!=cnpass){
+toast.warn('Both New Password is Not Same', {
+position: "bottom-right",
+autoClose: 5000,
+hideProgressBar: false,
+closeOnClick: true,
+pauseOnHover: true,
+draggable: true,
+progress: undefined,
+});   
+return ;
+}
+
+setLoader(true)
+const res = await fetch(`${HOST}/api/PasswordChangeClient`, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({
+     currentPassword:opass,newPassword:npass
+      }),
+    });
+ setLoader(false)
+    let datass=await res.json();
+
+    if(res.status==401){
+    toast.warn(`${datass.message}`, {
+position: "bottom-right",
+autoClose: 5000,
+hideProgressBar: false,
+closeOnClick: true,
+pauseOnHover: true,
+draggable: true,
+progress: undefined,
+});   
+return ;
     }
+    if(res.status==400){
+    toast.warn(`${datass.message}`, {
+position: "bottom-right",
+autoClose: 5000,
+hideProgressBar: false,
+closeOnClick: true,
+pauseOnHover: true,
+draggable: true,
+progress: undefined,
+});   
+return ;
+    }
+    if(datass!=undefined){
+    if(datass.status==400){
+        toast.warn(`${datass.message}`, {
+position: "bottom-right",
+autoClose: 5000,
+hideProgressBar: false,
+closeOnClick: true,
+pauseOnHover: true,
+draggable: true,
+progress: undefined,
+});   
+return ;
+    }
+    }
+
+     if(res.status==201){
+    toast.success("Password Changed Successfully", {
+position: "bottom-right",
+autoClose: 1200,
+hideProgressBar: false,
+closeOnClick: true,
+pauseOnHover: true,
+draggable: true,
+progress: undefined,
+});   
+setTimeout(() => {
+lagout();
+setPassword(false)
+
+}, 1500);
+return ;
+    }
+
 }
   return (
     <><Loader loader={loader}/>
@@ -479,7 +665,7 @@ progress: undefined,
 </div>
 </li>
 <li>
-<button>Change Password</button>
+<button onClick={passwordChange}>Change Password</button>
 
 </li>
 </div>
@@ -531,7 +717,7 @@ progress: undefined,
 <li>
 <div className={style.tt}>Mobile</div>
 <div className={style.dd}>
- <input type="number" placeholder="Your Mobile Number" value={mobile} onChange={(e)=>setMobile(e.target.value)} />
+ <input type="number" placeholder="Your Mobile Number" value={mobile} onChange={(e)=>setMobile(e.target.value)} maxLength="10" />
 </div>
 </li>
 
