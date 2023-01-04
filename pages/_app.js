@@ -38,7 +38,52 @@ useEffect(()=>{
 checks();
 },[])
 
+useEffect(()=>{
+if(sessionStorage.getItem("counter")==undefined){
 
+let browser;
+if((navigator.userAgent.indexOf("Opera") || navigator.userAgent.indexOf('OPR')) != -1 ) 
+    {
+        browser='Opera';
+    }
+    else if(navigator.userAgent.indexOf("Edg") != -1 )
+    {
+        browser='Edge';
+    }
+    else if(navigator.userAgent.indexOf("Chrome") != -1 )
+    {
+        browser='Chrome';
+    }
+    else if(navigator.userAgent.indexOf("Safari") != -1)
+    {
+        browser='Safari';
+    }
+    else if(navigator.userAgent.indexOf("Firefox") != -1 ) 
+    {
+         browser='Firefox';
+    }
+    else if((navigator.userAgent.indexOf("MSIE") != -1 ) || (!!document.documentMode == true )) 
+    {
+      browser='IE'; 
+    }  
+    else 
+    {
+       browser='other Browser';
+    }
+
+const counter=async()=>{
+await fetch(`${HOST}/api/WebsiteCounter`,{
+method:"POST",
+headers:{"Content-type":"application/json"},
+body: JSON.stringify({Browser:browser})
+})
+}
+counter();
+}
+sessionStorage.setItem("counter",true);
+
+
+},[])
 
 useEffect(()=>{
 router.events.on('routeChangeStart',()=>{

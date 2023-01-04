@@ -110,6 +110,7 @@ progress: undefined,
 });
 setProgress(100)
 localStorage.setItem('login',"true");
+sessionStorage.removeItem("reset")
 function Redirect() { 
    router.back();
     }
@@ -174,6 +175,8 @@ progress: undefined,
 });
 
 localStorage.setItem('login',"true");
+sessionStorage.removeItem("reset")
+
 setProgress(100)
 
     function Redirect() {
@@ -186,6 +189,8 @@ router.back();
 
 }
 }
+
+
   return (
     <div> <LoadingBar
         color="rgb(255 82 0)"
@@ -213,6 +218,7 @@ router.back();
 <input type="password" name="" placeholder="Password" value={password} onChange={(e)=>setPassword(e.target.value)}  autoComplete="new-password"  />
 <RiLockPasswordLine className={ClientStyle.icon} />
 </li>
+<p><Link href="/ForgetPassword">Forget Password ?</Link></p>
 </form>
 <button onClick={Login}>Login</button>
 <div className={ClientStyle.path}>
