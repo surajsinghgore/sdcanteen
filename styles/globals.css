@@ -595,3 +595,73 @@ width: 100% !important;
 position: relative !important;
 height: unset !important;
 }
+
+
+
+/* cooking image section */
+
+.cookingMain{
+box-shadow: 0px 0px 12px rgb(131, 131, 131);
+position: absolute;
+bottom: 0.4%;
+right: 0.3%;
+background-color: rgb(255, 255, 255);
+width: 200px;
+height: 110px;
+border-radius: 30px;
+position: fixed;
+z-index: 99;
+}
+.cookingMain .cookingMain{
+position: relative;
+}
+
+
+@keyframes example {
+  0%   {color:red; }
+  25%  {color:rgb(228, 51, 7); }
+  50%  {color:rgb(228, 1, 1); }
+  75%  {color:rgb(219, 67, 2);}
+  100% {color:rgb(215, 3, 3); }
+}
+.cookingMain .cookingsection h6{
+position: absolute;
+bottom: -40%;
+left: 15%;
+font-size: 20px;
+color: rgb(2, 48, 117);
+z-index: 99;  
+animation: example 5s linear 2s infinite alternate;
+text-shadow: 0px 0px 12px rgb(255, 255, 255);
+}
+.cookingMain .cookingsection button{
+
+width: 30px;
+color: rgb(251, 31, 31);
+padding-right: 9%;
+font-size: 25px;
+border-top-right-radius: 40px;
+border: none;
+height: 30px;
+position: absolute;
+top: 0;
+cursor: pointer;
+right: 0;
+}
+.cookingMain .cookingsection .cookImage{
+width: 100px;
+border-radius: 20px;
+margin-left: 25%;
+height: 20px;
+}
+
+.cookingMain .cookingsection .cookImage >div{
+position: unset !important;
+}
+.image{
+object-fit: contain;
+width: 100% !important;
+position: relative !important;
+height: unset !important;
+}
+

@@ -20,8 +20,6 @@ let year = currentDate.getFullYear();
 const OrderDate=`${day}.${month}.${year}`;
 let data=await OrderSchemaDataBase.find({UserId,OrderDate:OrderDate,OrderStatus:"Pending"}).sort({PickUpTime1:1}).select("-createdAt -updatedAt -PaymentInfo -OrderId -PickUpTime1 -UserId")
 
-
-
       res.status(201).json({ data, status: "201" });
     } catch (error) {
       console.log(error);

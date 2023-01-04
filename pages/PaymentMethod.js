@@ -120,7 +120,7 @@ const TokenId=token;
    toast.warn(     "Amount Not Zero",
                   {
                     position: "bottom-right",
-                    autoClose: 5000,
+                    autoClose: 1000,
                     hideProgressBar: false,
                     closeOnClick: true,
                     pauseOnHover: true,
@@ -140,7 +140,7 @@ return;
                   "Tempering Is Not Allowed In Cart,Plese Add Item Again",
                   {
                     position: "bottom-right",
-                    autoClose: 5000,
+                    autoClose: 1000,
                     hideProgressBar: false,
                     closeOnClick: true,
                     pauseOnHover: true,
@@ -152,7 +152,7 @@ return;
                 const pushToCompleteOrder = () => {
                   router.push("/");
                 };
-                setTimeout(pushToCompleteOrder, 2000);
+                setTimeout(pushToCompleteOrder, 1500);
                 return;
               }
               if (arrays.length == 0 || arrays == undefined || arrays == "") {
@@ -161,7 +161,7 @@ return;
                   "Tempering Is Not Allowed In Cart,Plese Add Item Again",
                   {
                     position: "bottom-right",
-                    autoClose: 5000,
+                    autoClose: 1000,
                     hideProgressBar: false,
                     closeOnClick: true,
                     pauseOnHover: true,
@@ -172,7 +172,7 @@ return;
                 const pushToCompleteOrder = () => {
                   router.push("/");
                 };
-                setTimeout(pushToCompleteOrder, 2000);
+                setTimeout(pushToCompleteOrder, 1500);
                 return;
               }
               const TotalAmount = totals;
@@ -268,7 +268,7 @@ InitiatePayment();
                   "Tempering Is Not Allowed In Cart,Plese Add Item Again",
                   {
                     position: "bottom-right",
-                    autoClose: 5000,
+                    autoClose: 1000,
                     hideProgressBar: false,
                     closeOnClick: true,
                     pauseOnHover: true,
@@ -280,7 +280,7 @@ InitiatePayment();
                 const pushToCompleteOrder = () => {
                   router.push("/Cart");
                 };
-                setTimeout(pushToCompleteOrder, 2000);
+                setTimeout(pushToCompleteOrder, 1500);
                 return;
               }
               if (arrays.length == 0 || arrays == undefined || arrays == "") {
@@ -290,7 +290,7 @@ InitiatePayment();
                   "Tempering Is Not Allowed In Cart,Plese Add Item Again",
                   {
                     position: "bottom-right",
-                    autoClose: 5000,
+                    autoClose: 1000,
                     hideProgressBar: false,
                     closeOnClick: true,
                     pauseOnHover: true,
@@ -301,7 +301,7 @@ InitiatePayment();
                 const pushToCompleteOrder = () => {
                   router.push("/Cart");
                 };
-                setTimeout(pushToCompleteOrder, 2000);
+                setTimeout(pushToCompleteOrder, 1500);
                 return;
               }
               const TotalAmount = totals;
@@ -326,7 +326,7 @@ setProgress(40)
               if (data.status == "501") {
                 toast.error(`${data.message}`, {
                   position: "bottom-right",
-                  autoClose: 5000,
+                  autoClose: 1000,
                   hideProgressBar: false,
                   closeOnClick: true,
                   pauseOnHover: true,
@@ -340,7 +340,7 @@ setProgress(100)
               if (data.status == "404") {
                 toast.warn(`${data.message}`, {
                   position: "bottom-right",
-                  autoClose: 5000,
+                  autoClose: 1000,
                   hideProgressBar: false,
                   closeOnClick: true,
                   pauseOnHover: true,
@@ -358,7 +358,7 @@ setProgress(100)
                 localStorage.removeItem("PickUpTime1");
                 toast.success("Order Successfully Placed", {
                   position: "bottom-right",
-                  autoClose: 5000,
+                  autoClose: 1000,
                   hideProgressBar: false,
                   closeOnClick: true,
                   pauseOnHover: true,
@@ -390,7 +390,7 @@ setProgress(100)
  <LoadingBar
         color="rgb(255 82 0)"
         height={3.5}
-        waitingTime={400}
+        waitingTime={1000}
         progress={progress}
         transitionTime={100}
       />  
@@ -553,7 +553,7 @@ setProgress(100)
      
       <ToastContainer
         position="bottom-right"
-        autoClose={5000}
+        autoClose={1000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick

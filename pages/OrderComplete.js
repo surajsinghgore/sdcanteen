@@ -90,7 +90,7 @@ fetchOrder();
 <h5>{fullDate}</h5>
 <h6 id="clock">{timefull}</h6>
     </div>
-
+{(data!=undefined) ? <>
 {(data.length!=0)?
 <>
 {data.map((item)=>{
@@ -230,8 +230,8 @@ return <div key={itx._id}>
 :<div className={Style1.notFood}>
 <h3>No Order Placed Today</h3>
 <Link href="/FoodItem"><button>Buy Now Food</button></Link>
-</div>}
-
+</div>}</>
+: ""}
     </div> 
 
 

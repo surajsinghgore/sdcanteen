@@ -6,7 +6,9 @@ import Styles from "../styles/admin.module.css";
 import banner from '../public/banner.jpg';
 import "react-toastify/dist/ReactToastify.css";
 import { IoMdArrowDropright } from 'react-icons/io';
+import Loader from "../Components/Loader";
 import { FaSearch } from 'react-icons/fa';
+
 import { useEffect ,useState} from "react";
 import Banner from "../Components/Banner";
 let HOST = process.env.NEXT_PUBLIC_API_URL;
@@ -16,6 +18,7 @@ export default function FoodItem() {
 const [foodCategory,setFoodCategory]=useState([]);
 const [search,setSearch]=useState('');
 const [count,setCount]=useState(10);
+const [loader,setLoader]=useState(false);
 const [counts,setCounts]=useState(10);
 const [length,setLen]=useState(10)
 const [lengths,setLens]=useState(10)
@@ -24,6 +27,7 @@ const [cate,setCate]=useState(false);
 const [sear,setSear]=useState(false);
 
 useEffect(()=>{
+    setLoader(true)
 localStorage.removeItem("names")
 const getCategory=async()=>{
 let ress1 = await fetch(`${HOST}/api/ShowFoodCategoryClient`);
@@ -32,6 +36,8 @@ setFoodCategory(data.data)
  let ressFood = await fetch(`${HOST}/api/ShowFoodItemClient?count=${count}`);
 setCount(count+10)
   let datas = await ressFood.json();
+    setLoader(false)
+
 setLen(datas.allLen)
 setFoodDatas(datas.data)
 }
@@ -40,10 +46,12 @@ getCategory();
 
 const searchHandle=(e)=>{
 setSearch(e.target.value);
+   
 setSear(true)
 const getCategory=async()=>{
 let ress1 = await fetch(`${HOST}/api/SearchItemsClient?category=foodItems&search=${e.target.value}`);
       let datas = await ress1.json();
+  
       if(ress1.status==201){
 setFoodDatas(datas.data)
       
@@ -61,30 +69,36 @@ AllDataFetch();
 
 const filterWithCategory=async(items)=>{
 setCate(true)
+ setLoader(true)
 counts=10;
 localStorage.setItem("names",items[0].FoodCategoryName)
 let itemSend=items[0].FoodCategoryName;
 let ressFood = await fetch(`${HOST}/api/ShowFoodItemClient?itemName=${itemSend}&counts=${counts}`);
 setCounts(counts+10)
   let data = await ressFood.json();
+   setLoader(false)
 setFoodDatas(data.data)
 setLens(data.allLen)
 
 }
 const fetchCategory=async()=>{
 setCate(true)
+ setLoader(true)
 setCounts(counts+10)
 let itemSend=localStorage.getItem("names");
 let ressFood = await fetch(`${HOST}/api/ShowFoodItemClient?itemName=${itemSend}&counts=${counts}`);
   let data = await ressFood.json();
+   setLoader(false)
 setFoodDatas(data.data)
 setLens(data.allLen)
 }
 
 const fetchData = async() => {
+ setLoader(true)
 let ressFood = await fetch(`${HOST}/api/ShowFoodItemClient?count=${count}`);
 setCount(count+10)
   let data = await ressFood.json();
+   setLoader(false)
 setLen(data.allLen)
 setFoodDatas(data.data)
   };
@@ -97,7 +111,7 @@ fetchData();
 
 
   return (
-    <>
+    <><Loader loader={loader}/>
       <div className={Styles.admin}>
      <HeadTag title="Food Item" />
    <Header />

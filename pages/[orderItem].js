@@ -8,6 +8,23 @@ import style from "../styles/SearchBar.module.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 let HOST = process.env.NEXT_PUBLIC_API_URL;
+import { IoMdShareAlt } from 'react-icons/io';
+import {
+
+  FacebookShareButton,
+  LinkedinShareButton,
+  PinterestShareButton,
+  TelegramShareButton,
+  TwitterShareButton,
+  WhatsappShareButton,
+  FacebookIcon,
+  LinkedinIcon,
+  PinterestIcon,
+  TelegramIcon,
+  TwitterIcon,
+  WhatsappIcon,
+} from "react-share";
+
 import Image from "next/image";
 import { AllContext } from "../context/AllContext";
 import { Rating } from "react-simple-star-rating";
@@ -26,7 +43,6 @@ export default function OrderItem() {
 
 
 const [loader,setLoader]=useState(true);
-
   const { refresh } = useContext(AllContext);
   const [ratingData, setRatingData] = useState([]);
   const [copyData, setCopyData] = useState([]);
@@ -43,12 +59,18 @@ const [loader,setLoader]=useState(true);
   const [add, setAdd] = useState(true);
   const [data, setData] = useState([]);
   const router = useRouter();
+    const { asPath } = useRouter();
+    const [fullAddress,setFullAddress]=useState("")
+const [shareState,setShareState]=useState(false)
   const query = router.query.orderItem;
   const [rateSearch, setRateSearch] = useState();
   const [timeSearch, setTimeSearch] = useState();
   const [productId, setProductId] = useState();
   useEffect(() => {
+  var valueUrl=HOST+asPath;
+      setFullAddress(valueUrl);
   setLoader(true)
+
     const FindDataUsingSearch = async () => {
       if (query != undefined) {
         const res = await fetch(`${HOST}/api/ShowSingleItem?item=${query}`);
@@ -1062,7 +1084,6 @@ if(ratingData.length!=0){
 
 // report comment
 const reportComment=(item)=>{
-console.log(item)
 if(localStorage.getItem('login')!='true'||localStorage.getItem('login')==undefined){
       toast.warn("Please Login With Clinet Credentials", {
         position: "bottom-right",
@@ -1193,6 +1214,11 @@ if(localStorage.getItem('login')!='true'||localStorage.getItem('login')==undefin
       ],
     });
 }
+
+// share button
+const share=()=>{
+setShareState(!shareState)
+}
   function FilterCard() {
     let foodFind;
     let coffeeFind;
@@ -1219,8 +1245,42 @@ if(localStorage.getItem('login')!='true'||localStorage.getItem('login')==undefin
               />
             </div>
             <div className={style.right}>
-              <h1>{data[0].FoodName}</h1>
-              <div className={style.star}>
+
+              <h1>{data[0].FoodName} <span className={(shareState)? style.activeBtn:style.shareBtn } onClick={share}><IoMdShareAlt title="Share Link to this Item" /></span></h1>
+
+              {(shareState)?   <div className={style.shareContainer}>
+              <div className={style.shape}></div>
+
+              <li title="What's App Share"><span className={style.shareBtn} onClick={share}><WhatsappShareButton url={fullAddress} title="See This Food Item ::" separator="" >
+              <WhatsappIcon round={true} size="40"></WhatsappIcon>
+              </WhatsappShareButton></span></li>
+
+              <li title="Facebook Share"><span className={style.shareBtn} onClick={share}><FacebookShareButton url={fullAddress} hashtag="See This Food Item ::" quote="sd canteen" >
+              <FacebookIcon round={true} size="40"></FacebookIcon>
+              </FacebookShareButton></span></li>
+
+              <li title="Twitter Share"><span className={style.shareBtn} onClick={share}><TwitterShareButton url={fullAddress} hashtags={data} title="See This Food Item ::"  via="sd canteen" >
+              <TwitterIcon round={true} size="40"></TwitterIcon>
+              </TwitterShareButton></span></li>
+
+              
+              <li title="Linkedin Share"><span className={style.shareBtn} onClick={share}><LinkedinShareButton url={fullAddress} title="See This Food Item ::" summary="eat food from sd canteen website" source="sdcanteen">
+              <LinkedinIcon round={true} size="40"></LinkedinIcon>
+              </LinkedinShareButton></span></li>
+
+              
+              <li title="Telegram Share"><span className={style.shareBtn} onClick={share}><TelegramShareButton url={fullAddress} title="See This Food Item ::" >
+              <TelegramIcon round={true} size="40"></TelegramIcon>
+              </TelegramShareButton></span></li>
+              
+              <li title="Pinterest Share"><span className={style.shareBtn} onClick={share}><PinterestShareButton url={fullAddress} media={fullAddress} description="sd canten food ">
+              <PinterestIcon round={true} size="40"></PinterestIcon>
+              </PinterestShareButton></span></li>
+              </div>: ""}
+            
+
+
+                            <div className={style.star}>
                 <div className={style.startSection}>
                   <Rating
                     initialValue={avg}
@@ -1526,7 +1586,36 @@ if(localStorage.getItem('login')!='true'||localStorage.getItem('login')==undefin
               />
             </div>
             <div className={style.right}>
-              <h1>{data[0].CoffeeName}</h1>
+                <h1>{data[0].CoffeeName} <span className={(shareState)? style.activeBtn:style.shareBtn } onClick={share}><IoMdShareAlt title="Share Link to this Item" /></span></h1>
+
+              {(shareState)?   <div className={style.shareContainer}>
+
+              <li title="What's App Share"><span className={style.shareBtn} onClick={share}><WhatsappShareButton url={fullAddress} title="See This Food Item ::" separator="" >
+              <WhatsappIcon round={true} size="40"></WhatsappIcon>
+              </WhatsappShareButton></span></li>
+
+              <li title="Facebook Share"><span className={style.shareBtn} onClick={share}><FacebookShareButton url={fullAddress} hashtag="See This Food Item ::" quote="sd canteen" >
+              <FacebookIcon round={true} size="40"></FacebookIcon>
+              </FacebookShareButton></span></li>
+
+              <li title="Twitter Share"><span className={style.shareBtn} onClick={share}><TwitterShareButton url={fullAddress} hashtags={data} title="See This Food Item ::"  via="sd canteen" >
+              <TwitterIcon round={true} size="40"></TwitterIcon>
+              </TwitterShareButton></span></li>
+
+              
+              <li title="Linkedin Share"><span className={style.shareBtn} onClick={share}><LinkedinShareButton url={fullAddress} title="See This Food Item ::" summary="eat food from sd canteen website" source="sdcanteen">
+              <LinkedinIcon round={true} size="40"></LinkedinIcon>
+              </LinkedinShareButton></span></li>
+
+              
+              <li title="Telegram Share"><span className={style.shareBtn} onClick={share}><TelegramShareButton url={fullAddress} title="See This Food Item ::" >
+              <TelegramIcon round={true} size="40"></TelegramIcon>
+              </TelegramShareButton></span></li>
+              
+              <li title="Pinterest Share"><span className={style.shareBtn} onClick={share}><PinterestShareButton url={fullAddress} media={fullAddress} description="sd canten food ">
+              <PinterestIcon round={true} size="40"></PinterestIcon>
+              </PinterestShareButton></span></li>
+              </div>: ""}
               <div className={style.star}>
                 <div className={style.startSection}>
                   <Rating
@@ -1831,7 +1920,36 @@ if(localStorage.getItem('login')!='true'||localStorage.getItem('login')==undefin
               />
             </div>
             <div className={style.right}>
-              <h1>{data[0].DrinkName}</h1>
+                <h1>{data[0].DrinkName} <span className={(shareState)? style.activeBtn:style.shareBtn } onClick={share}><IoMdShareAlt title="Share Link to this Item" /></span></h1>
+
+              {(shareState)?   <div className={style.shareContainer}>
+
+              <li title="What's App Share"><span className={style.shareBtn} onClick={share}><WhatsappShareButton url={fullAddress} title="See This Food Item ::" separator="" >
+              <WhatsappIcon round={true} size="40"></WhatsappIcon>
+              </WhatsappShareButton></span></li>
+
+              <li title="Facebook Share"><span className={style.shareBtn} onClick={share}><FacebookShareButton url={fullAddress} hashtag="See This Food Item ::" quote="sd canteen" >
+              <FacebookIcon round={true} size="40"></FacebookIcon>
+              </FacebookShareButton></span></li>
+
+              <li title="Twitter Share"><span className={style.shareBtn} onClick={share}><TwitterShareButton url={fullAddress} hashtags={data} title="See This Food Item ::"  via="sd canteen" >
+              <TwitterIcon round={true} size="40"></TwitterIcon>
+              </TwitterShareButton></span></li>
+
+              
+              <li title="Linkedin Share"><span className={style.shareBtn} onClick={share}><LinkedinShareButton url={fullAddress} title="See This Food Item ::" summary="eat food from sd canteen website" source="sdcanteen">
+              <LinkedinIcon round={true} size="40"></LinkedinIcon>
+              </LinkedinShareButton></span></li>
+
+              
+              <li title="Telegram Share"><span className={style.shareBtn} onClick={share}><TelegramShareButton url={fullAddress} title="See This Food Item ::" >
+              <TelegramIcon round={true} size="40"></TelegramIcon>
+              </TelegramShareButton></span></li>
+              
+              <li title="Pinterest Share"><span className={style.shareBtn} onClick={share}><PinterestShareButton url={fullAddress} media={fullAddress} description="sd canten food ">
+              <PinterestIcon round={true} size="40"></PinterestIcon>
+              </PinterestShareButton></span></li>
+              </div>: ""}
               <div className={style.star}>
                 <div className={style.startSection}>
                   <Rating
@@ -2129,13 +2247,42 @@ if(localStorage.getItem('login')!='true'||localStorage.getItem('login')==undefin
               <Image
                 src={`/JuiceItemImages/${data[0].Image}`}
                 alt="image"
-                width={"480px"}
+                width={"350px"}
                 height={"400px"}
-                objectFit="cover"
+               
               />
             </div>
             <div className={style.right}>
-              <h1>{data[0].JuiceName}</h1>
+                <h1>{data[0].JuiceName} <span className={(shareState)? style.activeBtn:style.shareBtn } onClick={share}><IoMdShareAlt title="Share Link to this Item" /></span></h1>
+
+              {(shareState)?   <div className={style.shareContainer}>
+
+              <li title="What's App Share"><span className={style.shareBtn} onClick={share}><WhatsappShareButton url={fullAddress} title="See This Food Item ::" separator="" >
+              <WhatsappIcon round={true} size="40"></WhatsappIcon>
+              </WhatsappShareButton></span></li>
+
+              <li title="Facebook Share"><span className={style.shareBtn} onClick={share}><FacebookShareButton url={fullAddress} hashtag="See This Food Item ::" quote="sd canteen" >
+              <FacebookIcon round={true} size="40"></FacebookIcon>
+              </FacebookShareButton></span></li>
+
+              <li title="Twitter Share"><span className={style.shareBtn} onClick={share}><TwitterShareButton url={fullAddress} hashtags={data} title="See This Food Item ::"  via="sd canteen" >
+              <TwitterIcon round={true} size="40"></TwitterIcon>
+              </TwitterShareButton></span></li>
+
+              
+              <li title="Linkedin Share"><span className={style.shareBtn} onClick={share}><LinkedinShareButton url={fullAddress} title="See This Food Item ::" summary="eat food from sd canteen website" source="sdcanteen">
+              <LinkedinIcon round={true} size="40"></LinkedinIcon>
+              </LinkedinShareButton></span></li>
+
+              
+              <li title="Telegram Share"><span className={style.shareBtn} onClick={share}><TelegramShareButton url={fullAddress} title="See This Food Item ::" >
+              <TelegramIcon round={true} size="40"></TelegramIcon>
+              </TelegramShareButton></span></li>
+              
+              <li title="Pinterest Share"><span className={style.shareBtn} onClick={share}><PinterestShareButton url={fullAddress} media={fullAddress} description="sd canten food ">
+              <PinterestIcon round={true} size="40"></PinterestIcon>
+              </PinterestShareButton></span></li>
+              </div>: ""}
               <div className={style.star}>
                 <div className={style.startSection}>
                   <Rating

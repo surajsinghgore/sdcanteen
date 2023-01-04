@@ -1,0 +1,585 @@
+.clientPanel{
+width: 100%;
+display: flex;
+margin-top: 6%;
+height: auto;
+background-color: rgb(246, 246, 246);
+}
+
+.clientPanel .left{
+width: 20%;
+margin-top: 4%;
+margin-left: 8%;
+box-shadow: 0px 0px 12px rgb(159, 159, 159);
+height: 650px;
+background-color: rgb(255, 255, 255);
+margin-bottom: 5%;
+border-radius: 10px;
+}
+
+.clientPanel .left .imageSection{
+width:190px;
+margin-top: 10%;
+margin-left: 14%;
+position: relative;
+height: auto;
+overflow: hidden;
+}
+.clientPanel .left .imageSection .imgs{
+border-radius: 10%;
+}
+
+.clientPanel .left .imageSection .update{
+
+position: absolute;
+cursor: pointer;
+bottom: 0;
+left: 25%;
+border-top-left-radius: 60px;
+border-top-right-radius: 60px;
+color: rgb(215, 5, 5);
+font-size: 20px;
+text-align: center;
+width: 100px;
+background-color: rgb(255, 255, 255);
+}
+
+.clientPanel .left .imageSection .update .edit{
+margin-top: 8%;
+color: rgb(209, 0, 14);
+}
+.clientPanel .left  .title{
+width: 80%;
+text-align: center;
+margin-left: 10%;
+font-size: 0.8vw;
+}
+.clientPanel .left .title h1{
+color: rgb(107, 107, 107);
+font-weight: 400;
+}
+.clientPanel .left  hr{
+width: 100%;
+background-color: rgb(210, 210, 210);
+}
+
+.clientPanel .left .links{
+width: 90%;
+margin-top: 8%;
+margin-left: 10%;
+list-style: none;
+
+
+}
+.clientPanel .left .links .link{
+background-color: rgb(246, 246, 246);
+}
+
+.clientPanel .left .links li:hover{
+background-color: rgb(246, 246, 246);
+cursor: pointer;
+}
+.clientPanel .left .links li{
+height: 60px;
+display: flex;
+margin-top: 4%;
+}
+
+.clientPanel .left .links li .icon{
+font-size: 30px;
+padding-top: 4%;
+padding-left: 10%;
+color: rgb(255, 255, 255);
+}
+.clientPanel .left .links li .icon .ic{
+background-color: rgb(73, 73, 73);
+border-radius: 60px;
+width: 45px;
+padding-top: 10%;
+text-align: center;
+margin-left: -2%;
+}
+.clientPanel .left .links li .text{
+padding-left: 10%;
+font-size: 20px;
+padding-top: 6%;
+color: rgb(1, 25, 46);
+}
+
+
+.clientPanel .right{
+width: 60%;
+position: relative;
+margin-top: 4%;
+margin-left: 3%;
+box-shadow: 0px 0px 12px rgb(159, 159, 159);
+height: 650px;
+background-color: rgb(255, 255, 255);
+margin-bottom: 5%;
+border-radius: 10px;
+overflow: hidden;
+}
+.clientPanel .right button{
+position: absolute;
+bottom: 0;
+left: 35%;
+padding-top: 1%;
+background-color: rgb(70, 70, 70);
+height: 55px;
+width: 250px;
+cursor: pointer;
+color: white;
+font-size: 20px;
+border: none;
+border-top-left-radius: 30px;
+border-top-right-radius: 30px;
+transition: all 0.4s;
+}
+
+.clientPanel .right button:hover{
+background-color: rgb(125, 125, 125);
+color: rgb(255, 255, 255);
+
+}
+
+
+.clientPanel .right .general{
+width: 100%;
+height: 120px;
+
+}
+.clientPanel .right .general .top{display: flex;}
+.clientPanel .right .general .headingTop{
+font-size: 30px;
+width: 90%;
+margin-top: 2%;
+padding-left: 4%;
+}
+.clientPanel .right .general .topicons{
+width: 12%;
+background-color: rgb(228, 228, 228);
+text-align: right;
+font-size: 20px;
+padding-right: 1.7%;
+cursor: pointer;
+padding-top: 1.7%;
+border-bottom-left-radius: 40px;
+}
+
+.clientPanel .right .general .topicons:hover{
+color: rgb(248, 1, 129);
+}
+
+.clientPanel .right .general .forms{
+width: 100%;
+height: auto;
+list-style: none;
+margin-top: 2%;
+}
+.clientPanel .right .general .forms li{
+width: 40%;
+margin-left: 7%;
+float: left;
+height: auto;
+margin-bottom: 4%;
+}
+.clientPanel .right .general .forms li .tt{
+color: rgb(95, 95, 95);
+font-size: 19px;
+padding-left: 2%;
+}
+.clientPanel .right .general .forms li .dd input::-webkit-outer-spin-button,
+.clientPanel .right .general .forms li .dd input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.clientPanel .right .general .forms li .dd select{
+width: 300px;
+margin-top: 2%;
+height: 38px;
+padding-left: 3%;
+border: 2px solid rgb(112, 112, 112);
+font-size: 18px;
+outline: none;
+text-align: center;
+}
+.clientPanel .right .general .forms li .dd input{
+width: 300px;
+margin-top: 2%;
+height: 38px;
+padding-left: 3%;
+border: 2px solid rgb(112, 112, 112);
+font-size: 18px;
+outline: none;
+}
+.clientPanel .right .general .forms .text{
+width: 70%;
+margin-left: 7%;
+float: left;
+height: auto;
+margin-top: -1%;
+}
+.clientPanel .right .general .forms .text .dd textarea{
+width: 680px;
+margin-top: 2%;
+height: 138px;
+padding-left: 3%;
+padding-top: 2%;
+border: 2px solid rgb(112, 112, 112);
+font-size: 22px;
+outline: none;
+resize: none;
+}
+
+
+/* update general form */
+ .updateGeneral{
+ position: absolute;
+ top: 0;
+ left: 0;
+ position: fixed;
+z-index: 99;
+width: 98.8vw;
+height: 100vh;
+
+}
+ .updateGeneral .shadow{
+ position: absolute;
+ top: 0;
+ left: 0;
+opacity: 0.7;
+ width: 100%;
+height: 100%;
+ background-color: rgb(214, 214, 214);
+ }
+
+
+.updateGeneral .form{
+width: 80%;
+position: absolute;
+top: 4%;
+left: 12%;
+height: auto;
+list-style: none;
+padding-bottom: 5%;
+z-index: 999;
+box-shadow: 0px 0px 12px rgb(197, 197, 197);
+background-color: rgb(255, 255, 255);
+}
+
+.updateGeneral .form .top{
+width: 100%;
+display: flex;
+padding-bottom:2%;
+height: auto;
+border-bottom: 2px solid rgb(158, 158, 158);
+}
+.updateGeneral .form .top .headingTop{
+width: 80%;
+padding-top: 2%;
+padding-left: 3%;
+font-size: 30px;
+color: rgb(72, 72, 72);
+}
+
+.updateGeneral .form .top .topicons{
+width: 20%;
+padding-top: 1%;
+padding-left: 13%;
+color: rgb(72, 72, 72);
+}
+.updateGeneral .form .top .topicons span{
+font-size: 38px;
+cursor: pointer;
+}
+.updateGeneral .form .top .topicons span:hover{
+color: red;
+}
+
+
+.updateGeneral .forms{
+padding-top: 1%;
+padding-left: 2%;
+}
+.updateGeneral .form li{
+width: 40%;
+margin-left: 7%;
+float: left;
+height: auto;
+}
+.updateGeneral .form li .tt{
+color: rgb(95, 95, 95);
+font-size: 19px;
+padding-left: 2%;
+}
+.updateGeneral .form li .dd input::-webkit-outer-spin-button,
+.updateGeneral .form li .dd input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.updateGeneral .form li .dd select{
+width: 360px;
+
+margin-top: 2%;
+height: 38px;
+padding-left: 3%;
+border: 2px solid rgb(112, 112, 112);
+font-size: 18px;
+outline: none;
+text-align: center;
+}
+.updateGeneral .form li .dd input{
+width: 360px;
+margin-top: 2%;
+height: 38px;
+padding-left: 3%;
+border: 2px solid rgb(112, 112, 112);
+font-size: 18px;
+outline: none;
+}
+.updateGeneral .form .text{
+width: 70%;
+margin-left: 7%;
+float: left;
+height: auto;
+margin-top: 1%;
+}
+.updateGeneral .form .text .dd textarea{
+width: 870px;
+margin-top: 2%;
+height: 138px;
+padding-left: 3%;
+padding-top: 2%;
+border: 2px solid rgb(112, 112, 112);
+font-size: 22px;
+outline: none;
+resize: none;
+}
+.updateGeneral .form button{
+position: absolute;
+bottom: 0;
+left: 35%;
+padding-top: 1%;
+background-color: rgb(70, 70, 70);
+height: 55px;
+width: 250px;
+cursor: pointer;
+color: white;
+font-size: 20px;
+border: none;
+border-top-left-radius: 30px;
+border-top-right-radius: 30px;
+transition: all 0.4s;
+}
+
+.updateGeneral .form button:hover{
+background-color: rgb(125, 125, 125);
+color: rgb(255, 255, 255);
+
+}
+
+
+/* password */
+
+
+.clientPanel .right .password{
+width: 100%;
+height: 120px;
+
+}
+.clientPanel .right .password .top{display: flex;}
+.clientPanel .right .password .headingTop{
+font-size: 30px;
+width: 90%;
+margin-top: 5%;
+padding-left: 7%;
+}
+
+
+.clientPanel .right .password .forms{
+width: 100%;
+height: auto;
+list-style: none;
+margin-top: 7%;
+}
+.clientPanel .right .password .forms li{
+width: auto;
+margin-left: 7%;
+height: auto;
+margin-top: 3%;
+}
+.clientPanel .right .password .forms li .tt{
+color: rgb(95, 95, 95);
+font-size: 19px;
+padding-left: 1%;
+}
+
+.clientPanel .right .password .forms li button{
+position: relative;
+border-radius:2px;
+margin-left: -10%;
+width: 300px;
+font-size: 18px;
+margin-top: 2%;
+height: auto;
+padding: 1.3% 2% 1.3% 2%;
+}
+
+.clientPanel .right .password .forms li .dd input{
+width: 90%;
+margin-top: 1%;
+height: 40px;
+padding-left: 3%;
+border: 2px solid rgb(112, 112, 112);
+font-size: 18px;
+outline: none;
+}
+
+
+/* profile change */
+
+ .profile{
+ position: absolute;
+ top: 0;
+ left: 0;
+ position: fixed;
+z-index: 99;
+width: 98.8vw;
+height: 100vh;
+
+}
+ .profile .shadow{
+ position: absolute;
+ top: 0;
+ left: 0;
+opacity: 0.7;
+ width: 100%;
+height: 100%;
+ background-color: rgb(214, 214, 214);
+ }
+
+
+.profile .form{
+width: 80%;
+position: absolute;
+top: 4%;
+left: 12%;
+height: auto;
+list-style: none;
+padding-bottom: 5%;
+z-index: 999;
+box-shadow: 0px 0px 12px rgb(197, 197, 197);
+background-color: rgb(255, 255, 255);
+}
+
+.profile .form .top{
+width: 100%;
+display: flex;
+padding-bottom:2%;
+height: auto;
+border-bottom: 2px solid rgb(158, 158, 158);
+}
+.profile .form .top .headingTop{
+width: 80%;
+padding-top: 2%;
+padding-left: 3%;
+font-size: 30px;
+color: rgb(72, 72, 72);
+}
+
+.profile .form .top .topicons{
+width: 20%;
+padding-top: 1%;
+padding-left: 13%;
+color: rgb(72, 72, 72);
+}
+.profile .form .top .topicons span{
+font-size: 38px;
+cursor: pointer;
+}
+.profile .form .top .topicons span:hover{
+color: red;
+}
+
+
+.profile .upsection{
+width: 100%;
+height: 400px;
+display: flex;
+}
+
+.profile .upsection .lefts{width: 50%;}
+
+.profile .upsection .lefts{
+width:50%;
+} 
+.profile .upsection .lefts h1{
+padding-top: 5%;
+font-size: 25px;
+color: rgb(113, 113, 113);
+padding-left: 10%;
+}
+
+.profile .upsection .lefts input[type="file"] {
+    display: none;
+}
+
+.profile .upsection .lefts .div {
+padding-left: 25%;
+padding-top:35%;
+}
+.profile .upsection .lefts .custom_file_upload {
+position: relative;
+    cursor: pointer;
+    width: 70%;
+font-size: 25px;
+color: rgb(78, 78, 78);
+border: 1px solid rgb(210, 210, 210);
+padding: 2% 12% 2% 14%;
+height: auto;
+border-radius: 30px;
+transition: all 0.4s;
+}
+.profile .upsection .lefts .custom_file_upload:hover{
+box-shadow: 0px 0px 30px 10px rgb(245, 245, 245);
+border: 1px solid rgb(179, 179, 179);
+}
+
+.profile .upsection .lefts .custom_file_upload .upload_icon{
+position: absolute;
+top: 21%;
+left: 8%;
+font-size: 30px;
+color: rgb(68, 0, 255);
+}
+.profile .upsection .lefts button{
+position: absolute;
+bottom: 0;
+left: 35%;
+width: 30%;
+height: auto;
+padding: 2% 1% 1% 1%;
+outline: none;
+cursor: pointer;
+font-size: 20px;
+border-top-left-radius: 50px;
+border-top-right-radius: 50px;
+color: white;
+border: none;
+background: rgb(252, 106, 9);
+box-shadow: 0px 0px 10px 4px rgb(239, 239, 239);
+
+}
+
+
+
+
+
+
+.Profile .rights{
+width:50%;
+padding-left: 5%;
+}
+

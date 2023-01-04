@@ -193,6 +193,8 @@ progress: undefined,
 </div>
 <button onClick={uploadProfileImage}>Upload Profile</button>
 </div>
+
+
  <div className={ProfileStyles.right}>
  <div className={ProfileStyles.image}>
   <Image src={imgs} alt="" id="output" width={780} height={800} />

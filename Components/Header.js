@@ -252,12 +252,7 @@ const LogoutClient=()=>{
 
 
 const getData=async()=>{
-const res = await fetch(`${HOST}/api/LogoutClient`, {
-      method: "Get",
-      headers: {
-        "Content-type": "application/json",
-      }
-    });
+const res = await fetch(`${HOST}/api/LogoutClient`);
 
 await res.json();
 if(res.status==201){
@@ -365,13 +360,16 @@ suggestion.style.display="none"
 <h1>Today's Order</h1>
 </a></Link>
 </div>
+
 <div>
-<i><BiPaste /></i>
-<h1>Past Order</h1>
+<Link href={"/ClientManage"}><a><i><BiUserCircle /></i>
+<h1>Manage Info</h1></a></Link>
 </div>
+
 <div>
-<i><BiUserCircle /></i>
-<h1>Account Info</h1>
+<Link href={"/PastOrder"}><a>
+<i><BiPaste /></i>
+<h1>Past Order</h1></a></Link>
 </div>
 <div onClick={LogoutClient}>
 <i><MdLogout /></i>

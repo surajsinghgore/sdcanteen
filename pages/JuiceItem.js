@@ -1,6 +1,7 @@
 import HeadTag from "../Components/Head";
 import Header from "../Components/Header";
 import Footer from "../Components/Footer";
+import Loader from "../Components/Loader";
 import Style from '../styles/FoodItem.module.css'
 import Styles from "../styles/admin.module.css";
 import banner from '../public/banner2.jpg';
@@ -16,6 +17,7 @@ import JuiceCard from "../Components/JuiceCard";
 
 
 export default function JuiceItem() {
+const [loader,setLoader]=useState(false);
 
 const [foodCategory,setFoodCategory]=useState([]);
 const [search,setSearch]=useState('');
@@ -28,6 +30,8 @@ const [cate,setCate]=useState(false);
 const [sear,setSear]=useState(false);
 
 useEffect(()=>{
+    setLoader(true)
+
 localStorage.removeItem("names")
 const getCategory=async()=>{
 let ress1 = await fetch(`${HOST}/api/ShowJuiceCategoryClient`);
@@ -36,6 +40,7 @@ setFoodCategory(data.data)
  let ressFood = await fetch(`${HOST}/api/ShowJuiceClient?count=${count}`);
 setCount(count+10)
   let datas = await ressFood.json();
+   setLoader(false)
 setLen(datas.allLen)
 setFoodDatas(datas.data)
 }
@@ -66,29 +71,37 @@ AllDataFetch();
 
 const filterWithCategory=async(items)=>{
 setCate(true)
+ setLoader(true)
 counts=10;
 localStorage.setItem("names",items[0].JuiceCategoryName)
 let itemSend=items[0].JuiceCategoryName;
 let ressFood = await fetch(`${HOST}/api/ShowJuiceClient?itemName=${itemSend}&counts=${counts}`);
 setCounts(counts+10)
   let data = await ressFood.json();
-setFoodDatas(data.data)
-setLens(data.allLen)
-}
-const fetchCategory=async()=>{
-setCate(true)
-setCounts(counts+10)
-let itemSend=localStorage.getItem("names");
-let ressFood = await fetch(`${HOST}/api/ShowJuiceClient?itemName=${itemSend}&counts=${counts}`);
-  let data = await ressFood.json();
+   setLoader(false)
 setFoodDatas(data.data)
 setLens(data.allLen)
 }
 
+
+const fetchCategory=async()=>{
+setCate(true)
+setCounts(counts+10); setLoader(true)
+let itemSend=localStorage.getItem("names");
+let ressFood = await fetch(`${HOST}/api/ShowJuiceClient?itemName=${itemSend}&counts=${counts}`);
+  let data = await ressFood.json();
+   setLoader(false)
+setFoodDatas(data.data)
+setLens(data.allLen)
+}
+
+
 const fetchData = async() => {
+ setLoader(true)
 let ressFood = await fetch(`${HOST}/api/ShowJuiceClient?count=${count}`);
 setCount(count+10)
   let data = await ressFood.json();
+   setLoader(false)
 setLen(data.allLen)
 setFoodDatas(data.data)
   };
@@ -105,7 +118,7 @@ fetchData();
 
 
   return (
-    <>
+    <><Loader loader={loader}/>
      <div className={Styles.admin}>
      <HeadTag title="Juice Item" />
    <Header />

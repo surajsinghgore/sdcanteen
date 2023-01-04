@@ -13,7 +13,10 @@ export default async function ShowAllOrderClient
     }
 
       let UserId=res1.id;  
-let data=await OrderSchemaDataBase.find({UserId})
+let data=await OrderSchemaDataBase.find({UserId}).sort({"OrderDate":-1,"PickUpTime2":-1}).select("-createdAt -updatedAt -PaymentInfo -OrderId -PickUpTime1 -UserId")
+
+console.log(data)
+
       res.status(201).json({ data, status: "201" });
     } catch (error) {
       console.log(error);
