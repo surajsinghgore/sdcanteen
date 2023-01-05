@@ -1,0 +1,114 @@
+.category{
+width: 100%;
+margin-top: 5%;
+height: auto;
+}
+
+.category h3{
+font-size: 40px;
+color: red;
+padding-top: 2%;
+padding-left: 5%;
+}
+
+
+.category .banner{
+width: 100%;
+position: relative;
+
+height: auto;
+}
+.category .banner h1{
+position: absolute;
+top: 22%;
+font-size: 60px;
+left: 0%;
+width: 100%;
+text-align: center;
+text-transform: capitalize;
+color: red;
+text-shadow: 0px 0px 20px rgb(251, 205, 205);
+} 
+.category .banner .divs{
+position: absolute;
+top: 52%;
+font-size: 30px;
+left: 0%;
+text-align: center;
+width: 100%;
+color: rgb(54, 54, 54);
+text-shadow: 0px 0px 20px rgb(251, 205, 205);
+}
+
+
+.category .Its{
+background-color: white;
+
+}
+.category .Items{
+margin-bottom: 5%;
+width: 100%;
+background-color: white;
+
+height: auto;
+position: relative;
+}
+.category .Items .item{
+border: 1px solid rgb(195, 195, 195);
+width: 370px;
+height: auto;
+float: left;
+margin-bottom: 5%;
+border-radius: 7px;
+background-color: white;
+margin-left: 4%;
+}
+.category .Items .item:hover{
+background-color: rgb(255, 250, 245);
+cursor: pointer;
+}
+
+
+
+.category .Items .item .card .imags{
+margin-top: 5%;
+margin-left: 6%;
+}
+.category .Items .item .card .data{
+width: 100%;
+}
+.category .Items .item .card .data h1{
+padding-left: 7%;
+width: 100%;
+}
+.category .Items .item .card .data h6{
+padding-left: 7%;
+margin-top: -1%;
+color: rgb(70, 70, 70);
+font-size: 16px;
+}
+.category .Items .item .card .data h4{
+margin-top: -6%;
+padding-left: 7%;
+color: rgb(77, 77, 77);
+font-size: 16px;
+}
+.category .Items .item .card .data button{
+margin-left: 10%;
+margin-bottom: 9%;
+width: 80%;
+height: 40px;
+color: white;
+cursor: pointer;
+font-size: 19px;
+border: none;
+outline: none;
+background-color: rgb(255, 73, 73);
+border-radius: 20px;
+transition: all 0.4s;
+}
+.category .Items .item .card .data button:hover{
+background-color: rgb(246, 127, 127);
+color: rgb(0, 0, 0);
+
+}

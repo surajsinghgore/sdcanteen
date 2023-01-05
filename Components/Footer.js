@@ -22,11 +22,12 @@ setYear(date.getFullYear())
     {/* menu links */}
 <div className="menu">
 <h1>Hot Menu</h1>
-<li><Link href="/"><a><IoMdArrowDropright /> Burger</a></Link></li>
-<li><Link href="/"><a><IoMdArrowDropright /> Sandwich</a></Link></li>
-<li><Link href="/"><a><IoMdArrowDropright /> Cold Coffee</a></Link></li>
-<li><Link href="/"><a><IoMdArrowDropright /> Fast Food</a></Link></li>
-<li><Link href="/"><a><IoMdArrowDropright /> Juices and shakes</a></Link></li>
+<li><Link href="/Items/burger"><a><IoMdArrowDropright /> Burger</a></Link></li>
+<li><Link href="/Items/sandwich"><a><IoMdArrowDropright /> Sandwich</a></Link></li>
+<li><Link href="/Items/cold coffee"><a><IoMdArrowDropright /> Cold Coffee</a></Link></li>
+<li><Link href="/Items/fast food"><a><IoMdArrowDropright /> Fast Food</a></Link></li>
+<li><Link href="/Items/juices"><a><IoMdArrowDropright /> Juices</a></Link></li>
+<li><Link href="/Items/cold drinks"><a><IoMdArrowDropright />Cold Drink</a></Link></li>
 </div>
 
 

@@ -1,0 +1,165 @@
+.gallery{
+margin-top: 5.2%;
+width: 100%;
+height: auto;
+}
+.gallery h1{
+margin-top: 8%;
+margin-bottom: 5%;
+text-align: center;
+font-size: 50px;
+color: rgb(243, 91, 25);
+}
+.gallery .main{
+width: 100%;
+height: auto;
+padding-left: 2%;
+}
+.gallery .main .card{
+width: 400px;
+border-radius: 5px;
+float: left;
+margin-left: 2%;
+margin-bottom: 3%;
+position: relative;
+border: 1px solid rgb(252, 250, 252);
+box-shadow: 0px 0px 10px rgb(227, 227, 227);
+overflow: hidden;
+height: auto;
+}
+.gallery .main .card:hover .fulls{
+display: block;
+}
+
+.gallery .main .card .fulls{
+position: absolute;
+top: 30%;
+right: 7%;
+display: none;
+text-align: center;
+font-size: 32px;
+width: 50%;
+z-index: 91;
+height: auto;
+text-align: center;
+transition: all 0.4s;
+}
+.gallery .main .card .fulls .cont{
+width: 60px;
+height: 60px;
+border-radius: 60px;
+padding-top: 5%;
+text-align: center;
+background-color: rgb(37, 37, 37);
+}
+.gallery .main .card .fulls .cont:hover{
+background-color: rgb(246, 111, 27);
+color: rgb(255, 255, 255);
+cursor: pointer;
+
+}
+.gallery .main .card .fulls .cont:hover .iconsFull{
+scale: 1.3;
+}
+.gallery .main .card .fulls .iconsFull{cursor: pointer;
+color: rgb(255, 255, 255);
+transition: all 0.3s;
+ }
+
+
+.gallery .main .card:hover .imgs img{
+scale: 1.1;
+}
+.gallery .main .card .imgs img{
+transition: all 0.5s;
+
+}
+.gallery .main .card .imgs{
+transition: all 0.5s;
+width: 100%;
+height: auto;
+}
+.gallery .main .card .data{
+width: 100%;
+padding-bottom: 6%;
+text-align: center;
+text-transform: capitalize;
+font-size: 30px;
+font-weight: 700;
+transition: all 0.5s;
+padding-top: 3%;
+
+}
+.gallery .main .card:hover .data{
+color: red;
+
+}
+
+
+
+
+/* full screen */
+
+.full{
+position: absolute;
+top: 0;
+left: 0;
+position: fixed;
+z-index: 99;
+width: 100vw;
+height: 100vh;
+}
+.full .blur{
+
+position: absolute;
+top: 0;
+left: 0;
+background-color: rgb(35, 35, 35);
+width: 100%;
+opacity: 0.9;
+height: 100vh;
+}
+.full .close{
+
+position: absolute;
+top: 10.2%;
+width:auto;
+text-align: center;
+left: 80%;
+padding: 0% 2% 0% 2%;
+background-color: rgb(249, 249, 249);
+font-size: 32px;
+color: red;cursor: pointer;
+}
+
+.mainDiv{
+margin-top: 8%;
+width: 70%;
+margin-left: 15%;
+}
+
+
+.inner{
+z-index: 99;
+width: 100%;
+position: relative;
+height: auto;
+background-color: rgb(255, 255, 255);
+padding-bottom: 5%;
+}
+.inner .imageSection{
+width: 100%;
+height: 400px;
+}
+.inner .ps{
+position: absolute;
+bottom: 8%;
+left: 0;
+width: 100%;
+background-color: white;
+font-size: 25px;
+padding-left: 40%;
+text-align: center;
+padding: 1% 0% 1% 0%;
+}
+

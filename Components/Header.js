@@ -317,7 +317,7 @@ suggestion.style.display="none"
     </div>
     </div>
     <div className="links">
-    <li> <i><MdFoodBank/></i> <span className='heading'>Order Now </span></li>
+    <li> <i><MdFoodBank/></i> <span className='heading'><Link href="/OrderNow">Order Now</Link> </span></li>
       <li id="heading"> <i><IoMdArrowDropdown /></i> <span className='heading' >Pages</span></li>
    {(userLogin)?  <li id="user"><i><IoMdArrowDropdown /></i><div style={{marginTop:"10%"}}><Image src={imgs} alt="profile" height={40} width="40" style={{borderRadius:"60px",marginLeft:"4%"}}/><span id='heading1' style={{textAlign:"center"}}>Hii , {fullName}</span></div></li> : 
    
@@ -332,8 +332,8 @@ suggestion.style.display="none"
     <h1>Pages</h1>
     <li><Link href="/">Home</Link></li>
     <li><Link href="/Contact">Contact</Link> </li>
-    <li>About US</li>
-    <li>Gallery</li>
+    <li><Link href="/AboutUs">About US</Link></li>
+    <li><Link href="/Gallery">Gallery</Link></li>
     </div>
         <div className="page">
     <h1>Menu</h1>
@@ -343,13 +343,13 @@ suggestion.style.display="none"
     <li><Link href="/JuiceItem">Juice Menu</Link></li>
     </div>
     <div className="page">
-    <li style={{marginTop:"8%"}}>SD Special</li>
+    <li style={{marginTop:"8%"}}><Link href="/Items/sd special">SD Special</Link></li>
     <li> <Link href="/FoodItem"> Instant Food </Link></li>
     </div>
         <div className="page">
     <h1>Extra Pages</h1>
     <li><Link href="/admin/Login">Admin Login</Link></li>
-    <li><Link href="/">Help Center</Link></li>
+    <li><Link href="/HelpAndSupport">Help Center</Link></li>
     </div>
     </div>
 

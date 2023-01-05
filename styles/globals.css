@@ -434,6 +434,7 @@ color: white;
 
 /* footer */
 footer{
+clear: both;
 height: auto;
 padding-bottom: 3%;
 background-color: #1a1a1a;
@@ -664,4 +665,38 @@ width: 100% !important;
 position: relative !important;
 height: unset !important;
 }
+
+
+
+/* gallery swipper btn */
+/* swiper customized */
+
+#mySwiper1 .swiper-button-next {
+  color: rgb(0, 0, 0);
+  right: -1.1%;
+  height: 60px;
+  width: 50px;
+  box-shadow: 0px 0px 30px rgb(192, 192, 192);
+color: white;
+  background-color : rgb(136, 136, 136);
+}
+
+
+
+
+#mySwiper1 .swiper-button-prev {
+color: rgb(0, 0, 0);
+  box-shadow: 0px 0px 30px rgb(192, 192, 192);
+  left: -1%;
+  height: 60px;
+  width: 50px;
+  background-color : rgb(136, 136, 136);
+
+color: white;
+
+
+}
+
+
+
 
