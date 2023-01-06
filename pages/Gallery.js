@@ -92,8 +92,8 @@ x
          id="mySwiper1"
   
       >
-{GalleryData.map((item)=>{
-return <SwiperSlide>
+{GalleryData.map((item,index)=>{
+return <SwiperSlide key={index}>
            <div className={gallery.inner}>
            <div className={gallery.imageSection}>
            <Image src={item.ImagePath} width={960} height={450} alt="img"/>

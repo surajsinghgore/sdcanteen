@@ -70,7 +70,7 @@ It’s a mistake to design a space for students to sit and eat. Students visit f
 <div className={about.right}>
 <h1>Our Beautiful Nescafe Area</h1>
 <p>Keeping high college students on campus where they can be properly supervised is often a challenge. Offering their favorite caffeinated beverages in-house is one way to meet that challenge, especially for college that have open campuses where students are permitted to leave. As many college remove soda and vending machines from college grounds, replacing them with a coffee bar can be a great alternative, giving students an off-campus type of experience inside the college.
-By setting up and running a coffee stand, students can actually benefit from hands-on learning during their business classes. If they're working in conjunction with the school nutrition department, even better! All parties benefit when a coffee cart draws more students into the school cafeteria.</p>
+By setting up and running a coffee stand, students can actually benefit from hands-on learning during their business classes. If they re working in conjunction with the school nutrition department, even better! All parties benefit when a coffee cart draws more students into the school cafeteria.</p>
 </div>
 </div>
 
@@ -89,7 +89,7 @@ Juicing extracts the juice from fresh fruits or vegetables. The liquid contains 
 
 Some believe that juicing is better than eating whole fruits and vegetables because your body can absorb the nutrients better and it gives your digestive system a rest from digesting fiber. They say juicing can reduce your risk of cancer, boost your immune system, remove toxins from your body, aid digestion and help you lose weight.
 
-However, there's no scientific evidence that extracted juices are healthier than the juice you get by eating the fruit or vegetable itself.
+However, there no scientific evidence that extracted juices are healthier than the juice you get by eating the fruit or vegetable itself.
 </p>
 </div>
 </div>

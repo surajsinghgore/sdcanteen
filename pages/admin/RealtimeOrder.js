@@ -322,7 +322,7 @@ fetchData();
 
         <div className={StyleRealtime.orders}>
           <h1>Filter Records</h1>
-          <h5>Today's Collection : <span>₹ {totalPrice}</span></h5>
+          <h5>Todays Collection : <span>₹ {totalPrice}</span></h5>
 
           {/*! search bar section */}
           <div className={StyleRealtime.searchBar}>

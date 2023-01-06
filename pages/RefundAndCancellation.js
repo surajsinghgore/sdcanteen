@@ -15,7 +15,7 @@ export default function RefundAndCancellation() {
 <h1>Return and Refund Policy</h1>
 <p>Last updated: August 21, 2022</p>
 <p>Thank you for shopping at sd canteen.</p>
-<p>If, for any reason, You are not completely satisfied with a purchase We invite You to review our policy on refunds and returns. This Return and Refund Policy has been created with the help of the <a href="https://www.termsfeed.com/return-refund-policy-generator/" target="_blank">TermsFeed Return and Refund Policy Generator</a>.</p>
+<p>If, for any reason, You are not completely satisfied with a purchase We invite You to review our policy on refunds and returns. This Return and Refund Policy has been created with the help of the <a href="https://www.termsfeed.com/return-refund-policy-generator/" target="_blank"  rel="noreferrer" >TermsFeed Return and Refund Policy Generator</a>.</p>
 <p>The following terms are applicable for any products that You purchased with Us.</p>
 <h1>Interpretation and Definitions</h1>
 <h2>Interpretation</h2>
@@ -36,7 +36,7 @@ export default function RefundAndCancellation() {
 <p><strong>Service</strong> refers to the Website.</p>
 </li>
 <li>
-<p><strong>Website</strong> refers to sd canteen, accessible from <a href="http://www.sdcanteen.com" rel="external nofollow noopener" target="_blank">http://www.sdcanteen.com</a></p>
+<p><strong>Website</strong> refers to sd canteen, accessible from <a href="http://www.sdcanteen.com" rel="noreferrer" target="_blank">http://www.sdcanteen.com</a></p>
 </li>
 <li>
 <p><strong>You</strong> means the individual accessing or using the Service, or the company, or other legal entity on behalf of which such individual is accessing or using the Service, as applicable.</p>
@@ -70,8 +70,8 @@ export default function RefundAndCancellation() {
 <p>Sector 32-C , Chandigarh</p>
 <p>We cannot be held responsible for Goods damaged or lost in return shipment. Therefore, We recommend an insured and trackable mail service. We are unable to issue a refund without actual receipt of the Goods or proof of received return delivery.</p>
 <h1>Gifts</h1>
-<p>If the Goods were marked as a gift when purchased and then shipped directly to you, You'll receive a gift credit for the value of your return. Once the returned product is received, a gift certificate will be mailed to You.</p>
-<p>If the Goods weren't marked as a gift when purchased, or the gift giver had the Order shipped to themselves to give it to You later, We will send the refund to the gift giver.</p>
+<p>If the Goods were marked as a gift when purchased and then shipped directly to you, You&#39;ll receive a gift credit for the value of your return. Once the returned product is received, a gift certificate will be mailed to You.</p>
+<p>If the Goods weren&#39;t marked as a gift when purchased, or the gift giver had the Order shipped to themselves to give it to You later, We will send the refund to the gift giver.</p>
 <h2>Contact Us</h2>
 <p>If you have any questions about our Returns and Refunds Policy, please contact us:</p>
 <ul>

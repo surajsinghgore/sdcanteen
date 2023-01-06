@@ -449,7 +449,7 @@ setProgress(100)
         <div className={CartStyle.cartItem}>
           <div className={CartStyle.cartTable}>
             <h4 style={{ textAlign: "center", fontSize: "30px", color: "red" }}>
-              Note-: Order Can't Cancelled Once Placed.
+              Note-: Order Can&#39;t Cancelled Once Placed.
             </h4>
             <h3 style={{ paddingLeft: "4%", fontSize: "30px" }}>
               Select Payment Mode

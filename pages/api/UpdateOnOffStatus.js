@@ -1,5 +1,5 @@
 import DbConnection from "./Middleware/DbConnection";
-import OrderOnOffStatus from "./Schema/orderOnOff";
+import OrderOnOffStatus from "./Schema/OrderOnOff";
 import VerifyAdmin from "./Middleware/MiddlewareAdminVerify";
 
 

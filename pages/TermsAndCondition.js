@@ -1,4 +1,4 @@
-import HeadTag from "../Components/Head";
+import HeadTag from"../Components/Head";
 import Header from "../Components/Header";
 import Footer from "../Components/Footer";
 import Styles from "../styles/admin.module.css";
@@ -13,10 +13,10 @@ export default function TermsAndCondition() {
 
     <div className={TermStyle.term}>
     <h1>Terms & Conditions</h1>
-    <p>These terms and conditions outline the rules and regulations for the use of sd canteen's Website, located at www.sdcanteen.com. By accessing this website we assume you accept these terms and conditions. Do not continue to use sd canteen.com if you do not agree to take all of the terms and conditions stated on this page. The following terminology applies to these Terms and Conditions, Privacy Statement and Disclaimer Notice and all Agreements: "Client", "You" and "Your" refers to you, the person log on this website and compliant to the Company’s terms and conditions. "The Company", "Ourselves", "We", "Our" and "Us", refers to our Company. "Party", "Parties", or "Us", refers to both the Client and ourselves. All terms refer to the offer, acceptance and consideration of payment necessary to undertake the process of our assistance to the Client in the most appropriate manner for the express purpose of meeting the Client’s needs in respect of provision of the Company’s stated services, in accordance with and subject to, prevailing law of Netherlands. Any use of the above terminology or other words in the singular, plural, capitalization and/or he/she or they, are taken as interchangeable and therefore as referring to same.</p>
+    <p>These terms and conditions outline the rules and regulations for the use of sd canteen&#39;s Website, located at www.sdcanteen.com. By accessing this website we assume you accept these terms and conditions. Do not continue to use sd canteen.com if you do not agree to take all of the terms and conditions stated on this page. The following terminology applies to these Terms and Conditions, Privacy Statement and Disclaimer Notice and all Agreements: &#34;Client&#34;, &#34;You&#34; and &#34;Your&#34; refers to you, the person log on this website and compliant to the Company’s terms and conditions. &#34;The Company&#34;, &#34;Ourselves&#34;, &#34;We&#34;, &#34;Our&#34; and &#34;Us&#34;, refers to our Company. &#34;Party&#34;, &#34;Parties&#34;, or &#34;Us&#34;, refers to both the Client and ourselves. All terms refer to the offer, acceptance and consideration of payment necessary to undertake the process of our assistance to the Client in the most appropriate manner for the express purpose of meeting the Client’s needs in respect of provision of the Company’s stated services, in accordance with and subject to, prevailing law of Netherlands. Any use of the above terminology or other words in the singular, plural, capitalization and/or he/she or they, are taken as interchangeable and therefore as referring to same.</p>
 
     <h3>Cookies</h3>
-    <p>We employ the use of cookies. By accessing sdcanteen.com, you agreed to use cookies in agreement with the sdcanteen's Privacy Policy. Most interactive websites use cookies to let us retrieve the user’s details for each visit. Cookies are used by our website to enable the functionality of certain areas to make it easier for people visiting our website. Some of our affiliate/advertising partners may also use cookies.</p>
+    <p>We employ the use of cookies. By accessing sdcanteen.com, you agreed to use cookies in agreement with the sdcanteen&#39;s Privacy Policy. Most interactive websites use cookies to let us retrieve the user’s details for each visit. Cookies are used by our website to enable the functionality of certain areas to make it easier for people visiting our website. Some of our affiliate/advertising partners may also use cookies.</p>
 
     <h3>License</h3>
     <p>Unless otherwise stated, SD CANTEEN and/or its licensors own the intellectual property rights for all food on sdcanteen.com. All intellectual property rights are reserved. You may access this from sdcanteen.com for your own personal use subjected to restrictions set in these terms and conditions.</p>
@@ -65,7 +65,7 @@ Approved organizations may hyperlink to our Website as follows:
 <li>By use of our corporate name;  or</li>
 <li>By use of the uniform resource locator being linked to; or</li>
 <li>By use of any other description of our Website being linked to that makes sense within the context and format of content on the linking party’s site.</li>
-No use of Sd canteen's logo or other artwork will be allowed for linking absent a trademark license agreement.
+No use of Sd canteen&#39;s logo or other artwork will be allowed for linking absent a trademark license agreement.
 </p>
 
 <h3>iFrames</h3>

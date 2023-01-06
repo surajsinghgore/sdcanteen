@@ -47,7 +47,7 @@ navigation={true}
 <Image src={Img1} alt="img1" height={559} width={1366}/>
 </div>
 <div className="details">
-<h1 id="hh1">You can’t make everyone happy. You’re not pizza</h1>
+<h1 id="hh1">You can	&#39;t make everyone happy. You	&#39;re not pizza</h1>
 
 <button><Link href="/FoodItem"> Order Food Now</Link></button>
 </div>
@@ -61,7 +61,7 @@ navigation={true}
 <Image src={Img3} alt="img1" height={559} width={1366}/>
 </div>
 <div className="details">
-<h1 id="hh1">I don't drink coffee to wake up. I wake up to drink coffee.</h1>
+<h1 id="hh1">I don	&#39;t drink coffee to wake up. I wake up to drink coffee.</h1>
 <button><Link href="/CoffeeItem">Order Coffee Now</Link></button>
 </div>
 </div>
@@ -73,7 +73,7 @@ navigation={true}
 <Image src={Img4} alt="img1" height={559} width={1366}/>
 </div>
 <div className="details">
-<h1 id="hh1">Breakfast isn't complete without quality juice.</h1>
+<h1 id="hh1">Breakfast isn	&#39;t complete without quality juice.</h1>
 <button><Link href="/JuiceItem">Order Juice Now</Link></button>
 </div>
 </div>
@@ -86,7 +86,7 @@ navigation={true}
 <Image src={Img2} alt="img1" height={559} width={1366}/>
 </div>
 <div className="details">
-<h1 id="hh1">After a good dinner one can forgive anybody, even one's own relatives.</h1>
+<h1 id="hh1">After a good dinner one can forgive anybody, even one	&#39;s own relatives.</h1>
 <button>Order Food Now</button>
 </div>
 </div>

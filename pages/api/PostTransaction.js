@@ -1,4 +1,4 @@
-var PaytmChecksum = require("PaytmChecksum");
+import PaytmChecksum from 'paytmchecksum'
 let mid=process.env.NEXT_PUBLIC_MID;
 let mkey=process.env.NEXT_PUBLIC_MKEY;
 import OrderSchemaDataBase from "./Schema/OrderSchema";

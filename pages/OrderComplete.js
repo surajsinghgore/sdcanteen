@@ -83,7 +83,7 @@ fetchOrder();
       </div>
     <div className={Style1.order}>
     <div className={Style1.titleSection}>
-<h1>All Today's Pending Order </h1>
+<h1>All Today&#39;s Pending Order </h1>
 <h2>Total Order Placed : <span>{totalOrderLen}</span></h2>
     </div>
     <div className={Style1.orderToday}>

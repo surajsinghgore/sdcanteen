@@ -119,7 +119,7 @@ setData(resData.data)
 
         <div className={StyleRealtime.orders}>
          <h1>Filter Records</h1>
-          <h5>Total Order's : <span>{(data.length!=0)? data.length:"0"}</span></h5>
+          <h5>Total Orders : <span>{(data.length!=0)? data.length:"0"}</span></h5>
           <div className={StyleRealtime.searchBar1}>
             <select name="time" id="time" value={category} onChange={(e)=>manageCategory(e)}>
               <option value="all">All Records</option>

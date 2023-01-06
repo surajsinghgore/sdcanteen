@@ -110,7 +110,7 @@ setTimeout(loaderOff,300);
     <div className={style.AllOrder}>
    {/* top section */}
     <div className={style.topSection}>
-  <h1>All Order's Details</h1>
+  <h1>All Order&#39;s Details</h1>
   <h2>Total Order Placed <span>{totalOrderLen}</span></h2>
 </div>
 {/* filter section */}
