@@ -1,0 +1,194 @@
+.aboutUs{
+width: 100%;
+height: auto;
+margin-top: 5%;
+}
+
+
+
+.aboutUs .banner{
+width: 100%;
+height: auto;
+background-color: #fafbf8;
+position: relative;
+}
+.aboutUs .banner .imgs{
+width: 100%;
+height: auto;
+}
+
+
+.aboutUs .heading{
+position: absolute;
+top: 37%;
+right:40%;
+}
+.aboutUs .heading .title{
+color: rgb(251, 1, 1);
+font-size: 65px;
+text-shadow: 0px 0px 10px rgb(221, 221, 221);
+}
+.aboutUs .heading .path{
+font-size: 26px;
+padding-top: 5%;
+padding-left: 12%;
+color: #3f3f3f;
+}
+.aboutUs .heading .path a:hover{
+color: red;
+}
+
+
+
+
+.aboutUs .provide{
+height: auto;
+width: 100%;
+padding-bottom: 3%;
+background-color: rgb(251, 251, 251);
+
+}
+.aboutUs .provide h1{
+padding-top: 3%;
+width: 100%;
+margin-top: 0;
+text-align: center;
+}
+.aboutUs .provide p{
+margin-bottom: 5%;
+text-align: center;
+}
+.aboutUs .provide .cards{
+display: flex;
+}
+.aboutUs .provide .cards .card{
+margin-left: 3%;
+margin-bottom: 2%;
+width: 400px;
+overflow: hidden;
+height: auto;
+}
+.aboutUs .provide .cards .card .icons{
+width: 100%;
+font-size: 40px;
+padding-top: 5%;
+color: #10b7e6;
+padding-left: 10%;
+}
+.aboutUs .provide .cards .card .title{
+margin-top: 2%;
+font-size: 13px;
+color: #036783;
+padding-left: 10%;
+}
+.aboutUs .provide .cards .card .details{
+width: 90%;
+margin-top: 2%;
+font-size: 16px;
+padding-bottom: 2%;
+padding-left: 10%;
+color: #3e3e3e;
+
+}
+
+
+.aboutUs .crew{
+width: 100%;
+height: auto;
+margin-top: 4%;
+}
+.aboutUs .crew .crewImg{
+margin-left: 20%;
+width: 60%;
+}
+.aboutUs .canteenSection{
+background-color: rgb(251, 251, 251);
+width: 100%;
+height: auto;
+margin-top: -2%;
+padding-bottom: 7%;
+}
+.aboutUs .canteenSection h1{
+text-align: center;
+font-size:35px;
+padding-top: 3%;
+
+}
+.aboutUs .canteenSection .FullCard{
+width: 100%;
+display: flex;
+height: auto;
+margin-top:6%;
+}
+.aboutUs .canteenSection .FullCard .left{
+width: 50%;
+}
+.aboutUs .canteenSection .FullCard .left .imgs{
+width: 70%;
+margin-left: 15%;
+}
+
+
+.aboutUs .canteenSection .FullCard .right{
+width: 50%;
+}
+.aboutUs .canteenSection .FullCard .right h1{
+font-size: 20px;
+text-align: left;
+text-transform: uppercase;
+}
+
+
+
+.aboutUs .canteenSection .FullCard .right p{
+
+width: 80%;
+}
+
+.aboutUs .canteenSection .FullCard .right p::first-letter {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: rgb(233, 0, 113);
+}
+
+
+
+
+.aboutUs .canteenSection .FullCard1{
+width: 100%;
+display: flex;
+height: auto;
+margin-top:3%;  
+  flex-direction: row-reverse;
+}
+.aboutUs .canteenSection .FullCard1 .left{
+width: 50%;
+}
+.aboutUs .canteenSection .FullCard1 .left .imgs{
+width: 70%;
+margin-right: 15%;
+}
+
+
+.aboutUs .canteenSection .FullCard1 .right{
+width: 50%;
+padding-left: 8%;
+}
+.aboutUs .canteenSection .FullCard1 .right h1{
+font-size: 20px;
+text-align: left;
+text-transform: uppercase;
+}
+
+
+
+.aboutUs .canteenSection .FullCard1 .right p{
+
+width: 80%;
+}
+
+.aboutUs .canteenSection .FullCard1 .right p::first-letter {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: rgb(233, 0, 113);
+}

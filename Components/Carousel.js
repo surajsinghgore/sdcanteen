@@ -14,6 +14,10 @@ import { Autoplay,  Navigation } from "swiper";
 
 import Img1 from '../public/1.jpg';
 import Img2 from '../public/2.jpg';
+import Img3 from '../public/c1.jpg';
+import Img4 from '../public/j1.jpg';
+import Img5 from '../public/d1.jpg';
+import Link from 'next/link';
 
 
 function Carousel(){
@@ -43,8 +47,34 @@ navigation={true}
 <Image src={Img1} alt="img1" height={559} width={1366}/>
 </div>
 <div className="details">
-<h1 id="hh1">After a good dinner one can forgive anybody, even one's own relations.</h1>
-<button id="btnh1">Order Food Now</button>
+<h1 id="hh1">You can’t make everyone happy. You’re not pizza</h1>
+
+<button><Link href="/FoodItem"> Order Food Now</Link></button>
+</div>
+</div>
+        </SwiperSlide>
+
+
+        <SwiperSlide>
+        <div className="div1">
+<div className="imgs-section">
+<Image src={Img3} alt="img1" height={559} width={1366}/>
+</div>
+<div className="details">
+<h1 id="hh1">I don't drink coffee to wake up. I wake up to drink coffee.</h1>
+<button><Link href="/CoffeeItem">Order Coffee Now</Link></button>
+</div>
+</div>
+        </SwiperSlide>
+
+        <SwiperSlide>
+        <div className="div1">
+<div className="imgs-section">
+<Image src={Img4} alt="img1" height={559} width={1366}/>
+</div>
+<div className="details">
+<h1 id="hh1">Breakfast isn't complete without quality juice.</h1>
+<button><Link href="/JuiceItem">Order Juice Now</Link></button>
 </div>
 </div>
         </SwiperSlide>
@@ -56,11 +86,25 @@ navigation={true}
 <Image src={Img2} alt="img1" height={559} width={1366}/>
 </div>
 <div className="details">
-<h1 id="hh1">After a good dinner one can forgive anybody, even one's own relations.</h1>
-<button id="btnh1">Order Food Now</button>
+<h1 id="hh1">After a good dinner one can forgive anybody, even one's own relatives.</h1>
+<button>Order Food Now</button>
 </div>
 </div>
         </SwiperSlide>
+
+        <SwiperSlide>
+        <div className="div1">
+<div className="imgs-section">
+<Image src={Img5} alt="img1" height={559} width={1366}/>
+</div>
+<div className="details">
+<h1 id="hh1">Since I had my first sip of coke, life was never the same again.</h1>
+<button><Link href="/DrinkItem">Order Drink Now</Link></button>
+</div>
+</div>
+        </SwiperSlide>
+
+
       </Swiper>
 
  </>)

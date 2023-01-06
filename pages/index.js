@@ -1,4 +1,5 @@
 import Styles from "../styles/admin.module.css";
+import home from "../styles/Home.module.css";
 import HeadTag from "../Components/Head";
 import Header from "../Components/Header";
 import Footer from "../Components/Footer";
