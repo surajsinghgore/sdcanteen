@@ -38,14 +38,13 @@ while (numberGenerate) {
     ++count;
     numberGenerate = Math.floor(numberGenerate / 10);
 }
+
 if(count!==6){
 return res.status(400).json({message:"Sorry Something went wrong,Please Register Again",otpError:"true"})
 }
 
 
-    if(numberGenerate.length==6){
-      return res.status(400).json({ message:"Sorry something went wrong ,Please Register Again",otpError:"true"});
-    }
+ 
     let FullName = req.body.FullName;
     let Age = req.body.Age;
     let Email = req.body.Email;
