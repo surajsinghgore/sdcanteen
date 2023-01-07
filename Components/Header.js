@@ -285,7 +285,7 @@ getData();
 // on click on search suggesttion
 const firedClick=async(item)=>{
 // number of hits
-let ItemName=item[0];
+let ItemName=item;
 if(!ItemName){
 return;
 }

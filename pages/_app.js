@@ -72,15 +72,18 @@ if((navigator.userAgent.indexOf("Opera") || navigator.userAgent.indexOf('OPR')) 
     }
 
 const counter=async()=>{
-await fetch(`${HOST}/api/WebsiteCounter`,{
+let res=await fetch(`${HOST}/api/WebsiteCounter`,{
 method:"POST",
 headers:{"Content-type":"application/json"},
 body: JSON.stringify({Browser:browser})
 })
+if(res.status==201){
+sessionStorage.setItem("counter",true);
+}
 }
 counter();
 }
-sessionStorage.setItem("counter",true);
+
 
 
 },[])

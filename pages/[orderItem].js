@@ -525,21 +525,23 @@ setTimeout(redirect,1500);
 
   // load rating data
    const dataRatingFetch = async () => {
+   
       if (productId != undefined) {
         let fetchRate = await fetch(
           `${HOST}/api/ShowRatingOfItems?productId=${productId}`
         );
         const dataRess = await fetchRate.json();
-       
+
+
         if (fetchRate.status == 201) {
           if (dataRess.data.length != 0) {    
-            setCopyData(dataRess.data);
-            setRatingData(dataRess.data);
-            setAvg(dataRess.data[0].Rating);
-            setRevLen(dataRess.data[0].ItemsReviwers.length);        
+            await setCopyData(dataRess.data);
+            await setRatingData(dataRess.data);
+            await setAvg(dataRess.data[0].Rating);
+            await setRevLen(dataRess.data[0].ItemsReviwers.length);        
           
           } 
-          function QualityRateCalculate() {
+         function QualityRateCalculate() {
             let ZeroPointFive = 0;
             let OnePointFive = 0;
             let TwoPointFive = 0;
@@ -674,7 +676,11 @@ setTimeout(redirect,1500);
               calFourPointFive +
               calfive;
             let avgs = (AllPercantegTotal / (100 * findAvgCount)) * 100;
-            setQuality(avgs);
+           
+            if(findAvgCount!=0){
+            
+           setQuality(avgs);
+            }
           }
           function PriceRateCalculate() {
             let ZeroPointFive = 0;
@@ -811,8 +817,10 @@ setTimeout(redirect,1500);
               calFourPointFive +
               calfive;
             let avgs = (AllPercantegTotal / (100 * findAvgCount)) * 100;
-
+ if(findAvgCount!=0){
+ 
             setPrices(avgs);
+ }
           }
           function ServiceRateCalculate() {
             let ZeroPointFive = 0;
@@ -949,23 +957,23 @@ setTimeout(redirect,1500);
               calFourPointFive +
               calfive;
             let avgs = (AllPercantegTotal / (100 * findAvgCount)) * 100;
-
+ if(findAvgCount!=0){
+ 
             setService(avgs);
+ }
           }
-if(ratingData.length!=0){
-
           QualityRateCalculate();
           PriceRateCalculate();
           ServiceRateCalculate();
 
-}
+
         }
       }
     };
   useEffect(() => {
    
     dataRatingFetch();
-  }, [refresh, productId]);
+  },[productId, refresh]);
   // load rating data
 
   // check wheater rating is allowed or not

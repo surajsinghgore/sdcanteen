@@ -16,10 +16,10 @@ if(m<=9){
 m = '0'+m;
 }
 if(hour>=12){
-OrderTimes=d.getHours()+"."+m+"."+"-"+"PM";
+OrderTimes=hour+"."+m+"-"+"PM";
 }
 else{
-OrderTimes=d.getHours()+"."+m+"."+"-"+"AM";
+OrderTimes=hour+"."+m+"-"+"AM";
 }
 
  let browser=req.body.Browser;

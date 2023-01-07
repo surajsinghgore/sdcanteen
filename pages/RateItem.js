@@ -190,8 +190,8 @@ progress: undefined,
 return ;
 }
 if(res.status==201){
-setRefresh(!refresh)
-   window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
+
+window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
 toast.success("Thanks For Giving Valuable Fedback for This Item", {
 position: "bottom-right",
 autoClose: 5000,
@@ -201,7 +201,7 @@ pauseOnHover: true,
 draggable: true,
 progress: undefined,
 });
-
+setRefresh(!refresh)
 let rates=0;
 setItemRate(rates) 
 setUserMessage("")
@@ -321,7 +321,7 @@ const res = await fetch(`${HOST}/api/UpdateRating`, {
         userName:userName,productId:productId,userMessage:userMessage,serviceRate:serviceRate,qualityRate:qualityRate,priceRate:priceRate,overallRate:itemRate
       }),
     });
-let data=await res.json();
+let data=await res.json();setRefresh(!refresh)
 if(res.status==501){
 toast.error('Internal Server Error.Please try Again', {
 position: "bottom-right",
@@ -371,7 +371,7 @@ progress: undefined,
 return ;
 }
 if(res.status==201){
-setRefresh(!refresh)
+
    window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
 toast.success("Thanks For Updating Your Valuable Fedback for This Item", {
 position: "bottom-right",
