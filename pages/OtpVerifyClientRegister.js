@@ -1,7 +1,6 @@
 import HeadTag from "../Components/Head";
 import Header from "../Components/Header";
 import Footer from "../Components/Footer";
-import Image from "next/image";
 import Link from "next/link";
 import Styles from "../styles/admin.module.css";
 import ClientStyle from "../styles/Signup.module.css";
@@ -14,9 +13,13 @@ import router from "next/router";
 let HOST = process.env.NEXT_PUBLIC_API_URL;
 
 export default function OtpVerifyClientRegister() {
+const [resend,setResend]=useState(true);
   const [email, setEmail] = useState("");
   const [otp, setOtp] = useState("");
  const [progress, setProgress] = useState(0);
+
+
+
   useEffect(() => {
     setEmail(localStorage.getItem("clientRegistrationEmail"));
     setTimeout(Redirect, 1000);
@@ -30,7 +33,7 @@ export default function OtpVerifyClientRegister() {
   const VerifyUser = async (e) => {
     e.preventDefault();
     if (!otp) {
-      toast.success("Please Enter OTP", {
+      toast.warn("Please Enter OTP", {
         position: "bottom-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -158,6 +161,66 @@ setProgress(100)
       }
     }
   };
+
+  const resendOtp=async(e)=>{
+  e.preventDefault()
+
+   if (!email) {
+      toast.success("please provide email id", {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      return ;
+    }
+
+    setProgress(40)
+ const res = await fetch(`${HOST}/api/ResendOtp`, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({
+        Email: email
+      }),
+    });
+    let data = await res.json();
+    setProgress(100)
+    if(res.status==400){
+     toast.warn(`${data.message}`, {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      return ;
+    }
+
+    if(res.status==201){
+     toast.success(`${data.message}`, {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+
+      setResend(false)
+       function resendOtps(){
+      setResend(true)}
+setTimeout(resendOtps, 300000);
+      return ;
+    }
+  }
   return (
     <div>
      <LoadingBar
@@ -196,9 +259,11 @@ setProgress(100)
               Verify User
             </button>
             <div className={ClientStyle.path}>
-              <h4>
-                <Link href="/ClientLogin">Resend Otp Again ?</Link>
-              </h4>
+           
+              {(resend)? <h4 onClick={resendOtp}>Resend Otp Again 
+              </h4>: <h4 style={{cursor:"text"}}>New Otp request avaible in 5 mintues 
+              </h4>}
+               
               <h4 style={{ marginLeft: "12%" }}>
                 <Link href="/Signup">Wrong Email Id ?</Link>
               </h4>

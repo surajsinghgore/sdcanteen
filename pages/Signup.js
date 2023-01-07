@@ -148,9 +148,8 @@ const res = await fetch(`${HOST}/api/ClientRegister`, {
       }),
     });
 let data=await res.json();
-setProgress(60)
-
-if(data.status==501){
+setProgress(100)
+if(res.status==501){
 if(data.message!=undefined){
  toast.warn(`${data.message}`, {
 position: "bottom-right",
@@ -173,12 +172,12 @@ draggable: true,
 progress: undefined,
 });
 }
- 
-setProgress(100)
+
 return ;
 }
+
 if(data.otpError){
-  toast.warn(`${data.message}`, {
+ toast.warn('Please Click On Button Again', {
 position: "bottom-right",
 autoClose: 5000,
 hideProgressBar: false,
@@ -187,16 +186,10 @@ pauseOnHover: true,
 draggable: true,
 progress: undefined,
 });
-setProgress(100)
-  setTimeout(Redirect, 1500);
-    function Redirect() {
-      router.push("/Signup");
-    }
 return ;
 }
 if(data.status=="400"){
 for(let i=0;i<data.errors.length;i++){
-if(i<1){
   toast.warn(`${data.errors[i].msg}`, {
 position: "bottom-right",
 autoClose: 5000,
@@ -206,13 +199,11 @@ pauseOnHover: true,
 draggable: true,
 progress: undefined,
 });
-setProgress(100)
 continue;
 }
-}
 return ;
 }
-if(data.status==400){
+if(res.status==400){
   toast.warn(`${data.message}`, {
 position: "bottom-right",
 autoClose: 5000,
@@ -222,26 +213,10 @@ pauseOnHover: true,
 draggable: true,
 progress: undefined,
 });
-setProgress(100)
 
 return ;
 }
-if(data.status==401){
-  toast.warn(`${data.message}`, {
-position: "bottom-right",
-autoClose: 5000,
-hideProgressBar: false,
-closeOnClick: true,
-pauseOnHover: true,
-draggable: true,
-progress: undefined,
-});
-setProgress(100)
-
-return ;
-}
-
-if(data.status==201){
+if(res.status==201){
 toast.success(`Otp Send Successfully to ${data.data.Email}`, {
 position: "bottom-right",
 autoClose: 5000,
@@ -251,9 +226,7 @@ pauseOnHover: true,
 draggable: true,
 progress: undefined,
 });
-
 localStorage.setItem('clientRegistrationEmail',data.data.Email)
-setProgress(100)
   setTimeout(Redirect, 1500);
     function Redirect() {
       router.push("/OtpVerifyClientRegister");

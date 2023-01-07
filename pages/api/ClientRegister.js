@@ -6,7 +6,7 @@ import ClientData from "./Schema/ClientData";
 const otpGenerator = require('otp-generator')
 import nextConnect from "next-connect";
 const handler = nextConnect();
-var cookie = require('cookie');
+
 
  const nodemailer = require("nodemailer");
  let transporter = nodemailer.createTransport({
@@ -30,16 +30,9 @@ body('Password',"Password must be contain atleast 5 character").isLength({ min: 
   try {
     DbConnection();
     let optGenerateNumber=otpGenerator.generate(6, { upperCaseAlphabets: false, specialChars: false ,lowerCaseAlphabets:false});
-let numberGenerate=parseInt(optGenerateNumber);
-let count=0;
-let sum=0;
-while (numberGenerate) {
-    sum += numberGenerate % 10;
-    ++count;
-    numberGenerate = Math.floor(numberGenerate / 10);
-}
-
-if(count!==6){
+let counts=optGenerateNumber.toString()
+console.log(counts.length)
+if(counts.length!=6){
 return res.status(400).json({message:"Sorry Something went wrong,Please Register Again",otpError:"true"})
 }
 
@@ -57,14 +50,20 @@ const errors = validationResult(req);
       return res.status(400).json({ errors: errors.array() ,status:"400"});
     }
     if (!Age) {
-      res.status(401).json({ message: "Please Enter Age" });
+     return res.status(400).json({ message: "Please Enter Age" });
     }
      else if (!Gender) {
-      res.status(401).json({ message: "Please Enter Gender" });
+   return   res.status(400).json({ message: "Please Enter Gender" });
     }
      else if (!FullAddress) {
-      res.status(401).json({ message: "Please Enter FullAddress" });
+    return  res.status(400).json({ message: "Please Enter FullAddress" });
     }
+    let mobileStr=Mobile.toString()
+    console.log(mobileStr,mobileStr.length)
+if(mobileStr.length!=10){
+     return res.status(400).json({ message: "Please Enter 10 digit mobile number only" });
+}
+
 
  //    checking weather email is already exists or not
 const checkEmail=await ClientRegistrationTemporary.findOne({Email: Email}).select('-Password -Otp -Verify -createdAt -updatedAt');
@@ -101,7 +100,7 @@ Welcome to SD CANTEEN!
 
 transporter.sendMail(mailoption,function(error,info){
 if(error){
-return res.status(401).json({message:error,status:"401"});
+return res.status(400).json({message:error,status:"400"});
 }
 return res.status(201).json({data:ress,message:"successfully otp send to email Id",status:"201"}) 
 })
@@ -119,10 +118,10 @@ else{
 const checkEmail1=await ClientData.findOne({Email: Email}).select('-Password');
 const checkMobile1=await ClientData.findOne({Mobile: Mobile}).select('-Password');
 if(checkEmail1){
-    return res.status(401).json({message:"This Email Id Is Already Exits",status:"401"})
+    return res.status(400).json({message:"This Email Id Is Already Exits",status:"400"})
 }
 if(checkMobile1){
-    return res.status(401).json({message:"This Mobile Number Is Already Exits",status:"401"})
+    return res.status(400).json({message:"This Mobile Number Is Already Exits",status:"400"})
 
 }
 const salt=await bcrypt.genSaltSync(10);
@@ -179,7 +178,7 @@ Welcome to SD CANTEEN!
 
 transporter.sendMail(mailoption,function(error,info){
 if(error){
-return res.status(401).json({message:error,status:"401"});
+return res.status(400).json({message:error,status:"400"});
 }
 })
 async function OtpExpired(){

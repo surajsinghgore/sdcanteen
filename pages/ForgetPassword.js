@@ -188,7 +188,7 @@ return;
    if(res.status==201){
     toast.success("Password Successfully Reset", {
 position: "bottom-right",
-autoClose: 1200,
+autoClose: 1000,
 hideProgressBar: false,
 closeOnClick: true,
 pauseOnHover: true,

@@ -75,14 +75,19 @@ const [shareState,setShareState]=useState(false)
       if (query != undefined) {
         const res = await fetch(`${HOST}/api/ShowSingleItem?item=${query}`);
         const dataRes = await res.json();
-        if (res.status == 201) {
+      
+         setLoader(false)
+         if(res.status==404){
+         router.push("/404")
+         }
+        if (res.status == 201) { 
           await setData(dataRes.data);
           await setPrice(dataRes.data[0].ItemCost[0].Price);
           await setSelected(dataRes.data[0].ItemCost[0].sizeName);
           await setProductId(dataRes.data[0]._id);
            setLoader(false)
-          localStorage.setItem("itemOrder", dataRes.data[0].ItemCost[0]._id);
-        }
+          localStorage.setItem("itemOrder", dataRes.data[0].ItemCost[0]._id);  }
+        
       }
     };
     FindDataUsingSearch();

@@ -3,6 +3,8 @@ import Header from "../Components/Header";
 import Footer from "../Components/Footer";
 import Image from 'next/image'
 import router from 'next/router'
+import LoadingBar from "react-top-loading-bar";
+
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Styles from "../styles/admin.module.css";
@@ -16,10 +18,13 @@ import { AiOutlineCloudUpload } from 'react-icons/ai';
 export default function ClientProfileUpload() {
   const [imgs, setImgs] = useState(boyProfile);
   const [files, setFiles] = useState("");
+ const [progress, setProgress] = useState(0);
 
 
 useEffect(()=>{
+
 const getData=async()=>{
+setProgress(40)
 const res = await fetch(`${HOST}/api/ShowClientDetails`, {
       method: "POST",
       headers: {
@@ -27,6 +32,8 @@ const res = await fetch(`${HOST}/api/ShowClientDetails`, {
       },
     });
 let data=await res.json();
+setProgress(100)
+
 if(!data){
 router.push('/')
 }
@@ -104,6 +111,7 @@ progress: undefined,
 });   
 return ;
 }
+setProgress(40)
 const data = new FormData();
     data.append("Profile", files);
  let res = await fetch(`${HOST}/api/ClientProfile`, {
@@ -112,6 +120,7 @@ const data = new FormData();
     });
 
     let datas=await res.json();
+    setProgress(100)
     if(res.status==400){
       toast.warn(`${datas.message}`, {
 position: "bottom-right",
@@ -171,6 +180,13 @@ progress: undefined,
 }
   return (
     <div>
+      <LoadingBar
+        color="rgb(255 82 0)"
+        height={3.5}
+        waitingTime={400}
+        progress={progress}
+        transitionTime={100}
+      />  
     <div className={Styles.admin}>
       <HeadTag title="Uploard Client Profile" />
    <Header />

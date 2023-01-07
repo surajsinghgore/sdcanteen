@@ -1,0 +1,61 @@
+.payment{
+width: 100%;
+height: 300px;
+position: relative;
+display: flex;
+margin-top: 5%;
+user-select: none;
+margin-bottom: 5%;
+}
+.payment .icons{
+width: 40%;
+height: 300px;
+}
+.payment .icons .img{
+width: 70%;
+margin-left: 9%;
+}
+.payment .titles{
+font-size: 35px;
+font-weight: 700;
+width: 40%;
+color: rgb(6, 93, 208);
+line-height: 280px;
+}
+.payment .accecpt{
+width: 20%;
+height: 300px;
+}
+
+.payment .accecpt .img{
+width: 80%;
+margin-top: 40%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+.bottomSwiper{
+width: 100%;
+height: auto;
+}
+
+
+
+.bottomSwiper .BottomInner{
+width: 400px;
+height: 250px;
+}
+.bottomSwiper .BottomInner .imageBottom{
+width: 100%;
+height: 100%;
+}

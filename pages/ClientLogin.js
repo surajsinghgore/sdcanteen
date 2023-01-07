@@ -180,7 +180,13 @@ sessionStorage.removeItem("reset")
 setProgress(100)
 
     function Redirect() {
+    console.log(router.back())
+    if((router.back()=="/OtpVerifyClientRegister")){
+    router.push("/")
+    }
+    else{
 router.back();
+    }
     }
  setTimeout(Redirect, 1500);
   }

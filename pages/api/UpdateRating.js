@@ -55,7 +55,6 @@ let CMonth=parseInt(dates.getMonth()+1);
 let CYear=parseInt(dates.getFullYear());
 let CHours=parseInt(dates.getHours());
 let CMins=parseInt(m);
-console.log(productId,userName,userMessage,qualityRate,serviceRate,priceRate,overallRate)
 
 await ItemRatings.updateMany({ItemsReviwers: {$elemMatch: {userId: id}}}, {$set:{"ItemsReviwers.$.OverAllRate":overallRate,"ItemsReviwers.$.Message":userMessage,"ItemsReviwers.$.QualityRate":qualityRate,"ItemsReviwers.$.ServiceRate":serviceRate,"ItemsReviwers.$.PriceRate":priceRate,"ItemsReviwers.$.Date":Dates,"ItemsReviwers.$.Time":Times,"ItemsReviwers.$.CDate":CDate,"ItemsReviwers.$.CMonth":CMonth,"ItemsReviwers.$.CYear":CYear,"ItemsReviwers.$.CHours":CHours,"ItemsReviwers.$.CMins":CMins,"ItemsReviwers.$.LocalString":LocalString}})
 
@@ -70,7 +69,7 @@ let two=0;
 let three=0;
 let four=0;
 let five=0;
-console.log(findProduct)
+
 
 findProduct[0].ItemsReviwers.map((item)=>{
 if(item.QualityRate=="0.5"){ZeroPointFive++;}
