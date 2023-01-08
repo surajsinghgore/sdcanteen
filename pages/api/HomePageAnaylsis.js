@@ -14,30 +14,34 @@ export default async function HomePageAnaylsis(req,res) {
       try{
    
    let TopFood=await ItemRatings.find().sort({"Rating":-1})
-let TopRatedFoodData=TopFood.slice(0,5)
 let visitorDataCount=await websiteCounter.find().count();
 let HappyClients=await ClientData.find().count();
 let orderDataCount=await OrderSchemaDataBase.find().count();
 let topSearch=await TopSearchSchema.find().sort({"NumberOfSearch":-1})
-let TopSearchData=topSearch.slice(0,5)
 let coffeecount=await CoffeeItemSchema.find().count()
 let drinkcount=await DrinkItemSchema.find().count()
 let foodcount=await FoodItemSchema.find().count()
 let juicecount=await JuiceItemSchema.find().count()
 let allItemsCount=coffeecount+drinkcount+foodcount+juicecount;
-let TopTrendingItems=[]
+let TopTrendingFoodItem=[]
 // find top data details with avg rating
-for(let i=0;i<TopSearchData.length;i++){
-let fooddata=await FoodItemSchema.findOne({FoodName:TopSearchData[i].ItemName}).select("-Active -createdAt -updatedAt -Qty -Category -ItemCost");
-let juicedata=await JuiceItemSchema.findOne({JuiceName:TopSearchData[i].ItemName}).select("-Active -createdAt -updatedAt -Qty -Category -ItemCost");
-let coffeedata=await CoffeeItemSchema.findOne({CoffeeName:TopSearchData[i].ItemName}).select("-Active -createdAt -updatedAt -Qty -Category -ItemCost");
-let drinkdata=await DrinkItemSchema.findOne({DrinkName:TopSearchData[i].ItemName}).select("-Active -createdAt -updatedAt -Qty -Category -ItemCost");
-if(fooddata!=null){TopTrendingItems.push(fooddata)}
-if(juicedata!=null){TopTrendingItems.push(juicedata)}
-if(coffeedata!=null){TopTrendingItems.push(coffeedata)}
-if(drinkdata!=null){TopTrendingItems.push(drinkdata)}
+for(let i=0;i<topSearch.length;i++){
+let fooddata=await FoodItemSchema.findOne({"FoodName":topSearch[i].ItemName,"Active":"ON"}).select("-Active -createdAt -updatedAt -Qty -Category -ItemCost");
+if(fooddata!=null){
+TopTrendingFoodItem.push(fooddata)
+}
+}
+// top rated items
+let TopRatedFoodDatas=[];
+ for(let i=0;i<TopFood.length;i++){
+let fooddata=await FoodItemSchema.findOne({"_id":TopFood[i].ProductId,"Active":"ON"}).select("-Active -createdAt -updatedAt -Qty -Category -ItemCost");
+if(fooddata!=null){
+TopRatedFoodDatas.push(fooddata)
+}
 }
 
+let TopRatedFoodData=TopRatedFoodDatas.slice(0,5);
+let TopTrendingItems=TopTrendingFoodItem.slice(0,5)
    return res.status(201).json({TopTrendingItems,TopRatedFoodData,visitorDataCount,orderDataCount,HappyClients,allItemsCount})
   } catch (error) {
     console.log(error)

@@ -6,12 +6,12 @@ import Footer from "../Components/Footer";
 import Carousel from "../Components/Carousel";
 import Image from "next/image";
 let HOST = process.env.NEXT_PUBLIC_API_URL;
-
+import CountUp from 'react-countup'
+import ScrollTrigger from "react-scroll-trigger";
 // swiper bottom
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
-import im from '../public/FoodItemImages/2022-10-15T07-43-59.923Z-18.jpg'
 import img1 from '../public/bottomBanner/1.jpg'
 import img2 from '../public/bottomBanner/2.jpeg'
 import img3 from '../public/bottomBanner/3.jpg'
@@ -29,11 +29,15 @@ import p1 from '../public/p1.png'
 import p2 from '../public/p2.svg'
 import { Autoplay } from "swiper";
 import Loader from "../Components/Loader";
+import { BiFoodMenu } from 'react-icons/bi';
+import { BiHappy } from 'react-icons/bi';
+import { RiNumbersFill } from 'react-icons/ri';
+import { MdOutlineAccountBox } from 'react-icons/md';
 
 import Link from "next/link";
 const Home = () => {
+const [countOn,setCountOn]=useState(false)
 const [loader,setLoader]=useState(false);
-
 const [topSearchData,setTopSearchData]=useState([])
 const [topRateData,setTopRateData]=useState([])
 const [visitor,setVisitor]=useState("")
@@ -47,7 +51,6 @@ const res=await fetch(`${HOST}/api/HomePageAnaylsis`);
 let HomeData=await res.json()
 setLoader(false)
 if(res.status==201){
-console.log(HomeData)
 setTopSearchData(HomeData.TopTrendingItems)
 setTopRateData(HomeData.TopRatedFoodData)
 setAllOrders(HomeData.orderDataCount)
@@ -73,7 +76,7 @@ getAll()
 {/* cards */}
 
 <div className={home.homeCards}>
-<h1>Top 5 Trending Items of This Site</h1>
+<h1>Top Trending Foods </h1>
 {(topSearchData.length!=0)?<>
 {(topSearchData.map((items)=>{
 return <div className={home.card} key={items._id}>
@@ -88,42 +91,34 @@ return <div className={home.card} key={items._id}>
 <p>{items.Description.substring(0,220)}</p>
 </div>
 </div></a></Link> :""}
-{/* coffeeName */}
-{(items.CoffeeName)?<Link href={`/${items.CoffeeName}`}><a>
+
+
+</div>
+}))}
+</>:""}
+
+
+
+
+</div>
+{/* top rated items */}
+<div className={home.homeCards}>
+<h1> Best Rated Foods </h1>
+{(topRateData.length!=0)?<>
+{(topRateData.map((items)=>{
+return <div className={home.card} key={items._id}>
+{/* foodName */}
+{(items.FoodName)?<Link href={`/${items.FoodName}`}><a>
 <div>
 <div className={home.img}>
-<Image src={`/CoffeeItemImages/${items.Image}`} alt="food" height={260} width={380} />
+<Image src={`/FoodItemImages/${items.Image}`} alt="food" height={260} width={380} />
 </div> 
 <div className={home.data}>
-<h4>{items.CoffeeName}</h4>
+<h4>{items.FoodName}</h4>
 <p>{items.Description.substring(0,220)}</p>
 </div>
 </div></a></Link> :""}
 
-{/* juice */}
-
-{(items.JuiceName)?<Link href={`/${items.JuiceName}`}><a>
-<div>
-<div className={home.img}>
-<Image src={`/JuiceItemImages/${items.Image}`} alt="food" height={260} width={380} />
-</div> 
-<div className={home.data}>
-<h4>{items.JuiceName}</h4>
-<p>{items.Description.substring(0,220)}</p>
-</div>
-</div></a></Link> :""}
-
-{/* drink */}
-{(items.DrinkName)?<Link href={`/${items.DrinkName}`}><a>
-<div>
-<div className={home.img}>
-<Image src={`/DrinkItemImages/${items.Image}`} alt="food" height={260} width={380} />
-</div> 
-<div className={home.data}>
-<h4>{items.DrinkName}</h4>
-<p>{items.Description.substring(0,220)}</p>
-</div>
-</div></a></Link> :""}
 
 </div>
 }))}
@@ -134,6 +129,52 @@ return <div className={home.card} key={items._id}>
 
 </div>
 
+
+{/* facts */}
+<div className={home.f}> 
+<h1> FUN FACTS </h1>
+</div>
+<ScrollTrigger onEnter={()=>setCountOn(true)} onExit={()=>setCountOn(false)}>
+
+<div className={home.facts}>
+
+
+<div className={home.fact}>
+<div className={home.icons}>
+<BiFoodMenu/>
+</div>
+<h5>Delicacy Of Items</h5>
+<p>{(countOn)&&<CountUp start={0} end={totalItems} duration={2}/>}</p>
+</div>
+
+<div className={home.fact}>
+<div className={home.icons}>
+<MdOutlineAccountBox/>
+</div>
+<h5>Total Visits </h5>
+<p>{(countOn)&&<CountUp start={0} end={visitor} duration={2}/>}</p>
+</div>
+
+<div className={home.fact}>
+<div className={home.icons}>
+<RiNumbersFill/>
+</div>
+<h5>Orders Placed</h5>
+<p>{(countOn)&&<CountUp start={0} end={allOrders} duration={2}/>}</p>
+</div>
+
+
+<div className={home.fact}>
+<div className={home.icons}>
+<BiHappy/>
+</div>
+<h5> Happy clients</h5>
+<p> {(countOn)&&<CountUp start={0} end={happyClient} duration={2}/>}</p>
+</div>
+
+
+</div>
+</ScrollTrigger>
 {/* payment accept design */}
 <div className={home.payment}>
 <div className={home.icons}>

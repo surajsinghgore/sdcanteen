@@ -504,9 +504,11 @@ setTimeout(redirect,1500);
     }
   };
     const dataRatingFetchOfClient = async () => {
+    setClient([])
       if ((productId != undefined) && (localStorage.getItem('login'))) {
         let fetchRate = await fetch(`${HOST}/api/ShowRatingOfClient?productId=${productId}`);
         const dataRess = await fetchRate.json();
+        console.log(dataRess)
         if(dataRess.data.length!=0){
         if(dataRess.data[0].ItemsReviwers.length!=0){
         setClient(dataRess.data[0])
@@ -519,7 +521,7 @@ setTimeout(redirect,1500);
   if(localStorage.getItem('login')){
     dataRatingFetchOfClient();
     }
-  },[productId,refresh]);
+  },[productId,refresh,query]);
 
 
 
@@ -531,8 +533,6 @@ setTimeout(redirect,1500);
           `${HOST}/api/ShowRatingOfItems?productId=${productId}`
         );
         const dataRess = await fetchRate.json();
-
-
         if (fetchRate.status == 201) {
           if (dataRess.data.length != 0) {    
             await setCopyData(dataRess.data);

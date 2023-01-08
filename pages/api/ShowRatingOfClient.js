@@ -10,7 +10,6 @@ export default async function ShowRatingOfClient(req, res) {
     return res.status(401).json({ message: "Please login with Client credentails" });
     }
     let id=res1.id;
-    console.log(id)
         let productId = req.query.productId;
       if (productId == "") {
         return res.status(498).json({ message: "Please Provide Product Id" });
