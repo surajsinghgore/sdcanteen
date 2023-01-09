@@ -1,6 +1,9 @@
 import DbConnection from "./Middleware/DbConnection";
 import DrinkItemSchema from "./Schema/DrinkItemSchema";
 import VerifyAdmin from "./Middleware/MiddlewareAdminVerify";
+import TopSearchSchema from './Schema/NumberOfSearch'
+
+
 export default async function UpdateDrinkItem(req, res) {
   if (req.method == "POST") {
   try {
@@ -32,9 +35,20 @@ let normalsize=req.body.normalsize;
 let findData=await DrinkItemSchema.findById(id);
 if(DrinkName!=findData.DrinkName){
 let resDouble=await DrinkItemSchema.find({DrinkName:DrinkName});
+// seacrh Data in
+let searhData=await TopSearchSchema.findOne({ItemName:findData.DrinkName})
+
 if(resDouble.length!=0){
       return  res.status(400).json({ message: "Item Already Exits with this Item Name" });
  }
+}
+
+
+// change new name searchData
+if(searhData!=null){
+if(searhData.ItemName!=DrinkName){
+await TopSearchSchema.findOneAndUpdate({_id:searhData._id},{$set:{"ItemName":DrinkName}})
+}
 }
 await DrinkItemSchema.findOneAndUpdate({_id:id},{$set:{"DrinkName":DrinkName,"Qty":qty,"Category":category,"Active":Active,"Description":Description}})
 

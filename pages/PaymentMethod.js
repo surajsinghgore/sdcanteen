@@ -199,7 +199,7 @@ setProgress(40)
               let datas=await ress.json();
               TxnToken=datas.body.txnToken;
          
-setProgress(60)
+setProgress(60);
 
         var config = {
          "root": "",
@@ -218,10 +218,10 @@ setProgress(60)
             } 
           }
         };
-setProgress(80)
+setProgress(80);
 
 window.Paytm.CheckoutJS.init(config).then(function onSuccess() {
-setProgress(100)
+setProgress(100);
   
 window.Paytm.CheckoutJS.invoke();
 }).catch(function onError(error){

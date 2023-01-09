@@ -31,7 +31,6 @@ body('Password',"Password must be contain atleast 5 character").isLength({ min: 
     DbConnection();
     let optGenerateNumber=otpGenerator.generate(6, { upperCaseAlphabets: false, specialChars: false ,lowerCaseAlphabets:false});
 let counts=optGenerateNumber.toString()
-console.log(counts.length)
 if(counts.length!=6){
 return res.status(400).json({message:"Sorry Something went wrong,Please Register Again",otpError:"true"})
 }
@@ -74,17 +73,8 @@ if(checkEmail.Otp==null){
 from:process.env.NODEMAILER_GMAIL_ID,
 to:ress.Email,
 subject:"Finish creating your account on SD CANTEEN",
-attachments: [{
-        filename: 'logo.png',
-        path: './public/logo.png',
-        cid: 'img' 
-    }],
-
  html:`
  <div style="color:blue;background-color:rgb(255, 98, 0);padding:1% 0% 1% 3%;color:white;font-size:4vw">SD CANTEEN</div>
- <div style="text-align:center">
-  <img src="cid:img" style="width:150px;margin-top:2%"/>
- </div>
  <div style="text-align:center"><h4>Hii , ${ress.FullName}</h4></div>
  <div style="color:rgb(104, 104, 104);text-align:center;font-size:4vw">
 Welcome to SD CANTEEN!
@@ -151,18 +141,9 @@ let ressData=await ClientRegistrationTemporary.findById(ress._id).select('-Passw
 from:process.env.NODEMAILER_GMAIL_ID,
 to:sendEmail,
 subject:"Finish creating your account on SD CANTEEN",
-attachments: [{
-        filename: 'logo.png',
-        path: './public/logo.png',
-        cid: 'img' 
-    }],
-
  html:`
 
  <div style="color:blue;background-color:rgb(255, 98, 0);padding:1% 0% 1% 3%;color:white;font-size:4vw">SD CANTEEN</div>
- <div style="text-align:center">
-  <img src="cid:img" style="width:150px;margin-top:2%"/>
- </div>
  <div style="text-align:center"><h4>Hii , ${sendFullName}</h4></div>
  <div style="color:rgb(104, 104, 104);text-align:center;font-size:4vw">
 Welcome to SD CANTEEN!

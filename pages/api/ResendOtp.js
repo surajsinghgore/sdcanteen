@@ -55,18 +55,9 @@ await ClientRegistrationTemporary.findByIdAndUpdate(checkEmail._id,{"Otp":optGen
 from:process.env.NODEMAILER_GMAIL_ID,
 to:checkEmail.Email,
 subject:"Resend OTP for Finishing creating your account on SD CANTEEN",
-attachments: [{
-        filename: 'logo.png',
-        path: './public/logo.png',
-        cid: 'img' 
-    }],
-
  html:`
 
  <div style="color:blue;background-color:rgb(255, 98, 0);padding:1% 0% 1% 3%;color:white;font-size:4vw">SD CANTEEN</div>
- <div style="text-align:center">
-  <img src="cid:img" style="width:150px;margin-top:2%"/>
- </div>
  <div style="text-align:center"><h4>Hii , ${checkEmail.FullName}</h4></div>
  <div style="color:rgb(104, 104, 104);text-align:center;font-size:4vw">
 Welcome to SD CANTEEN!

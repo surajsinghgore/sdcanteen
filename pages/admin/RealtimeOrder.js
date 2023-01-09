@@ -126,6 +126,7 @@ setInterval(changes,1000*seconds);
   
   // filter using token
   const changingToken = (e) => {
+  setLoader(true)
     setToken(e.target.value);
     let namesId = document.getElementById("token").value.length;
     let value = document.getElementById("token").value;
@@ -141,7 +142,8 @@ setInterval(changes,1000*seconds);
       } else {
         setData(allData);
       }
-    } else {
+    }
+     else {
       let arr = [];
       if (localStorage.getItem("active") == "pending") {
         arr = pendingData;
@@ -159,10 +161,12 @@ setInterval(changes,1000*seconds);
       });
       setData(aa);
     }
+    setLoader(false)
   };
 
   // filter using curstomer name
   const changingName = (e) => {
+  setLoader(true)
     setCustomerName(e.target.value);
     let namesId = document.getElementById("names").value.length;
     let value = document.getElementById("names").value;
@@ -194,12 +198,14 @@ setInterval(changes,1000*seconds);
       let aa = arr.filter((item) => {
         return item.FullName.toLowerCase().includes(value.toLowerCase());
       });
+      setLoader(false)
       setData(aa);
     }
   };
 
   // filter using time
   const changingTime = (e) => {
+  setLoader(true)
     setTime(e.target.value);
     let value = document.getElementById("time").value;
     if (value == "null") {
@@ -232,6 +238,7 @@ setInterval(changes,1000*seconds);
       });
       setData(aa);
     }
+    setLoader(false)
   };
 
   // filter using category
@@ -274,39 +281,46 @@ setInterval(changes,1000*seconds);
   };
 
   const completeFunction = () => {
+  setLoader(true)
     localStorage.setItem("active", "complete");
     setData(completeData);
     setToken("");
     setCustomerName("");
     setCategory("");
     setTime("");
+    setLoader(false)
     router.push("/admin/RealtimeOrder");
   };
   const pendingFunction = () => {
+  setLoader(true)
     localStorage.setItem("active", "pending");
     setData(pendingData);
     setToken("");
     setCustomerName("");
     setCategory("");
     setTime("");
+    setLoader(false)
     router.push("/admin/RealtimeOrder");
   };
   const rejectFunction = () => {
+  setLoader(true)
     localStorage.setItem("active", "reject");
     setData(rejectData);
     setToken("");
     setCustomerName("");
     setCategory("");
     setTime("");
+    setLoader(false)
     router.push("/admin/RealtimeOrder");
   };
   const notpickFunction = () => {
+  setLoader(true)
     localStorage.setItem("active", "notpick");
     setData(pickUpNotData);
     setToken("");
     setCustomerName("");
     setCategory("");
-    setTime("");
+    setTime("");setLoader(false)
     router.push("/admin/RealtimeOrder");
   };
 

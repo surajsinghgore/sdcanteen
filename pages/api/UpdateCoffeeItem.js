@@ -1,5 +1,6 @@
 import DbConnection from "./Middleware/DbConnection";
 import CoffeeItemSchema from "./Schema/CoffeeItemSchema";
+import TopSearchSchema from './Schema/NumberOfSearch'
 import VerifyAdmin from "./Middleware/MiddlewareAdminVerify";
 export default async function UpdateCoffeeItem(req, res) {
   if (req.method == "POST") {
@@ -30,11 +31,22 @@ let normalsize=req.body.normalsize;
 
 // find records and check new name not dublicated
 let findData=await CoffeeItemSchema.findById(id);
+// seacrh Data in
+let searhData=await TopSearchSchema.findOne({ItemName:findData.CoffeeName})
+
+
 if(CoffeeName!=findData.CoffeeName){
 let resDouble=await CoffeeItemSchema.find({CoffeeName:CoffeeName});
 if(resDouble.length!=0){
       return  res.status(400).json({ message: "Item Already Exits with this Item Name" });
  }
+}
+
+// change new name searchData
+if(searhData!=null){
+if(searhData.ItemName!=CoffeeName){
+await TopSearchSchema.findOneAndUpdate({_id:searhData._id},{$set:{"ItemName":CoffeeName}})
+}
 }
 await CoffeeItemSchema.findOneAndUpdate({_id:id},{$set:{"CoffeeName":CoffeeName,"Qty":qty,"Category":category,"Active":Active,"Description":Description}})
 

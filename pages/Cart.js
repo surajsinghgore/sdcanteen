@@ -80,7 +80,7 @@ const cleanAllCartItem=()=>{
 emptyCart();
  toast.error('Cart Clean Successfully', {
       position: "bottom-right",
-      autoClose: 2000,
+      autoClose: 1200,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -96,7 +96,7 @@ const deleteItem=(item)=>{
 removeItem(item.id);
  toast.error(`Item successfully removed from cart`, {
       position: "bottom-right",
-      autoClose: 2000,
+      autoClose: 1200,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -122,7 +122,7 @@ setState(!state)
 else{
  toast.warn('Sorry , Item Quantity Must be Atleast 1', {
       position: "bottom-right",
-      autoClose: 2000,
+      autoClose: 1200,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -145,7 +145,7 @@ let book1=++book;
 if(book1>10){
  toast.warn('Maximum 10 Quantity Is Allowed To Booked', {
       position: "bottom-right",
-      autoClose: 2000,
+      autoClose: 1200,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -347,7 +347,7 @@ return(
       <Footer />
       <ToastContainer
         position="bottom-right"
-        autoClose={5000}
+        autoClose={1200}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick

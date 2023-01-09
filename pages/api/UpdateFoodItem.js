@@ -1,6 +1,14 @@
 import DbConnection from "./Middleware/DbConnection";
 import FoodItemSchema from "./Schema/FoodItemSchema";
 import VerifyAdmin from "./Middleware/MiddlewareAdminVerify";
+import TopSearchSchema from './Schema/NumberOfSearch'
+
+
+
+
+
+
+
 export default async function UpdateFoodItem(req, res) {
   if (req.method == "POST") {
     try {
@@ -30,12 +38,32 @@ let normalsize=req.body.normalsize;
 
 // find records and check new name not dublicated
 let findData=await FoodItemSchema.findById(id);
+
+
+// seacrh Data in
+let searhData=await TopSearchSchema.findOne({ItemName:findData.FoodName})
+
+
+
+
 if(FoodName!=findData.FoodName){
 let resDouble=await FoodItemSchema.find({FoodName:FoodName});
 if(resDouble.length!=0){
       return  res.status(400).json({ message: "Item Already Exits with this Item Name" });
  }
 }
+
+
+// change new name searchData
+if(searhData!=null){
+if(searhData.ItemName!=FoodName){
+await TopSearchSchema.findOneAndUpdate({_id:searhData._id},{$set:{"ItemName":FoodName}})
+}
+}
+
+
+
+
 await FoodItemSchema.findOneAndUpdate({_id:id},{$set:{"FoodName":FoodName,"Qty":qty,"Category":category,"Active":Active,"Description":Description}})
 
 if((normalsize!='')){
@@ -48,7 +76,7 @@ findData.ItemCost.map((item)=>{
 if(item.sizeName=="normalsize"){
 const fired=async()=>{
 await FoodItemSchema.findOneAndUpdate({ItemCost: {$elemMatch: {_id: item._id}}}, {$set:{"ItemCost.$.Price":normalsize}})
-return res.status(201).json({message:"successfully updated1"})
+return res.status(201).json({message:"successfully updated"})
 }
 fired();
 }
@@ -79,7 +107,6 @@ await FoodItemSchema.updateOne( { _id: id},{ $push: { "ItemCost": {"sizeName":"n
 }
 return res.status(201).json({message:"successfully updated"})
 }
-
 
 if((mediumsize!='')&&(halfsize!='')&&(largesize!='')){
 let nss=false;

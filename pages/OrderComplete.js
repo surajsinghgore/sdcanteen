@@ -64,10 +64,12 @@ const fetchOrder=async()=>{
 let ress = await fetch(`${HOST}/api/ShowOrderDeatilsClient`);
 
               let datas=await ress.json();
-        
+                setLoader(false);
+        if(datas.data!=undefined){
               setData(datas.data)
                 setTotalOrderLen(datas.data.length)
-                setLoader(false);
+        
+        }
 }
 fetchOrder();
 },[])

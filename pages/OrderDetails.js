@@ -27,7 +27,7 @@ let carts=JSON.parse(localStorage.getItem('react-use-cart'))
 if(carts.items.length==0){
 toast.warn("Please Add something In Cart", {
                position: "bottom-right",
-                autoClose: 5000,
+                autoClose: 1200,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
@@ -66,7 +66,7 @@ const res = await fetch(`${HOST}/api/ShowOrderOnOffStatus`, {
   if(res.status==501){
 toast.error('Internal Server Error', {
 position: "bottom-right",
-autoClose: 5000,
+autoClose: 1200,
 hideProgressBar: false,
 closeOnClick: true,
 pauseOnHover: true,
@@ -78,7 +78,7 @@ return ;
  if(res.status==404){
 toast.warn('No Record Found', {
 position: "bottom-right",
-autoClose: 5000,
+autoClose: 1200,
 hideProgressBar: false,
 closeOnClick: true,
 pauseOnHover: true,
@@ -140,7 +140,7 @@ router.push('/PaymentMethod')
 else{
 toast.warn('Please Select Time Slot', {
 position: "bottom-right",
-autoClose: 5000,
+autoClose: 1200,
 hideProgressBar: false,
 closeOnClick: true,
 pauseOnHover: true,
@@ -260,7 +260,7 @@ value={`${time.time1.toFixed(2)}-${(time.time>=12)?'PM':'AM'}`} />
       <Footer />
       <ToastContainer
         position="bottom-right"
-        autoClose={5000}
+        autoClose={1200}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick

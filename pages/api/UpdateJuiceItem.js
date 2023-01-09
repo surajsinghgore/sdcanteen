@@ -1,5 +1,8 @@
 import DbConnection from "./Middleware/DbConnection";
 import JuiceItemSchema from "./Schema/JuiceItemSchema";
+import TopSearchSchema from './Schema/NumberOfSearch'
+
+
 import VerifyAdmin from "./Middleware/MiddlewareAdminVerify";
 export default async function UpdateJuiceItem(req, res) {
   if (req.method == "POST") {
@@ -30,11 +33,21 @@ let normalsize=req.body.normalsize;
 
 // find records and check new name not dublicated
 let findData=await JuiceItemSchema.findById(id);
+// seacrh Data in
+let searhData=await TopSearchSchema.findOne({ItemName:findData.JuiceName})
+
 if(JuiceName!=findData.JuiceName){
 let resDouble=await JuiceItemSchema.find({JuiceName:JuiceName});
 if(resDouble.length!=0){
       return  res.status(400).json({ message: "Item Already Exits with this Item Name" });
  }
+}
+
+// change new name searchData
+if(searhData!=null){
+if(searhData.ItemName!=JuiceName){
+await TopSearchSchema.findOneAndUpdate({_id:searhData._id},{$set:{"ItemName":JuiceName}})
+}
 }
 await JuiceItemSchema.findOneAndUpdate({_id:id},{$set:{"JuiceName":JuiceName,"Qty":qty,"Category":category,"Active":Active,"Description":Description}})
 

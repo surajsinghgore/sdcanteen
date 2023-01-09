@@ -2,6 +2,8 @@ import VerifyAdmin from "./Middleware/MiddlewareAdminVerify";
 import DbConnection from "./Middleware/DbConnection";
 import CoffeeItemSchema from "./Schema/CoffeeItemSchema";
 var fs = require("fs");
+import ItemRatings from './Schema/ItemRating'
+import TopSearchSchema from './Schema/NumberOfSearch'
 
 export default async function DeleteCoffeeItem(req, res) {
   if (req.method == "DELETE") {
@@ -34,7 +36,9 @@ let verify=await VerifyAdmin(req, res);
       let match = await CoffeeItemSchema.findById(_id);
 
       if (match) {
-        await CoffeeItemSchema.findByIdAndDelete(_id);
+        await CoffeeItemSchema.findByIdAndDelete(_id);  
+               await ItemRatings.findOneAndDelete({ProductId:_id})
+await TopSearchSchema.findOneAndDelete({ItemName:match.CoffeeName})
         await fs.unlinkSync(filePath);
         res
           .status(201)

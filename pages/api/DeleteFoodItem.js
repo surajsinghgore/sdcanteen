@@ -1,6 +1,12 @@
 import VerifyAdmin from "./Middleware/MiddlewareAdminVerify";
 import DbConnection from "./Middleware/DbConnection";
 import FoodItemSchema from "./Schema/FoodItemSchema";
+
+import ItemRatings from './Schema/ItemRating'
+import TopSearchSchema from './Schema/NumberOfSearch'
+
+
+
 var fs = require("fs");
 
 export default async function DeleteFoodItem(req, res) {
@@ -31,8 +37,14 @@ export default async function DeleteFoodItem(req, res) {
       // match weather same Food name is not entered
       let match = await FoodItemSchema.findById(_id);
 
+
+
+
+
       if (match) {
         await FoodItemSchema.findByIdAndDelete(_id);
+         await ItemRatings.findOneAndDelete({ProductId:_id})
+await TopSearchSchema.findOneAndDelete({ItemName:match.FoodName})
         await fs.unlinkSync(filePath);
         res
           .status(201)

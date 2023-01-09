@@ -57,17 +57,8 @@ const securePassword=await bcrypt.hash(newPassword,salt);
 from:process.env.NODEMAILER_GMAIL_ID,
 to:find.Email,
 subject:"Password Changed for Your SD CANTEEN Account",
-attachments: [{
-        filename: 'logo.png',
-        path: './public/logo.png',
-        cid: 'img' 
-    }],
-
  html:`
  <div style="color:blue;background-color:rgb(255, 98, 0);padding:1% 0% 1% 3%;color:white;font-size:4vw">SD CANTEEN</div>
- <div style="text-align:center">
-  <img src="cid:img" style="width:150px;margin-top:2%"/>
- </div>
  <div style="text-align:center"><h4>Hii , ${find.FullName}</h4></div>
  <div style="color:rgb(104, 104, 104);text-align:center;font-size:4vw">
 Welcome to SD CANTEEN!

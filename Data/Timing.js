@@ -126,7 +126,7 @@ const Timing = [
   },
   {
     time: 15.45,
-    time1:3.45
+    time1: 3.45
   },
   {
     time: 16.00,

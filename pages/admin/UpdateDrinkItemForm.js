@@ -424,7 +424,7 @@ setProgress(40)
             </textarea>
             </li>
                   <li className={StyleFood.btns}>  
-            <p>Product Visiblity Status </p>
+            <p>Product Visibility Status </p>
              <Switch
           onChange={handleChanges}
           checked={checked}

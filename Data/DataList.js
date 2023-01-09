@@ -199,12 +199,16 @@ open: <IoIosArrowForward />,
 close: <IoIosArrowDown />,
 subMenu:[
 {
-title:"This Month Collection",
-path:"/admin/AddOrder",
+title:"All Payments",
+path:"/admin/AllPayments",
 },
 {
-title:"Past Transction",
-path:"/admin/AddOrder",
+title:"Search Transaction",
+path:"/admin/SearchPayments",
+},
+{
+title:"Anaylsis Payments",
+path:"/admin/AnaylsisPayments",
 },
 ]
 },
