@@ -30,6 +30,7 @@ NumberOfReports=1;
 const data = new CommentReports({
        CommentReportId,
        NumberOfReports,
+       MessageSenderId:UserId,
        Message,
       IdsOfUserReport:[{ReportUserId:ReportUserId}]
       });

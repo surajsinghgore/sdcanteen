@@ -10,13 +10,13 @@ import "react-toastify/dist/ReactToastify.css";
 let HOST = process.env.NEXT_PUBLIC_API_URL;
 import VerifyAdminLogin from './VerifyAdminLogin';
 import imges from '../../public/banner4.jpg'
-
+import LoadingBar from "react-top-loading-bar";
 import router from "next/router";
 import { AllContext } from "../../context/AllContext";
 import Link from "next/link";
 import Image from "next/image";
 
-export default function UpdateJuiceImage() {
+export default function UpdateJuiceImage() {const [progress, setProgress] = useState(0);
   const { filterJuiceItemsData } = useContext(AllContext);
   const [imgs, setImgs] = useState(imges);
   const [files, setFiles] = useState("");
@@ -49,7 +49,7 @@ setImgs(`/JuiceItemImages/${filterJuiceItemsData.datas.Image}`)
     if (!files) {
       toast.warn("Please Uploard New Photo To Change", {
         position: "bottom-right",
-        autoClose: 5000,
+        autoClose: 1200,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -57,23 +57,23 @@ setImgs(`/JuiceItemImages/${filterJuiceItemsData.datas.Image}`)
         progress: undefined,
       });
       return ;
-    }
+    } setProgress(40)
     let response = await fetch(`${HOST}/api/UpdateJuiceImage`, {
       method: "POST",
       headers: { admintoken: localStorage.getItem("admintoken") },
       body: dataImage,
-    });
+    }); setProgress(100)
   if (response.status == 401) {
       toast.error("Please Login With Admin Credentials", {
         position: "bottom-right",
-        autoClose: 5000,
+        autoClose: 1200,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
       });
-      setTimeout(RedirectFunction, 1000);
+      setTimeout(RedirectFunction, 1500);
       function RedirectFunction() {
         router.push("/admin/Login");
       }
@@ -81,7 +81,7 @@ setImgs(`/JuiceItemImages/${filterJuiceItemsData.datas.Image}`)
     if (response.status === 500) {
       toast.error("Only JPG , PNG , JPEG Images are Allowed To Upload", {
         position: "bottom-right",
-        autoClose: 5000,
+        autoClose: 1200,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -94,7 +94,7 @@ setImgs(`/JuiceItemImages/${filterJuiceItemsData.datas.Image}`)
     if (datas.status == "501") {
       toast.error(`${datas.message}`, {
         position: "bottom-right",
-        autoClose: 5000,
+        autoClose: 1200,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -106,7 +106,7 @@ setImgs(`/JuiceItemImages/${filterJuiceItemsData.datas.Image}`)
     if (datas.status == "400") {
       toast.warn(`${datas.message}`, {
         position: "bottom-right",
-        autoClose: 5000,
+        autoClose: 1200,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -121,7 +121,7 @@ setImgs(`/JuiceItemImages/${filterJuiceItemsData.datas.Image}`)
         `${filterJuiceItemsData.datas.JuiceName} Image Successfully Updated`,
         {
           position: "bottom-right",
-          autoClose: 5000,
+          autoClose: 1200,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
@@ -130,7 +130,7 @@ setImgs(`/JuiceItemImages/${filterJuiceItemsData.datas.Image}`)
         }
       );
 
-      setTimeout(RedirectFunction, 1000);
+      setTimeout(RedirectFunction, 1500);
       function RedirectFunction() {
         router.push("/admin/UpdateJuiceItem");
       }
@@ -138,7 +138,13 @@ setImgs(`/JuiceItemImages/${filterJuiceItemsData.datas.Image}`)
   };
 
   return (
-    <div className={Styles.admin}>
+    <div className={Styles.admin}> <LoadingBar
+        color="rgb(255 82 0)"
+        height={3.5}
+        waitingTime={400}
+        progress={progress}
+        transitionTime={100}
+      />  
       <HeadTag title="Update Juice Image" />
 
 
@@ -199,7 +205,7 @@ setImgs(`/JuiceItemImages/${filterJuiceItemsData.datas.Image}`)
       </div>
       <ToastContainer
         position="bottom-right"
-        autoClose={5000}
+        autoClose={1200}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick

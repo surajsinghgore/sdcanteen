@@ -10,10 +10,14 @@ import "react-toastify/dist/ReactToastify.css";
 import router from "next/router";
 import { AllContext } from "../../context/AllContext";
 import Link from "next/link";
+import LoadingBar from "react-top-loading-bar";
 import VerifyAdminLogin from './VerifyAdminLogin';
 import Switch from "react-switch";
 let HOST = process.env.NEXT_PUBLIC_API_URL;
 export default function UpdateJuiceItemForm() {
+const [progress, setProgress] = useState(0);
+
+
   const { filterJuiceItemsData,updateJuiceItem } = useContext(AllContext);
  const [checked, setChecked] = useState(true);
    const [normalPrice, setNormalPrice] = useState(0);
@@ -72,9 +76,9 @@ setSmallPrice("")
  
 send();
   
-       async function dataFetch() {
+       async function dataFetch() { setProgress(40)
       let ress = await fetch(`${HOST}/api/ShowJuiceCategory`);
-      let datas = await ress.json();
+      let datas = await ress.json(); setProgress(100)
       await setData(datas.data);
     }
     dataFetch();
@@ -86,7 +90,7 @@ send();
        if (!juiceName) {
       toast.warn("Please Enter Juice Name", {
         position: "bottom-right",
-        autoClose: 5000,
+        autoClose: 1200,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -98,7 +102,7 @@ send();
     if (!description) {
       toast.warn("Please Enter Description of Item", {
         position: "bottom-right",
-        autoClose: 5000,
+        autoClose: 1200,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -110,7 +114,7 @@ send();
  if (!Category) {
       toast.warn("Please Enter Category of Item", {
         position: "bottom-right",
-        autoClose: 5000,
+        autoClose: 1200,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -122,7 +126,7 @@ send();
  if (Category=="no") {
       toast.warn("Please Select Category of Item", {
         position: "bottom-right",
-        autoClose: 5000,
+        autoClose: 1200,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -136,7 +140,7 @@ if((smallPrice=="")&&(mediumPrice=="")&&(largePrice=="")){
 if(normalPrice==""){
    toast.warn("Please Enter Atleast Normal Price Of Item", {
         position: "bottom-right",
-        autoClose: 5000,
+        autoClose: 1200,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -152,7 +156,7 @@ if((smallPrice!="")||(mediumPrice!="")||(largePrice!="")){
 if(normalPrice!=""){
    toast.warn("Please Enter Only Normal Price or Different Size Price", {
         position: "bottom-right",
-        autoClose: 5000,
+        autoClose: 1200,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -165,7 +169,7 @@ if(normalPrice!=""){
 if(parseInt(smallPrice)<=0 || parseInt(mediumPrice)<=0 || parseInt(largePrice)<=0 || parseInt(normalPrice)<=0){
 toast.warn("Price Not Be Zero Or Below Zero", {
         position: "bottom-right",
-        autoClose: 5000,
+        autoClose: 1200,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -182,7 +186,7 @@ active="ON"
 else{
 active="OFF"
 }
-
+ setProgress(40)
     let response = await fetch(`${HOST}/api/UpdateJuiceItem`, {
       method: "POST",
       headers: {
@@ -199,18 +203,18 @@ active="OFF"
       }),
     });
 
-  let datas=await response.json();
+  let datas=await response.json(); setProgress(100)
   if (response.status == 401) {
       toast.error("Please Login With Admin Credentials", {
         position: "bottom-right",
-        autoClose: 5000,
+        autoClose: 1200,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
       });
-      setTimeout(RedirectFunction, 1000);
+      setTimeout(RedirectFunction, 1500);
       function RedirectFunction() {
         router.push("/admin/Login");
       }
@@ -219,7 +223,7 @@ active="OFF"
     if (response.status == 204) {
       toast.error(`${datas.message}`, {
         position: "bottom-right",
-        autoClose: 5000,
+        autoClose: 1200,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -231,7 +235,7 @@ active="OFF"
     if (response.status == 409) {
       toast.warn(`${datas.message}`, {
         position: "bottom-right",
-        autoClose: 5000,
+        autoClose: 1200,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -244,7 +248,7 @@ active="OFF"
     if (response.status == 400) {
       toast.warn(`${datas.message}`, {
         position: "bottom-right",
-        autoClose: 5000,
+        autoClose: 1200,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -256,7 +260,7 @@ active="OFF"
    if (response.status == 404) {
       toast.warn(`${datas.message}`, {
         position: "bottom-right",
-        autoClose: 5000,
+        autoClose: 1200,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -268,14 +272,14 @@ active="OFF"
     if (response.status == 201) {
       toast.success(`${juiceName} is Successfully Added`, {
         position: "bottom-right",
-        autoClose: 5000,
+        autoClose: 1200,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
       });
-        setTimeout(RedirectFunction, 1000);
+        setTimeout(RedirectFunction, 1500);
       function RedirectFunction() {
         router.push("/admin/UpdateJuiceItem");
       updateJuiceItem(filterJuiceItemsData.datas._id)
@@ -286,7 +290,14 @@ active="OFF"
 
 
   return (
-    <div className={Styles.admin}>
+    <div className={Styles.admin}> <LoadingBar
+        color="rgb(255 82 0)"
+        height={3.5}
+        waitingTime={400}
+        progress={progress}
+        transitionTime={100}
+      />  
+
     <VerifyAdminLogin />
       <HeadTag title="Update Juice Item Form" />
       {/* left panel bar */}
@@ -429,7 +440,7 @@ active="OFF"
       </div>
       <ToastContainer
         position="bottom-right"
-        autoClose={5000}
+        autoClose={1200}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick

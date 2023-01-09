@@ -12,10 +12,11 @@ import { IoIosAddCircleOutline } from "react-icons/io";
 let HOST = process.env.NEXT_PUBLIC_API_URL;
 import { AllContext } from "../../context/AllContext";
 import VerifyAdminLogin from './VerifyAdminLogin';
-
+ 
+import LoadingBar from "react-top-loading-bar";
 function AllCoffeeCategory() {
   const { deletes } = useContext(AllContext);
-
+const [progress, setProgress] = useState(0);
   const [search, setSearch] = useState("");
   const [data, setData] = useState([]);
   const [data1, setData1] = useState([]);
@@ -24,7 +25,13 @@ function AllCoffeeCategory() {
 
   useEffect(() => {
     async function dataFetch() {
+    
+ setProgress(40)
+
       let ress = await fetch(`${HOST}/api/ShowCoffeeCategory`);
+      
+ setProgress(100)
+
       let datas = await ress.json();
 
       await setData(datas.data);
@@ -52,6 +59,13 @@ function AllCoffeeCategory() {
 
   return (
     <div className={Styles.admin}>
+     <LoadingBar
+        color="rgb(255 82 0)"
+        height={3.5}
+        waitingTime={400}
+        progress={progress}
+        transitionTime={100}
+      />  
       <HeadTag title="All Coffee Category" />
       {/* left panel bar */}
 <VerifyAdminLogin />

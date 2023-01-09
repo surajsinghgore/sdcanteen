@@ -9,16 +9,17 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import router from "next/router";
 let HOST = process.env.NEXT_PUBLIC_API_URL;
-
+import LoadingBar from "react-top-loading-bar";
 import VerifyAdminLogin from './VerifyAdminLogin';
 
 function AddDrinkCategory() {
+const [progress, setProgress] = useState(0);
   const [DrinkCategory, setDrinkCategory] = useState("");
   const addCategory = async (e) => {
     if (!DrinkCategory) {
       toast.warn("Please Enter Drink Category Name In The Field", {
         position: "bottom-right",
-        autoClose: 5000,
+        autoClose: 1200,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -27,7 +28,7 @@ function AddDrinkCategory() {
       });
       return ;
     }
-
+setProgress(40)
     const res = await fetch(`${HOST}/api/AddDrinkCategory`, {
       method: "POST",
       headers: {
@@ -38,17 +39,18 @@ function AddDrinkCategory() {
       }),
     });
     let data = await res.json();
+  setProgress(100)
   if (res.status == 401) {
       toast.error("Please Login With Admin Credentials", {
         position: "bottom-right",
-        autoClose: 5000,
+        autoClose: 1200,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
       });
-      setTimeout(RedirectFunction, 1000);
+      setTimeout(RedirectFunction, 1500);
       function RedirectFunction() {
         router.push("/admin/Login");
       }
@@ -56,14 +58,14 @@ function AddDrinkCategory() {
     if (data.status == "403") {
       toast.error("Please Login With Admin Credentials", {
         position: "bottom-right",
-        autoClose: 5000,
+        autoClose: 1200,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
       });
-      setTimeout(RedirectFunction, 1000);
+      setTimeout(RedirectFunction, 1500);
       function RedirectFunction() {
         router.push("/admin/Login");
       }
@@ -73,7 +75,7 @@ function AddDrinkCategory() {
     if (data.status == "501") {
       toast.error(`${data.message}`, {
         position: "bottom-right",
-        autoClose: 5000,
+        autoClose: 1200,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -86,7 +88,7 @@ function AddDrinkCategory() {
     if (data.status == "402") {
       toast.warn(`${data.message}`, {
         position: "bottom-right",
-        autoClose: 5000,
+        autoClose: 1200,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -99,7 +101,7 @@ function AddDrinkCategory() {
     if (data.status == "400") {
       toast.warn(`${DrinkCategory} Is Already Exists In Drink Category`, {
         position: "bottom-right",
-        autoClose: 5000,
+        autoClose: 1200,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -111,14 +113,14 @@ function AddDrinkCategory() {
 
     toast.success(`${DrinkCategory} Drink Category Successfully Added`, {
       position: "bottom-right",
-      autoClose: 5000,
+      autoClose: 1200,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
     });
-    setTimeout(RedirectFunction, 1000);
+    setTimeout(RedirectFunction, 1500);
     function RedirectFunction() {
       router.push("/admin/AllDrinkCategory");
     }
@@ -127,6 +129,13 @@ function AddDrinkCategory() {
   };
   return (
     <div className={Styles.admin}>
+         <LoadingBar
+        color="rgb(255 82 0)"
+        height={3.5}
+        waitingTime={400}
+        progress={progress}
+        transitionTime={100}
+      />  
     <VerifyAdminLogin />
       <HeadTag title="Add Drink Category" />
       <AdminLeftMenu />
@@ -173,7 +182,7 @@ function AddDrinkCategory() {
       </div>
       <ToastContainer
         position="bottom-right"
-        autoClose={5000}
+        autoClose={1200}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick

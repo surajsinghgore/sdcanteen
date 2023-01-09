@@ -10,12 +10,13 @@ import { AiOutlineCloseSquare } from "react-icons/ai";
 import { AllContext } from "../context/AllContext";
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
-
+import LoadingBar from "react-top-loading-bar";
 let HOST=process.env.NEXT_PUBLIC_API_URL;
 function DrinkAllCategoryComponent({data,ind}) {
 const {deletes,setDeletes,updateDrinkCategories}=useContext(AllContext);
 
 
+const [progress, setProgress] = useState(0);
 const [show,setShow]=useState(false);
 
 const showSubMenu=()=>{
@@ -39,7 +40,8 @@ confirmAlert({
         {
           label: 'Yes',
           onClick: async () => {
-          
+           setProgress(40)
+
 let res=await fetch(`${HOST}/api/DeleteDrinkCategory`,{
     method: "DELETE",
     headers:{
@@ -51,11 +53,12 @@ let res=await fetch(`${HOST}/api/DeleteDrinkCategory`,{
     })
 })
 
-let dataRes=await res.json();
+let dataRes=await res.json(); setProgress(100)
+
   if (res.status == 401) {
       toast.error("Please Login With Admin Credentials", {
         position: "bottom-right",
-        autoClose: 5000,
+        autoClose: 1200,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -67,7 +70,7 @@ let dataRes=await res.json();
  if(dataRes.status=='403'){
 toast.error('Please Login With Admin Credentials', {
 position: "bottom-right",
-autoClose: 5000,
+autoClose: 1200,
 hideProgressBar: false,
 closeOnClick: true,
 pauseOnHover: true,
@@ -79,7 +82,7 @@ return ;
 if(dataRes.status=='400'){
 toast.warn(`${dataRes.message}`, {
 position: "bottom-right",
-autoClose: 5000,
+autoClose: 1200,
 hideProgressBar: false,
 closeOnClick: true,
 pauseOnHover: true,
@@ -94,7 +97,7 @@ return ;
 if(dataRes.status=='501'){
 toast.warn(`${dataRes.message}`, {
 position: "bottom-right",
-autoClose: 5000,
+autoClose: 1200,
 hideProgressBar: false,
 closeOnClick: true,
 pauseOnHover: true,
@@ -107,7 +110,7 @@ setDeletes(!deletes)
 setShow(false);
 toast.success(`${dataRes.message}`, {
 position: "bottom-right",
-autoClose: 5000,
+autoClose: 1200,
 hideProgressBar: false,
 closeOnClick: true,
 pauseOnHover: true,
@@ -129,7 +132,14 @@ progress: undefined,
 }
 
   return (
-       <div className={FoodStyles.DataLists} key={ind}>
+       <div className={FoodStyles.DataLists} key={ind}>  <LoadingBar
+        color="rgb(255 82 0)"
+        height={3.5}
+        waitingTime={400}
+        progress={progress}
+        transitionTime={100}
+      />  
+
 <div className={FoodStyles.DataList}>
 <li>{data.DrinkCategoryName}</li>
 {(show)? 
@@ -146,7 +156,7 @@ progress: undefined,
  ' '}
         <ToastContainer
 position="bottom-right"
-autoClose={5000}
+autoClose={1200}
 hideProgressBar={false}
 newestOnTop={false}
 closeOnClick

@@ -15,6 +15,9 @@ const CommentReport = new mongoose.Schema(
   ref: "itemratings",
     required: true,
     },
+    MessageSenderId:{ type: mongoose.Schema.Types.ObjectId,
+  ref: "clientdatas",
+    required: true,},
     NumberOfReports: {
       type: Number,
       required: true,

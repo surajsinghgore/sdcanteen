@@ -1,4 +1,5 @@
 import React,{useState,useEffect,useContext} from 'react'
+import LoadingBar from "react-top-loading-bar";
 import { BiMenu } from 'react-icons/bi';
 let HOST = process.env.NEXT_PUBLIC_API_URL;
 let foodkey = process.env.NEXT_PUBLIC_Secret_Key_FoodOwner;
@@ -28,6 +29,7 @@ const [show,setShow]=useState(false);
 const [price,setPrice]=useState(0)
 const [OrderStatus,setOrderStatus]=useState('');
 const [status,setStatus]=useState('pending')
+const [progress, setProgress] = useState(0);
 useEffect(()=>{
 if(item){
 setDatas(item);
@@ -56,7 +58,7 @@ let value=prompt("Enter Secret Key [ Food Admin ] to Process Order");
 if(value!=foodkey){
 toast.warn('Sorry Incorrect Secret Key', {
 position: "bottom-right",
-autoClose: 5000,
+autoClose: 1200,
 hideProgressBar: false,
 closeOnClick: true,
 pauseOnHover: true,
@@ -71,7 +73,7 @@ let value=prompt("Enter Secret Key [ Coffee Admin ] to Process Order");
 if(value!=coffeekey){
 toast.warn('Sorry Incorrect Secret Key', {
 position: "bottom-right",
-autoClose: 5000,
+autoClose: 1200,
 hideProgressBar: false,
 closeOnClick: true,
 pauseOnHover: true,
@@ -86,7 +88,7 @@ let value=prompt("Enter Secret Key [ Drink Admin ] to Process Order");
 if(value!=drinkkey){
 toast.warn('Sorry Incorrect Secret Key', {
 position: "bottom-right",
-autoClose: 5000,
+autoClose: 1200,
 hideProgressBar: false,
 closeOnClick: true,
 pauseOnHover: true,
@@ -101,7 +103,7 @@ let value=prompt("Enter Secret Key [ Juice Admin ] to Process Order");
 if(value!=juicekey){
 toast.warn('Sorry Incorrect Secret Key', {
 position: "bottom-right",
-autoClose: 5000,
+autoClose: 1200,
 hideProgressBar: false,
 closeOnClick: true,
 pauseOnHover: true,
@@ -115,7 +117,7 @@ return ;
 else{
 toast.warn('Sorry something went wrong with  Secret Key you provides', {
 position: "bottom-right",
-autoClose: 5000,
+autoClose: 1200,
 hideProgressBar: false,
 closeOnClick: true,
 pauseOnHover: true,
@@ -125,7 +127,8 @@ progress: undefined,
 return ;
 }
 
-const sendData=async()=>{
+const sendData=async()=>{ setProgress(40)
+
 const res = await fetch(`${HOST}/api/UpdateOrderItems`, {
       method: "POST",
       headers: {
@@ -135,11 +138,12 @@ const res = await fetch(`${HOST}/api/UpdateOrderItems`, {
         "id": id,"status":status
       }),
     });
-  await res.json();
+  await res.json(); setProgress(100)
+
 if(res.status==403){
 toast.error('Please Login With Admin Credentails', {
 position: "bottom-right",
-autoClose: 5000,
+autoClose: 1200,
 hideProgressBar: false,
 closeOnClick: true,
 pauseOnHover: true,
@@ -151,7 +155,7 @@ return ;
 if(res.status==400){
 toast.warn('Please fill All the filed Id,Price,Status', {
 position: "bottom-right",
-autoClose: 5000,
+autoClose: 1200,
 hideProgressBar: false,
 closeOnClick: true,
 pauseOnHover: true,
@@ -164,7 +168,7 @@ return ;
 if(res.status==404){
 toast.warn('Record Not Found', {
 position: "bottom-right",
-autoClose: 5000,
+autoClose: 1200,
 hideProgressBar: false,
 closeOnClick: true,
 pauseOnHover: true,
@@ -176,7 +180,7 @@ return ;
 if(res.status==501){
 toast.warn('Internal Server Error', {
 position: "bottom-right",
-autoClose: 5000,
+autoClose: 1200,
 hideProgressBar: false,
 closeOnClick: true,
 pauseOnHover: true,
@@ -187,7 +191,7 @@ return ;
 }
 toast.success('Successfully Updated', {
 position: "bottom-right",
-autoClose: 5000,
+autoClose: 1200,
 hideProgressBar: false,
 closeOnClick: true,
 pauseOnHover: true,
@@ -210,7 +214,7 @@ let priceInt=parseInt(price);
 if(priceInt<0){
 toast.warn('Price Below Zero Not Allowed', {
 position: "bottom-right",
-autoClose: 5000,
+autoClose: 1200,
 hideProgressBar: false,
 closeOnClick: true,
 pauseOnHover: true,
@@ -222,7 +226,7 @@ return ;
 else if(priceInt==0){
 toast.warn('Zero Price Amount Not Allowed', {
 position: "bottom-right",
-autoClose: 5000,
+autoClose: 1200,
 hideProgressBar: false,
 closeOnClick: true,
 pauseOnHover: true,
@@ -234,7 +238,7 @@ return ;
 else if(status=="pending"){
 toast.warn('Please Change Order Status', {
 position: "bottom-right",
-autoClose: 5000,
+autoClose: 1200,
 hideProgressBar: false,
 closeOnClick: true,
 pauseOnHover: true,
@@ -246,7 +250,7 @@ return ;
 if(priceInt<parseInt(Amount)){
 toast.warn('Amount Is Less Than Total Amount', {
 position: "bottom-right",
-autoClose: 5000,
+autoClose: 1200,
 hideProgressBar: false,
 closeOnClick: true,
 pauseOnHover: true,
@@ -258,7 +262,7 @@ return ;
 if(priceInt>parseInt(Amount)){
 toast.warn('Amount Is More Than Total Amount', {
 position: "bottom-right",
-autoClose: 5000,
+autoClose: 1200,
 hideProgressBar: false,
 closeOnClick: true,
 pauseOnHover: true,
@@ -273,7 +277,7 @@ let value=prompt("Enter Secret Key [ Food Admin ] to Process Order");
 if(value!=foodkey){
 toast.warn('Sorry Incorrect Secret Key', {
 position: "bottom-right",
-autoClose: 5000,
+autoClose: 1200,
 hideProgressBar: false,
 closeOnClick: true,
 pauseOnHover: true,
@@ -288,7 +292,7 @@ let value=prompt("Enter Secret Key [ Coffee Admin ] to Process Order");
 if(value!=coffeekey){
 toast.warn('Sorry Incorrect Secret Key', {
 position: "bottom-right",
-autoClose: 5000,
+autoClose: 1200,
 hideProgressBar: false,
 closeOnClick: true,
 pauseOnHover: true,
@@ -303,7 +307,7 @@ let value=prompt("Enter Secret Key [ Drink Admin ] to Process Order");
 if(value!=drinkkey){
 toast.warn('Sorry Incorrect Secret Key', {
 position: "bottom-right",
-autoClose: 5000,
+autoClose: 1200,
 hideProgressBar: false,
 closeOnClick: true,
 pauseOnHover: true,
@@ -318,7 +322,7 @@ let value=prompt("Enter Secret Key [ Juice Admin ] to Process Order");
 if(value!=juicekey){
 toast.warn('Sorry Incorrect Secret Key', {
 position: "bottom-right",
-autoClose: 5000,
+autoClose: 1200,
 hideProgressBar: false,
 closeOnClick: true,
 pauseOnHover: true,
@@ -332,7 +336,7 @@ return ;
 else{
 toast.warn('Sorry something went wrong with  Secret Key you provides', {
 position: "bottom-right",
-autoClose: 5000,
+autoClose: 1200,
 hideProgressBar: false,
 closeOnClick: true,
 pauseOnHover: true,
@@ -342,7 +346,8 @@ progress: undefined,
 return ;
 }
 
-const sendData=async()=>{
+const sendData=async()=>{ setProgress(40)
+
 const res = await fetch(`${HOST}/api/UpdateOrderItems`, {
       method: "POST",
       headers: {
@@ -352,11 +357,12 @@ const res = await fetch(`${HOST}/api/UpdateOrderItems`, {
         "id": id,"price":price,"status":status
       }),
     });
-    let data = await res.json();
+    let data = await res.json(); setProgress(100)
+
 if(res.status==403){
 toast.error('Please Login With Admin Credentails', {
 position: "bottom-right",
-autoClose: 5000,
+autoClose: 1200,
 hideProgressBar: false,
 closeOnClick: true,
 pauseOnHover: true,
@@ -368,7 +374,7 @@ return ;
 if(res.status==400){
 toast.warn('Please fill All the filed Id,Price,Status', {
 position: "bottom-right",
-autoClose: 5000,
+autoClose: 1200,
 hideProgressBar: false,
 closeOnClick: true,
 pauseOnHover: true,
@@ -381,7 +387,7 @@ return ;
 if(res.status==404){
 toast.warn('Record Not Found', {
 position: "bottom-right",
-autoClose: 5000,
+autoClose: 1200,
 hideProgressBar: false,
 closeOnClick: true,
 pauseOnHover: true,
@@ -393,7 +399,7 @@ return ;
 if(res.status==501){
 toast.warn('Internal Server Error', {
 position: "bottom-right",
-autoClose: 5000,
+autoClose: 1200,
 hideProgressBar: false,
 closeOnClick: true,
 pauseOnHover: true,
@@ -405,7 +411,7 @@ return ;
 
 toast.success('Successfully Updated', {
 position: "bottom-right",
-autoClose: 5000,
+autoClose: 1200,
 hideProgressBar: false,
 closeOnClick: true,
 pauseOnHover: true,
@@ -423,7 +429,14 @@ sendData();
 
 
   return (
-     <>
+     <>  <LoadingBar
+        color="rgb(255 82 0)"
+        height={3.5}
+        waitingTime={400}
+        progress={progress}
+        transitionTime={100}
+      />  
+
      <VerifyAdminLogin />
     {(datas.length!=0)?<div>
 <div className={StyleRealtime.tableheaddatasub} key={item._id}>
@@ -506,7 +519,7 @@ sendData();
     
    <ToastContainer
         position="bottom-right"
-        autoClose={5000}
+        autoClose={1200}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick

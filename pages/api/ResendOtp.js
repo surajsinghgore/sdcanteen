@@ -6,7 +6,7 @@ import ClientData from "./Schema/ClientData";
 const otpGenerator = require('otp-generator')
 import nextConnect from "next-connect";
 const handler = nextConnect();
-var cookie = require('cookie');
+
 
  const nodemailer = require("nodemailer");
  let transporter = nodemailer.createTransport({
@@ -49,6 +49,8 @@ return res.status(400).json({message:"Sorry Something went wrong,Please Register
 const checkEmail=await ClientRegistrationTemporary.findOne({Email: Email})
 if((checkEmail!=undefined)||(checkEmail!=null)){
 await ClientRegistrationTemporary.findByIdAndUpdate(checkEmail._id,{"Otp":optGenerateNumber})
+
+
    const mailoption={
 from:process.env.NODEMAILER_GMAIL_ID,
 to:checkEmail.Email,
@@ -82,6 +84,8 @@ if(error){
 return res.status(401).json({message:error,status:"401"});
 }
 })
+
+
 return res.status(201).json({message:"new Otp Successfully send"})
 }else{
 return res.status(400).json({message:"bad request"})

@@ -5,8 +5,9 @@ import { useEffect, useState } from "react";
 let HOST = process.env.NEXT_PUBLIC_API_URL;
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import LoadingBar from "react-top-loading-bar";
 export default function AdminRightInnerHeader(props) {
-
+const [progress, setProgress] = useState(0);
  const [checked, setChecked] = useState(false);
 // refresh page problem fix
   useEffect(()=>{
@@ -21,14 +22,14 @@ export default function AdminRightInnerHeader(props) {
   },[])
 // set on / off after fetching old status from database
 useEffect(()=>{
-const gets=async()=>{
+const gets=async()=>{ setProgress(40)
 const res1 = await fetch(`${HOST}/api/ShowOrderOnOffStatus`, {
       method: "GET",
       headers: {
         "Content-type": "application/json",
       }
     });
-    let data=await res1.json();
+    let data=await res1.json(); setProgress(100)
     if(data.data){
     let s=data.data[0].Status;
     if(s=="true"){
@@ -47,18 +48,18 @@ gets();
     setChecked(!checked);
     localStorage.setItem('orderStatus',checked)
 const sendData=async()=>{
-
+ setProgress(40)
 // fetch Update Data
 const res1 = await fetch(`${HOST}/api/ShowOrderOnOffStatus`, {
       method: "GET",
       headers: {
         "Content-type": "application/json",
       }
-    });
+    }); setProgress(100)
       if (res1.status == 401) {
       toast.error("Please Login With Admin Credentials", {
         position: "bottom-right",
-        autoClose: 5000,
+        autoClose: 1200,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -72,7 +73,7 @@ const res1 = await fetch(`${HOST}/api/ShowOrderOnOffStatus`, {
         if(res1.status==501){
 toast.error('Internal Server Error', {
 position: "bottom-right",
-autoClose: 5000,
+autoClose: 1200,
 hideProgressBar: false,
 closeOnClick: true,
 pauseOnHover: true,
@@ -84,7 +85,7 @@ return ;
  if(res1.status==404){
 toast.warn('No Record Found', {
 position: "bottom-right",
-autoClose: 5000,
+autoClose: 1200,
 hideProgressBar: false,
 closeOnClick: true,
 pauseOnHover: true,
@@ -101,7 +102,7 @@ if(data.data[0].Status!==checked){
 if(!id){
 toast.warn('Id Not Found', {
 position: "bottom-right",
-autoClose: 5000,
+autoClose: 1200,
 hideProgressBar: false,
 closeOnClick: true,
 pauseOnHover: true,
@@ -109,7 +110,7 @@ draggable: true,
 progress: undefined,
 });
 return ;
-}
+} setProgress(40)
 const res = await fetch(`${HOST}/api/UpdateOnOffStatus`, {
       method: "POST",
       headers: {
@@ -119,11 +120,11 @@ const res = await fetch(`${HOST}/api/UpdateOnOffStatus`, {
         Status: checked,id:id
       }),
     });
-
+ setProgress(100)
     if(res.status==501){
 toast.error('Internal Server Error', {
 position: "bottom-right",
-autoClose: 5000,
+autoClose: 1200,
 hideProgressBar: false,
 closeOnClick: true,
 pauseOnHover: true,
@@ -135,7 +136,7 @@ return ;
     if(res.status==400){
 toast.warn('Status is Empty', {
 position: "bottom-right",
-autoClose: 5000,
+autoClose: 1200,
 hideProgressBar: false,
 closeOnClick: true,
 pauseOnHover: true,
@@ -148,7 +149,7 @@ return ;
     if(checked==true){
     toast.error('Order Is OFF Now', {
 position: "bottom-right",
-autoClose: 5000,
+autoClose: 1200,
 hideProgressBar: false,
 closeOnClick: true,
 pauseOnHover: true,
@@ -159,7 +160,7 @@ progress: undefined,
     else{
     toast.success('Order Is  ON Now', {
 position: "bottom-right",
-autoClose: 5000,
+autoClose: 1200,
 hideProgressBar: false,
 closeOnClick: true,
 pauseOnHover: true,
@@ -176,7 +177,13 @@ progress: undefined,
 sendData();
   };
   return (
-    <div className={StyleFood.topHeader}>
+    <div className={StyleFood.topHeader}> <LoadingBar
+        color="rgb(255 82 0)"
+        height={3.5}
+        waitingTime={400}
+        progress={progress}
+        transitionTime={100}
+      />  
     {/* heading section */}
     <div className={StyleFood.heading_section}>
     <i>
@@ -207,7 +214,7 @@ sendData();
     
    <ToastContainer
         position="bottom-right"
-        autoClose={5000}
+        autoClose={1200}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick

@@ -11,12 +11,13 @@ import Image from "next/image";
 import "react-toastify/dist/ReactToastify.css";
 import { useState, useEffect } from "react";
 import VerifyAdminLogin from './VerifyAdminLogin';
-
+import Loader from "../../Components/Loader";
 
 export default function ShowCoffeeItem({ datas }) {
   const [coffeeNameSearch, setCoffeeNameSearch] = useState("");
   const [categorySearch, setCategorySearch] = useState("");
   const [data, setData] = useState([]);
+ const [loader,setLoader]=useState(true);
 
   const [fetchData, setFetchData] = useState(datas);
   const [demmyData, setDummyData] = useState(datas);
@@ -52,18 +53,19 @@ export default function ShowCoffeeItem({ datas }) {
 
   useEffect(() => {
     async function dataFetch() {
+    setLoader(true)
       let response = await fetch(`${HOST}/api/ShowCoffeeCategory`, {
         method: "GET",
       
       });
-      let dataCategory = await response.json();
+      let dataCategory = await response.json();setLoader(false)
       await setData(dataCategory.data);
     }
     dataFetch();
   }, []);
 
   return (
-    <div className={Styles.admin}>
+    <div className={Styles.admin}> <Loader loader={loader}/>
       <HeadTag title="Show Coffee Item" />
 <VerifyAdminLogin />
 

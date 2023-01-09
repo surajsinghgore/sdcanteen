@@ -10,15 +10,17 @@ import "react-toastify/dist/ReactToastify.css";
 import router from "next/router";
 let HOST = process.env.NEXT_PUBLIC_API_URL;
 import VerifyAdminLogin from './VerifyAdminLogin';
-
+ 
+import LoadingBar from "react-top-loading-bar";
 function AddJuiceCategory() {
   const [JuiceCategory, setJuiceCategory] = useState("");
+  const [progress, setProgress] = useState(0);
   const addCategory = async (e) => {
     // if food field is empty
     if (!JuiceCategory) {
       toast.warn("Please Enter Juice Category Name In The Field", {
         position: "bottom-right",
-        autoClose: 5000,
+        autoClose: 1200,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -27,6 +29,8 @@ function AddJuiceCategory() {
       });
       return ;
     }
+
+ setProgress(40)
 
     const res = await fetch(`${HOST}/api/AddJuiceCategory`, {
       method: "POST",
@@ -39,17 +43,20 @@ function AddJuiceCategory() {
       }),
     });
     let data = await res.json();
+    
+ setProgress(100)
+
   if (res.status == 401) {
       toast.error("Please Login With Admin Credentials", {
         position: "bottom-right",
-        autoClose: 5000,
+        autoClose: 1200,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
       });
-      setTimeout(RedirectFunction, 1000);
+      setTimeout(RedirectFunction, 1500);
       function RedirectFunction() {
         router.push("/admin/Login");
       }
@@ -57,14 +64,14 @@ function AddJuiceCategory() {
     if (data.status == "403") {
       toast.error("Please Login With Admin Credentials", {
         position: "bottom-right",
-        autoClose: 5000,
+        autoClose: 1200,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
       });
-      setTimeout(RedirectFunction, 1000);
+      setTimeout(RedirectFunction, 1500);
       function RedirectFunction() {
         router.push("/admin/Login");
       }
@@ -74,7 +81,7 @@ function AddJuiceCategory() {
     if (data.status == "501") {
       toast.error(`${data.message}`, {
         position: "bottom-right",
-        autoClose: 5000,
+        autoClose: 1200,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -87,7 +94,7 @@ function AddJuiceCategory() {
     if (data.status == "402") {
       toast.warn(`${data.message}`, {
         position: "bottom-right",
-        autoClose: 5000,
+        autoClose: 1200,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -100,7 +107,7 @@ function AddJuiceCategory() {
     if (data.status == "400") {
       toast.warn(`${JuiceCategory} Is Already Exists In Drink Category`, {
         position: "bottom-right",
-        autoClose: 5000,
+        autoClose: 1200,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -112,14 +119,14 @@ function AddJuiceCategory() {
 
     toast.success(`${JuiceCategory} Juice Category Successfully Added`, {
       position: "bottom-right",
-      autoClose: 5000,
+      autoClose: 1200,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
     });
-    setTimeout(RedirectFunction, 1000);
+    setTimeout(RedirectFunction, 1500);
     function RedirectFunction() {
       router.push("/admin/AllJuiceCategory");
     }
@@ -130,6 +137,14 @@ function AddJuiceCategory() {
 
   return (
     <div className={Styles.admin}>
+      <LoadingBar
+        color="rgb(255 82 0)"
+        height={3.5}
+        waitingTime={400}
+        progress={progress}
+        transitionTime={100}
+      />  
+
     <VerifyAdminLogin />
       <HeadTag title="Add Juice Category" />
       <AdminLeftMenu />
@@ -176,7 +191,7 @@ function AddJuiceCategory() {
       </div>
       <ToastContainer
         position="bottom-right"
-        autoClose={5000}
+        autoClose={1200}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick

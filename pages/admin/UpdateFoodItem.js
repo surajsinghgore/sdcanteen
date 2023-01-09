@@ -10,12 +10,12 @@ import { FiEdit } from "react-icons/fi";
 import Image from "next/image";
 import "react-toastify/dist/ReactToastify.css";
 import VerifyAdminLogin from './VerifyAdminLogin';
-
+import LoadingBar from "react-top-loading-bar";
 import router from "next/router";
 import { AllContext } from "../../context/AllContext";
 let HOST = process.env.NEXT_PUBLIC_API_URL;
 
-export default function UpdateFoodItem() {
+export default function UpdateFoodItem() {const [progress, setProgress] = useState(0);
   const { updateFoodItem } = useContext(AllContext);
   const [foodNameSearch, setFoodNameSearch] = useState();
   const [categorySearch, setCategorySearch] = useState();
@@ -58,23 +58,29 @@ export default function UpdateFoodItem() {
   };
 // category and food items fetch
   useEffect(() => {
-    async function dataFetch() {
+    async function dataFetch() { setProgress(40)
       let ress = await fetch(`${HOST}/api/ShowFoodCategory`);
-      let datas = await ress.json();
+      let datas = await ress.json(); setProgress(100)
       await setData(datas.data);
     }
     dataFetch();
 
-    async function dataCategoryFetch() {
+    async function dataCategoryFetch() { setProgress(40)
       let ress = await fetch(`${HOST}/api/ShowFoodItem`);
-      let datas = await ress.json();
+      let datas = await ress.json(); setProgress(100)
       await setFetchData(datas.data);
       await setDummyData(datas.data);
     }
     dataCategoryFetch();
   }, []);
   return (
-    <div className={Styles.admin}>
+    <div className={Styles.admin}> <LoadingBar
+        color="rgb(255 82 0)"
+        height={3.5}
+        waitingTime={400}
+        progress={progress}
+        transitionTime={100}
+      />  
       <HeadTag title="Update Food Item" />
 <VerifyAdminLogin />
       {/* left panel bar */}

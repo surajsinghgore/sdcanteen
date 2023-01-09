@@ -16,13 +16,15 @@ let HOST = process.env.NEXT_PUBLIC_API_URL;
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import VerifyAdminLogin from './VerifyAdminLogin';
-
+import LoadingBar from "react-top-loading-bar";
 
 export default function DeleteFoodItem({ datas }) {
   const [useEffectCall, setUseEffectCall] = useState(false);
   const [foodNameSearch, setFoodNameSearch] = useState("");
   const [categorySearch, setCategorySearch] = useState("");
   const [data, setData] = useState([]);
+
+const [progress, setProgress] = useState(0);
 
   const [fetchData, setFetchData] = useState([]);
   const [demmyData, setDummyData] = useState([]);
@@ -66,7 +68,7 @@ export default function DeleteFoodItem({ datas }) {
             if (!item._id) {
               toast.warn("Please Provide Correct Id Of Item", {
                 position: "bottom-right",
-                autoClose: 5000,
+                autoClose: 1200,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
@@ -78,7 +80,7 @@ export default function DeleteFoodItem({ datas }) {
             if (!item.Image) {
               toast.warn("Please Provide Correct Image Of Item", {
                 position: "bottom-right",
-                autoClose: 5000,
+                autoClose: 1200,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
@@ -87,6 +89,7 @@ export default function DeleteFoodItem({ datas }) {
               });
               return ;
             }
+ setProgress(40)
             let res = await fetch(`${HOST}/api/DeleteFoodItem`, {
               method: "DELETE",
               headers: {
@@ -98,10 +101,11 @@ export default function DeleteFoodItem({ datas }) {
                 imagePath: item.Image,
               }),
             });
+ setProgress(100)
   if (res.status == 401) {
       toast.error("Please Login With Admin Credentials", {
         position: "bottom-right",
-        autoClose: 5000,
+        autoClose: 1200,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -114,7 +118,7 @@ export default function DeleteFoodItem({ datas }) {
             if (data.status == "501") {
               toast.error(`${data.message}`, {
                 position: "bottom-right",
-                autoClose: 5000,
+                autoClose: 1200,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
@@ -127,7 +131,7 @@ export default function DeleteFoodItem({ datas }) {
             if (data.status == "400") {
               toast.warn(`${data.message}`, {
                 position: "bottom-right",
-                autoClose: 5000,
+                autoClose: 1200,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
@@ -139,7 +143,7 @@ export default function DeleteFoodItem({ datas }) {
             if (data.status == "201") {
               toast.success(`Food Item Successfully Deleted`, {
                 position: "bottom-right",
-                autoClose: 5000,
+                autoClose: 1200,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
@@ -160,22 +164,33 @@ export default function DeleteFoodItem({ datas }) {
 
   useEffect(() => {
     async function dataFetch() {
+    
+ setProgress(40)
       let ress = await fetch(`${HOST}/api/ShowFoodCategory`);
       let datas = await ress.json();
+ setProgress(100)
       await setData(datas.data);
     }
     dataFetch();
 
     async function dataCategoryFetch() {
+ setProgress(40)
       let ress = await fetch(`${HOST}/api/ShowFoodItem`);
       let datas = await ress.json();
+ setProgress(100)
       await setFetchData(datas.data);
       await setDummyData(datas.data);
     }
     dataCategoryFetch();
   }, [useEffectCall]);
   return (
-    <div className={Styles.admin}>
+    <div className={Styles.admin}> <LoadingBar
+        color="rgb(255 82 0)"
+        height={3.5}
+        waitingTime={400}
+        progress={progress}
+        transitionTime={100}
+      />  
       <HeadTag title="Delete Food Item" />
 <VerifyAdminLogin />
 
@@ -319,7 +334,7 @@ export default function DeleteFoodItem({ datas }) {
       </div>
       <ToastContainer
         position="bottom-right"
-        autoClose={5000}
+        autoClose={1200}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick

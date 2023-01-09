@@ -10,9 +10,9 @@ import "react-toastify/dist/ReactToastify.css";
 import router from "next/router";
 import { AllContext } from "../../context/AllContext";
 import VerifyAdminLogin from './VerifyAdminLogin';
-
+import LoadingBar from "react-top-loading-bar";
 let HOST = process.env.NEXT_PUBLIC_API_URL;
-function UpdateFoodCategory() {
+function UpdateFoodCategory() {const [progress, setProgress] = useState(0);
   const { filterAllFoodCategoriesData } = useContext(AllContext);
 
   const [FoodCategoryName, setFoodCategoryName] = useState("");
@@ -21,7 +21,7 @@ function UpdateFoodCategory() {
     if (!FoodCategoryName) {
       toast.warn("Please Enter Somethig In Food Category Name Field", {
         position: "bottom-right",
-        autoClose: 5000,
+        autoClose: 1200,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -30,7 +30,7 @@ function UpdateFoodCategory() {
       });
       return ;
     }
-
+setProgress(40)
     let res = await fetch(`${HOST}/api/UpdateFoodCategory`, {
       method: "POST",
       headers: {
@@ -43,18 +43,18 @@ function UpdateFoodCategory() {
       }),
     });
 
-    let dataRes = await res.json();
+    let dataRes = await res.json();setProgress(100)
  if (res.status == 401) {
       toast.error("Please Login With Admin Credentials", {
         position: "bottom-right",
-        autoClose: 5000,
+        autoClose: 1200,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
       });
-      setTimeout(RedirectFunction, 1000);
+      setTimeout(RedirectFunction, 1500);
       function RedirectFunction() {
         router.push("/admin/Login");
       }
@@ -62,7 +62,7 @@ function UpdateFoodCategory() {
     if (dataRes.status == "403") {
       toast.error("Please Login With Admin Credentials", {
         position: "bottom-right",
-        autoClose: 5000,
+        autoClose: 1200,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -74,7 +74,7 @@ function UpdateFoodCategory() {
     if (dataRes.status == "400") {
       toast.warn(`${dataRes.message}`, {
         position: "bottom-right",
-        autoClose: 5000,
+        autoClose: 1200,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -87,7 +87,7 @@ function UpdateFoodCategory() {
     if (dataRes.status == "501") {
       toast.error(`${dataRes.message}`, {
         position: "bottom-right",
-        autoClose: 5000,
+        autoClose: 1200,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -99,7 +99,7 @@ function UpdateFoodCategory() {
 
     toast.success(`${dataRes.message}`, {
       position: "bottom-right",
-      autoClose: 5000,
+      autoClose: 1200,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -107,7 +107,7 @@ function UpdateFoodCategory() {
       progress: undefined,
     });
 
-    setTimeout(RedirectFunction, 1000);
+    setTimeout(RedirectFunction, 1500);
     function RedirectFunction() {
       router.push("/admin/AllFoodCategories");
     }
@@ -122,7 +122,15 @@ function UpdateFoodCategory() {
   }, [filterAllFoodCategoriesData]);
 
   return (
-    <div className={Styles.admin}>
+    <div className={Styles.admin}> <LoadingBar
+        color="rgb(255 82 0)"
+        height={3.5}
+        waitingTime={400}
+        progress={progress}
+        transitionTime={100}
+      />  
+
+
       <HeadTag title="Update Food Category" />
 <VerifyAdminLogin />
       <AdminLeftMenu />
@@ -169,7 +177,7 @@ function UpdateFoodCategory() {
       </div>
       <ToastContainer
         position="bottom-right"
-        autoClose={5000}
+        autoClose={1200}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick

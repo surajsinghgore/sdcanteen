@@ -61,7 +61,7 @@ return items._id==subId})
 if(subData.length==0 || subData==undefined){
  toast.warn("please try again ", {
       position: "bottom-right",
-      autoClose: 1500,
+      autoClose: 1200,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -88,7 +88,7 @@ addItem({id,price,CoffeeName,Qty,Image,Size,subId,Category,QtyBook,totalAmount})
  if(CoffeeName==undefined){
  toast.success("Coffee successfully added to cart", {
       position: "bottom-right",
-      autoClose: 1500,
+      autoClose: 1200,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -100,7 +100,7 @@ addItem({id,price,CoffeeName,Qty,Image,Size,subId,Category,QtyBook,totalAmount})
 else{
  toast.success(`${CoffeeName} successfully added to cart`, {
       position: "bottom-right",
-      autoClose: 1500,
+      autoClose: 1200,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -123,7 +123,7 @@ item.item.addToCart=false
 removeItem(id);
  toast.error(`Item successfully removed from cart`, {
       position: "bottom-right",
-      autoClose: 1500,
+      autoClose: 1200,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -169,7 +169,7 @@ return items._id==subId})
 if(subData.length==0 || subData==undefined){
  toast.warn("please try again", {
       position: "bottom-right",
-      autoClose: 1500,
+      autoClose: 1200,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -195,7 +195,7 @@ addItem({id,price,CoffeeName,Qty,Image,Size,subId,Category,QtyBook,totalAmount})
 if(CoffeeName==undefined){
  toast.success("Coffee successfully added to cart", {
       position: "bottom-right",
-      autoClose: 1500,
+      autoClose: 1200,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -207,7 +207,7 @@ if(CoffeeName==undefined){
 else{
  toast.success(`${CoffeeName} successfully added to cart`, {
       position: "bottom-right",
-      autoClose: 1500,
+      autoClose: 1200,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -290,7 +290,7 @@ localStorage.setItem("itemOrder",itm._id)
    </div></div>
          <ToastContainer
         position="bottom-right"
-        autoClose={1500}
+        autoClose={1200}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick

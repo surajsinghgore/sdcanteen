@@ -9,11 +9,9 @@ import StyleRealtime from "../../styles/RealtimeOrder.module.css";
 import { useEffect } from "react";
 import ShowHideInRealtime from "../../Components/ShowHideInRealtime";
 let HOST = process.env.NEXT_PUBLIC_API_URL;
-import { AllContext } from "../../context/AllContext";
-import router from "next/router";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import LoadingBar from "react-top-loading-bar";
 export default function AllOrders() {
   // const { statesForRealtime } = useContext(AllContext);
   const [placeHolders, setPlaceHolders] = useState('Search...');
@@ -21,10 +19,13 @@ export default function AllOrders() {
   const [searchInput, setSearchInput] = useState("");
 const [tag,setTag]=useState('all')
  const [data,setData]=useState([]);
-
+const [progress, setProgress] = useState(0);
 const fetchAllData=async()=>{
+
+ setProgress(40)
 let data=await fetch(`${HOST}/api/ShowAllOrders?tag=all&search=${""}`);
 let resData=await data.json();
+ setProgress(100)
 if(data.status==201){
 setData(resData.data)
 }
@@ -86,7 +87,7 @@ setSearchInput(e.target.value)
 if(tag=='all'){
 toast.warn('Please Select Category from Dropdown Menu', {
       position: "bottom-right",
-      autoClose: 5000,
+      autoClose: 1200,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -106,6 +107,13 @@ setData(resData.data)
 }
   return (
     <div className={Styles.admin}>
+     <LoadingBar
+        color="rgb(255 82 0)"
+        height={3.5}
+        waitingTime={400}
+        progress={progress}
+        transitionTime={100}
+      />  
       <HeadTag title="All Orders" />
       <VerifyAdminLogin />
 
@@ -212,7 +220,7 @@ setData(resData.data)
 
         <ToastContainer
         position="bottom-right"
-        autoClose={5000}
+        autoClose={1200}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick

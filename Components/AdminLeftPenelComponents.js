@@ -3,11 +3,14 @@ import Styles from "../styles/admin.module.css";
 import Link from "next/link";
 import router from 'next/router'
 let HOST = process.env.NEXT_PUBLIC_API_URL;
+ 
+import LoadingBar from "react-top-loading-bar";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 function AdminLeftPenelComponents({item}) {
 const [show,setShow]=useState(false);
+const [progress, setProgress] = useState(0);
 const [open,setOpen]=useState(false);
  useEffect(()=>{
 if(open){
@@ -16,7 +19,7 @@ setShow(true);
  if(localStorage.getItem('adminlogin')==undefined){
 toast.error('Please Login first with admin credentials', {
 position: "bottom-right",
-autoClose: 5000,
+autoClose: 1200,
 hideProgressBar: false,
 closeOnClick: true,
 pauseOnHover: true,
@@ -25,7 +28,7 @@ progress: undefined,
 });
 return ;
  }
-const getData=async()=>{
+const getData=async()=>{ setProgress(40)
 const res = await fetch(`${HOST}/api/LogoutAdmin`, {
       method: "Get",
       headers: {
@@ -33,12 +36,12 @@ const res = await fetch(`${HOST}/api/LogoutAdmin`, {
       }
     });
 
-await res.json();
+await res.json(); setProgress(100)
 if(res.status==201){
 
 toast.success('Admin Logout Successfully', {
 position: "bottom-right",
-autoClose: 5000,
+autoClose: 1200,
 hideProgressBar: false,
 closeOnClick: true,
 pauseOnHover: true,
@@ -51,7 +54,7 @@ localStorage.removeItem("adminlogin");
 const redirect=()=>{
 router.push("/admin/Login");
 }
-setTimeout(redirect,100);
+setTimeout(redirect,1500);
 }
 
 }
@@ -75,7 +78,13 @@ setShow(false);
  
 },[open])
   return (
-        <li key={item.id} onClick={()=>setOpen(!open)} id="clicked">  
+        <li key={item.id} onClick={()=>setOpen(!open)} id="clicked">   <LoadingBar
+        color="rgb(255 82 0)"
+        height={3.5}
+        waitingTime={400}
+        progress={progress}
+        transitionTime={100}
+      />  
           <div className={(show)?Styles.styles1:Styles.styles}>
             <div className={Styles.icon}>
             {item.icon}
@@ -97,7 +106,7 @@ setShow(false);
          </ul>:''}
             <ToastContainer
         position="bottom-right"
-        autoClose={5000}
+        autoClose={1200}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick

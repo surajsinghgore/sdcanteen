@@ -12,11 +12,11 @@ import "react-toastify/dist/ReactToastify.css";
 import router from "next/router";
 import { AllContext } from "../../context/AllContext";
 let HOST = process.env.NEXT_PUBLIC_API_URL;
-
+import LoadingBar from "react-top-loading-bar";
 import VerifyAdminLogin from './VerifyAdminLogin';
 
 
-export default function UpdateDrinkItem() {
+export default function UpdateDrinkItem() {const [progress, setProgress] = useState(0);
   const { updateDrinkItem } = useContext(AllContext);
   const [drinkNameSearch, setDrinkNameSearch] = useState("");
   const [categorySearch, setCategorySearch] = useState("");
@@ -61,23 +61,31 @@ export default function UpdateDrinkItem() {
   };
 
   useEffect(() => {
-    async function dataFetch() {
+    async function dataFetch() {setProgress(40)
       let ress = await fetch(`${HOST}/api/ShowDrinkCategory`);
-      let datas = await ress.json();
+      let datas = await ress.json();setProgress(100)
       await setData(datas.data);
     }
     dataFetch();
 
-    async function dataCategoryFetch() {
+    async function dataCategoryFetch() {setProgress(40)
       let ress = await fetch(`${HOST}/api/ShowDrinkItem`);
-      let datas = await ress.json();
+      let datas = await ress.json();setProgress(100)
       await setFetchData(datas.data);
       await setDummyData(datas.data);
     }
     dataCategoryFetch();
   }, []);
   return (
-    <div className={Styles.admin}>
+    <div className={Styles.admin}> <LoadingBar
+        color="rgb(255 82 0)"
+        height={3.5}
+        waitingTime={400}
+        progress={progress}
+        transitionTime={100}
+      />  
+
+
       <HeadTag title="Update Drink Item" />
 <VerifyAdminLogin />
 

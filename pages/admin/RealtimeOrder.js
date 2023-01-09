@@ -12,8 +12,10 @@ let HOST = process.env.NEXT_PUBLIC_API_URL;
 import { AllContext } from "../../context/AllContext";
 import router from "next/router";
 import { MdRefresh } from 'react-icons/md';
-export default function RealtimeOrder() {
+import Loader from "../../Components/Loader";
 
+export default function RealtimeOrder() {
+ const [loader,setLoader]=useState(true);
   const { statesForRealtime } = useContext(AllContext);
   const [datas, setData] = useState([]);
   const [token, setToken] = useState("");
@@ -34,8 +36,11 @@ export default function RealtimeOrder() {
   const [rt,setRt]=useState(true)
   // fetch realtime data
   const fetchData = async () => {
+  setLoader(true)
     let ress = await fetch(`${HOST}/api/ShowOrdersRealtime`);
     let datass = await ress.json();
+    setLoader(false)
+
     if (datass.data != undefined) {
       //! pending Data Fetch
       let pendingRes = datass.data.filter((item) => {
@@ -239,8 +244,11 @@ setInterval(changes,1000*seconds);
     else{
  
     const fetchData=async()=>{
+    setLoader(true)
+
     let res=await fetch(`${HOST}/api/FilterOrderInRealTimePanelCategory?CategoryPrimary=${e.target.value}`)
-    let dataRes=await res.json();
+    let dataRes=await res.json();setLoader(false)
+
     if(res.status==201){
   setData(dataRes.data)
     }
@@ -308,7 +316,7 @@ fetchData();
 
 }
   return (
-    <div className={Styles.admin}>
+    <div className={Styles.admin}>  <Loader loader={loader}/>
       <HeadTag title="Realtime Order" />
       <VerifyAdminLogin />
 

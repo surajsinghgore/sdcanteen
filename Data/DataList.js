@@ -27,7 +27,7 @@ title:"Home Dashboard",
 path:"/admin",
 },{
 title:"Manage Comments",
-path:"/admin",
+path:"/admin/ManageComments",
 }
 ]
 }

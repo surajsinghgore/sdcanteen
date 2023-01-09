@@ -12,8 +12,11 @@ import router from "next/router";
 let HOST = process.env.NEXT_PUBLIC_API_URL;
 import VerifyAdminLogin from './VerifyAdminLogin';
 import Switch from "react-switch";
-
+ 
+import LoadingBar from "react-top-loading-bar";
 export default function AddDrinkItem() {
+
+const [progress, setProgress] = useState(0);
   const [data, setData] = useState([]);
  const [checked, setChecked] = useState(true);
   const [drinkName, setDrinkName] = useState("");
@@ -54,7 +57,7 @@ const [normalPriceName,setNormalPriceName]=useState("Normal Price")
     if (!drinkName) {
       toast.warn("Please Enter Drink Name", {
         position: "bottom-right",
-        autoClose: 5000,
+        autoClose: 1200,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -66,7 +69,7 @@ const [normalPriceName,setNormalPriceName]=useState("Normal Price")
   if (!Category) {
       toast.warn("Please select Category Of Item", {
         position: "bottom-right",
-        autoClose: 5000,
+        autoClose: 1200,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -79,7 +82,7 @@ const [normalPriceName,setNormalPriceName]=useState("Normal Price")
    if (!description) {
       toast.warn("Please Enter Description of Item", {
         position: "bottom-right",
-        autoClose: 5000,
+        autoClose: 1200,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -92,7 +95,7 @@ const [normalPriceName,setNormalPriceName]=useState("Normal Price")
     if (!Images) {
       toast.warn("Please Uploard Juice Image", {
         position: "bottom-right",
-        autoClose: 5000,
+        autoClose: 1200,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -105,7 +108,7 @@ if((smallPrice=="")&&(mediumPrice=="")&&(largePrice=="")){
 if(normalPrice==""){
    toast.warn("Please Enter Atleast Normal Price Of Item", {
         position: "bottom-right",
-        autoClose: 5000,
+        autoClose: 1200,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -121,7 +124,7 @@ if((smallPrice!="")&&(mediumPrice!="")||(largePrice!="")){
 if(normalPrice!=""){
    toast.warn("Please Enter Only Normal Price or Different Size Price", {
         position: "bottom-right",
-        autoClose: 5000,
+        autoClose: 1200,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -134,7 +137,7 @@ if(normalPrice!=""){
 if(parseInt(smallPrice)<=0 || parseInt(mediumPrice)<=0 || parseInt(largePrice)<=0 || parseInt(normalPrice)<=0){
 toast.warn("Price Not Be Zero Or Below Zero", {
         position: "bottom-right",
-        autoClose: 5000,
+        autoClose: 1200,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -172,23 +175,23 @@ if(normalPrice!=""){
 data.append('normalPriceName', normalPrice);
 }
 
-
+ setProgress(40)
     let res = await fetch(`${HOST}/api/AddDrinkItem`, {
       method: "POST",
       body:  data,
     });
-
+ setProgress(100)
   if (res.status == 401) {
       toast.error("Please Login With Admin Credentials", {
         position: "bottom-right",
-        autoClose: 5000,
+        autoClose: 1200,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
       });
-      setTimeout(RedirectFunction, 1000);
+      setTimeout(RedirectFunction, 1500);
       function RedirectFunction() {
         router.push("/admin/Login");
       }
@@ -197,7 +200,7 @@ data.append('normalPriceName', normalPrice);
         if (res.status == 409) {
       toast.error("Item with this Name already Exits", {
         position: "bottom-right",
-        autoClose: 5000,
+        autoClose: 1200,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -209,14 +212,14 @@ data.append('normalPriceName', normalPrice);
     if (data.status == "403") {
       toast.error("Please Login With Admin Credentials", {
         position: "bottom-right",
-        autoClose: 5000,
+        autoClose: 1200,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
       });
-      setTimeout(RedirectFunction, 1000);
+      setTimeout(RedirectFunction, 1500);
       function RedirectFunction() {
         router.push("/admin/Login");
       }
@@ -225,7 +228,7 @@ data.append('normalPriceName', normalPrice);
     if (res.status === 500) {
       toast.error("Only JPG , PNG , JPEG Images are Allowed To Upload", {
         position: "bottom-right",
-        autoClose: 5000,
+        autoClose: 1200,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -239,7 +242,7 @@ data.append('normalPriceName', normalPrice);
     if (datas.status == "501") {
       toast.error(`${datas.message}`, {
         position: "bottom-right",
-        autoClose: 5000,
+        autoClose: 1200,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -252,7 +255,7 @@ data.append('normalPriceName', normalPrice);
     if (res.status == 204) {
       toast.warn(`${datas.message}`, {
         position: "bottom-right",
-        autoClose: 5000,
+        autoClose: 1200,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -265,7 +268,7 @@ data.append('normalPriceName', normalPrice);
     if (datas.status == "201") {
       toast.success(`${drinkName} is Successfully Added`, {
         position: "bottom-right",
-        autoClose: 5000,
+        autoClose: 1200,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -273,16 +276,18 @@ data.append('normalPriceName', normalPrice);
         progress: undefined,
       });
 
-      setTimeout(RedirectFunction, 1000);
+      setTimeout(RedirectFunction, 1500);
       function RedirectFunction() {
         router.push("/admin/ShowDrinkItem");
       }
     }
   };
   useEffect(() => {
+   setProgress(40)
     async function dataFetch() {
       let ress = await fetch(`${HOST}/api/ShowDrinkCategory`);
       let datas = await ress.json();
+       setProgress(100)
       await setData(datas.data);
     }
     dataFetch();
@@ -290,6 +295,13 @@ data.append('normalPriceName', normalPrice);
 
   return (
     <div className={Styles.admin}>
+      <LoadingBar
+        color="rgb(255 82 0)"
+        height={3.5}
+        waitingTime={400}
+        progress={progress}
+        transitionTime={100}
+      />  
       <HeadTag title="Add Drink Item" />
 <VerifyAdminLogin />
       {/* left panel bar */}
@@ -452,7 +464,7 @@ data.append('normalPriceName', normalPrice);
       </div>
       <ToastContainer
         position="bottom-right"
-        autoClose={5000}
+        autoClose={1200}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick

@@ -11,9 +11,9 @@ import router from "next/router";
 import { AllContext } from "../../context/AllContext";
 let HOST = process.env.NEXT_PUBLIC_API_URL;
 import VerifyAdminLogin from './VerifyAdminLogin';
+import LoadingBar from "react-top-loading-bar";
 
-
-function UpdateJuiceCategory() {
+function UpdateJuiceCategory() {const [progress, setProgress] = useState(0);
   const { filterAllFoodCategoriesData } = useContext(AllContext);
   const [JuiceCategoryName, setJuiceCategoryName] = useState("");
 
@@ -21,7 +21,7 @@ function UpdateJuiceCategory() {
     if (!JuiceCategoryName) {
       toast.warn("Please Enter Somethig In Juice Category Name Field", {
         position: "bottom-right",
-        autoClose: 5000,
+        autoClose: 1200,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -29,7 +29,7 @@ function UpdateJuiceCategory() {
         progress: undefined,
       });
       return ;
-    }
+    } setProgress(40)
     let res = await fetch(`${HOST}/api/UpdateJuiceCategory`, {
       method: "POST",
       headers: {
@@ -42,18 +42,18 @@ function UpdateJuiceCategory() {
       }),
     });
 
-    let dataRes = await res.json();
+    let dataRes = await res.json(); setProgress(100)
  if (res.status == 401) {
       toast.error("Please Login With Admin Credentials", {
         position: "bottom-right",
-        autoClose: 5000,
+        autoClose: 1200,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
       });
-      setTimeout(RedirectFunction, 1000);
+      setTimeout(RedirectFunction, 1500);
       function RedirectFunction() {
         router.push("/admin/Login");
       }
@@ -61,7 +61,7 @@ function UpdateJuiceCategory() {
     if (dataRes.status == "403") {
       toast.error("Please Login With Admin Credentials", {
         position: "bottom-right",
-        autoClose: 5000,
+        autoClose: 1200,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -73,7 +73,7 @@ function UpdateJuiceCategory() {
     if (dataRes.status == "400") {
       toast.warn(`${dataRes.message}`, {
         position: "bottom-right",
-        autoClose: 5000,
+        autoClose: 1200,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -86,7 +86,7 @@ function UpdateJuiceCategory() {
     if (dataRes.status == "501") {
       toast.error(`${dataRes.message}`, {
         position: "bottom-right",
-        autoClose: 5000,
+        autoClose: 1200,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -98,7 +98,7 @@ function UpdateJuiceCategory() {
 
     toast.success(`${dataRes.message}`, {
       position: "bottom-right",
-      autoClose: 5000,
+      autoClose: 1200,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -106,7 +106,7 @@ function UpdateJuiceCategory() {
       progress: undefined,
     });
 
-    setTimeout(RedirectFunction, 1000);
+    setTimeout(RedirectFunction, 1500);
     function RedirectFunction() {
       router.push("/admin/AllJuiceCategory");
     }
@@ -122,7 +122,13 @@ function UpdateJuiceCategory() {
   }, [filterAllFoodCategoriesData]);
 
   return (
-    <div className={Styles.admin}>
+    <div className={Styles.admin}> <LoadingBar
+        color="rgb(255 82 0)"
+        height={3.5}
+        waitingTime={400}
+        progress={progress}
+        transitionTime={100}
+      />  
       <HeadTag title="Update Juice Category" />
 
 
@@ -173,7 +179,7 @@ function UpdateJuiceCategory() {
       </div>
       <ToastContainer
         position="bottom-right"
-        autoClose={5000}
+        autoClose={1200}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick

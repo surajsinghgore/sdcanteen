@@ -3,7 +3,6 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 let HOST = process.env.NEXT_PUBLIC_API_URL;
 import { useEffect } from "react";
-
 export default function VerifyAdminLogin() {
 function RedirectFunction(){
   router.push('/admin/Login')
@@ -22,7 +21,7 @@ const res = await fetch(`${HOST}/api/VerifyAdminLogin`, {
 if(res.status==403){
 toast.error('Please Login With Admin Credentials', {
 position: "bottom-right",
-autoClose: 5000,
+autoClose: 1200,
 hideProgressBar: false,
 closeOnClick: true,
 pauseOnHover: true,
@@ -30,10 +29,8 @@ draggable: true,
 progress: undefined,
 });
 
-setTimeout(RedirectFunction,500);
-
+setTimeout(RedirectFunction,1500);
 localStorage.removeItem('adminlogin');
-
 }
 }
 
@@ -49,7 +46,7 @@ getData();
   
       <ToastContainer
         position="bottom-right"
-        autoClose={5000}
+        autoClose={1200}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick

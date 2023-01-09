@@ -13,12 +13,13 @@ import { AllContext } from "../../context/AllContext";
 let HOST = process.env.NEXT_PUBLIC_API_URL;
 import VerifyAdminLogin from './VerifyAdminLogin';
 
-
+ 
+import LoadingBar from "react-top-loading-bar";
 
 
 function AllDrinkCategory() {
   const { deletes } = useContext(AllContext);
-
+const [progress, setProgress] = useState(0);
   const [search, setSearch] = useState("");
   const [data, setData] = useState([]);
   const [data1, setData1] = useState([]);
@@ -27,8 +28,13 @@ function AllDrinkCategory() {
 
   useEffect(() => {
     async function dataFetch() {
+    
+ setProgress(40)
+
       let ress = await fetch(`${HOST}/api/ShowDrinkCategory`);
       let datas = await ress.json();
+
+ setProgress(100)
 
       await setData(datas.data);
       await setData1(datas.data);
@@ -56,6 +62,13 @@ function AllDrinkCategory() {
   return (
     <div className={Styles.admin}>
       <HeadTag title="All Drink Category" />
+       <LoadingBar
+        color="rgb(255 82 0)"
+        height={3.5}
+        waitingTime={400}
+        progress={progress}
+        transitionTime={100}
+      />  
 <VerifyAdminLogin />
 
       {/* left panel bar */}

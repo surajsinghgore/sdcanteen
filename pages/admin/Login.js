@@ -5,7 +5,7 @@ import styles from "../../styles/Login.module.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import router from "next/router";
-import {useRouter} from "next/router";
+import LoadingBar from "react-top-loading-bar";
 // login images banner
 import loginImage from "../../public/admin/loginImg.svg";
 import USerProfile from "../../public/admin/loginProfile.png";
@@ -13,7 +13,8 @@ import { useEffect } from "react";
 import Link from "next/link";
 
 const Login = () => {
-const routers=useRouter();
+
+const [progress, setProgress] = useState(0);
   const [secret, setSecret] = useState("");
   const [password, setPassword] = useState("");
   let HOST = process.env.NEXT_PUBLIC_API_URL;
@@ -29,7 +30,7 @@ router.push('/admin')
     if (!secret) {
       toast.warn("Please enter Secret ID", {
         position: "bottom-right",
-        autoClose: 5000,
+        autoClose: 1200,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -42,7 +43,7 @@ router.push('/admin')
     if (!password) {
       toast.warn("Please enter password", {
         position: "bottom-right",
-        autoClose: 5000,
+        autoClose: 1200,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -52,6 +53,7 @@ router.push('/admin')
       return;
     }
 
+ setProgress(40)
     // send request to server
     const res = await fetch(`${HOST}/api/AdminLogin`, {
       method: "POST",
@@ -65,11 +67,12 @@ router.push('/admin')
     });
     let data = await res.json();
 
+ setProgress(100)
     // details
     if (data.status == "401") {
       toast.warn(`${data.message}`, {
         position: "bottom-right",
-        autoClose: 5000,
+        autoClose: 1200,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -81,7 +84,7 @@ router.push('/admin')
     if (data.status == "501") {
       toast.error(`${data.message}`, {
         position: "bottom-right",
-        autoClose: 5000,
+        autoClose: 1200,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -92,9 +95,9 @@ router.push('/admin')
     }
 
     // success
-    toast.success(`${data.message}`, {
+    toast.success("Admin Login Successfully", {
       position: "bottom-right",
-      autoClose: 5000,
+      autoClose: 1200,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -102,14 +105,20 @@ router.push('/admin')
       progress: undefined,
     });
 localStorage.setItem('adminlogin',"true")
-    function myGreeting() {
+     function myGreeting() {
       router.push("/admin");
     }
-    setTimeout(myGreeting, 1200);
+    setTimeout(myGreeting, 1500);
   };
 
   return (
-    <div className={styles.login}>
+    <div className={styles.login}> <LoadingBar
+        color="rgb(255 82 0)"
+        height={3.5}
+        waitingTime={400}
+        progress={progress}
+        transitionTime={100}
+      />  
       <HeadTag title="Admin Login" />
 
       <div className={styles.left_section}>
@@ -160,7 +169,7 @@ localStorage.setItem('adminlogin',"true")
       </div>
       <ToastContainer
         position="bottom-right"
-        autoClose={5000}
+        autoClose={1200}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick

@@ -7,17 +7,19 @@ import AdminRightInnerHeader from "../../Components/AdminRightInnerHeader";
 import HeadTag from "../../Components/Head";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import LoadingBar from "react-top-loading-bar";
 import router from "next/router";
 let HOST = process.env.NEXT_PUBLIC_API_URL;
 import VerifyAdminLogin from './VerifyAdminLogin';
 
 export default function AddCoffeeCategory() {
+const [progress, setProgress] = useState(0);
   const [CoffeeCategory, setCoffeeCategory] = useState("");
   const addCategory = async (e) => {
     if (!CoffeeCategory) {
       toast.warn("Please Enter Coffee Category Name In The Field", {
         position: "bottom-right",
-        autoClose: 5000,
+        autoClose: 1200,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -26,7 +28,7 @@ export default function AddCoffeeCategory() {
       });
       return ;
     }
-
+setProgress(40)
     const res = await fetch(`${HOST}/api/AddCoffeeCategory`, {
       method: "POST",
       headers: {
@@ -37,17 +39,18 @@ export default function AddCoffeeCategory() {
       }),
     });
     let data = await res.json();
+    setProgress(100)
   if (res.status == 401) {
       toast.error("Please Login With Admin Credentials", {
         position: "bottom-right",
-        autoClose: 5000,
+        autoClose: 1200,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
       });
-      setTimeout(RedirectFunction, 1000);
+      setTimeout(RedirectFunction, 1500);
       function RedirectFunction() {
         router.push("/admin/Login");
       }
@@ -55,14 +58,14 @@ export default function AddCoffeeCategory() {
     if (data.status == "403") {
       toast.error("Please Login With Admin Credentials", {
         position: "bottom-right",
-        autoClose: 5000,
+        autoClose: 1200,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
       });
-      setTimeout(RedirectFunction, 1000);
+      setTimeout(RedirectFunction, 1500);
       function RedirectFunction() {
         router.push("/admin/Login");
       }
@@ -72,7 +75,7 @@ export default function AddCoffeeCategory() {
     if (data.status == "501") {
       toast.error(`${data.message}`, {
         position: "bottom-right",
-        autoClose: 5000,
+        autoClose: 1200,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -84,7 +87,7 @@ export default function AddCoffeeCategory() {
     if (data.status == "402") {
       toast.warn(`${data.message}`, {
         position: "bottom-right",
-        autoClose: 5000,
+        autoClose: 1200,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -96,7 +99,7 @@ export default function AddCoffeeCategory() {
     if (data.status == "400") {
       toast.warn(`${CoffeeCategory} Is Already Exists In Food Category`, {
         position: "bottom-right",
-        autoClose: 5000,
+        autoClose: 1200,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -108,14 +111,14 @@ export default function AddCoffeeCategory() {
 
     toast.success(`${CoffeeCategory} Coffee Category Successfully Added`, {
       position: "bottom-right",
-      autoClose: 5000,
+      autoClose: 1200,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
     });
-    setTimeout(RedirectFunction, 1000);
+    setTimeout(RedirectFunction, 1500);
     function RedirectFunction() {
       router.push("/admin/AllCoffeeCategory");
     }
@@ -125,6 +128,13 @@ export default function AddCoffeeCategory() {
 
   return (
     <div className={Styles.admin}>
+       <LoadingBar
+        color="rgb(255 82 0)"
+        height={3.5}
+        waitingTime={400}
+        progress={progress}
+        transitionTime={100}
+      />  
     <VerifyAdminLogin />
       <HeadTag title="Add Coffee Category" />
       <AdminLeftMenu />
@@ -171,7 +181,7 @@ export default function AddCoffeeCategory() {
       </div>
       <ToastContainer
         position="bottom-right"
-        autoClose={5000}
+        autoClose={1200}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick

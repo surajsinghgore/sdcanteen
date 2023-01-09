@@ -13,9 +13,9 @@ import router from "next/router";
 import { AllContext } from "../../context/AllContext";
 let HOST = process.env.NEXT_PUBLIC_API_URL;
 import VerifyAdminLogin from './VerifyAdminLogin';
+import LoadingBar from "react-top-loading-bar";
 
-
-export default function UpdateCoffeeItem() {
+export default function UpdateCoffeeItem() {const [progress, setProgress] = useState(0);
   const { updateCoffeeItem } = useContext(AllContext);
   
   const [coffeeNameSearch, setCoffeeNameSearch] = useState("");
@@ -64,23 +64,33 @@ export default function UpdateCoffeeItem() {
   
   
   useEffect(() => {
-    async function dataFetch() {
+    async function dataFetch() { setProgress(40)
+
       let ress = await fetch(`${HOST}/api/ShowCoffeeCategory`);
-      let datas = await ress.json();
+      let datas = await ress.json(); setProgress(100)
+
       await setData(datas.data);
     }
     dataFetch();
 
-    async function dataCategoryFetch() {
+    async function dataCategoryFetch() { setProgress(40)
+
       let ress = await fetch(`${HOST}/api/ShowCoffeeItem`);
-      let datas = await ress.json();
+      let datas = await ress.json(); setProgress(100)
+
       await setFetchData(datas.data);
       await setDummyData(datas.data);
     }
     dataCategoryFetch();
   }, []);
   return (
-    <div className={Styles.admin}>
+    <div className={Styles.admin}> <LoadingBar
+        color="rgb(255 82 0)"
+        height={3.5}
+        waitingTime={400}
+        progress={progress}
+        transitionTime={100}
+      />  
       <HeadTag title="Update Coffee item" />
 
 <VerifyAdminLogin />

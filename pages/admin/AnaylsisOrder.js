@@ -7,14 +7,12 @@ import AdminRightInnerHeader from "../../Components/AdminRightInnerHeader";
 import StyleFood from "../../styles/AddFood.module.css";
 import StyleRealtime from "../../styles/RealtimeOrder.module.css";
 import { useEffect } from "react";
-import ShowHideInRealtime from "../../Components/ShowHideInRealtime";
 let HOST = process.env.NEXT_PUBLIC_API_URL;
 import { AllContext } from "../../context/AllContext";
-import { MdRefresh } from 'react-icons/md';
 import BarChart from "../../Components/BarChat";
-
+import LoadingBar from "react-top-loading-bar";
 export default function AnaylsisOrder() {
-
+const [progress, setProgress] = useState(0);
 
   const { statesForRealtime } = useContext(AllContext);
   const [datas, setData] = useState([]);
@@ -43,8 +41,11 @@ export default function AnaylsisOrder() {
 
   // fetch realtime data
   const fetchData = async () => {
+  
+ setProgress(40)
     let ress = await fetch(`${HOST}/api/ShowOrdersRealtime`);
     let datass = await ress.json();
+ setProgress(100)
     if (datass.data != undefined) {
       //! pending Data Fetch
       let pendingRes = datass.data.filter((item) => {
@@ -272,6 +273,13 @@ fetchData();
 }
   return (
     <div className={Styles.admin}>
+     <LoadingBar
+        color="rgb(255 82 0)"
+        height={3.5}
+        waitingTime={400}
+        progress={progress}
+        transitionTime={100}
+      />  
       <HeadTag title="Realtime Order" />
       <VerifyAdminLogin />
 

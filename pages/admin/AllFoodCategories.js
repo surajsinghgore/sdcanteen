@@ -12,10 +12,10 @@ import { IoIosAddCircleOutline } from "react-icons/io";
 import { AllContext } from "../../context/AllContext";
 import VerifyAdminLogin from "./VerifyAdminLogin";
 let HOST = process.env.NEXT_PUBLIC_API_URL;
-
+import LoadingBar from "react-top-loading-bar";
 function AllFoodCategories() {
   const { deletes } = useContext(AllContext);
-
+const [progress, setProgress] = useState(0);
   const [search, setSearch] = useState("");
   const [data, setData] = useState([]);
   const [data1, setData1] = useState([]);
@@ -24,9 +24,13 @@ function AllFoodCategories() {
 
   useEffect(() => {
     async function dataFetch() {
+    
+ setProgress(40)
+
       let ress = await fetch(`${HOST}/api/ShowFoodCategory`);
       let data = await ress.json();
       let datass = await data.data;
+ setProgress(100)
       setData(datass);
       setData1(datass);
     }
@@ -52,6 +56,13 @@ function AllFoodCategories() {
 
   return (
     <div className={Styles.admin}>
+     <LoadingBar
+        color="rgb(255 82 0)"
+        height={3.5}
+        waitingTime={400}
+        progress={progress}
+        transitionTime={100}
+      />  
     <VerifyAdminLogin />
       <HeadTag title="All Food Category" />
 
