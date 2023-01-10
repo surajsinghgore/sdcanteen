@@ -1,6 +1,6 @@
 import { Line as ChartJS } from 'chart.js/auto'
 import { Line }            from 'react-chartjs-2'
-export default function MonthWiseLineChart({montwisedata,years}) {
+export default function MonthWiseLineChart({montwisedata,labels}) {
 let datasMonthWise=[]
 for(let i=0;i<montwisedata.length;i++){
 datasMonthWise.push(montwisedata[i])
@@ -9,7 +9,7 @@ const data={
 labels:['January','February','March','April','May','June','July','August','September','October','November','December'],
 datasets:[
 {
-label:`Monthwise Website Visits In ${years}`,
+label:labels,
 data:datasMonthWise,backgroundColor:'#fa528a',
 borderColor:'#fa528a',
 color:'#000'

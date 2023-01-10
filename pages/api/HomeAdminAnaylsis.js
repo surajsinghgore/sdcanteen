@@ -199,13 +199,145 @@ let AllMonthWiseCollectionLen=totalEarnJan+totalEarnFeb+totalEarnMar+totalEarnAp
 // total earning calcualte
 
 // ! 3. Number OF Clients Register In Canteen
-// const cData=await ClientData.find();
-// for(let i=0;i<cData.length;i++){
-// let arrayOfDate=cData[i].createdAt.split('-')
-// console.log(arrayOfDate)
-// }
+let AllClientData=[]
+let jan=0,feb=0,mar=0,apr=0,may=0,jun=0,jul=0,aug=0,sep=0,oct=0,nov=0,dec=0;
+let AllClientDatas=await ClientData.find()
+for(let i=0;i<AllClientDatas.length;i++){
+let dd=AllClientDatas[i].createdAt.toString()
+let convert=dd.split(" ")
+//1-- month ||  3---year
+if((convert[1]=='Jan') && (convert[3]==`${year}`)){jan++;}
+if((convert[1]=='Feb') && (convert[3]==`${year}`)){feb++;}
+if((convert[1]=='Mar') && (convert[3]==`${year}`)){mar++;}
+if((convert[1]=='Apr') && (convert[3]==`${year}`)){apr++;}
+if((convert[1]=='May') && (convert[3]==`${year}`)){may++;}
+if((convert[1]=='Jun') && (convert[3]==`${year}`)){jun++;}
+if((convert[1]=='Jul') && (convert[3]==`${year}`)){jul++;}
+if((convert[1]=='Aug') && (convert[3]==`${year}`)){aug++;}
+if((convert[1]=='Sep') && (convert[3]==`${year}`)){sep++;}
+if((convert[1]=='Oct') && (convert[3]==`${year}`)){oct++;}
+if((convert[1]=='Nov') && (convert[3]==`${year}`)){nov++;}
+if((convert[1]=='Dec') && (convert[3]==`${year}`)){dec++;}
+}
+AllClientData.push(jan)
+AllClientData.push(feb)
+AllClientData.push(mar)
+AllClientData.push(apr)
+AllClientData.push(may)
+AllClientData.push(jun)
+AllClientData.push(jul)
+AllClientData.push(aug)
+AllClientData.push(sep)
+AllClientData.push(oct)
+AllClientData.push(nov)
+AllClientData.push(dec)
+let AllClientDataLen=jan+feb+mar+apr+may+jun+jul+aug+sep+oct+nov+dec;
 
-return res.status(200).json({AllVisitorMonthWise,AllBrowser,AllOrderMonthWise,AllOrderMonthWiseLen,AllVisitorMonthWiseLen,AllBrowserLen,AllMonthWiseCollectionLen,AllMonthWiseCollection})
+
+
+//!4. top 10 items most buy
+let orderDataAll=await OrderSchemaDataBase.find();
+// food top 10
+let foodData=await FoodItemSchema.find();
+let AllFoodDatas=[]
+for(let i=0;i<foodData.length;i++){
+let count=0;
+for(let j=0;j<orderDataAll.length;j++){
+let orderDates=orderDataAll[i].OrderDate.split('.');
+if(orderDates[2]==year){
+for(let k=0;k<orderDataAll[j].ItemsOrder.length;k++){
+if(foodData[i].FoodName==orderDataAll[j].ItemsOrder[k].ItemName){
+count++;
+}
+}}
+}
+AllFoodDatas.push({count:count,name:[foodData[i].FoodName]})
+}
+
+var list = AllFoodDatas.sort(function(a, b) {
+    return b.count - a.count;
+});
+let TopFoodItems=list.slice(0,10);
+
+
+
+
+
+// coffee top 10
+let coffeeData=await CoffeeItemSchema.find();
+let AllCoffeeDatas=[]
+for(let i=0;i<coffeeData.length;i++){
+let count=0;
+for(let j=0;j<orderDataAll.length;j++){
+let orderDates=orderDataAll[i].OrderDate.split('.');
+if(orderDates[2]==year){
+for(let k=0;k<orderDataAll[j].ItemsOrder.length;k++){
+if(coffeeData[i].CoffeeName==orderDataAll[j].ItemsOrder[k].ItemName){
+count++;
+}
+}}
+}
+AllCoffeeDatas.push({count:count,name:[coffeeData[i].CoffeeName]})
+}
+
+var lists = AllCoffeeDatas.sort(function(a, b) {
+    return b.count - a.count;
+});
+let TopCoffeeItems=lists.slice(0,10);
+
+
+
+// top 10 juice data
+let JuiceData=await JuiceItemSchema.find();
+let AllJuiceDatas=[]
+for(let i=0;i<JuiceData.length;i++){
+let count=0;
+for(let j=0;j<orderDataAll.length;j++){
+let orderDates=orderDataAll[i].OrderDate.split('.');
+if(orderDates[2]==year){
+for(let k=0;k<orderDataAll[j].ItemsOrder.length;k++){
+if(JuiceData[i].JuiceName==orderDataAll[j].ItemsOrder[k].ItemName){
+count++;
+}
+}}
+}
+AllJuiceDatas.push({count:count,name:[JuiceData[i].JuiceName]})
+}
+
+var listss = AllJuiceDatas.sort(function(a, b) {
+    return b.count - a.count;
+});
+let TopJuiceItems=listss.slice(0,10);
+
+
+
+// top 10 drink Data
+let DrinkData=await DrinkItemSchema.find();
+let AllDrinkDatas=[]
+for(let i=0;i<DrinkData.length;i++){
+let count=0;
+for(let j=0;j<orderDataAll.length;j++){
+let orderDates=orderDataAll[i].OrderDate.split('.');
+if(orderDates[2]==year){
+for(let k=0;k<orderDataAll[j].ItemsOrder.length;k++){
+if(DrinkData[i].DrinkName==orderDataAll[j].ItemsOrder[k].ItemName){
+count++;
+}
+}}
+}
+AllDrinkDatas.push({count:count,name:[DrinkData[i].DrinkName]})
+}
+
+var listsss = AllDrinkDatas.sort(function(a, b) {
+    return b.count - a.count;
+});
+let TopDrinkItems=listsss.slice(0,10);
+
+
+
+
+
+return res.status(200).json({AllVisitorMonthWise,AllBrowser,AllOrderMonthWise,AllOrderMonthWiseLen,AllVisitorMonthWiseLen,AllBrowserLen,AllMonthWiseCollectionLen,AllMonthWiseCollection,AllClientData,AllClientDataLen,TopFoodItems,TopCoffeeItems,TopJuiceItems,TopDrinkItems})
   
   } catch (error) {
     console.log(error)
