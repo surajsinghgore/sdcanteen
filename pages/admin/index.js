@@ -31,6 +31,7 @@ const [drink,setDrink]=useState([])
 const [food,setFood]=useState([])
 const [coffee,setCoffee]=useState([])
 const [juice,setJuice]=useState([])
+const [topTrending,setTopTrending]=useState([])
 // fetching unique years for select box to filter details
 useEffect(()=>{
 const getAllYears=async()=>{
@@ -52,7 +53,6 @@ headers:{"Content-Type":"application/json"},
 body:JSON.stringify({Year:year})
 });
 const data=await res.json()
-console.log(data)
 if(res.status==200){
 // all monthwise data gets
 if(data.AllVisitorMonthWise){
@@ -91,6 +91,10 @@ setJuice(data.TopJuiceItems)
 if(data.TopDrinkItems){
 setDrink(data.TopDrinkItems)
 }
+if(data.topTrending){
+setTopTrending(data.topTrending)
+}
+
 }
 }
 
@@ -107,7 +111,7 @@ headers:{"Content-Type":"application/json"},
 body:JSON.stringify({Year:e.target.value})
 });
 const data=await res.json()
-console.log(data)
+
 if(res.status==200){
 // all monthwise data gets
 if(data.AllVisitorMonthWise){
@@ -145,7 +149,11 @@ setJuice(data.TopJuiceItems)
 }
 if(data.TopDrinkItems){
 setDrink(data.TopDrinkItems)
-}}
+}
+if(data.topTrending){
+setTopTrending(data.topTrending)
+}
+}
 }
 
   return (
@@ -196,6 +204,13 @@ return <option value={item} key={index}>{item}</option>
     <MonthWiseBar browserData={allOrderMonthWise} labels={`Order Placed In Year ${year}`} />
      </div>
      </div>
+{/* top 10 trending */}
+ <div className={anaylsis.charjs}>
+     <h4>Top 10 Trending Items Of All Times <span>Top  10</span></h4>
+     <div className={anaylsis.chartPie}>
+    <TopItems trend={topTrending} tag={`Top Trendings`}/>
+     </div>
+     </div>
 
 {/* area chart */}
       <div className={anaylsis.charjs}>
@@ -224,7 +239,7 @@ return <option value={item} key={index}>{item}</option>
 
 {/* coffe */}
  <div className={anaylsis.charjs}>
-     <h4>Top 10 Most Ordered Coffee In {year} <span>Total: 10</span></h4>
+     <h4>Top 10 Most Ordered Coffee In {year} <span>Top 10</span></h4>
      <div className={anaylsis.chartPie}>
     <TopItems allData={coffee} tag={`Coffee Item In ${year}`}/>
      </div>
@@ -232,18 +247,22 @@ return <option value={item} key={index}>{item}</option>
 
 {/* juice */}
  <div className={anaylsis.charjs}>
-     <h4>Top 10 Most Ordered Juice In {year} <span>Total: 10</span></h4>
+     <h4>Top 10 Most Ordered Juice In {year} <span>Top 10</span></h4>
      <div className={anaylsis.chartPie}>
     <TopItems allData={juice} tag={`Juice Item In ${year}`}/>
      </div>
      </div>
 {/* drink */}
  <div className={anaylsis.charjs}>
-     <h4>Top 10 Most Ordered Drink In {year} <span>Total: 10</span></h4>
+     <h4>Top 10 Most Ordered Drink In {year} <span>Top  10</span></h4>
      <div className={anaylsis.chartPie}>
     <TopItems allData={drink} tag={`Drink Item In ${year}`}/>
      </div>
      </div>
+
+
+
+
 
      </div>
 

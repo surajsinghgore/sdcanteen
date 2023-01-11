@@ -1,4 +1,5 @@
 import websiteCounter from "./Schema/WebsiteCounterSchema";
+import ItemRatings from './Schema/ItemRating'
 import OrderSchemaDataBase from './Schema/OrderSchema'
 import CoffeeItemSchema from './Schema/CoffeeItemSchema'
 import DrinkItemSchema from './Schema/DrinkItemSchema'

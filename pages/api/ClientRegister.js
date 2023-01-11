@@ -58,7 +58,6 @@ const errors = validationResult(req);
     return  res.status(400).json({ message: "Please Enter FullAddress" });
     }
     let mobileStr=Mobile.toString()
-    console.log(mobileStr,mobileStr.length)
 if(mobileStr.length!=10){
      return res.status(400).json({ message: "Please Enter 10 digit mobile number only" });
 }
@@ -108,10 +107,10 @@ else{
 const checkEmail1=await ClientData.findOne({Email: Email}).select('-Password');
 const checkMobile1=await ClientData.findOne({Mobile: Mobile}).select('-Password');
 if(checkEmail1){
-    return res.status(400).json({message:"This Email Id Is Already Exits",status:"400"})
+    return res.status(400).json({message:"This Email Id Is Already Exits"})
 }
 if(checkMobile1){
-    return res.status(400).json({message:"This Mobile Number Is Already Exits",status:"400"})
+    return res.status(400).json({message:"This Mobile Number Is Already Exits"})
 
 }
 const salt=await bcrypt.genSaltSync(10);

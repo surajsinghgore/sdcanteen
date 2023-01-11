@@ -188,6 +188,7 @@ progress: undefined,
 });
 return ;
 }
+console.log(data)
 if(data.status=="400"){
 for(let i=0;i<data.errors.length;i++){
   toast.warn(`${data.errors[i].msg}`, {
