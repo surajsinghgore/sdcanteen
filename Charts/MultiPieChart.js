@@ -1,21 +1,13 @@
 import { Pie as ChartJS } from 'chart.js/auto'
 import { Pie }            from 'react-chartjs-2'
-export default function MultiPieChart({browserData,years}) {
+export default function MultiPieChart({datas}) {
 
 const data={
  labels: [
     'COD',
     'ONLINE',
   ],
-  datasets: [{
-       data: mainData,
-     backgroundColor: [
-              "#FDB45C",
-              "#878a87",
-            ],
-           label:`Browser used In ${years}`,
-    hoverOffset: 4
-  }],
+  datasets: datas,
   options: {
         responsive: true,
         legend: {

@@ -29,7 +29,8 @@ let codOrderSum=[]
 let codOrderTotal=[]
 let codOrderTotalSum=[]
 
-
+let codOnline=[]
+let codOnlineNumber=[]
 
 let earnJan=0,earnFeb=0,earnMar=0,earnApr=0,earnMay=0,earnJun=0,earnJul=0,earnAug=0,earnsSep=0,earnOct=0,earnNov=0,earnDec=0;
 const year1=parseInt(req.body.year1);
@@ -613,11 +614,18 @@ codOrderSum.push({year:year3,total2})
 codOrder.push([earnJan,earnFeb,earnMar,earnApr,earnMay,earnJun,earnJul,earnAug,earnsSep,earnOct,earnNov,earnDec,year3])
 
 
+// online and cod together
+codOnline.push({year:year1,revenueCod:codOrderSum,revenueOnline:RevenueOnlineSum})
+codOnlineNumber.push({year:year1,totalCod:codOrderTotalSum ,totalOnline:successOrderSum})
+
+
+
+
 
 return res.status(200).json({TotalEarning,TotalEarningSum,TotalPaymentsSum,TotalPayments,RevenueOnlineSum,RevenueOnline,successOrderSum,successOrder,failedOrder,failedOrderSum,pendingOrder,pendingOrderSum,codOrder,
 codOrderSum,
 codOrderTotal,
-codOrderTotalSum})
+codOrderTotalSum,codOnline,codOnlineNumber})
 }
 
 //!2 two records search
@@ -1012,12 +1020,17 @@ codOrder.push([earnJan,earnFeb,earnMar,earnApr,earnMay,earnJun,earnJul,earnAug,e
 
 
 
+// online and cod together
+// online and cod together
+codOnline.push({year:year1,revenueCod:codOrderSum,revenueOnline:RevenueOnlineSum})
+codOnlineNumber.push({year:year1,totalCod:codOrderTotalSum ,totalOnline:successOrderSum})
+
 
 
 return res.status(200).json({TotalEarning,TotalEarningSum,TotalPaymentsSum,TotalPayments,RevenueOnlineSum,RevenueOnline,successOrderSum,successOrder,failedOrder,failedOrderSum,pendingOrder,pendingOrderSum,codOrder,
 codOrderSum,
 codOrderTotal,
-codOrderTotalSum})
+codOrderTotalSum,codOnline,codOnlineNumber})
 }
 
 //!1 single
@@ -1217,7 +1230,8 @@ codOrder.push([earnJan,earnFeb,earnMar,earnApr,earnMay,earnJun,earnJul,earnAug,e
 
 
 // online and cod together
-
+codOnline.push({revenueCod:codOrderSum,revenueOnline:RevenueOnlineSum})
+codOnlineNumber.push({totalCod:codOrderTotalSum ,totalOnline:successOrderSum})
 
 
 
@@ -1226,7 +1240,7 @@ codOrder.push([earnJan,earnFeb,earnMar,earnApr,earnMay,earnJun,earnJul,earnAug,e
 return res.status(200).json({TotalEarning,TotalEarningSum,TotalPaymentsSum,TotalPayments,RevenueOnlineSum,RevenueOnline,successOrderSum,successOrder,failedOrder,failedOrderSum,pendingOrder,pendingOrderSum,codOrder,
 codOrderSum,
 codOrderTotal,
-codOrderTotalSum})
+codOrderTotalSum,codOnline,codOnlineNumber})
 }
 
 

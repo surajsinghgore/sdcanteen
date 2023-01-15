@@ -11,6 +11,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import LoadingBar from "react-top-loading-bar";
 import MultiBarChart from "../../Charts/MultiBarChart";
+import YearWiseBarChart from "../../Charts/YearWiseBarChart";
 
 const AnaylsisPayments = () => {
 const [progress, setProgress] = useState(0);
@@ -28,6 +29,8 @@ const [fai,setFai]=useState([])
 const [pen,setPen]=useState([])
 const [cod,setCod]=useState([])
 const [codN,setCodN]=useState([])
+const [codO,setCodO]=useState([])
+const [codOY,setCodOY]=useState([])
 // years fetch for select 
 useEffect(()=>{
 const getAllYears=async()=>{
@@ -63,6 +66,8 @@ getData()
 
 
 useEffect(()=>{
+let codOnline=[]
+let codOnlineNumber=[]
 if(allData.TotalEarning!=undefined){
 let datasSet=[]
 for(let i=0;i<allData.TotalEarning.length;i++){
@@ -160,6 +165,9 @@ if(i==2){datasSet.push({label:s,data:newData,backgroundColor: "#e009c0"})}
 }
 setCodN(datasSet)
 }
+
+
+
 },[allData])
 
 
@@ -782,23 +790,34 @@ return <li key={index}><div className={anaylsis.title}>Total In {item.year} - </
 </div>
 </div>
 
+
+
 {/*number cod vs online */}
-<div className={anaylsis.chartSigle}>
-<h5>Number Of Orders COD Vs ONLINE Payments</h5>
-<div className={anaylsis.chartARea}>
+{/* 
+ <div className={anaylsis.chartSigle}>
+<h5>Number Of Revenue Generated using COD Vs ONLINE Payments</h5>
+<div className={anaylsis.chartARea} style={{width:"100%",marginLeft:"0%"}}>
+
+{(codO.length!=0)?<YearWiseBarChart datas={codO} years={codOY}/>  :" "}
+</div>
+ <div className={anaylsis.allDatas}>
+{(allData.length!=0)? <>
+{(allData.codOrderTotalSum!=undefined)?
+<>
+{(allData.codOrderTotalSum.map((item,index)=>{
+return <li key={index}><div className={anaylsis.title}>Total In {item.year} - </div><div className={anaylsis.datas}>{(item.total)? <> {item.total}</>:(item.total1)? <> {item.total1}</>:(item.total2)? <> {item.total2}</>:""}</div></li>
+}))}
+</>
+:""}
+</>:""}
+</div>
+</div> */}
 
 
-</div>
-<div className={anaylsis.allDatas}>
-<li><div className={anaylsis.title}>Total In 2022 - </div><div className={anaylsis.datas}>  100000</div></li>
-<li><div className={anaylsis.title}>Total In 2022 - </div><div className={anaylsis.datas}>  100000</div></li>
-<li><div className={anaylsis.title}>Total In 2022 - </div><div className={anaylsis.datas}>  100000</div></li>
 
-</div>
-</div>
 
 {/* revenue */}
-<div className={anaylsis.chartSigle}>
+{/* <div className={anaylsis.chartSigle}>
 <h5>Number Of Revenue COD Vs ONLINE Payments</h5>
 <div className={anaylsis.chartARea}>
 
@@ -810,7 +829,13 @@ return <li key={index}><div className={anaylsis.title}>Total In {item.year} - </
 <li><div className={anaylsis.title}>Total In 2022 - </div><div className={anaylsis.datas}>  100000</div></li>
 
 </div>
-</div>
+</div>  */}
+
+
+
+
+
+
 </div>
 
 

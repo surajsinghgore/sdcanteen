@@ -9,346 +9,1408 @@ import TopSearchSchema from './Schema/NumberOfSearch'
 import ClientData from "./Schema/ClientData";
 
 
-export default async function HomeAdminAnaylsis(req,res) {
+export default async function OrderAnaylsis(req,res) {
    if (req.method == "POST") {
       try{
 
-let year=req.body.Year;
 
-    //!1.   monthwise visitors count
-    let AllCountVisitorRawData=[]
- let Opera=0;
- let Edge=0;
- let Chrome=0;
- let Safari=0;
- let Firefox=0;
- let IE=0;
- let other=0;
-
-    let VisitorJan=0;
-    let VisitorFeb=0;
-    let VisitorMar=0;
-    let VisitorApl=0;
-    let VisitorMay=0;
-    let VisitorJun=0;
-    let VisitorJul=0;
-    let VisitorAug=0;
-    let VisitorSep=0;
-    let VisitorOct=0;
-    let VisitorNov=0;
-    let VisitorDec=0;
-  let AllCountVisitorData=await websiteCounter.find();
-for(let i=0;i<AllCountVisitorData.length;i++){
- let allDated=AllCountVisitorData[i].HitFullDate.split("/");
-      //[ 0 Date| 1 Month | 2 Year ] split function
-if((allDated[2]==year)){
-AllCountVisitorRawData.push(AllCountVisitorData[i])
-}
-//    broweser count gets
-if((AllCountVisitorData[i].Browser=="Opera")&&(allDated[2]==year)){Opera++;}
-if((AllCountVisitorData[i].Browser=="Edge")&&(allDated[2]==year)){Edge++;}
-if((AllCountVisitorData[i].Browser=="Chrome")&&(allDated[2]==year)){Chrome++;}
-if((AllCountVisitorData[i].Browser=="Safari")&&(allDated[2]==year)){Safari++;}
-if((AllCountVisitorData[i].Browser=="Firefox")&&(allDated[2]==year)){Firefox++;}
-if((AllCountVisitorData[i].Browser=="IE")&&(allDated[2]==year)){IE++;}
-if((AllCountVisitorData[i].Browser=="other Browser")&&(allDated[2]==year)){other++;}
-if((allDated[1]==1)&&(allDated[2]==year)){
-VisitorJan++;
-}
-if((allDated[1]==2)&&(allDated[2]==year)){
-VisitorFeb++;
-}
-if((allDated[1]==3)&&(allDated[2]==year)){
-VisitorMar++;
-}
-if((allDated[1]==4)&&(allDated[2]==year)){
-VisitorApl++;
-}
-if((allDated[1]==5)&&(allDated[2]==year)){
-VisitorMay++;
-}
-if((allDated[1]==6)&&(allDated[2]==year)){
-VisitorJun++;
-}
-if((allDated[1]==7)&&(allDated[2]==year)){
-VisitorJul++;
-}
-if((allDated[1]==8)&&(allDated[2]==year)){
-VisitorAug++;
-}
-if((allDated[1]==9)&&(allDated[2]==year)){
-VisitorSep++;
-}
-if((allDated[1]==10)&&(allDated[2]==year)){
-VisitorOct++;
-}
-if((allDated[1]==11)&&(allDated[2]==year)){
-VisitorNov++;
-}
-if((allDated[1]==12)&&(allDated[2]==year)){
-VisitorDec++;
-}
-}
-// monthwise data push in single array
-let AllVisitorMonthWise=[];
-AllVisitorMonthWise.push(VisitorJan)
-AllVisitorMonthWise.push(VisitorFeb)
-AllVisitorMonthWise.push(VisitorMar)
-AllVisitorMonthWise.push(VisitorApl)
-AllVisitorMonthWise.push(VisitorMay)
-AllVisitorMonthWise.push(VisitorJun)
-AllVisitorMonthWise.push(VisitorJul)
-AllVisitorMonthWise.push(VisitorAug)
-AllVisitorMonthWise.push(VisitorSep)
-AllVisitorMonthWise.push(VisitorOct)
-AllVisitorMonthWise.push(VisitorNov)
-AllVisitorMonthWise.push(VisitorDec)
-let AllVisitorMonthWiseLen=VisitorJan+VisitorFeb+VisitorMar+VisitorApl+VisitorMay+VisitorJun+VisitorJul+VisitorAug+VisitorSep+VisitorOct+VisitorNov+VisitorDec;
-// browser market share
-let AllBrowser=[]
-AllBrowser.push(Opera)
-AllBrowser.push(Edge)
-AllBrowser.push(Chrome)
-AllBrowser.push(Safari)
-AllBrowser.push(Firefox)
-AllBrowser.push(IE)
-AllBrowser.push(other)
-let AllBrowserLen=Opera+Edge+Chrome+Safari+Firefox+IE+other;
+let year1=req.body.year1;
+let year2=req.body.year2;
+let year3=req.body.year3;
 
 
-
-
-
-
-
-// ! 2. All Order Related Calculations
-    let ordersJan=0,totalEarnJan=0;
-    let ordersFeb=0,totalEarnFeb=0;
-    let ordersMar=0,totalEarnMar=0;
-    let ordersApl=0,totalEarnApl=0;
-    let ordersMay=0,totalEarnMay=0;
-    let ordersJun=0,totalEarnJun=0;
-    let ordersJul=0,totalEarnJul=0;
-    let ordersAug=0,totalEarnAug=0;
-    let ordersSep=0,totalEarnSep=0;
-    let ordersOct=0,totalEarnOct=0;
-    let ordersNov=0,totalEarnNov=0;
-    let ordersDec=0,totalEarnDec=0;
-let orderData=await OrderSchemaDataBase.find();
-for(let i=0;i<orderData.length;i++){
-let fullDate=orderData[i].OrderDate.split('.');
-if((fullDate[1]==1)&&(fullDate[2]==year)){ordersJan++}
-if((fullDate[1]==2)&&(fullDate[2]==year)){ordersFeb++}
-if((fullDate[1]==3)&&(fullDate[2]==year)){ordersMar++}
-if((fullDate[1]==4)&&(fullDate[2]==year)){ordersApl++}
-if((fullDate[1]==5)&&(fullDate[2]==year)){ordersMay++}
-if((fullDate[1]==6)&&(fullDate[2]==year)){ordersJun++}
-if((fullDate[1]==7)&&(fullDate[2]==year)){ordersJul++}
-if((fullDate[1]==8)&&(fullDate[2]==year)){ordersAug++}
-if((fullDate[1]==9)&&(fullDate[2]==year)){ordersSep++;}
-if((fullDate[1]==10)&&(fullDate[2]==year)){ordersOct++;}
-if((fullDate[1]==11)&&(fullDate[2]==year)){ordersNov++;}
-if((fullDate[1]==12)&&(fullDate[2]==year)){ordersDec++}
-// monthwise earing calculate
-if((fullDate[1]==1)&&(fullDate[2]==year)&&(orderData[i].OrderStatus=="complete")){totalEarnJan=totalEarnJan+orderData[i].AmountReceived;}
-if((fullDate[1]==2)&&(fullDate[2]==year)&&(orderData[i].OrderStatus=="complete")){totalEarnFeb=totalEarnFeb+orderData[i].AmountReceived;}
-if((fullDate[1]==3)&&(fullDate[2]==year)&&(orderData[i].OrderStatus=="complete")){totalEarnMar=totalEarnMar+orderData[i].AmountReceived;}
-if((fullDate[1]==4)&&(fullDate[2]==year)&&(orderData[i].OrderStatus=="complete")){totalEarnApl=totalEarnApl+orderData[i].AmountReceived;}
-if((fullDate[1]==5)&&(fullDate[2]==year)&&(orderData[i].OrderStatus=="complete")){totalEarnMay=totalEarnMay+orderData[i].AmountReceived;}
-if((fullDate[1]==6)&&(fullDate[2]==year)&&(orderData[i].OrderStatus=="complete")){totalEarnJun=totalEarnJun+orderData[i].AmountReceived;}
-if((fullDate[1]==7)&&(fullDate[2]==year)&&(orderData[i].OrderStatus=="complete")){totalEarnJul=totalEarnJul+orderData[i].AmountReceived;}
-if((fullDate[1]==8)&&(fullDate[2]==year)&&(orderData[i].OrderStatus=="complete")){totalEarnAug=totalEarnAug+orderData[i].AmountReceived;}
-if((fullDate[1]==9)&&(fullDate[2]==year)&&(orderData[i].OrderStatus=="complete")){totalEarnSep=totalEarnSep+orderData[i].AmountReceived;}
-if((fullDate[1]==10)&&(fullDate[2]==year)&&(orderData[i].OrderStatus=="complete")){totalEarnOct=totalEarnOct+orderData[i].AmountReceived;}
-if((fullDate[1]==11)&&(fullDate[2]==year)&&(orderData[i].OrderStatus=="complete")){totalEarnNov=totalEarnNov+orderData[i].AmountReceived;}
-if((fullDate[1]==12)&&(fullDate[2]==year)&&(orderData[i].OrderStatus=="complete")){totalEarnDec=totalEarnDec+orderData[i].AmountReceived;}
-}
-
-
-let AllOrderMonthWise=[]
-AllOrderMonthWise.push(ordersJan)
-   AllOrderMonthWise.push(ordersFeb)
-   AllOrderMonthWise.push(ordersMar)
-   AllOrderMonthWise.push(ordersApl)
-   AllOrderMonthWise.push(ordersMay)
-   AllOrderMonthWise.push(ordersJun)
-   AllOrderMonthWise.push(ordersJul)
-   AllOrderMonthWise.push(ordersAug)
-   AllOrderMonthWise.push(ordersSep)
-   AllOrderMonthWise.push(ordersOct)
-   AllOrderMonthWise.push(ordersNov)
-   AllOrderMonthWise.push(ordersDec)
-   let AllMonthWiseCollection=[];
-AllMonthWiseCollection.push(totalEarnJan)
-AllMonthWiseCollection.push(totalEarnFeb)
-AllMonthWiseCollection.push(totalEarnMar)
-AllMonthWiseCollection.push(totalEarnApl)
-AllMonthWiseCollection.push(totalEarnMay)
-AllMonthWiseCollection.push(totalEarnJun)
-AllMonthWiseCollection.push(totalEarnJul)
-AllMonthWiseCollection.push(totalEarnAug)
-AllMonthWiseCollection.push(totalEarnSep)
-AllMonthWiseCollection.push(totalEarnOct)
-AllMonthWiseCollection.push(totalEarnNov)
-AllMonthWiseCollection.push(totalEarnDec)
-// monthwise collection found
-let AllMonthWiseCollectionLen=totalEarnJan+totalEarnFeb+totalEarnMar+totalEarnApl+totalEarnMay+totalEarnJun+totalEarnJul+totalEarnAug+totalEarnSep+totalEarnOct+totalEarnNov+totalEarnDec;
-// monthwise records found
-   let AllOrderMonthWiseLen=ordersJan+ordersFeb+ordersMar+ordersApl+ordersMay+ordersJun+ordersJul+ordersAug+ordersSep+ordersOct+ordersNov+ordersDec;
-
-// total earning calcualte
-
-// ! 3. Number OF Clients Register In Canteen
-let AllClientData=[]
 let jan=0,feb=0,mar=0,apr=0,may=0,jun=0,jul=0,aug=0,sep=0,oct=0,nov=0,dec=0;
-let AllClientDatas=await ClientData.find()
-for(let i=0;i<AllClientDatas.length;i++){
-let dd=AllClientDatas[i].createdAt.toString()
-let convert=dd.split(" ")
-//1-- month ||  3---year
-if((convert[1]=='Jan') && (convert[3]==`${year}`)){jan++;}
-if((convert[1]=='Feb') && (convert[3]==`${year}`)){feb++;}
-if((convert[1]=='Mar') && (convert[3]==`${year}`)){mar++;}
-if((convert[1]=='Apr') && (convert[3]==`${year}`)){apr++;}
-if((convert[1]=='May') && (convert[3]==`${year}`)){may++;}
-if((convert[1]=='Jun') && (convert[3]==`${year}`)){jun++;}
-if((convert[1]=='Jul') && (convert[3]==`${year}`)){jul++;}
-if((convert[1]=='Aug') && (convert[3]==`${year}`)){aug++;}
-if((convert[1]=='Sep') && (convert[3]==`${year}`)){sep++;}
-if((convert[1]=='Oct') && (convert[3]==`${year}`)){oct++;}
-if((convert[1]=='Nov') && (convert[3]==`${year}`)){nov++;}
-if((convert[1]=='Dec') && (convert[3]==`${year}`)){dec++;}
+let total=0,total1=0,total2=0;
+let totalOrder=[]
+let totalOrderSum=[]
+let totalOrderComplete=[]
+let totalOrderCompleteSum=[]
+let totalOrderPending=[];
+let totalOrderPendingSum=[];
+let totalOrderReject=[];
+let totalOrderRejectSum=[];
+let topFoodItem=[];
+let topFoodItemMontWise=[];
+let topCoffeeItem=[];
+let topJuiceItem=[];
+let topDrinkItem=[];
+let topCoffeeItemMontWise=[];
+let topJuiceItemMontWise=[];
+let topDrinkItemMontWise=[];
+let allItemsTop=[];
+
+let AllOrderData=await OrderSchemaDataBase.find();
+let allFoodData=await FoodItemSchema.find()
+let allJuiceData=await JuiceItemSchema.find()
+let allDrinkData=await DrinkItemSchema.find()
+let allCoffeeData=await CoffeeItemSchema.find()
+const data=await ItemRatings.find().sort({"Rating":-1})
+
+// !All Three
+if((req.body.year1)&&(req.body.year2)&&(req.body.year3)){
+
+
+
 }
-AllClientData.push(jan)
-AllClientData.push(feb)
-AllClientData.push(mar)
-AllClientData.push(apr)
-AllClientData.push(may)
-AllClientData.push(jun)
-AllClientData.push(jul)
-AllClientData.push(aug)
-AllClientData.push(sep)
-AllClientData.push(oct)
-AllClientData.push(nov)
-AllClientData.push(dec)
-let AllClientDataLen=jan+feb+mar+apr+may+jun+jul+aug+sep+oct+nov+dec;
-
-
-
-//!4. top 10 items most buy
-let orderDataAll=await OrderSchemaDataBase.find();
-
-// food top 10
-let foodData=await FoodItemSchema.find();
-let AllFoodDatas=[]
-for(let i=0;i<foodData.length;i++){
-let count=0;
-for(let j=0;j<orderDataAll.length;j++){
-let orderDates=orderDataAll[j].OrderDate.split('.');
-if(orderDates[2]==year){
-for(let k=0;k<orderDataAll[j].ItemsOrder.length;k++){
-if(foodData[i].FoodName==orderDataAll[j].ItemsOrder[k].ItemName){
-count++;
-}
-}}
-}
-AllFoodDatas.push({count:count,name:[foodData[i].FoodName]})
-}
-
-var list = AllFoodDatas.sort(function(a, b) {
-    return b.count - a.count;
-});
-let TopFoodItems=list.slice(0,10);
-
-
-
-
-
-// coffee top 10
-
-let coffeeData=await CoffeeItemSchema.find();
-let AllCoffeeDatas=[]
-
-
-for(let i=0;i<coffeeData.length;i++){
-let count=0;
-for(let j=0;j<orderDataAll.length;j++){
-let orderDates=orderDataAll[j].OrderDate.split('.');
-if(orderDates[2]==year){
-for(let k=0;k<orderDataAll[j].ItemsOrder.length;k++){
-if(coffeeData[i].CoffeeName==orderDataAll[j].ItemsOrder[k].ItemName){
-count++;
-}
-}}
-}
-AllCoffeeDatas.push({count:count,name:[coffeeData[i].CoffeeName]})
-}
-
-
-
-var lists = AllCoffeeDatas.sort(function(a, b) {
-    return b.count - a.count;
-});
-let TopCoffeeItems=lists.slice(0,10);
-
-
-
-// top 10 juice data
-let JuiceData=await JuiceItemSchema.find();
-let AllJuiceDatas=[]
-for(let i=0;i<JuiceData.length;i++){
-let count=0;
-for(let j=0;j<orderDataAll.length;j++){
-let orderDates=orderDataAll[j].OrderDate.split('.');
-if(orderDates[2]==year){
-for(let k=0;k<orderDataAll[j].ItemsOrder.length;k++){
-if(JuiceData[i].JuiceName==orderDataAll[j].ItemsOrder[k].ItemName){
-count++;
-}
-}}
-}
-AllJuiceDatas.push({count:count,name:[JuiceData[i].JuiceName]})
-}
-
-var listss = AllJuiceDatas.sort(function(a, b) {
-    return b.count - a.count;
-});
-let TopJuiceItems=listss.slice(0,10);
-
-
-
-// top 10 drink Data
-let DrinkData=await DrinkItemSchema.find();
-let AllDrinkDatas=[]
-for(let i=0;i<DrinkData.length;i++){
-let count=0;
-for(let j=0;j<orderDataAll.length;j++){
-let orderDates=orderDataAll[j].OrderDate.split('.');
-if(orderDates[2]==year){
-for(let k=0;k<orderDataAll[j].ItemsOrder.length;k++){
-if(DrinkData[i].DrinkName==orderDataAll[j].ItemsOrder[k].ItemName){
-count++;
-}
-}}
-}
-AllDrinkDatas.push({count:count,name:[DrinkData[i].DrinkName]})
-}
-
-var listsss = AllDrinkDatas.sort(function(a, b) {
-    return b.count - a.count;
-});
-let TopDrinkItems=listsss.slice(0,10);
-
-
-
-//!5. top 10 trendings of all times
-let allTrending=await TopSearchSchema.find().sort({"NumberOfSearch":-1}).select('-_id');
-let topTrending=allTrending.slice(0,10);
-
-
-
-return res.status(200).json({AllVisitorMonthWise,AllBrowser,AllOrderMonthWise,AllOrderMonthWiseLen,AllVisitorMonthWiseLen,AllBrowserLen,AllMonthWiseCollectionLen,AllMonthWiseCollection,AllClientData,AllClientDataLen,TopFoodItems,TopCoffeeItems,TopJuiceItems,TopDrinkItems,topTrending})
   
+
+
+  // ! All Two
+if((req.body.year1)&&(req.body.year2)){
+
+
+}
+
+
+  // !Only single
+if((req.body.year1)){
+
+// !1.1 total orders
+async function SingleTotalOrder(){
+jan=0,feb=0,mar=0,apr=0,may=0,jun=0,jul=0,aug=0,sep=0,oct=0,nov=0,dec=0;total=0;
+for(let i=0;i<AllOrderData.length;i++){
+let dateStr=AllOrderData[i].OrderDate.split(".");
+if((dateStr[2]==year1)&&(dateStr[1]==1)){
+jan++;
+}
+
+if((dateStr[2]==year1)&&(dateStr[1]==2)){
+feb++;
+}
+if((dateStr[2]==year1)&&(dateStr[1]==3)){
+mar++;
+}
+if((dateStr[2]==year1)&&(dateStr[1]==4)){
+apr++;
+}
+if((dateStr[2]==year1)&&(dateStr[1]==5)){
+may++;
+}
+if((dateStr[2]==year1)&&(dateStr[1]==6)){
+jun++;
+}
+if((dateStr[2]==year1)&&(dateStr[1]==7)){
+jul++;
+}
+if((dateStr[2]==year1)&&(dateStr[1]==8)){
+aug++;
+}
+if((dateStr[2]==year1)&&(dateStr[1]==9)){
+sep++;
+}
+if((dateStr[2]==year1)&&(dateStr[1]==10)){
+oct++;
+}
+if((dateStr[2]==year1)&&(dateStr[1]==11)){
+nov++;
+}
+if((dateStr[2]==year1)&&(dateStr[1]==12)){
+dec++;
+}
+}
+total=jan+feb+mar+apr+may+jun+jul+aug+sep+oct+nov+dec;
+totalOrder.push([jan,feb,mar,apr,may,jun,jul,aug,sep,oct,nov,dec,year1])
+totalOrderSum.push({year:year1,total})
+}
+// !1.2 total complete orders
+async function SingleTotalCompleteOrder(){
+jan=0,feb=0,mar=0,apr=0,may=0,jun=0,jul=0,aug=0,sep=0,oct=0,nov=0,dec=0;total=0;
+for(let i=0;i<AllOrderData.length;i++){
+let dateStr=AllOrderData[i].OrderDate.split(".");
+if((dateStr[2]==year1)&&(dateStr[1]==1)&&(AllOrderData[i].OrderStatus=="complete")){
+jan++;
+}
+
+if((dateStr[2]==year1)&&(dateStr[1]==2)&&(AllOrderData[i].OrderStatus=="complete")){
+feb++;
+}
+if((dateStr[2]==year1)&&(dateStr[1]==3)&&(AllOrderData[i].OrderStatus=="complete")){
+mar++;
+}
+if((dateStr[2]==year1)&&(dateStr[1]==4)&&(AllOrderData[i].OrderStatus=="complete")){
+apr++;
+}
+if((dateStr[2]==year1)&&(dateStr[1]==5)&&(AllOrderData[i].OrderStatus=="complete")){
+may++;
+}
+if((dateStr[2]==year1)&&(dateStr[1]==6)&&(AllOrderData[i].OrderStatus=="complete")){
+jun++;
+}
+if((dateStr[2]==year1)&&(dateStr[1]==7)&&(AllOrderData[i].OrderStatus=="complete")){
+jul++;
+}
+if((dateStr[2]==year1)&&(dateStr[1]==8)&&(AllOrderData[i].OrderStatus=="complete")){
+aug++;
+}
+if((dateStr[2]==year1)&&(dateStr[1]==9)&&(AllOrderData[i].OrderStatus=="complete")){
+sep++;
+}
+if((dateStr[2]==year1)&&(dateStr[1]==10)&&(AllOrderData[i].OrderStatus=="complete")){
+oct++;
+}
+if((dateStr[2]==year1)&&(dateStr[1]==11)&&(AllOrderData[i].OrderStatus=="complete")){
+nov++;
+}
+if((dateStr[2]==year1)&&(dateStr[1]==12)&&(AllOrderData[i].OrderStatus=="complete")){
+dec++;
+}
+}
+total=jan+feb+mar+apr+may+jun+jul+aug+sep+oct+nov+dec;
+totalOrderComplete.push([jan,feb,mar,apr,may,jun,jul,aug,sep,oct,nov,dec,year1])
+totalOrderCompleteSum.push({year:year1,total})
+}
+// !1.3 total pending orders
+async function SingleTotalPendingOrder(){
+jan=0,feb=0,mar=0,apr=0,may=0,jun=0,jul=0,aug=0,sep=0,oct=0,nov=0,dec=0;total=0;
+for(let i=0;i<AllOrderData.length;i++){
+let dateStr=AllOrderData[i].OrderDate.split(".");
+if((dateStr[2]==year1)&&(dateStr[1]==1)&&(AllOrderData[i].OrderStatus=="Pending")){
+jan++;
+}
+
+if((dateStr[2]==year1)&&(dateStr[1]==2)&&(AllOrderData[i].OrderStatus=="Pending")){
+feb++;
+}
+if((dateStr[2]==year1)&&(dateStr[1]==3)&&(AllOrderData[i].OrderStatus=="Pending")){
+mar++;
+}
+if((dateStr[2]==year1)&&(dateStr[1]==4)&&(AllOrderData[i].OrderStatus=="Pending")){
+apr++;
+}
+if((dateStr[2]==year1)&&(dateStr[1]==5)&&(AllOrderData[i].OrderStatus=="Pending")){
+may++;
+}
+if((dateStr[2]==year1)&&(dateStr[1]==6)&&(AllOrderData[i].OrderStatus=="Pending")){
+jun++;
+}
+if((dateStr[2]==year1)&&(dateStr[1]==7)&&(AllOrderData[i].OrderStatus=="Pending")){
+jul++;
+}
+if((dateStr[2]==year1)&&(dateStr[1]==8)&&(AllOrderData[i].OrderStatus=="Pending")){
+aug++;
+}
+if((dateStr[2]==year1)&&(dateStr[1]==9)&&(AllOrderData[i].OrderStatus=="Pending")){
+sep++;
+}
+if((dateStr[2]==year1)&&(dateStr[1]==10)&&(AllOrderData[i].OrderStatus=="Pending")){
+oct++;
+}
+if((dateStr[2]==year1)&&(dateStr[1]==11)&&(AllOrderData[i].OrderStatus=="Pending")){
+nov++;
+}
+if((dateStr[2]==year1)&&(dateStr[1]==12)&&(AllOrderData[i].OrderStatus=="Pending")){
+dec++;
+}
+}
+total=jan+feb+mar+apr+may+jun+jul+aug+sep+oct+nov+dec;
+totalOrderPending.push([jan,feb,mar,apr,may,jun,jul,aug,sep,oct,nov,dec,year1])
+totalOrderPendingSum.push({year:year1,total})
+}
+// !1.4 total reject  order
+async function SingleTotalRejectOrder(){
+jan=0,feb=0,mar=0,apr=0,may=0,jun=0,jul=0,aug=0,sep=0,oct=0,nov=0,dec=0;total=0;
+for(let i=0;i<AllOrderData.length;i++){
+let dateStr=AllOrderData[i].OrderDate.split(".");
+if((dateStr[2]==year1)&&(dateStr[1]==1)&&(AllOrderData[i].OrderStatus=="reject")){
+jan++;
+}
+
+if((dateStr[2]==year1)&&(dateStr[1]==2)&&(AllOrderData[i].OrderStatus=="reject")){
+feb++;
+}
+if((dateStr[2]==year1)&&(dateStr[1]==3)&&(AllOrderData[i].OrderStatus=="reject")){
+mar++;
+}
+if((dateStr[2]==year1)&&(dateStr[1]==4)&&(AllOrderData[i].OrderStatus=="reject")){
+apr++;
+}
+if((dateStr[2]==year1)&&(dateStr[1]==5)&&(AllOrderData[i].OrderStatus=="reject")){
+may++;
+}
+if((dateStr[2]==year1)&&(dateStr[1]==6)&&(AllOrderData[i].OrderStatus=="reject")){
+jun++;
+}
+if((dateStr[2]==year1)&&(dateStr[1]==7)&&(AllOrderData[i].OrderStatus=="reject")){
+jul++;
+}
+if((dateStr[2]==year1)&&(dateStr[1]==8)&&(AllOrderData[i].OrderStatus=="reject")){
+aug++;
+}
+if((dateStr[2]==year1)&&(dateStr[1]==9)&&(AllOrderData[i].OrderStatus=="reject")){
+sep++;
+}
+if((dateStr[2]==year1)&&(dateStr[1]==10)&&(AllOrderData[i].OrderStatus=="reject")){
+oct++;
+}
+if((dateStr[2]==year1)&&(dateStr[1]==11)&&(AllOrderData[i].OrderStatus=="reject")){
+nov++;
+}
+if((dateStr[2]==year1)&&(dateStr[1]==12)&&(AllOrderData[i].OrderStatus=="reject")){
+dec++;
+}
+}
+total=jan+feb+mar+apr+may+jun+jul+aug+sep+oct+nov+dec;
+totalOrderReject.push([jan,feb,mar,apr,may,jun,jul,aug,sep,oct,nov,dec,year1])
+totalOrderRejectSum.push({year:year1,total})
+}
+// !1.5 top  food item of the month
+async function mostOrderedFood(){
+let food=[];
+let ja=[],fe=[],ma=[],ap=[],my=[],ju=[],jl=[],au=[],se=[],oc=[],no=[],de=[];
+// divide orders monthwise
+for(let j=0;j<AllOrderData.length;j++){
+let date=AllOrderData[j].OrderDate.split('.');
+if((date[2]==year1)&&(date[1]==1)&&(AllOrderData[j].OrderStatus=="complete")){ja.push(AllOrderData[j])}
+if((date[2]==year1)&&(date[1]==2)&&(AllOrderData[j].OrderStatus=="complete")){fe.push(AllOrderData[j])}
+if((date[2]==year1)&&(date[1]==3)&&(AllOrderData[j].OrderStatus=="complete")){ma.push(AllOrderData[j])}
+if((date[2]==year1)&&(date[1]==4)&&(AllOrderData[j].OrderStatus=="complete")){ap.push(AllOrderData[j])}
+if((date[2]==year1)&&(date[1]==5)&&(AllOrderData[j].OrderStatus=="complete")){my.push(AllOrderData[j])}
+if((date[2]==year1)&&(date[1]==6)&&(AllOrderData[j].OrderStatus=="complete")){ju.push(AllOrderData[j])}
+if((date[2]==year1)&&(date[1]==7)&&(AllOrderData[j].OrderStatus=="complete")){jl.push(AllOrderData[j])}
+if((date[2]==year1)&&(date[1]==8)&&(AllOrderData[j].OrderStatus=="complete")){au.push(AllOrderData[j])}
+if((date[2]==year1)&&(date[1]==9)&&(AllOrderData[j].OrderStatus=="complete")){se.push(AllOrderData[j])}
+if((date[2]==year1)&&(date[1]==10)&&(AllOrderData[j].OrderStatus=="complete")){oc.push(AllOrderData[j])}
+if((date[2]==year1)&&(date[1]==11)&&(AllOrderData[j].OrderStatus=="complete")){no.push(AllOrderData[j])}
+if((date[2]==year1)&&(date[1]==12)&&(AllOrderData[j].OrderStatus=="complete")){de.push(AllOrderData[j])}
+}
+
+if(ja.length!=0){
+let temp=[]
+for(let i=0;i<allFoodData.length;i++){
+let count=0;
+for(let j=0;j<ja.length;j++){
+for(let k=0;k<ja[j].ItemsOrder.length;k++){
+if(ja[j].ItemsOrder[k].ItemName==allFoodData[i].FoodName){
+count++;
+}
+}
+}
+temp.push({count:count,Name:[allFoodData[i].FoodName],year:year1,month:1})
+}
+let list = temp.sort(function(a, b) {
+    return b.count - a.count;
+});
+let firstOnline=list.splice(0,1)
+food.push(firstOnline)
+
+
+}else{food.push({count:0,Name:[no],year:year1,month:1})}
+
+
+if(fe.length!=0){
+let temp=[]
+for(let i=0;i<allFoodData.length;i++){
+let count=0;
+for(let j=0;j<ja.length;j++){
+for(let k=0;k<ja[j].ItemsOrder.length;k++){
+if(ja[j].ItemsOrder[k].ItemName==allFoodData[i].FoodName){
+count++;
+}
+}
+}
+temp.push({count:count,Name:[allFoodData[i].FoodName],year:year1,month:2})
+}
+let list = temp.sort(function(a, b) {
+    return b.count - a.count;
+});
+let firstOnline=list.splice(0,1)
+food.push(firstOnline)
+
+
+}else{food.push({count:0,Name:[no],year:year1,month:2})}
+
+
+if(ma.length!=0){
+let temp=[]
+for(let i=0;i<allFoodData.length;i++){
+let count=0;
+for(let j=0;j<ja.length;j++){
+for(let k=0;k<ja[j].ItemsOrder.length;k++){
+if(ja[j].ItemsOrder[k].ItemName==allFoodData[i].FoodName){
+count++;
+}
+}
+}
+temp.push({count:count,Name:[allFoodData[i].FoodName],year:year1,month:3})
+}
+let list = temp.sort(function(a, b) {
+    return b.count - a.count;
+});
+let firstOnline=list.splice(0,1)
+food.push(firstOnline)
+
+
+}else{food.push({count:0,Name:[no],year:year1,month:3})}
+
+
+if(ap.length!=0){
+let temp=[]
+for(let i=0;i<allFoodData.length;i++){
+let count=0;
+for(let j=0;j<ja.length;j++){
+for(let k=0;k<ja[j].ItemsOrder.length;k++){
+if(ja[j].ItemsOrder[k].ItemName==allFoodData[i].FoodName){
+count++;
+}
+}
+}
+temp.push({count:count,Name:[allFoodData[i].FoodName],year:year1,month:4})
+}
+let list = temp.sort(function(a, b) {
+    return b.count - a.count;
+});
+let firstOnline=list.splice(0,1)
+food.push(firstOnline)
+}else{food.push({count:0,Name:[no],year:year1,month:4})}
+
+
+if(my.length!=0){
+let temp=[]
+for(let i=0;i<allFoodData.length;i++){
+let count=0;
+for(let j=0;j<ja.length;j++){
+for(let k=0;k<ja[j].ItemsOrder.length;k++){
+if(ja[j].ItemsOrder[k].ItemName==allFoodData[i].FoodName){
+count++;
+}
+}
+}
+temp.push({count:count,Name:[allFoodData[i].FoodName],year:year1,month:5})
+}
+let list = temp.sort(function(a, b) {
+    return b.count - a.count;
+});
+let firstOnline=list.splice(0,1)
+food.push(firstOnline)
+}else{food.push({count:0,Name:[no],year:year1,month:5})}
+
+
+
+if(ju.length!=0){
+let temp=[]
+for(let i=0;i<allFoodData.length;i++){
+let count=0;
+for(let j=0;j<ja.length;j++){
+for(let k=0;k<ja[j].ItemsOrder.length;k++){
+if(ja[j].ItemsOrder[k].ItemName==allFoodData[i].FoodName){
+count++;
+}
+}
+}
+temp.push({count:count,Name:[allFoodData[i].FoodName],year:year1,month:6})
+}
+let list = temp.sort(function(a, b) {
+    return b.count - a.count;
+});
+let firstOnline=list.splice(0,1)
+food.push(firstOnline)
+}else{food.push({count:0,Name:[no],year:year1,month:6})}
+
+
+if(jl.length!=0){
+let temp=[]
+for(let i=0;i<allFoodData.length;i++){
+let count=0;
+for(let j=0;j<ja.length;j++){
+for(let k=0;k<ja[j].ItemsOrder.length;k++){
+if(ja[j].ItemsOrder[k].ItemName==allFoodData[i].FoodName){
+count++;
+}
+}
+}
+temp.push({count:count,Name:[allFoodData[i].FoodName],year:year1,month:7})
+}
+let list = temp.sort(function(a, b) {
+    return b.count - a.count;
+});
+let firstOnline=list.splice(0,1)
+food.push(firstOnline)
+
+}else{food.push({count:0,Name:[no],year:year1,month:7})}
+
+
+if(au.length!=0){let temp=[]
+for(let i=0;i<allFoodData.length;i++){
+let count=0;
+for(let j=0;j<ja.length;j++){
+for(let k=0;k<ja[j].ItemsOrder.length;k++){
+if(ja[j].ItemsOrder[k].ItemName==allFoodData[i].FoodName){
+count++;
+}
+}
+}
+temp.push({count:count,Name:[allFoodData[i].FoodName],year:year1,month:8})
+}
+let list = temp.sort(function(a, b) {
+    return b.count - a.count;
+});
+let firstOnline=list.splice(0,1)
+food.push(firstOnline)}else{food.push({count:0,Name:[no],year:year1,month:8})}
+
+
+
+if(se.length!=0){let temp=[]
+for(let i=0;i<allFoodData.length;i++){
+let count=0;
+for(let j=0;j<ja.length;j++){
+for(let k=0;k<ja[j].ItemsOrder.length;k++){
+if(ja[j].ItemsOrder[k].ItemName==allFoodData[i].FoodName){
+count++;
+}
+}
+}
+temp.push({count:count,Name:[allFoodData[i].FoodName],year:year1,month:9})
+}
+let list = temp.sort(function(a, b) {
+    return b.count - a.count;
+});
+let firstOnline=list.splice(0,1)
+food.push(firstOnline)}else{food.push({count:0,Name:[no],year:year1,month:9})}
+
+
+if(oc.length!=0){let temp=[]
+for(let i=0;i<allFoodData.length;i++){
+let count=0;
+for(let j=0;j<ja.length;j++){
+for(let k=0;k<ja[j].ItemsOrder.length;k++){
+if(ja[j].ItemsOrder[k].ItemName==allFoodData[i].FoodName){
+count++;
+}
+}
+}
+temp.push({count:count,Name:[allFoodData[i].FoodName],year:year1,month:10})
+}
+let list = temp.sort(function(a, b) {
+    return b.count - a.count;
+});
+let firstOnline=list.splice(0,1)
+food.push(firstOnline)}else{food.push({count:0,Name:[no],year:year1,month:10})}
+
+
+if(no.length!=0){let temp=[]
+for(let i=0;i<allFoodData.length;i++){
+let count=0;
+for(let j=0;j<ja.length;j++){
+for(let k=0;k<ja[j].ItemsOrder.length;k++){
+if(ja[j].ItemsOrder[k].ItemName==allFoodData[i].FoodName){
+count++;
+}
+}
+}
+temp.push({count:count,Name:[allFoodData[i].FoodName],year:year1,month:11})
+}
+let list = temp.sort(function(a, b) {
+    return b.count - a.count;
+});
+let firstOnline=list.splice(0,1)
+food.push(firstOnline)}else{food.push({count:0,Name:[no],year:year1,month:11})}
+
+
+if(de.length!=0){let temp=[]
+for(let i=0;i<allFoodData.length;i++){
+let count=0;
+for(let j=0;j<ja.length;j++){
+for(let k=0;k<ja[j].ItemsOrder.length;k++){
+if(ja[j].ItemsOrder[k].ItemName==allFoodData[i].FoodName){
+count++;
+}
+}
+}
+temp.push({count:count,Name:[allFoodData[i].FoodName],year:year1,month:12})
+}
+let list = temp.sort(function(a, b) {
+    return b.count - a.count;
+});
+let firstOnline=list.splice(0,1)
+food.push(firstOnline)}else{food.push({count:0,Name:[no],year:year1,month:12})}
+
+topFoodItemMontWise.push(food)
+
+
+}
+// !1.6 top coffee item of the month
+async function mostOrderedCoffee(){
+let food=[];
+let ja=[],fe=[],ma=[],ap=[],my=[],ju=[],jl=[],au=[],se=[],oc=[],no=[],de=[];
+// divide orders monthwise
+for(let j=0;j<AllOrderData.length;j++){
+let date=AllOrderData[j].OrderDate.split('.');
+if((date[2]==year1)&&(date[1]==1)&&(AllOrderData[j].OrderStatus=="complete")){ja.push(AllOrderData[j])}
+if((date[2]==year1)&&(date[1]==2)&&(AllOrderData[j].OrderStatus=="complete")){fe.push(AllOrderData[j])}
+if((date[2]==year1)&&(date[1]==3)&&(AllOrderData[j].OrderStatus=="complete")){ma.push(AllOrderData[j])}
+if((date[2]==year1)&&(date[1]==4)&&(AllOrderData[j].OrderStatus=="complete")){ap.push(AllOrderData[j])}
+if((date[2]==year1)&&(date[1]==5)&&(AllOrderData[j].OrderStatus=="complete")){my.push(AllOrderData[j])}
+if((date[2]==year1)&&(date[1]==6)&&(AllOrderData[j].OrderStatus=="complete")){ju.push(AllOrderData[j])}
+if((date[2]==year1)&&(date[1]==7)&&(AllOrderData[j].OrderStatus=="complete")){jl.push(AllOrderData[j])}
+if((date[2]==year1)&&(date[1]==8)&&(AllOrderData[j].OrderStatus=="complete")){au.push(AllOrderData[j])}
+if((date[2]==year1)&&(date[1]==9)&&(AllOrderData[j].OrderStatus=="complete")){se.push(AllOrderData[j])}
+if((date[2]==year1)&&(date[1]==10)&&(AllOrderData[j].OrderStatus=="complete")){oc.push(AllOrderData[j])}
+if((date[2]==year1)&&(date[1]==11)&&(AllOrderData[j].OrderStatus=="complete")){no.push(AllOrderData[j])}
+if((date[2]==year1)&&(date[1]==12)&&(AllOrderData[j].OrderStatus=="complete")){de.push(AllOrderData[j])}
+}
+
+if(ja.length!=0){
+let temp=[]
+for(let i=0;i<allCoffeeData.length;i++){
+let count=0;
+for(let j=0;j<ja.length;j++){
+for(let k=0;k<ja[j].ItemsOrder.length;k++){
+if(ja[j].ItemsOrder[k].ItemName==allCoffeeData[i].CoffeeName){
+count++;
+}
+}
+}
+temp.push({count:count,Name:[allCoffeeData[i].CoffeeName],year:year1,month:1})
+}
+let list = temp.sort(function(a, b) {
+    return b.count - a.count;
+});
+let firstOnline=list.splice(0,1)
+food.push(firstOnline)
+
+
+}else{food.push({count:0,Name:[no],year:year1,month:1})}
+
+
+if(fe.length!=0){
+let temp=[]
+for(let i=0;i<allCoffeeData.length;i++){
+let count=0;
+for(let j=0;j<ja.length;j++){
+for(let k=0;k<ja[j].ItemsOrder.length;k++){
+if(ja[j].ItemsOrder[k].ItemName==allCoffeeData[i].CoffeeName){
+count++;
+}
+}
+}
+temp.push({count:count,Name:[allCoffeeData[i].CoffeeName],year:year1,month:2})
+}
+let list = temp.sort(function(a, b) {
+    return b.count - a.count;
+});
+let firstOnline=list.splice(0,1)
+food.push(firstOnline)
+
+
+}else{food.push({count:0,Name:[no],year:year1,month:2})}
+
+
+if(ma.length!=0){
+let temp=[]
+for(let i=0;i<allCoffeeData.length;i++){
+let count=0;
+for(let j=0;j<ja.length;j++){
+for(let k=0;k<ja[j].ItemsOrder.length;k++){
+if(ja[j].ItemsOrder[k].ItemName==allCoffeeData[i].CoffeeName){
+count++;
+}
+}
+}
+temp.push({count:count,Name:[allCoffeeData[i].CoffeeName],year:year1,month:3})
+}
+let list = temp.sort(function(a, b) {
+    return b.count - a.count;
+});
+let firstOnline=list.splice(0,1)
+food.push(firstOnline)
+
+
+}else{food.push({count:0,Name:[no],year:year1,month:3})}
+
+
+if(ap.length!=0){
+let temp=[]
+for(let i=0;i<allCoffeeData.length;i++){
+let count=0;
+for(let j=0;j<ja.length;j++){
+for(let k=0;k<ja[j].ItemsOrder.length;k++){
+if(ja[j].ItemsOrder[k].ItemName==allCoffeeData[i].CoffeeName){
+count++;
+}
+}
+}
+temp.push({count:count,Name:[allCoffeeData[i].CoffeeName],year:year1,month:4})
+}
+let list = temp.sort(function(a, b) {
+    return b.count - a.count;
+});
+let firstOnline=list.splice(0,1)
+food.push(firstOnline)
+}else{food.push({count:0,Name:[no],year:year1,month:4})}
+
+
+if(my.length!=0){
+let temp=[]
+for(let i=0;i<allCoffeeData.length;i++){
+let count=0;
+for(let j=0;j<ja.length;j++){
+for(let k=0;k<ja[j].ItemsOrder.length;k++){
+if(ja[j].ItemsOrder[k].ItemName==allCoffeeData[i].CoffeeName){
+count++;
+}
+}
+}
+temp.push({count:count,Name:[allCoffeeData[i].CoffeeName],year:year1,month:5})
+}
+let list = temp.sort(function(a, b) {
+    return b.count - a.count;
+});
+let firstOnline=list.splice(0,1)
+food.push(firstOnline)
+}else{food.push({count:0,Name:[no],year:year1,month:5})}
+
+
+
+if(ju.length!=0){
+let temp=[]
+for(let i=0;i<allCoffeeData.length;i++){
+let count=0;
+for(let j=0;j<ja.length;j++){
+for(let k=0;k<ja[j].ItemsOrder.length;k++){
+if(ja[j].ItemsOrder[k].ItemName==allCoffeeData[i].CoffeeName){
+count++;
+}
+}
+}
+temp.push({count:count,Name:[allCoffeeData[i].CoffeeName],year:year1,month:6})
+}
+let list = temp.sort(function(a, b) {
+    return b.count - a.count;
+});
+let firstOnline=list.splice(0,1)
+food.push(firstOnline)
+}else{food.push({count:0,Name:[no],year:year1,month:6})}
+
+
+if(jl.length!=0){
+let temp=[]
+for(let i=0;i<allCoffeeData.length;i++){
+let count=0;
+for(let j=0;j<ja.length;j++){
+for(let k=0;k<ja[j].ItemsOrder.length;k++){
+if(ja[j].ItemsOrder[k].ItemName==allCoffeeData[i].CoffeeName){
+count++;
+}
+}
+}
+temp.push({count:count,Name:[allCoffeeData[i].CoffeeName],year:year1,month:7})
+}
+let list = temp.sort(function(a, b) {
+    return b.count - a.count;
+});
+let firstOnline=list.splice(0,1)
+food.push(firstOnline)
+
+}else{food.push({count:0,Name:[no],year:year1,month:7})}
+
+
+if(au.length!=0){let temp=[]
+for(let i=0;i<allCoffeeData.length;i++){
+let count=0;
+for(let j=0;j<ja.length;j++){
+for(let k=0;k<ja[j].ItemsOrder.length;k++){
+if(ja[j].ItemsOrder[k].ItemName==allCoffeeData[i].CoffeeName){
+count++;
+}
+}
+}
+temp.push({count:count,Name:[allCoffeeData[i].CoffeeName],year:year1,month:8})
+}
+let list = temp.sort(function(a, b) {
+    return b.count - a.count;
+});
+let firstOnline=list.splice(0,1)
+food.push(firstOnline)}else{food.push({count:0,Name:[no],year:year1,month:8})}
+
+
+
+if(se.length!=0){let temp=[]
+for(let i=0;i<allCoffeeData.length;i++){
+let count=0;
+for(let j=0;j<ja.length;j++){
+for(let k=0;k<ja[j].ItemsOrder.length;k++){
+if(ja[j].ItemsOrder[k].ItemName==allCoffeeData[i].CoffeeName){
+count++;
+}
+}
+}
+temp.push({count:count,Name:[allCoffeeData[i].CoffeeName],year:year1,month:9})
+}
+let list = temp.sort(function(a, b) {
+    return b.count - a.count;
+});
+let firstOnline=list.splice(0,1)
+food.push(firstOnline)}else{food.push({count:0,Name:[no],year:year1,month:9})}
+
+
+if(oc.length!=0){let temp=[]
+for(let i=0;i<allCoffeeData.length;i++){
+let count=0;
+for(let j=0;j<ja.length;j++){
+for(let k=0;k<ja[j].ItemsOrder.length;k++){
+if(ja[j].ItemsOrder[k].ItemName==allCoffeeData[i].CoffeeName){
+count++;
+}
+}
+}
+temp.push({count:count,Name:[allCoffeeData[i].CoffeeName],year:year1,month:10})
+}
+let list = temp.sort(function(a, b) {
+    return b.count - a.count;
+});
+let firstOnline=list.splice(0,1)
+food.push(firstOnline)}else{food.push({count:0,Name:[no],year:year1,month:10})}
+
+
+if(no.length!=0){let temp=[]
+for(let i=0;i<allCoffeeData.length;i++){
+let count=0;
+for(let j=0;j<ja.length;j++){
+for(let k=0;k<ja[j].ItemsOrder.length;k++){
+if(ja[j].ItemsOrder[k].ItemName==allCoffeeData[i].CoffeeName){
+count++;
+}
+}
+}
+temp.push({count:count,Name:[allCoffeeData[i].CoffeeName],year:year1,month:11})
+}
+let list = temp.sort(function(a, b) {
+    return b.count - a.count;
+});
+let firstOnline=list.splice(0,1)
+food.push(firstOnline)}else{food.push({count:0,Name:[no],year:year1,month:11})}
+
+
+if(de.length!=0){let temp=[]
+for(let i=0;i<allCoffeeData.length;i++){
+let count=0;
+for(let j=0;j<ja.length;j++){
+for(let k=0;k<ja[j].ItemsOrder.length;k++){
+if(ja[j].ItemsOrder[k].ItemName==allCoffeeData[i].CoffeeName){
+count++;
+}
+}
+}
+temp.push({count:count,Name:[allCoffeeData[i].CoffeeName],year:year1,month:12})
+}
+let list = temp.sort(function(a, b) {
+    return b.count - a.count;
+});
+let firstOnline=list.splice(0,1)
+food.push(firstOnline)}else{food.push({count:0,Name:[no],year:year1,month:12})}
+
+topCoffeeItemMontWise.push(food)
+
+
+}
+// ! 1.7 top juice item monthwise
+async function mostOrderedJuice(){
+let food=[];
+let ja=[],fe=[],ma=[],ap=[],my=[],ju=[],jl=[],au=[],se=[],oc=[],no=[],de=[];
+// divide orders monthwise
+for(let j=0;j<AllOrderData.length;j++){
+let date=AllOrderData[j].OrderDate.split('.');
+if((date[2]==year1)&&(date[1]==1)&&(AllOrderData[j].OrderStatus=="complete")){ja.push(AllOrderData[j])}
+if((date[2]==year1)&&(date[1]==2)&&(AllOrderData[j].OrderStatus=="complete")){fe.push(AllOrderData[j])}
+if((date[2]==year1)&&(date[1]==3)&&(AllOrderData[j].OrderStatus=="complete")){ma.push(AllOrderData[j])}
+if((date[2]==year1)&&(date[1]==4)&&(AllOrderData[j].OrderStatus=="complete")){ap.push(AllOrderData[j])}
+if((date[2]==year1)&&(date[1]==5)&&(AllOrderData[j].OrderStatus=="complete")){my.push(AllOrderData[j])}
+if((date[2]==year1)&&(date[1]==6)&&(AllOrderData[j].OrderStatus=="complete")){ju.push(AllOrderData[j])}
+if((date[2]==year1)&&(date[1]==7)&&(AllOrderData[j].OrderStatus=="complete")){jl.push(AllOrderData[j])}
+if((date[2]==year1)&&(date[1]==8)&&(AllOrderData[j].OrderStatus=="complete")){au.push(AllOrderData[j])}
+if((date[2]==year1)&&(date[1]==9)&&(AllOrderData[j].OrderStatus=="complete")){se.push(AllOrderData[j])}
+if((date[2]==year1)&&(date[1]==10)&&(AllOrderData[j].OrderStatus=="complete")){oc.push(AllOrderData[j])}
+if((date[2]==year1)&&(date[1]==11)&&(AllOrderData[j].OrderStatus=="complete")){no.push(AllOrderData[j])}
+if((date[2]==year1)&&(date[1]==12)&&(AllOrderData[j].OrderStatus=="complete")){de.push(AllOrderData[j])}
+}
+
+if(ja.length!=0){
+let temp=[]
+for(let i=0;i<allJuiceData.length;i++){
+let count=0;
+for(let j=0;j<ja.length;j++){
+for(let k=0;k<ja[j].ItemsOrder.length;k++){
+if(ja[j].ItemsOrder[k].ItemName==allJuiceData[i].JuiceName){
+count++;
+}
+}
+}
+temp.push({count:count,Name:[allJuiceData[i].JuiceName],year:year1,month:1})
+}
+let list = temp.sort(function(a, b) {
+    return b.count - a.count;
+});
+let firstOnline=list.splice(0,1)
+food.push(firstOnline)
+
+
+}else{food.push({count:0,Name:[no],year:year1,month:1})}
+
+
+if(fe.length!=0){
+let temp=[]
+for(let i=0;i<allJuiceData.length;i++){
+let count=0;
+for(let j=0;j<ja.length;j++){
+for(let k=0;k<ja[j].ItemsOrder.length;k++){
+if(ja[j].ItemsOrder[k].ItemName==allJuiceData[i].JuiceName){
+count++;
+}
+}
+}
+temp.push({count:count,Name:[allJuiceData[i].JuiceName],year:year1,month:2})
+}
+let list = temp.sort(function(a, b) {
+    return b.count - a.count;
+});
+let firstOnline=list.splice(0,1)
+food.push(firstOnline)
+
+
+}else{food.push({count:0,Name:[no],year:year1,month:2})}
+
+
+if(ma.length!=0){
+let temp=[]
+for(let i=0;i<allJuiceData.length;i++){
+let count=0;
+for(let j=0;j<ja.length;j++){
+for(let k=0;k<ja[j].ItemsOrder.length;k++){
+if(ja[j].ItemsOrder[k].ItemName==allJuiceData[i].JuiceName){
+count++;
+}
+}
+}
+temp.push({count:count,Name:[allJuiceData[i].JuiceName],year:year1,month:3})
+}
+let list = temp.sort(function(a, b) {
+    return b.count - a.count;
+});
+let firstOnline=list.splice(0,1)
+food.push(firstOnline)
+
+
+}else{food.push({count:0,Name:[no],year:year1,month:3})}
+
+
+if(ap.length!=0){
+let temp=[]
+for(let i=0;i<allJuiceData.length;i++){
+let count=0;
+for(let j=0;j<ja.length;j++){
+for(let k=0;k<ja[j].ItemsOrder.length;k++){
+if(ja[j].ItemsOrder[k].ItemName==allJuiceData[i].JuiceName){
+count++;
+}
+}
+}
+temp.push({count:count,Name:[allJuiceData[i].JuiceName],year:year1,month:4})
+}
+let list = temp.sort(function(a, b) {
+    return b.count - a.count;
+});
+let firstOnline=list.splice(0,1)
+food.push(firstOnline)
+}else{food.push({count:0,Name:[no],year:year1,month:4})}
+
+
+if(my.length!=0){
+let temp=[]
+for(let i=0;i<allJuiceData.length;i++){
+let count=0;
+for(let j=0;j<ja.length;j++){
+for(let k=0;k<ja[j].ItemsOrder.length;k++){
+if(ja[j].ItemsOrder[k].ItemName==allJuiceData[i].JuiceName){
+count++;
+}
+}
+}
+temp.push({count:count,Name:[allJuiceData[i].JuiceName],year:year1,month:5})
+}
+let list = temp.sort(function(a, b) {
+    return b.count - a.count;
+});
+let firstOnline=list.splice(0,1)
+food.push(firstOnline)
+}else{food.push({count:0,Name:[no],year:year1,month:5})}
+
+
+
+if(ju.length!=0){
+let temp=[]
+for(let i=0;i<allJuiceData.length;i++){
+let count=0;
+for(let j=0;j<ja.length;j++){
+for(let k=0;k<ja[j].ItemsOrder.length;k++){
+if(ja[j].ItemsOrder[k].ItemName==allJuiceData[i].JuiceName){
+count++;
+}
+}
+}
+temp.push({count:count,Name:[allJuiceData[i].JuiceName],year:year1,month:6})
+}
+let list = temp.sort(function(a, b) {
+    return b.count - a.count;
+});
+let firstOnline=list.splice(0,1)
+food.push(firstOnline)
+}else{food.push({count:0,Name:[no],year:year1,month:6})}
+
+
+if(jl.length!=0){
+let temp=[]
+for(let i=0;i<allJuiceData.length;i++){
+let count=0;
+for(let j=0;j<ja.length;j++){
+for(let k=0;k<ja[j].ItemsOrder.length;k++){
+if(ja[j].ItemsOrder[k].ItemName==allJuiceData[i].JuiceName){
+count++;
+}
+}
+}
+temp.push({count:count,Name:[allJuiceData[i].JuiceName],year:year1,month:7})
+}
+let list = temp.sort(function(a, b) {
+    return b.count - a.count;
+});
+let firstOnline=list.splice(0,1)
+food.push(firstOnline)
+
+}else{food.push({count:0,Name:[no],year:year1,month:7})}
+
+
+if(au.length!=0){let temp=[]
+for(let i=0;i<allJuiceData.length;i++){
+let count=0;
+for(let j=0;j<ja.length;j++){
+for(let k=0;k<ja[j].ItemsOrder.length;k++){
+if(ja[j].ItemsOrder[k].ItemName==allJuiceData[i].JuiceName){
+count++;
+}
+}
+}
+temp.push({count:count,Name:[allJuiceData[i].JuiceName],year:year1,month:8})
+}
+let list = temp.sort(function(a, b) {
+    return b.count - a.count;
+});
+let firstOnline=list.splice(0,1)
+food.push(firstOnline)}else{food.push({count:0,Name:[no],year:year1,month:8})}
+
+
+
+if(se.length!=0){let temp=[]
+for(let i=0;i<allJuiceData.length;i++){
+let count=0;
+for(let j=0;j<ja.length;j++){
+for(let k=0;k<ja[j].ItemsOrder.length;k++){
+if(ja[j].ItemsOrder[k].ItemName==allJuiceData[i].JuiceName){
+count++;
+}
+}
+}
+temp.push({count:count,Name:[allJuiceData[i].JuiceName],year:year1,month:9})
+}
+let list = temp.sort(function(a, b) {
+    return b.count - a.count;
+});
+let firstOnline=list.splice(0,1)
+food.push(firstOnline)}else{food.push({count:0,Name:[no],year:year1,month:9})}
+
+
+if(oc.length!=0){let temp=[]
+for(let i=0;i<allJuiceData.length;i++){
+let count=0;
+for(let j=0;j<ja.length;j++){
+for(let k=0;k<ja[j].ItemsOrder.length;k++){
+if(ja[j].ItemsOrder[k].ItemName==allJuiceData[i].JuiceName){
+count++;
+}
+}
+}
+temp.push({count:count,Name:[allJuiceData[i].JuiceName],year:year1,month:10})
+}
+let list = temp.sort(function(a, b) {
+    return b.count - a.count;
+});
+let firstOnline=list.splice(0,1)
+food.push(firstOnline)}else{food.push({count:0,Name:[no],year:year1,month:10})}
+
+
+if(no.length!=0){let temp=[]
+for(let i=0;i<allJuiceData.length;i++){
+let count=0;
+for(let j=0;j<ja.length;j++){
+for(let k=0;k<ja[j].ItemsOrder.length;k++){
+if(ja[j].ItemsOrder[k].ItemName==allJuiceData[i].JuiceName){
+count++;
+}
+}
+}
+temp.push({count:count,Name:[allJuiceData[i].JuiceName],year:year1,month:11})
+}
+let list = temp.sort(function(a, b) {
+    return b.count - a.count;
+});
+let firstOnline=list.splice(0,1)
+food.push(firstOnline)}else{food.push({count:0,Name:[no],year:year1,month:11})}
+
+
+if(de.length!=0){let temp=[]
+for(let i=0;i<allJuiceData.length;i++){
+let count=0;
+for(let j=0;j<ja.length;j++){
+for(let k=0;k<ja[j].ItemsOrder.length;k++){
+if(ja[j].ItemsOrder[k].ItemName==allJuiceData[i].JuiceName){
+count++;
+}
+}
+}
+temp.push({count:count,Name:[allJuiceData[i].JuiceName],year:year1,month:12})
+}
+let list = temp.sort(function(a, b) {
+    return b.count - a.count;
+});
+let firstOnline=list.splice(0,1)
+food.push(firstOnline)}else{food.push({count:0,Name:[no],year:year1,month:12})}
+
+topJuiceItemMontWise.push(food)
+
+
+}
+
+// ! 1.8 top drink monthwise
+async function mostOrderedDrink(){
+let food=[];
+let ja=[],fe=[],ma=[],ap=[],my=[],ju=[],jl=[],au=[],se=[],oc=[],no=[],de=[];
+// divide orders monthwise
+for(let j=0;j<AllOrderData.length;j++){
+let date=AllOrderData[j].OrderDate.split('.');
+if((date[2]==year1)&&(date[1]==1)&&(AllOrderData[j].OrderStatus=="complete")){ja.push(AllOrderData[j])}
+if((date[2]==year1)&&(date[1]==2)&&(AllOrderData[j].OrderStatus=="complete")){fe.push(AllOrderData[j])}
+if((date[2]==year1)&&(date[1]==3)&&(AllOrderData[j].OrderStatus=="complete")){ma.push(AllOrderData[j])}
+if((date[2]==year1)&&(date[1]==4)&&(AllOrderData[j].OrderStatus=="complete")){ap.push(AllOrderData[j])}
+if((date[2]==year1)&&(date[1]==5)&&(AllOrderData[j].OrderStatus=="complete")){my.push(AllOrderData[j])}
+if((date[2]==year1)&&(date[1]==6)&&(AllOrderData[j].OrderStatus=="complete")){ju.push(AllOrderData[j])}
+if((date[2]==year1)&&(date[1]==7)&&(AllOrderData[j].OrderStatus=="complete")){jl.push(AllOrderData[j])}
+if((date[2]==year1)&&(date[1]==8)&&(AllOrderData[j].OrderStatus=="complete")){au.push(AllOrderData[j])}
+if((date[2]==year1)&&(date[1]==9)&&(AllOrderData[j].OrderStatus=="complete")){se.push(AllOrderData[j])}
+if((date[2]==year1)&&(date[1]==10)&&(AllOrderData[j].OrderStatus=="complete")){oc.push(AllOrderData[j])}
+if((date[2]==year1)&&(date[1]==11)&&(AllOrderData[j].OrderStatus=="complete")){no.push(AllOrderData[j])}
+if((date[2]==year1)&&(date[1]==12)&&(AllOrderData[j].OrderStatus=="complete")){de.push(AllOrderData[j])}
+}
+
+if(ja.length!=0){
+let temp=[]
+for(let i=0;i<allDrinkData.length;i++){
+let count=0;
+for(let j=0;j<ja.length;j++){
+for(let k=0;k<ja[j].ItemsOrder.length;k++){
+if(ja[j].ItemsOrder[k].ItemName==allDrinkData[i].DrinkName){
+count++;
+}
+}
+}
+temp.push({count:count,Name:[allDrinkData[i].DrinkName],year:year1,month:1})
+}
+let list = temp.sort(function(a, b) {
+    return b.count - a.count;
+});
+let firstOnline=list.splice(0,1)
+food.push(firstOnline)
+
+
+}else{food.push({count:0,Name:[no],year:year1,month:1})}
+
+
+if(fe.length!=0){
+let temp=[]
+for(let i=0;i<allDrinkData.length;i++){
+let count=0;
+for(let j=0;j<ja.length;j++){
+for(let k=0;k<ja[j].ItemsOrder.length;k++){
+if(ja[j].ItemsOrder[k].ItemName==allDrinkData[i].DrinkName){
+count++;
+}
+}
+}
+temp.push({count:count,Name:[allDrinkData[i].DrinkName],year:year1,month:2})
+}
+let list = temp.sort(function(a, b) {
+    return b.count - a.count;
+});
+let firstOnline=list.splice(0,1)
+food.push(firstOnline)
+
+
+}else{food.push({count:0,Name:[no],year:year1,month:2})}
+
+
+if(ma.length!=0){
+let temp=[]
+for(let i=0;i<allDrinkData.length;i++){
+let count=0;
+for(let j=0;j<ja.length;j++){
+for(let k=0;k<ja[j].ItemsOrder.length;k++){
+if(ja[j].ItemsOrder[k].ItemName==allDrinkData[i].DrinkName){
+count++;
+}
+}
+}
+temp.push({count:count,Name:[allDrinkData[i].DrinkName],year:year1,month:3})
+}
+let list = temp.sort(function(a, b) {
+    return b.count - a.count;
+});
+let firstOnline=list.splice(0,1)
+food.push(firstOnline)
+
+
+}else{food.push({count:0,Name:[no],year:year1,month:3})}
+
+
+if(ap.length!=0){
+let temp=[]
+for(let i=0;i<allDrinkData.length;i++){
+let count=0;
+for(let j=0;j<ja.length;j++){
+for(let k=0;k<ja[j].ItemsOrder.length;k++){
+if(ja[j].ItemsOrder[k].ItemName==allDrinkData[i].DrinkName){
+count++;
+}
+}
+}
+temp.push({count:count,Name:[allDrinkData[i].DrinkName],year:year1,month:4})
+}
+let list = temp.sort(function(a, b) {
+    return b.count - a.count;
+});
+let firstOnline=list.splice(0,1)
+food.push(firstOnline)
+}else{food.push({count:0,Name:[no],year:year1,month:4})}
+
+
+if(my.length!=0){
+let temp=[]
+for(let i=0;i<allDrinkData.length;i++){
+let count=0;
+for(let j=0;j<ja.length;j++){
+for(let k=0;k<ja[j].ItemsOrder.length;k++){
+if(ja[j].ItemsOrder[k].ItemName==allDrinkData[i].DrinkName){
+count++;
+}
+}
+}
+temp.push({count:count,Name:[allDrinkData[i].DrinkName],year:year1,month:5})
+}
+let list = temp.sort(function(a, b) {
+    return b.count - a.count;
+});
+let firstOnline=list.splice(0,1)
+food.push(firstOnline)
+}else{food.push({count:0,Name:[no],year:year1,month:5})}
+
+
+
+if(ju.length!=0){
+let temp=[]
+for(let i=0;i<allDrinkData.length;i++){
+let count=0;
+for(let j=0;j<ja.length;j++){
+for(let k=0;k<ja[j].ItemsOrder.length;k++){
+if(ja[j].ItemsOrder[k].ItemName==allDrinkData[i].DrinkName){
+count++;
+}
+}
+}
+temp.push({count:count,Name:[allDrinkData[i].DrinkName],year:year1,month:6})
+}
+let list = temp.sort(function(a, b) {
+    return b.count - a.count;
+});
+let firstOnline=list.splice(0,1)
+food.push(firstOnline)
+}else{food.push({count:0,Name:[no],year:year1,month:6})}
+
+
+if(jl.length!=0){
+let temp=[]
+for(let i=0;i<allDrinkData.length;i++){
+let count=0;
+for(let j=0;j<ja.length;j++){
+for(let k=0;k<ja[j].ItemsOrder.length;k++){
+if(ja[j].ItemsOrder[k].ItemName==allDrinkData[i].DrinkName){
+count++;
+}
+}
+}
+temp.push({count:count,Name:[allDrinkData[i].DrinkName],year:year1,month:7})
+}
+let list = temp.sort(function(a, b) {
+    return b.count - a.count;
+});
+let firstOnline=list.splice(0,1)
+food.push(firstOnline)
+
+}else{food.push({count:0,Name:[no],year:year1,month:7})}
+
+
+if(au.length!=0){let temp=[]
+for(let i=0;i<allDrinkData.length;i++){
+let count=0;
+for(let j=0;j<ja.length;j++){
+for(let k=0;k<ja[j].ItemsOrder.length;k++){
+if(ja[j].ItemsOrder[k].ItemName==allDrinkData[i].DrinkName){
+count++;
+}
+}
+}
+temp.push({count:count,Name:[allDrinkData[i].DrinkName],year:year1,month:8})
+}
+let list = temp.sort(function(a, b) {
+    return b.count - a.count;
+});
+let firstOnline=list.splice(0,1)
+food.push(firstOnline)}else{food.push({count:0,Name:[no],year:year1,month:8})}
+
+
+
+if(se.length!=0){let temp=[]
+for(let i=0;i<allDrinkData.length;i++){
+let count=0;
+for(let j=0;j<ja.length;j++){
+for(let k=0;k<ja[j].ItemsOrder.length;k++){
+if(ja[j].ItemsOrder[k].ItemName==allDrinkData[i].DrinkName){
+count++;
+}
+}
+}
+temp.push({count:count,Name:[allDrinkData[i].DrinkName],year:year1,month:9})
+}
+let list = temp.sort(function(a, b) {
+    return b.count - a.count;
+});
+let firstOnline=list.splice(0,1)
+food.push(firstOnline)}else{food.push({count:0,Name:[no],year:year1,month:9})}
+
+
+if(oc.length!=0){let temp=[]
+for(let i=0;i<allDrinkData.length;i++){
+let count=0;
+for(let j=0;j<ja.length;j++){
+for(let k=0;k<ja[j].ItemsOrder.length;k++){
+if(ja[j].ItemsOrder[k].ItemName==allDrinkData[i].DrinkName){
+count++;
+}
+}
+}
+temp.push({count:count,Name:[allDrinkData[i].DrinkName],year:year1,month:10})
+}
+let list = temp.sort(function(a, b) {
+    return b.count - a.count;
+});
+let firstOnline=list.splice(0,1)
+food.push(firstOnline)}else{food.push({count:0,Name:[no],year:year1,month:10})}
+
+
+if(no.length!=0){let temp=[]
+for(let i=0;i<allDrinkData.length;i++){
+let count=0;
+for(let j=0;j<ja.length;j++){
+for(let k=0;k<ja[j].ItemsOrder.length;k++){
+if(ja[j].ItemsOrder[k].ItemName==allDrinkData[i].DrinkName){
+count++;
+}
+}
+}
+temp.push({count:count,Name:[allDrinkData[i].DrinkName],year:year1,month:11})
+}
+let list = temp.sort(function(a, b) {
+    return b.count - a.count;
+});
+let firstOnline=list.splice(0,1)
+food.push(firstOnline)}else{food.push({count:0,Name:[no],year:year1,month:11})}
+
+
+if(de.length!=0){let temp=[]
+for(let i=0;i<allDrinkData.length;i++){
+let count=0;
+for(let j=0;j<ja.length;j++){
+for(let k=0;k<ja[j].ItemsOrder.length;k++){
+if(ja[j].ItemsOrder[k].ItemName==allDrinkData[i].DrinkName){
+count++;
+}
+}
+}
+temp.push({count:count,Name:[allDrinkData[i].DrinkName],year:year1,month:12})
+}
+let list = temp.sort(function(a, b) {
+    return b.count - a.count;
+});
+let firstOnline=list.splice(0,1)
+food.push(firstOnline)}else{food.push({count:0,Name:[no],year:year1,month:12})}
+
+topDrinkItemMontWise.push(food)
+
+
+}
+// ! 1.9  over all top 10
+async function ratedItemss(){
+let newData=data.slice(0,10);
+for(let i=0;i<newData.length;i++){
+for(let j=0;j<allFoodData.length;j++){
+if(allFoodData[j]._id==newData[i].ProductId){
+allItemsTop.push({Name:allFoodData[j].FoodName,Rate:newData[i].Rating})
+}
+}
+for(let j=0;j<allJuiceData.length;j++){
+if(allJuiceData[j]._id==newData[i].ProductId){
+allItemsTop.push({Name:allJuiceData[j].JuiceName,Rate:newData[i].Rating})
+}
+}
+for(let j=0;j<allDrinkData.length;j++){
+if(allDrinkData[j]._id==newData[i].ProductId){
+allItemsTop.push({Name:allDrinkData[j].DrinkName,Rate:newData[i].Rating})
+}
+}
+for(let j=0;j<allCoffeeData.length;j++){
+if(allCoffeeData[j]._id==newData[i].ProductId){
+allItemsTop.push({Name:allCoffeeData[j].CoffeeName,Rate:newData[i].Rating})
+}
+}
+
+
+}
+
+
+}
+
+
+// ! function calls
+SingleTotalOrder()
+SingleTotalCompleteOrder()
+ratedItemss()
+SingleTotalPendingOrder()
+SingleTotalRejectOrder()
+mostOrderedFood()
+mostOrderedCoffee()
+mostOrderedJuice()
+mostOrderedDrink()
+
+// !return values
+return res.status(200).json({
+totalOrder,
+totalOrderSum,
+totalOrderComplete,
+totalOrderCompleteSum,
+totalOrderPending,
+totalOrderPendingSum,
+totalOrderReject,
+totalOrderRejectSum,topFoodItem,topFoodItemMontWise,topCoffeeItemMontWise,topDrinkItemMontWise,topJuiceItemMontWise,allItemsTop})
+}
+
+
+
   } catch (error) {
     console.log(error)
       res.status(501).json({ message: error });

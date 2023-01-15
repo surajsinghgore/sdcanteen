@@ -264,7 +264,6 @@ let TopFoodItems=list.slice(0,10);
 
 
 // coffee top 10
-
 let coffeeData=await CoffeeItemSchema.find();
 let AllCoffeeDatas=[]
 
