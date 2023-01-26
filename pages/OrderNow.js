@@ -34,7 +34,7 @@ router.push("/JuiceItem")
 
   
     <div className={order.order}>
-    <h1>Try are tasty Items</h1>
+    <h1>Try our tasty Items</h1>
  
   
   <div className={order.cardSection}>
