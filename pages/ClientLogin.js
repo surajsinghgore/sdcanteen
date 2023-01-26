@@ -112,7 +112,7 @@ setProgress(100)
 localStorage.setItem('login',"true");
 sessionStorage.removeItem("reset")
 function Redirect() { 
-   router.back();
+  router.push("/")
     }
  setTimeout(Redirect, 1500);
     

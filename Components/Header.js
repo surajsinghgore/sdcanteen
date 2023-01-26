@@ -97,7 +97,7 @@ if(data.data.Profile==""){
 router.push('/ClientProfileUpload')
 }
 if(data.data.Profile!==""){
-setImgs(`/ClientImages/${data.data.Profile}`)
+setImgs(`../public/ClientImages/${data.data.Profile}`)
 }
 
 if(data.data.FullName){
