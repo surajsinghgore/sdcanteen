@@ -2,12 +2,13 @@
   "name": "sdcanteenwebsite",
   "version": "0.1.0",
   "private": true,
-  "engines": { "node": "16.x"},
+  "engines": {
+    "node": "16.x"
+  },
   "scripts": {
     "dev": "next",
     "build": "next build",
     "start": "next start"
-
   },
   "dependencies": {
     "@emotion/react": "^11.10.0",
