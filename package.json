@@ -5,8 +5,8 @@
   "scripts": {
     "dev": "next",
     "build": "next build",
-    "start": "next start"
-   
+    "start": "next start",
+   "build:digitalOcean": "yarn install --production=false && rimraf dist && yarn build && yarn install --production --frozen-lockfile"
   },
   "dependencies": {
     "@emotion/react": "^11.10.0",
