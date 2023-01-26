@@ -212,9 +212,7 @@ setProgress(60);
          },
          "handler": {
             "notifyMerchant": function(eventName,data){
-              console.log("notifyMerchant handler function called");
-              console.log("eventName => ",eventName);
-              console.log("data => ",data);
+              
             } 
           }
         };

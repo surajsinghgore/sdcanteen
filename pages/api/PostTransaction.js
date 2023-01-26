@@ -99,7 +99,7 @@ return res.status(401).json({message:error,status:"401"});
 })
 
 await PaymentSchemaDataBase.findByIdAndDelete({_id:findUser._id})
-res.redirect("/RedirectPageToOrderComplete?id="+ress._id,200)
+res.redirect(302,"/RedirectPageToOrderComplete?id="+ress._id)
  return res.status(201).json({status:"201"})
       }
 
@@ -108,14 +108,14 @@ res.redirect("/RedirectPageToOrderComplete?id="+ress._id,200)
 // failure
  else if(req.body.STATUS=="TXN_FAILURE"){
  await PaymentSchemaDataBase.findOneAndUpdate({OrderId: req.body.ORDERID},{PaymentOrderStatus:"failed",PaymentInfo:req.body})
-res.redirect("https://walrus-app-5c7g6.ondigitalocean.app/OrderFailed?id="+req.body.BANKTXNID,400)
+res.redirect(302,"/OrderFailed?id="+req.body.BANKTXNID)
    res.status(400).json({status:"400"})
 
 }
 // pending
 else{
 await PaymentSchemaDataBase.findOneAndUpdate({OrderId: req.body.ORDERID},{PaymentOrderStatus:"pending",PaymentInfo:req.body})
-res.redirect("/OrderFailed?pending="+req.body.BANKTXNID,400)
+res.redirect(302,"/OrderFailed?pending="+req.body.BANKTXNID)
    res.status(201).json({status:"400"})
 }
 
