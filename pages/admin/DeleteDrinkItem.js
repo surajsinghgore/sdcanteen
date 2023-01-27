@@ -5,6 +5,7 @@ import StyleFood from "../../styles/AddFood.module.css";
 import HeadTag from "../../Components/Head";
 import AdminLeftMenu from "../../Components/AdminLeftMenu";
 import PathNavigate from "../../Components/PathNavigate";
+let ImagePath=process.env.NEXT_PUBLIC_IMAGESPACEPATH;
 import AdminRightInnerHeader from "../../Components/AdminRightInnerHeader";
 import { AiFillDelete } from "react-icons/ai";
 import Image from "next/image";
@@ -265,7 +266,7 @@ const [progress, setProgress] = useState(0);
                     <div className={ShowStyles.card} key={index}>
                       <li className={ShowStyles.Image_Section}>
                         <Image
-                          src={`/DrinkItemImages/${item.Image}`}
+                          src={`  ${ImagePath}/DrinkItemImages/${item.Image}`}
                           alt={item.Image}
                           height="550"
                           width="800"

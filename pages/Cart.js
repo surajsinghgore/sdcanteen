@@ -11,6 +11,7 @@ import router from 'next/router'
 import { useRouter } from "next/router";
 import { RiDeleteBin2Line } from 'react-icons/ri';
 import { useEffect, useState } from "react";
+let ImagePath=process.env.NEXT_PUBLIC_IMAGESPACEPATH;
 
 export default function Cart() {
 const routers=useRouter();
@@ -233,7 +234,7 @@ setState(!state)
 return(
 <div className={CartStyle.data} key={item.id}>
 <div className={CartStyle.pics}>
-<Image src={`/FoodItemImages/${item.Image}`} alt={item.Image} height={180} width={340} />
+<Image src={`${ImagePath}/FoodItemImages/${item.Image}`} alt={item.Image} height={180} width={340} />
 </div>
 <div className={CartStyle.names}><p> {item.FoodName}</p></div>
 <div className={CartStyle.price}> <p>{item.price}</p> </div>
@@ -257,7 +258,7 @@ return(
 return(
 <div className={CartStyle.data} key={item.id}>
 <div className={CartStyle.pics} style={{paddingLeft:"3%"}}>
-<Image src={`/CoffeeItemImages/${item.Image}`} alt={item.Image} height={180} width={170} />
+<Image src={`${ImagePath}/CoffeeItemImages/${item.Image}`} alt={item.Image} height={180} width={170} />
 </div>
 <div className={CartStyle.names}><p> {item.CoffeeName}</p></div>
 <div className={CartStyle.price}> <p>{item.price}</p> </div>
@@ -281,7 +282,7 @@ return(
 return(
 <div className={CartStyle.data} key={item.id}>
 <div className={CartStyle.pics} style={{paddingLeft:"3%"}}>
-<Image src={`/DrinkItemImages/${item.Image}`} alt={item.Image} height={180} width={170} />
+<Image src={`${ImagePath}/DrinkItemImages/${item.Image}`} alt={item.Image} height={180} width={170} />
 </div>
 <div className={CartStyle.names}><p> {item.DrinkName}</p></div>
 <div className={CartStyle.price}> <p>{item.price}</p> </div>
@@ -305,7 +306,7 @@ return(
 return(
 <div className={CartStyle.data} key={item.id}>
 <div className={CartStyle.pics} style={{paddingLeft:"3%"}}>
-<Image src={`/JuiceItemImages/${item.Image}`} alt={item.Image} height={180} width={170} />
+<Image src={`${ImagePath}/JuiceItemImages/${item.Image}`} alt={item.Image} height={180} width={170} />
 </div>
 <div className={CartStyle.names}><p> {item.JuiceName}</p></div>
 <div className={CartStyle.price}> <p>{item.price}</p> </div>

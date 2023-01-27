@@ -1,4 +1,4 @@
-import sdLogo from '../public/logo.png';
+let sdLogo = 'https://sdcanteenspace.nyc3.cdn.digitaloceanspaces.com/ExtraImages/logo.png';
 import Image from 'next/image'
 let HOST = process.env.NEXT_PUBLIC_API_URL;
 import Link from 'next/link'
@@ -18,8 +18,8 @@ import {  useCart } from "react-use-cart";
 import router from 'next/router'
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import boyProfile from '/public/men.png'
-import girlProfile from '/public/girl.png'
+let boyProfile = 'https://sdcanteenspace.nyc3.cdn.digitaloceanspaces.com/ExtraImages/men.png'
+let girlProfile = 'https://sdcanteenspace.nyc3.cdn.digitaloceanspaces.com/ExtraImages/girl.png'
 import { AllContext } from "../context/AllContext";
 import { useContext } from "react";
 
@@ -97,7 +97,7 @@ if(data.data.Profile==""){
 router.push('/ClientProfileUpload')
 }
 if(data.data.Profile!==""){
-setImgs(`../public/ClientImages/${data.data.Profile}`)
+setImgs(`https://sdcanteenspace.nyc3.cdn.digitaloceanspaces.com/ClientImages/${data.data.Profile}`)
 }
 
 if(data.data.FullName){

@@ -5,6 +5,7 @@ import StyleFood from "../../styles/AddFood.module.css";
 import HeadTag from "../../Components/Head";
 import AdminLeftMenu from "../../Components/AdminLeftMenu";
 import PathNavigate from "../../Components/PathNavigate";
+let ImagePath=process.env.NEXT_PUBLIC_IMAGESPACEPATH;
 import AdminRightInnerHeader from "../../Components/AdminRightInnerHeader";
 let HOST = process.env.NEXT_PUBLIC_API_URL;
 import Image from "next/image";
@@ -135,7 +136,7 @@ export default function ShowCoffeeItem({ datas }) {
                     <div className={ShowStyles.card} key={index}>
                       <li className={ShowStyles.Image_Section}>
                         <Image
-                          src={`/CoffeeItemImages/${item.Image}`}
+                          src={` ${ImagePath}/CoffeeItemImages/${item.Image}`}
                           alt={item.Image}
                           height="550"
                           width="800"

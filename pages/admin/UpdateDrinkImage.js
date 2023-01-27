@@ -16,6 +16,7 @@ import router from "next/router";
 import { AllContext } from "../../context/AllContext";
 import Link from "next/link";
 import Image from "next/image";
+let ImagePath=process.env.NEXT_PUBLIC_IMAGESPACEPATH;
 
 export default function UpdateDrinkImage() {const [progress, setProgress] = useState(0);
   const { filterDrinkItemsData } = useContext(AllContext);
@@ -23,7 +24,7 @@ export default function UpdateDrinkImage() {const [progress, setProgress] = useS
   const [files, setFiles] = useState("");
 useEffect(()=>{
 if(filterDrinkItemsData.datas!=undefined){
-setImgs(`/DrinkItemImages/${filterDrinkItemsData.datas.Image}`)
+setImgs(` ${ImagePath}/DrinkItemImages/${filterDrinkItemsData.datas.Image}`)
 }
  else{
     router.push('/admin/UpdateDrinkItem')

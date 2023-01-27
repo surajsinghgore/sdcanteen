@@ -7,6 +7,7 @@ import PathNavigate from "../../Components/PathNavigate";
 import AdminRightInnerHeader from "../../Components/AdminRightInnerHeader";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+let ImagePath=process.env.NEXT_PUBLIC_IMAGESPACEPATH;
 let HOST = process.env.NEXT_PUBLIC_API_URL;
 import VerifyAdminLogin from './VerifyAdminLogin';
 import imges from '../../public/banner4.jpg'
@@ -23,7 +24,7 @@ const [progress, setProgress] = useState(0);
 useEffect(()=>{
 
 if(filterFoodItemsData.datas!=undefined){
-setImgs(`/FoodItemImages/${filterFoodItemsData.datas.Image}`)
+setImgs(` ${ImagePath}/FoodItemImages/${filterFoodItemsData.datas.Image}`)
 }
  else{
     router.push('/admin/UpdateFoodItem')

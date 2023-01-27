@@ -3,6 +3,7 @@ import home from "../styles/Home.module.css";
 import HeadTag from "../Components/Head";
 import Header from "../Components/Header";
 import Footer from "../Components/Footer";
+let ImagePath=process.env.NEXT_PUBLIC_IMAGESPACEPATH;
 import Carousel from "../Components/Carousel";
 import Image from "next/image";
 let HOST = process.env.NEXT_PUBLIC_API_URL;
@@ -12,21 +13,21 @@ import ScrollTrigger from "react-scroll-trigger";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
-import img1 from '../public/bottomBanner/1.jpg'
-import img2 from '../public/bottomBanner/2.jpeg'
-import img3 from '../public/bottomBanner/3.jpg'
-import img4 from '../public/bottomBanner/4.webp'
-import img5 from '../public/bottomBanner/5.png'
-import img6 from '../public/bottomBanner/6.webp'
-import img7 from '../public/bottomBanner/7.webp'
-import img8 from '../public/bottomBanner/8.jpg'
-import img9 from '../public/bottomBanner/9.jpg'
-import img10 from '../public/bottomBanner/10.jpg'
-import img11 from '../public/bottomBanner/11.jpg'
-import img12 from '../public/bottomBanner/12.jpg'
+let img1 = `${ImagePath}/bottomBanner/1.jpg`
+let img2 = `${ImagePath}/bottomBanner/2.jpeg`
+let img3 = `${ImagePath}/bottomBanner/3.jpg`
+let img4 = `${ImagePath}/bottomBanner/4.webp`
+let img5 = `${ImagePath}/bottomBanner/5.png`
+let img6 = `${ImagePath}/bottomBanner/6.webp`
+let img7 = `${ImagePath}/bottomBanner/7.webp`
+let img8 = `${ImagePath}/bottomBanner/8.jpg`
+let img9 = `${ImagePath}/bottomBanner/9.jpg`
+let img10 = `${ImagePath}/bottomBanner/10.jpg`
+let img11 = `${ImagePath}/bottomBanner/11.jpg`
+let img12 = `${ImagePath}/bottomBanner/12.jpg`
 import { useEffect ,useState} from "react";
-import p1 from '../public/p1.png'
-import p2 from '../public/p2.svg'
+let p1 = `${ImagePath}/ExtraImages/p1.png`
+let p2 = `${ImagePath}/ExtraImages/p2.svg`
 import { Autoplay } from "swiper";
 import Loader from "../Components/Loader";
 import { BiFoodMenu } from 'react-icons/bi';
@@ -84,7 +85,7 @@ return <div className={home.card} key={items._id}>
 {(items.FoodName)?<Link href={`/${items.FoodName}`}><a>
 <div>
 <div className={home.img}>
-<Image src={`/FoodItemImages/${items.Image}`} alt="food" height={260} width={380} />
+<Image src={`${ImagePath}/FoodItemImages/${items.Image}`} alt="food" height={260} width={380} />
 </div> 
 <div className={home.data}>
 <h4>{items.FoodName}</h4>
@@ -111,7 +112,7 @@ return <div className={home.card} key={items._id}>
 {(items.FoodName)?<Link href={`/${items.FoodName}`}><a>
 <div>
 <div className={home.img}>
-<Image src={`/FoodItemImages/${items.Image}`} alt="food" height={260} width={380} />
+<Image src={`${ImagePath}/FoodItemImages/${items.Image}`} alt="food" height={260} width={380} />
 </div> 
 <div className={home.data}>
 <h4>{items.FoodName}</h4>
@@ -180,7 +181,7 @@ return <div className={home.card} key={items._id}>
 <div className={home.icons}>
 <div className={home.img}>
 
-<Image src={p2} alt="accept" layout="responsive"/>
+<Image src={p2} alt="accept"  height={260} width={380} />
 </div>
 
 </div>
@@ -189,7 +190,7 @@ We Accept Online Payment
 </div>
 <div className={home.accecpt}>
 <div className={home.img}>
-<Image src={p1} alt="accept" layout="responsive"/>
+<Image src={p1} alt="accept"  height={260} width={380} />
 </div>
 </div>
 </div>
@@ -210,21 +211,21 @@ We Accept Online Payment
         <SwiperSlide>
         <div className={home.BottomInner}>
         <div className={home.imageBottom}>
-        <Image src={img1} alt="img1" layout="responsive"/>
+        <Image src={img1} alt="img1" layout="fill" />
         </div>
         </div>
         </SwiperSlide>
      <SwiperSlide>
         <div className={home.BottomInner}>
         <div className={home.imageBottom}>
-        <Image src={img2} alt="img2" layout="responsive"/>
+        <Image src={img2} alt="img2" layout="fill"/>
         </div>
         </div>
         </SwiperSlide>
            <SwiperSlide>
         <div className={home.BottomInner}>
         <div className={home.imageBottom}>
-        <Image src={img3} alt="img3" layout="responsive"/>
+        <Image src={img3} alt="img3" layout="fill"/>
         </div>
         </div>
         </SwiperSlide>
@@ -232,63 +233,63 @@ We Accept Online Payment
    <SwiperSlide>
         <div className={home.BottomInner}>
         <div className={home.imageBottom}>
-        <Image src={img4} alt="img4" layout="responsive"/>
+        <Image src={img4} alt="img4" layout="fill"/>
         </div>
         </div>
         </SwiperSlide>
    <SwiperSlide>
         <div className={home.BottomInner}>
         <div className={home.imageBottom}>
-        <Image src={img5} alt="img5" layout="responsive"/>
+        <Image src={img5} alt="img5" layout="fill"/>
         </div>
         </div>
         </SwiperSlide>
    <SwiperSlide>
         <div className={home.BottomInner}>
         <div className={home.imageBottom}>
-        <Image src={img6} alt="img6" layout="responsive"/>
+        <Image src={img6} alt="img6" layout="fill"/>
         </div>
         </div>
         </SwiperSlide>
    <SwiperSlide>
         <div className={home.BottomInner}>
         <div className={home.imageBottom}>
-        <Image src={img7} alt="img7" layout="responsive"/>
+        <Image src={img7} alt="img7" layout="fill"/>
         </div>
         </div>
         </SwiperSlide>
    <SwiperSlide>
         <div className={home.BottomInner}>
         <div className={home.imageBottom}>
-        <Image src={img8} alt="img8" layout="responsive"/>
+        <Image src={img8} alt="img8" layout="fill"/>
         </div>
         </div>
         </SwiperSlide>
    <SwiperSlide>
         <div className={home.BottomInner}>
         <div className={home.imageBottom}>
-        <Image src={img9} alt="img9" layout="responsive"/>
+        <Image src={img9} alt="img9" layout="fill"/>
         </div>
         </div>
         </SwiperSlide>
    <SwiperSlide>
         <div className={home.BottomInner}>
         <div className={home.imageBottom}>
-        <Image src={img10} alt="img10" layout="responsive"/>
+        <Image src={img10} alt="img10" layout="fill"/>
         </div>
         </div>
         </SwiperSlide>
    <SwiperSlide>
         <div className={home.BottomInner}>
         <div className={home.imageBottom}>
-        <Image src={img11} alt="img11" layout="responsive"/>
+        <Image src={img11} alt="img11" layout="fill"/>
         </div>
         </div>
         </SwiperSlide>
    <SwiperSlide>
         <div className={home.BottomInner}>
         <div className={home.imageBottom}>
-        <Image src={img12} alt="img12" layout="responsive"/>
+        <Image src={img12} alt="img12" layout="fill"/>
         </div>
         </div>
         </SwiperSlide>

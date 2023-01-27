@@ -5,17 +5,21 @@ import Styles from "../styles/admin.module.css";
 import about from "../styles/AboutUs.module.css";
 import Link from 'next/link'
 import Image from 'next/image'
-import bannerImg from '../public/about.jpg';
-import crew from '../public/crew.jpg';
+let ImagePath=process.env.NEXT_PUBLIC_IMAGESPACEPATH;
+
+
+let bannerImg = `${ImagePath}/ExtraImages/about.jpg`;
+let crew = `${ImagePath}/ExtraImages/crew.jpg`;
 import { BiShoppingBag } from 'react-icons/bi';
 import { RiSecurePaymentFill } from 'react-icons/ri';
 import { MdOutlineGppGood } from 'react-icons/md';
 import { MdAvTimer } from 'react-icons/md';
 import { GoDeviceMobile } from 'react-icons/go';
 import { MdOutlineFastfood } from 'react-icons/md';
-import food from '../public/food.jpg'
-import juice from '../public/juice.jpg'
-import coffee from '../public/nescafe.jpg'
+
+let food = `${ImagePath}/ExtraImages/food.jpg`
+let juice = `${ImagePath}/ExtraImages/juice.jpg`
+let coffee = `${ImagePath}/ExtraImages/nescafe.jpg`
 export default function AboutUS() {
   return (
     <div>

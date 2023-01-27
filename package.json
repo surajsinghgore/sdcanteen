@@ -15,6 +15,7 @@
     "@emotion/styled": "^11.10.0",
     "@formspree/react": "^2.4.0",
     "@mui/material": "^5.9.3",
+    "aws-sdk": "^2.1303.0",
     "bcryptjs": "^2.4.3",
     "chart.js": "^4.1.1",
     "cookie": "^0.5.0",

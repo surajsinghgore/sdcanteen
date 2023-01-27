@@ -1,5 +1,8 @@
 import Image from "next/image";
-import LoaderImage from '../public/loader.gif';
+ 
+let ImagePath=process.env.NEXT_PUBLIC_IMAGESPACEPATH;
+
+let LoaderImage = ` ${ImagePath}/ExtraImages/loader.gif`;
 
 export default function Loader({loader}) {
   return (

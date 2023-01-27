@@ -17,6 +17,7 @@ import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import VerifyAdminLogin from './VerifyAdminLogin';
 import LoadingBar from "react-top-loading-bar";
+let ImagePath=process.env.NEXT_PUBLIC_IMAGESPACEPATH;
 
 export default function DeleteFoodItem({ datas }) {
   const [useEffectCall, setUseEffectCall] = useState(false);
@@ -260,7 +261,7 @@ const [progress, setProgress] = useState(0);
                     <div className={ShowStyles.card} key={index}>
                       <li className={ShowStyles.Image_Section}>
                         <Image
-                          src={`/FoodItemImages/${item.Image}`}
+                          src={`  ${ImagePath}/FoodItemImages/${item.Image}`}
                           alt={item.Image}
                           height="550"
                           width="800"

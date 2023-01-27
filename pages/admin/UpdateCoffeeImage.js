@@ -19,10 +19,11 @@ function UpdateCoffeeImage() {const [progress, setProgress] = useState(0);
   const { filterCoffeeItemsData } = useContext(AllContext);
   const [imgs, setImgs] = useState(imges);
   const [files, setFiles] = useState("");
+let ImagePath=process.env.NEXT_PUBLIC_IMAGESPACEPATH;
 
 useEffect(()=>{
 if(filterCoffeeItemsData.datas!=undefined){
-setImgs(`/CoffeeItemImages/${filterCoffeeItemsData.datas.Image}`)
+setImgs(` ${ImagePath}/CoffeeItemImages/${filterCoffeeItemsData.datas.Image}`)
 }
 else{
     router.push('/admin/UpdateCoffeeItem')

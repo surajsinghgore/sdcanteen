@@ -6,7 +6,9 @@ import { useRouter } from 'next/router';
 import { CartProvider } from "react-use-cart"; 
 let HOST = process.env.NEXT_PUBLIC_API_URL;
 import Link from 'next/link';
-import  cooking from '../public/cooking.gif';
+let ImagePath=process.env.NEXT_PUBLIC_IMAGESPACEPATH;
+
+let  cooking = `${ImagePath}/ExtraImages/cooking.gif`;
 import Image from 'next/image'
 function MyApp({ Component, pageProps }) {
 const router=useRouter();

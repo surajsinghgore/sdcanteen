@@ -10,7 +10,8 @@ import { useEffect ,useState} from "react";
 import Link from 'next/link'
 import { AiOutlineCloudUpload } from 'react-icons/ai';
 import router from 'next/router'
-import boyProfile from '../public/men.png'
+let ImagePath=process.env.NEXT_PUBLIC_IMAGESPACEPATH;
+let boyProfile = `${ImagePath}/ExtraImages/men.png`
 import Image from 'next/image'
 let HOST = process.env.NEXT_PUBLIC_API_URL;
 import { ToastContainer, toast } from "react-toastify";

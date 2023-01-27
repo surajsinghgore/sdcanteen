@@ -7,8 +7,10 @@ import "react-toastify/dist/ReactToastify.css";
 import router from "next/router";
 import LoadingBar from "react-top-loading-bar";
 // login images banner
-import loginImage from "../../public/admin/loginImg.svg";
-import USerProfile from "../../public/admin/loginProfile.png";
+let ImagePath=process.env.NEXT_PUBLIC_IMAGESPACEPATH;
+
+let loginImage = ` ${ImagePath}/admin/loginImg.svg`;
+let USerProfile = ` ${ImagePath}/admin/loginProfile.png`;
 import { useEffect } from "react";
 import Link from "next/link";
 

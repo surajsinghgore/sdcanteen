@@ -7,6 +7,7 @@ import { useEffect ,useState} from "react";
 import {  useCart } from "react-use-cart";
 import Style from '../styles/FoodItem.module.css'
 import Link from 'next/link'
+let ImagePath=process.env.NEXT_PUBLIC_IMAGESPACEPATH;
 
 import router from 'next/router'
 
@@ -247,7 +248,7 @@ localStorage.setItem("itemOrder",itm._id)
   
      <div className={Style.card} key={item.item._id} loading="lazy">
    <div className={Style.Img}>
-  <Link href={`/${item.item.JuiceName}`}><a> <Image src={`/JuiceItemImages/${item.item.Image}`} alt={item.item.Image} width={385} height={250} loading="lazy" /></a></Link>
+  <Link href={`/${item.item.JuiceName}`}><a> <Image src={`  ${ImagePath}/JuiceItemImages/${item.item.Image}`} alt={item.item.Image} width={385} height={250} loading="lazy" /></a></Link>
    </div>
    <div className={Style.deatils}>
    <Link href={`/${item.item.JuiceName}`}><a><h1>{item.item.JuiceName}</h1></a></Link>

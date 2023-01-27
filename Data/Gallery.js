@@ -1,24 +1,26 @@
-import img1 from '../public/gallery/1.webp'
-import img2 from '../public/gallery/2.jpg'
-import img3 from '../public/gallery/11.jpg'
-import img4 from '../public/gallery/4.jpg'
-import img5 from '../public/gallery/5.jpg'
-import img6 from '../public/gallery/6.webp'
-import img7 from '../public/gallery/7.jpg'
-import img8 from '../public/gallery/8.jpg'
-import img9 from '../public/gallery/9.jpeg'
-import img10 from '../public/gallery/10.jpg'
-import img11 from '../public/gallery/3.jpg'
-import img12 from '../public/gallery/12.jpg'
-import img13 from '../public/gallery/13.jpg'
-import img14 from '../public/gallery/14.jpg'
-import img15 from '../public/gallery/15.jpg'
-import img16 from '../public/gallery/16.jpg'
-import img17 from '../public/gallery/17.jpg'
-import img18 from '../public/gallery/18.jpg'
-import img19 from '../public/gallery/19.jpg'
-import img20 from '../public/gallery/20.jpg'
-import img21 from '../public/gallery/21.jpg'
+let ImagePath=process.env.NEXT_PUBLIC_IMAGESPACEPATH;
+
+let img1 = `${ImagePath}/gallery/1.webp`
+let img2 = `${ImagePath}/gallery/2.jpg`
+let img3 = `${ImagePath}/gallery/11.jpg`
+let img4 = `${ImagePath}/gallery/4.jpg`
+let img5 = `${ImagePath}/gallery/5.jpg`
+let img6 = `${ImagePath}/gallery/6.webp`
+let img7 = `${ImagePath}/gallery/7.jpg`
+let img8 = `${ImagePath}/gallery/8.jpg`
+let img9 = `${ImagePath}/gallery/9.jpeg`
+let img10 = `${ImagePath}/gallery/10.jpg`
+let img11 = `${ImagePath}/gallery/3.jpg`
+let img12 = `${ImagePath}/gallery/12.jpg`
+let img13 = `${ImagePath}/gallery/13.jpg`
+let img14 = `${ImagePath}/gallery/14.jpg`
+let img15 = `${ImagePath}/gallery/15.jpg`
+let img16 = `${ImagePath}/gallery/16.jpg`
+let img17 = `${ImagePath}/gallery/17.jpg`
+let img18 = `${ImagePath}/gallery/18.jpg`
+let img19 = `${ImagePath}/gallery/19.jpg`
+let img20 = `${ImagePath}/gallery/20.jpg`
+let img21 = `${ImagePath}/gallery/21.jpg`
 
 
 

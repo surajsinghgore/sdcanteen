@@ -11,6 +11,7 @@ import Image from "next/image";
 import "react-toastify/dist/ReactToastify.css";
 import { useState, useEffect } from "react";
 import VerifyAdminLogin from './VerifyAdminLogin';
+let ImagePath=process.env.NEXT_PUBLIC_IMAGESPACEPATH;
 
 import Loader from "../../Components/Loader";
 
@@ -136,7 +137,7 @@ export default function ShowJuiceItem({ datas }) {
                     <div className={ShowStyles.card} key={index}>
                       <li className={ShowStyles.Image_Section}>
                         <Image
-                          src={`/JuiceItemImages/${item.Image}`}
+                          src={` ${ImagePath}/JuiceItemImages/${item.Image}`}
                           alt={item.Image}
                           height="550"
                           width="800"

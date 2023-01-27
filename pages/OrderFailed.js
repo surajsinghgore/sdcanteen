@@ -9,8 +9,9 @@ import VerifyClientMiddleware from "./VerifyClientMiddleware";
 import { useState } from "react";
 import {useRouter}from 'next/router'
 import Image from 'next/image';
-import failed from '../public/paymentFailed.gif';
-import pending from '../public/pending.gif';
+let ImagePath=process.env.NEXT_PUBLIC_IMAGESPACEPATH;
+let failed = `${ImagePath}/ExtraImages/paymentFailed.gif`;
+let pending = `${ImagePath}/ExtraImages/pending.gif`;
 import { useEffect } from "react";
 export default function OrderFailed() {
 const [token,setToken]=useState('');

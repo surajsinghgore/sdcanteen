@@ -10,6 +10,7 @@ let HOST = process.env.NEXT_PUBLIC_API_URL;
 import Image from "next/image";
 import Loader from "../../Components/Loader";
 import VerifyAdminLogin from './VerifyAdminLogin';
+let ImagePath=process.env.NEXT_PUBLIC_IMAGESPACEPATH;
 
 
 import "react-toastify/dist/ReactToastify.css";
@@ -137,7 +138,7 @@ export default function ShowDrinkItem({ datas }) {
                     <div className={ShowStyles.card} key={index}>
                       <li className={ShowStyles.Image_Section}>
                         <Image
-                          src={`/DrinkItemImages/${item.Image}`}
+                          src={` ${ImagePath}/DrinkItemImages/${item.Image}`}
                           alt={item.Image}
                           height="550"
                           width="800"

@@ -3,7 +3,9 @@ import Header from "../Components/Header";
 import Footer from "../Components/Footer";
 import Style from '../styles/FoodItem.module.css'
 import Styles from "../styles/admin.module.css";
-import banner from '../public/banner.jpg';
+
+let ImagePath=process.env.NEXT_PUBLIC_IMAGESPACEPATH;
+let banner = `${ImagePath}/ExtraImages/banner.jpg`;
 import "react-toastify/dist/ReactToastify.css";
 import { IoMdArrowDropright } from 'react-icons/io';
 import Loader from "../Components/Loader";

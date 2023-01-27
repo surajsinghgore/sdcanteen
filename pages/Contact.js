@@ -3,9 +3,13 @@ import Header from "../Components/Header";
 import Footer from "../Components/Footer";
 import Styles from "../styles/admin.module.css";
 import ContactStyle from "../styles/Contact.module.css";
-import banner from '../public/contactbanner.jpg';
-import shape from '../public/shape.png';
-import line from '../public/line-cauve.png';
+let ImagePath=process.env.NEXT_PUBLIC_IMAGESPACEPATH;
+let token=process.env.NEXT_PUBLIC_FORMSPACETOKEN;
+
+let banner = `${ImagePath}/ExtraImages/contactbanner.jpg`;
+let shape = `${ImagePath}/ExtraImages/shape.png`;
+let line = `${ImagePath}/ExtraImages/line-cauve.png`;
+
 import router from 'next/router'
 import Image from 'next/image';
 import Banner from "../Components/Banner";
@@ -25,7 +29,7 @@ const [userMobile,setUserMobile]=useState("");
 const [userMessage,setUserMessage]=useState("");
 
 
- const [state, handleSubmit] = useForm("xrgdejno");
+ const [state, handleSubmit] = useForm(token);
 
 useEffect(()=>{
   const fire=()=>{

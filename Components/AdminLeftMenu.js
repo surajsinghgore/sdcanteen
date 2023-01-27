@@ -1,7 +1,9 @@
 import React,{useEffect} from 'react'
 import AdminLeftPenelComponents from './AdminLeftPenelComponents';
 import Styles from "../styles/admin.module.css";
-import logo from "../public/logo.png";
+let ImagePath=process.env.NEXT_PUBLIC_IMAGESPACEPATH;
+
+let logo = `${ImagePath}/ExtraImages/logo.png`;
 import Image from "next/image";
 import DataList from '../Data/DataList'
 import 'react-toastify/dist/ReactToastify.css';

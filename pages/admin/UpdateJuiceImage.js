@@ -6,6 +6,7 @@ import AdminLeftMenu from "../../Components/AdminLeftMenu";
 import PathNavigate from "../../Components/PathNavigate";
 import AdminRightInnerHeader from "../../Components/AdminRightInnerHeader";
 import { ToastContainer, toast } from "react-toastify";
+let ImagePath=process.env.NEXT_PUBLIC_IMAGESPACEPATH;
 import "react-toastify/dist/ReactToastify.css";
 let HOST = process.env.NEXT_PUBLIC_API_URL;
 import VerifyAdminLogin from './VerifyAdminLogin';
@@ -23,7 +24,7 @@ export default function UpdateJuiceImage() {const [progress, setProgress] = useS
 
 useEffect(()=>{
 if(filterJuiceItemsData.datas!=undefined){
-setImgs(`/JuiceItemImages/${filterJuiceItemsData.datas.Image}`)
+setImgs(` ${ImagePath}/JuiceItemImages/${filterJuiceItemsData.datas.Image}`)
 } else{
     router.push('/admin/UpdateJuiceItem')
 }

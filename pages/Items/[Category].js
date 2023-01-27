@@ -10,8 +10,11 @@ import Link from 'next/link'
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 let HOST = process.env.NEXT_PUBLIC_API_URL;
-import Banner from '../../public/bannerInside.jpg'
-import b1 from '../../public/burger.png'
+let ImagePath=process.env.NEXT_PUBLIC_IMAGESPACEPATH;
+
+
+let Banner = `${ImagePath}/ExtraImages/bannerInside.jpg`
+let b1 = `${ImagePath}/ExtraImages/burger.png`
 import Image from 'next/image'
 export default function Category() {
 let router=useRouter()
@@ -74,7 +77,7 @@ return <div key={item._id}>
 {(item.FoodName)? <div className={style.item} onClick={()=>goToSearch(item.FoodName)}>
 <div className={style.card}>
 <div className={style.imags}>
-<Image src={`/FoodItemImages/${item.Image}`} alt="image " height="200" width="320" />
+<Image src={`${ImagePath}/FoodItemImages/${item.Image}`} alt="image " height="200" width="320" />
 </div>
 <div className={style.data}>
 <h1>{item.FoodName}</h1>
@@ -88,7 +91,7 @@ return <div key={item._id}>
 {(item.CoffeeName)? <div className={style.item} onClick={()=>goToSearch(item.CoffeeName)}>
 <div className={style.card}>
 <div className={style.imags}>
-<Image src={`/CoffeeItemImages/${item.Image}`} alt="image " height="200" width="320" />
+<Image src={`${ImagePath}/CoffeeItemImages/${item.Image}`} alt="image " height="200" width="320" />
 </div>
 <div className={style.data}>
 <h1>{item.CoffeeName}</h1>
@@ -103,7 +106,7 @@ return <div key={item._id}>
 {(item.DrinkName)? <div className={style.item} onClick={()=>goToSearch(item.DrinkName)}>
 <div className={style.card}>
 <div className={style.imags}>
-<Image src={`/DrinkItemImages/${item.Image}`} alt="image " height="250" width="320" />
+<Image src={`${ImagePath}/DrinkItemImages/${item.Image}`} alt="image " height="250" width="320" />
 </div>
 <div className={style.data}>
 <h1>{item.DrinkName}</h1>
@@ -119,7 +122,7 @@ return <div key={item._id}>
 {(item.JuiceName)? <div className={style.item} onClick={()=>goToSearch(item.JuiceName)}>
 <div className={style.card}>
 <div className={style.imags} style={{marginLeft:"15%"}}>
-<Image src={`/JuiceItemImages/${item.Image}`} alt="image " height="240" width="250" />
+<Image src={`${ImagePath}/JuiceItemImages/${item.Image}`} alt="image " height="240" width="250" />
 </div>
 <div className={style.data}>
 <h1>{item.JuiceName}</h1>

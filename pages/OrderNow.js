@@ -4,12 +4,13 @@ import Footer from "../Components/Footer";
 import Styles from "../styles/admin.module.css";
 import order from "../styles/OrderNow.module.css";
 import Link from 'next/link'
+let ImagePath=process.env.NEXT_PUBLIC_IMAGESPACEPATH;
 import Image from 'next/image'
-import food from '../public/food.png'
-import coffee from '../public/coffee.webp'
-import drink from '../public/drink.webp'
+let food = `${ImagePath}/ExtraImages/food.png`
+let coffee = `${ImagePath}/ExtraImages/coffee.webp`
+let drink = `${ImagePath}/ExtraImages/drink.webp`
 import router from 'next/router'
-import juice from '../public/juice.png'
+let juice = `${ImagePath}/ExtraImages/juice.png`
 export default function OrderNow() {
 const foodRedirect=()=>{
 router.push("/FoodItem")

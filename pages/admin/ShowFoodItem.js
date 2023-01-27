@@ -8,6 +8,7 @@ import PathNavigate from "../../Components/PathNavigate";
 import AdminRightInnerHeader from "../../Components/AdminRightInnerHeader";
 let HOST = process.env.NEXT_PUBLIC_API_URL;
 import Image from "next/image";
+let ImagePath=process.env.NEXT_PUBLIC_IMAGESPACEPATH;
 import "react-toastify/dist/ReactToastify.css";
 import { useState, useEffect } from "react";
 import VerifyAdminLogin from "./VerifyAdminLogin";
@@ -130,7 +131,7 @@ export default function ShowFoodItem({ datas }) {
                     <div className={ShowStyles.card} key={index}>
                       <li className={ShowStyles.Image_Section}>
                         <Image
-                          src={`/FoodItemImages/${item.Image}`}
+                          src={` ${ImagePath}/FoodItemImages/${item.Image}`}
                           alt={item.Image}
                           height="550"
                           width="800"

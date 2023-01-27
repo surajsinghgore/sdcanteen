@@ -11,8 +11,10 @@ import Styles from "../styles/admin.module.css";
 import ProfileStyles from "../styles/ClientProfileUpload.module.css";
 let HOST = process.env.NEXT_PUBLIC_API_URL;
 import React, { useEffect,useState } from "react";
-import boyProfile from '/public/men.png'
-import girlProfile from '/public/girl.png'
+
+let ImagePath=process.env.NEXT_PUBLIC_IMAGESPACEPATH;
+let boyProfile = `${ImagePath}/ExtraImages/men.png`
+let girlProfile = `${ImagePath}/ExtraImages/girl.png`
 
 import { AiOutlineCloudUpload } from 'react-icons/ai';
 export default function ClientProfileUpload() {

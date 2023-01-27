@@ -42,8 +42,8 @@ const uploard = multer({
   },
   fileFilter: fileFilter,
 });
-
 handler.use(uploard.single("Image"));
+
 handler.post(async (req, res) => {
   try {
     DbConnection();

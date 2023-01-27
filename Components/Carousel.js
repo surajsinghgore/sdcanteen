@@ -1,7 +1,7 @@
 import Image from 'next/image';
-import React, {useEffect ,useState} from "react";
 // Import Swiper React components
 import { Swiper, SwiperSlide  } from "swiper/react";
+let ImagePath=process.env.NEXT_PUBLIC_IMAGESPACEPATH;
 
 // Import Swiper styles
 import "swiper/css";
@@ -12,11 +12,11 @@ import "swiper/css/navigation";
 // import required modules
 import { Autoplay,  Navigation } from "swiper";
 
-import Img1 from '../public/1.jpg';
-import Img2 from '../public/2.jpg';
-import Img3 from '../public/c1.jpg';
-import Img4 from '../public/j1.jpg';
-import Img5 from '../public/d1.jpg';
+let Img1 = `${ImagePath}/ExtraImages/1.jpg`;
+let Img2 = `${ImagePath}/ExtraImages/2.jpg`;
+let Img3 = `${ImagePath}/ExtraImages/c1.jpg`;
+let Img4 = `${ImagePath}/ExtraImages/j1.jpg`;
+let Img5 = `${ImagePath}/ExtraImages/d1.jpg`;
 import Link from 'next/link';
 
 

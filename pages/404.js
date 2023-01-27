@@ -1,5 +1,7 @@
 import not from '../styles/notFound.module.css'
-import img from '../public/404.webp'
+let ImagePath=process.env.NEXT_PUBLIC_IMAGESPACEPATH;
+
+let img = `${ImagePath}/ExtraImages/404.webp`
 import Image from 'next/image'                
 import Router from 'next/router'
 export default function NotFound() {
