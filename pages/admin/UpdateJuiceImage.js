@@ -10,7 +10,7 @@ let ImagePath=process.env.NEXT_PUBLIC_IMAGESPACEPATH;
 import "react-toastify/dist/ReactToastify.css";
 let HOST = process.env.NEXT_PUBLIC_API_URL;
 import VerifyAdminLogin from './VerifyAdminLogin';
-import imges from '../../public/banner4.jpg'
+let imges = `${ImagePath}/ExtraImages/banner4.jpg`
 import LoadingBar from "react-top-loading-bar";
 import router from "next/router";
 import { AllContext } from "../../context/AllContext";

@@ -8,7 +8,7 @@ import AdminRightInnerHeader from "../../Components/AdminRightInnerHeader";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 let HOST = process.env.NEXT_PUBLIC_API_URL;
-import imges from '../../public/banner4.jpg'
+
 import VerifyAdminLogin from './VerifyAdminLogin';
 import LoadingBar from "react-top-loading-bar";
 
@@ -18,6 +18,7 @@ import Link from "next/link";
 import Image from "next/image";
 let ImagePath=process.env.NEXT_PUBLIC_IMAGESPACEPATH;
 
+let imges = `${ImagePath}/ExtraImages/banner4.jpg`
 export default function UpdateDrinkImage() {const [progress, setProgress] = useState(0);
   const { filterDrinkItemsData } = useContext(AllContext);
   const [imgs, setImgs] = useState(imges);

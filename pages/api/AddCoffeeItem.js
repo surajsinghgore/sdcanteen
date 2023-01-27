@@ -44,6 +44,8 @@ const uploard = multer({
 });
 
 handler.use(uploard.single("Image"));
+
+
 handler.post(async (req, res) => {
   try {
     DbConnection();
@@ -127,6 +129,6 @@ handler.post(async (req, res) => {
   }
 });
 
-handler.use(uploard.single("Image"));
+
 
 export default handler;

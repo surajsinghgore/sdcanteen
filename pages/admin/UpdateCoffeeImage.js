@@ -13,13 +13,14 @@ import { AllContext } from "../../context/AllContext";
 import Link from "next/link";
 import Image from "next/image";
 import VerifyAdminLogin from './VerifyAdminLogin';
-import imges from '../../public/banner4.jpg'
+let ImagePath=process.env.NEXT_PUBLIC_IMAGESPACEPATH;
+
+let imges = `${ImagePath}/ExtraImages/banner4.jpg`
 import LoadingBar from "react-top-loading-bar";
 function UpdateCoffeeImage() {const [progress, setProgress] = useState(0);
   const { filterCoffeeItemsData } = useContext(AllContext);
   const [imgs, setImgs] = useState(imges);
   const [files, setFiles] = useState("");
-let ImagePath=process.env.NEXT_PUBLIC_IMAGESPACEPATH;
 
 useEffect(()=>{
 if(filterCoffeeItemsData.datas!=undefined){

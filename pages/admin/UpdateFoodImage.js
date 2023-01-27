@@ -10,7 +10,7 @@ import "react-toastify/dist/ReactToastify.css";
 let ImagePath=process.env.NEXT_PUBLIC_IMAGESPACEPATH;
 let HOST = process.env.NEXT_PUBLIC_API_URL;
 import VerifyAdminLogin from './VerifyAdminLogin';
-import imges from '../../public/banner4.jpg'
+let imges = `${ImagePath}/ExtraImages/banner4.jpg`
 import router from "next/router";
 import { AllContext } from "../../context/AllContext";
 import Link from "next/link";

@@ -5,7 +5,7 @@ import Loader from "../Components/Loader";
 import Style from '../styles/FoodItem.module.css'
 import Styles from "../styles/admin.module.css";
 let ImagePath=process.env.NEXT_PUBLIC_IMAGESPACEPATH;
-import banner from `${ImagePath}/ExtraImages/banner2.jpg`;
+let banner = `${ImagePath}/ExtraImages/banner2.jpg`;
 import "react-toastify/dist/ReactToastify.css";
 import { IoMdArrowDropright } from 'react-icons/io';
 import { FaSearch } from 'react-icons/fa';
