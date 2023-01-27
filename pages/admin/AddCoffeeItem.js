@@ -279,7 +279,7 @@ data.append('normalPriceName', normalPrice);
 
       setTimeout(RedirectFunction, 1500);
       function RedirectFunction() {
-           router.push("/admin/ShowCoffeeItem");
+          //  router.push("/admin/ShowCoffeeItem");
       }
     }
   };

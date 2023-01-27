@@ -127,6 +127,5 @@ handler.post(async (req, res) => {
   }
 });
 
-handler.use(uploard.single("Image"));
 
 export default handler;

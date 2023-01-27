@@ -27,9 +27,7 @@ setStart(number-1)
 
 
 
-useEffect(()=>{
-console.log(GalleryData)
-},[])
+
   return (
     <div>
     <div className={Styles.admin}>
