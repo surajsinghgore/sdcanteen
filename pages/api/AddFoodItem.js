@@ -2,10 +2,14 @@ import DbConnection from "./Middleware/DbConnection";
 import FoodItemSchema from "./Schema/FoodItemSchema";
 import VerifyAdmin from "./Middleware/MiddlewareAdminVerify";
 import nextConnect from "next-connect";
-var fs = require("fs");
 const handler = nextConnect();
-
+import crypto from 'crypto'
 import multer from "multer";
+import { S3Client,PutObjectCommand } from "@aws-sdk/client-s3";
+let buketName=process.env.NEXT_PUBLIC_BUCKETNAME;
+let secretID=process.env.NEXT_PUBLIC_AWS_ACCESS_KEY_ID;
+let secretKey=process.env.NEXT_PUBLIC_AWS_SECRET_ACCESS_KEY;
+
 
 export const config = {
   api: {
@@ -13,15 +17,7 @@ export const config = {
   },
 };
 
-const storage = multer.diskStorage({
-  destination: "./public/FoodItemImages/",
-  filename: function (req, file, cb) {
-    cb(
-      null,
-      new Date().toISOString().replace(/:/g, "-") + "-" + file.originalname
-    );
-  },
-});
+const storage = multer.memoryStorage()
 
 const fileFilter = (req, file, cb) => {
   if (
@@ -35,71 +31,87 @@ const fileFilter = (req, file, cb) => {
   }
 };
 
-const uploard = multer({
+const upload = multer({
   storage: storage,
   limits: {
     fileSize: 1024 * 1024 * 5,
   },
   fileFilter: fileFilter,
 });
-handler.use(uploard.single("Image"));
 
+const s3=new S3Client({
+endpoint: process.env.NEXT_PUBLIC_ENDPOINT,
+ forcePathStyle: false, 
+    region: process.env.NEXT_PUBLIC_S3_REGION,
+credentials:{
+accessKeyId:secretID,
+secretAccessKey:secretKey
+},
+})
+
+
+handler.use(upload.single("Image"));
 handler.post(async (req, res) => {
   try {
     DbConnection();
+   let ImageGetFromClient=req.file.buffer;
+let randomImageNameGen=crypto.randomBytes(16).toString('hex')+req.file.originalname;
+let imageDbUrl=`FoodItemImages/${randomImageNameGen}`;
+const params = {
+  Bucket: buketName, 
+  Key: `FoodItemImages/${randomImageNameGen}`, 
+  Body:ImageGetFromClient,
+  ACL: "public-read"
+};
     let verify = await VerifyAdmin(req, res);
-    const Image = req.file.filename;
+     if (verify == undefined) {
+    
+      res.status(401).json({ message: "Please login with admin credentails" });
+    }
+
     let array = [];
     let FoodName = req.body.FoodName;
     let Qty = req.body.Qty;
     let Category = req.body.Category;
     let Active = req.body.Active;
     let Description = req.body.Description;
-    var filePath = `./public/FoodItemImages/${Image}`;
     let normalPrice;
     let smallPrice;
     let mediumPrice;
     let largePrice;
 
-    if (req.body.largePrice) {
-      largePrice = parseInt(req.body.largePrice);
+    if (req.body.largePriceName) {
+      largePrice = parseInt(req.body.largePriceName);
       array.push({ sizeName: "largeSize", Price: largePrice });
     }
     if (req.body.normalPriceName) {
       normalPrice = parseInt(req.body.normalPriceName);
       array.push({ sizeName: "normalSize", Price: normalPrice });
     }
-    if (req.body.mediumPrice) {
-      mediumPrice = parseInt(req.body.mediumPrice);
+    if (req.body.mediumPriceName) {
+      mediumPrice = parseInt(req.body.mediumPriceName);
       array.push({ sizeName: "mediumSize", Price: mediumPrice });
     }
-    if (req.body.halfPrice) {
-      smallPrice = parseInt(req.body.halfPrice);
-      array.push({ sizeName: "halfSize", Price: smallPrice });
+    if (req.body.smallPriceName) {
+      smallPrice = parseInt(req.body.smallPriceName);
+      array.push({ sizeName: "smallSize", Price: smallPrice });
     }
-
-    if (verify == undefined) {
-      await fs.unlinkSync(filePath);
-      res.status(401).json({ message: "Please login with admin credentails" });
-    }
-    if (!Image) {
-      res.status(204).json({ message: "Please Enter Item Image" });
-    } else if (!FoodName) {
-      res.status(204).json({ message: "Please Enter Food Name" });
-    } else if (!Description) {
-      res.status(204).json({ message: "Please Enter Description Of Item" });
-    } else if (!Category) {
-      res.status(204).json({ message: "Please Enter category Of Item" });
-    } else if (!Active) {
-      res.status(204).json({ message: "Please select Active status Of Item" });
+    if (FoodName==undefined) {
+      return res.status(400).json({ message: "Please Enter Food Name" });
+    } else if (Description==undefined) {
+      return res.status(400).json({ message: "Please Enter Description Of Item" });
+    } else if (Category==undefined) {
+     return  res.status(400).json({ message: "Please Enter category Of Item" });
+    } else if (Active==undefined) {
+      return res.status(400).json({ message: "Please select Active status Of Item" });
     }
 
     // records not dublicate
     let ress = await FoodItemSchema.find({ FoodName: FoodName });
     if (ress.length != 0) {
-      await fs.unlinkSync(filePath);
+    
       return res
-        .status(409)
+        .status(400)
         .json({ message: "Item with this Name Already Exits" });
     }
 
@@ -107,26 +119,28 @@ handler.post(async (req, res) => {
       FoodName,
       Qty,
       Category,
-      Image,
+      Image:imageDbUrl,
       Active,
       Description,
       ItemCost: array,
     });
+
+
     let ressGets = await Items.save();
     if (ressGets) {
-      res.status(201).json({ ress, status: "201" });
+    await s3.send(new PutObjectCommand(params));
+      res.status(201).json({ message:"successfully upload" });
     } else {
-      await fs.unlinkSync(filePath);
+     
       return res
-        .status(401)
+        .status(400)
         .json({ message: "Please login with admin credentails" });
     }
   } catch (e) {
-    console.log(e);
-    res.status(501).json({ message: "Internal Server Error", status: "201" });
+    console.log("error",e);
+    res.status(501).json({ message: "Internal Server Error" });
   }
 });
 
-handler.use(uploard.single("Image"));
 
 export default handler;

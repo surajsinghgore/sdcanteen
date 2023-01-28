@@ -186,51 +186,8 @@ data.append('normalPriceName', normalPrice);
 
  setProgress(100)
 
-  if (res.status == 401) {
-      toast.error("Please Login With Admin Credentials", {
-        position: "bottom-right",
-        autoClose: 1200,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
-      setTimeout(RedirectFunction, 1500);
-      function RedirectFunction() {
-        router.push("/admin/Login");
-      }
-      }
 
-        if (res.status == 409) {
-      toast.error("Item with this Name already Exits", {
-        position: "bottom-right",
-        autoClose: 1200,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
-     return ;
-      }
-    if (data.status == "403") {
-      toast.error("Please Login With Admin Credentials", {
-        position: "bottom-right",
-        autoClose: 1200,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
-      setTimeout(RedirectFunction, 1500);
-      function RedirectFunction() {
-        router.push("/admin/Login");
-      }
-      return ;
-    }
-    if (res.status === 500) {
+   if (res.status === 500) {
       toast.error("Only JPG , PNG , JPEG Images are Allowed To Upload", {
         position: "bottom-right",
         autoClose: 1200,
@@ -242,10 +199,8 @@ data.append('normalPriceName', normalPrice);
       });
       return ;
     }
-    let datas = await res.json();
-
-    if (datas.status == "501") {
-      toast.error(`${datas.message}`, {
+        if (res.status == 501) {
+      toast.warn(`${datas.message}`, {
         position: "bottom-right",
         autoClose: 1200,
         hideProgressBar: false,
@@ -256,8 +211,10 @@ data.append('normalPriceName', normalPrice);
       });
       return ;
     }
+    let datas = await res.json(); 
+      
     // empty filed error message
-    if (res.status == 204) {
+    if (res.status == 400) {
       toast.warn(`${datas.message}`, {
         position: "bottom-right",
         autoClose: 1200,
@@ -270,7 +227,7 @@ data.append('normalPriceName', normalPrice);
       return ;
     }
 
-    if (datas.status == "201") {
+    if (res.status == 201) {
       toast.success(`${juiceName} is Successfully Added`, {
         position: "bottom-right",
         autoClose: 1200,
@@ -283,7 +240,7 @@ data.append('normalPriceName', normalPrice);
 
       setTimeout(RedirectFunction, 1500);
       function RedirectFunction() {
-        router.push("/admin/ShowJuiceItem");
+           router.push("/admin/ShowJuiceItem");
       }
     }
   };

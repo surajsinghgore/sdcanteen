@@ -2,26 +2,13 @@ import DbConnection from "./Middleware/DbConnection";
 import CoffeeItemSchema from "./Schema/CoffeeItemSchema";
 import VerifyAdmin from "./Middleware/MiddlewareAdminVerify";
 import nextConnect from "next-connect";
-var fs = require("fs");
-  // const handler = nextConnect();
-var aws = require('aws-sdk');
-  const multer = require('multer');
-  const multerS3 = require('multer-s3');
-  import formidable from "formidable-serverless";
-import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
-  // spcaces
-let bucketName= process.env.NEXT_PUBLIC_BUCKETNAME;
-let endpoint= process.env.NEXT_PUBLIC_ENDPOINT;
-const spacesEndPoint=aws.Endpoint(endpoint);
-const s3Client = new S3Client({
-    endpoint: "https://sdcanteenspace.nyc3.digitaloceanspaces.com", // Find your endpoint in the control panel, under Settings. Prepend "https://".
-    forcePathStyle: false, // Configures to use subdomain/virtual calling format.
-    region: "us-east-1", // Must be "us-east-1" when creating new Spaces. Otherwise, use the region in your endpoint (e.g. nyc3).
-    credentials: {
-      accessKeyId: process.env.NEXT_PUBLIC_AWS_ACCESS_KEY_ID, // Access key pair. You can create access key pairs using the control panel or API.
-      secretAccessKey: process.env.NEXT_PUBLIC_AWS_SECRET_ACCESS_KEY // Secret access key defined through an environment variable.
-    }
-});
+const handler = nextConnect();
+import crypto from 'crypto'
+import multer from "multer";
+import { S3Client,PutObjectCommand } from "@aws-sdk/client-s3";
+let buketName=process.env.NEXT_PUBLIC_BUCKETNAME;
+let secretID=process.env.NEXT_PUBLIC_AWS_ACCESS_KEY_ID;
+let secretKey=process.env.NEXT_PUBLIC_AWS_SECRET_ACCESS_KEY;
 
 
 export const config = {
@@ -30,46 +17,130 @@ export const config = {
   },
 };
 
+const storage = multer.memoryStorage()
 
-
-
-export default async function handler(req,res){
-
-const form=formidable();
-form.parse(req,async (err,fields,files)=>{
-
-if(!files.Image){
-return ;
-}
-try{
-
-const params = {
-  Bucket: "sdcanteenspace", // The path to the directory you want to upload the object to, starting with your Space name.
-  Key: files.Image.name, // Object key, referenced whenever you want to access this file later.
-  Body: "Hello, World!", // The object's contents. This variable is an object, not a string.
-  ACL: "public", // Defines ACL permissions, such as private or public.
-  Metadata: { // Defines metadata tags.
-    "x-amz-meta-my-key": "your-value"
+const fileFilter = (req, file, cb) => {
+  if (
+    file.mimetype === "image/jpeg" ||
+    file.mimetype === "image/png" ||
+    file.mimetype === "image/jpg"
+  ) {
+    cb(null, true);
+  } else {
+    cb(new Error("Only JPG , PNG , JPEG Images are Allowed To Upload"));
   }
 };
 
- const data = await s3Client.send(new PutObjectCommand(params));
-    console.log(
-      "Successfully uploaded object: " +
-        params.Bucket +
-        "/" +
-        params.Key
-    );
-    conole.log(data)
-    return data;
-}
-catch(e){
-console.log("error",e)
-}
+const upload = multer({
+  storage: storage,
+  limits: {
+    fileSize: 1024 * 1024 * 5,
+  },
+  fileFilter: fileFilter,
+});
+
+const s3=new S3Client({
+endpoint: process.env.NEXT_PUBLIC_ENDPOINT,
+ forcePathStyle: false, 
+    region: process.env.NEXT_PUBLIC_S3_REGION,
+credentials:{
+accessKeyId:secretID,
+secretAccessKey:secretKey
+},
 })
-return res.status(201).json({success:"true"})
-}
 
 
+handler.use(upload.single("Image"));
+handler.post(async (req, res) => {
+  try {
+    DbConnection();
+   let ImageGetFromClient=req.file.buffer;
+let randomImageNameGen=crypto.randomBytes(16).toString('hex')+req.file.originalname;
+let imageDbUrl=`CoffeeItemImages/${randomImageNameGen}`;
+const params = {
+  Bucket: buketName, 
+  Key: `CoffeeItemImages/${randomImageNameGen}`, 
+  Body:ImageGetFromClient,
+  ACL: "public-read"
+};
+    let verify = await VerifyAdmin(req, res);
+     if (verify == undefined) {
+    
+      res.status(401).json({ message: "Please login with admin credentails" });
+    }
+
+    let array = [];
+    let CoffeeName = req.body.CoffeeName;
+    let Qty = req.body.Qty;
+    let Category = req.body.Category;
+    let Active = req.body.Active;
+    let Description = req.body.Description;
+    let normalPrice;
+    let smallPrice;
+    let mediumPrice;
+    let largePrice;
+
+    if (req.body.largePriceName) {
+      largePrice = parseInt(req.body.largePriceName);
+      array.push({ sizeName: "largeSize", Price: largePrice });
+    }
+    if (req.body.normalPriceName) {
+      normalPrice = parseInt(req.body.normalPriceName);
+      array.push({ sizeName: "normalSize", Price: normalPrice });
+    }
+    if (req.body.mediumPriceName) {
+      mediumPrice = parseInt(req.body.mediumPriceName);
+      array.push({ sizeName: "mediumSize", Price: mediumPrice });
+    }
+    if (req.body.smallPriceName) {
+      smallPrice = parseInt(req.body.smallPriceName);
+      array.push({ sizeName: "smallSize", Price: smallPrice });
+    }
+    if (CoffeeName==undefined) {
+      return res.status(400).json({ message: "Please Enter Drink Name" });
+    } else if (Description==undefined) {
+      return res.status(400).json({ message: "Please Enter Description Of Item" });
+    } else if (Category==undefined) {
+     return  res.status(400).json({ message: "Please Enter category Of Item" });
+    } else if (Active==undefined) {
+      return res.status(400).json({ message: "Please select Active status Of Item" });
+    }
+
+    // records not dublicate
+    let ress = await CoffeeItemSchema.find({ CoffeeName: CoffeeName });
+    if (ress.length != 0) {
+    
+      return res
+        .status(400)
+        .json({ message: "Item with this Name Already Exits" });
+    }
+
+    let Items = new CoffeeItemSchema({
+      CoffeeName,
+      Qty,
+      Category,
+      Image:imageDbUrl,
+      Active,
+      Description,
+      ItemCost: array,
+    });
 
 
+    let ressGets = await Items.save();
+    if (ressGets) {
+    await s3.send(new PutObjectCommand(params));
+      res.status(201).json({ message:"successfully upload" });
+    } else {
+     
+      return res
+        .status(400)
+        .json({ message: "Please login with admin credentails" });
+    }
+  } catch (e) {
+    console.log("error",e);
+    res.status(501).json({ message: "Internal Server Error" });
+  }
+});
+
+
+export default handler;
