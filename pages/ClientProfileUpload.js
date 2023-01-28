@@ -123,7 +123,7 @@ const data = new FormData();
 
     let datas=await res.json();
     setProgress(100)
-    if(res.status==400){
+    if(res.status==401){
       toast.warn(`${datas.message}`, {
 position: "bottom-right",
 autoClose: 5000,
@@ -135,22 +135,7 @@ progress: undefined,
 });   
 return ;
     } 
-    if(res.status==401){
-const redirects=()=>{
-toast.error('Please Login First', {
-position: "bottom-right",
-autoClose: 5000,
-hideProgressBar: false,
-closeOnClick: true,
-pauseOnHover: true,
-draggable: true,
-progress: undefined,
-});
-router.push("/ClientLogin");
-return ;
-}
-setTimeout(redirects,2000);
-}
+ 
  if(res.status==501){
       toast.warn(`${datas.message}`, {
 position: "bottom-right",

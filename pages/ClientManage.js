@@ -92,7 +92,7 @@ return ;
 
 if(data.data!==undefined){
 setData(data.data)
-setImgs(`/ClientImages/${data.data.Profile}`)
+setImgs(data.data.Profile)
 setFullName(data.data.FullName)
 setAge(data.data.Age)
 setEmail(data.data.Email)
@@ -534,7 +534,7 @@ return ;
 <div className={style.clientPanel}>
 <div className={style.left}>
 <div className={style.imageSection}>
- <Image src={imgs} alt="profile"width={350} height={300} className={style.imgs}/>
+ <Image src={imgs} alt="profile"width={350} height={300} className={style.imgs} priority="true"/>
 
 <div className={style.update} title="Update Profile" onClick={uploardImageBtn}><MdEdit className={style.edit}/>Edit</div>
 </div>

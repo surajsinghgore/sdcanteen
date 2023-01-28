@@ -182,13 +182,9 @@ sessionStorage.removeItem("reset")
 setProgress(100)
 
     function Redirect() {
-    console.log(router.back())
-    if((router.back()=="/OtpVerifyClientRegister")){
-    router.push("/")
-    }
-    else{
-router.back();
-    }
+  
+router.push("/")
+    
     }
  setTimeout(Redirect, 1500);
   }
@@ -236,7 +232,7 @@ router.back();
 </div>
 
 <div className={ClientStyle.image}>
-<Image src={LoginImage} alt="login image" height={320} width={300} className={ClientStyle.img}/>
+<Image src={LoginImage} alt="login image" height={320} width={300} className={ClientStyle.img} priority="true" />
 </div>
 </div>
 

@@ -211,21 +211,21 @@ We Accept Online Payment
         <SwiperSlide>
         <div className={home.BottomInner}>
         <div className={home.imageBottom}>
-        <Image src={img1} alt="img1" layout="fill" />
+        <Image src={img1} alt="img1" layout="fill" priority="true" />
         </div>
         </div>
         </SwiperSlide>
      <SwiperSlide>
         <div className={home.BottomInner}>
         <div className={home.imageBottom}>
-        <Image src={img2} alt="img2" layout="fill"/>
+        <Image src={img2} alt="img2" layout="fill" priority="true"/>
         </div>
         </div>
         </SwiperSlide>
            <SwiperSlide>
         <div className={home.BottomInner}>
         <div className={home.imageBottom}>
-        <Image src={img3} alt="img3" layout="fill"/>
+        <Image src={img3} alt="img3" layout="fill" priority="true"/>
         </div>
         </div>
         </SwiperSlide>
@@ -233,63 +233,63 @@ We Accept Online Payment
    <SwiperSlide>
         <div className={home.BottomInner}>
         <div className={home.imageBottom}>
-        <Image src={img4} alt="img4" layout="fill"/>
+        <Image src={img4} alt="img4" layout="fill" priority="true"/>
         </div>
         </div>
         </SwiperSlide>
    <SwiperSlide>
         <div className={home.BottomInner}>
         <div className={home.imageBottom}>
-        <Image src={img5} alt="img5" layout="fill"/>
+        <Image src={img5} alt="img5" layout="fill" priority="true"/>
         </div>
         </div>
         </SwiperSlide>
    <SwiperSlide>
         <div className={home.BottomInner}>
         <div className={home.imageBottom}>
-        <Image src={img6} alt="img6" layout="fill"/>
+        <Image src={img6} alt="img6" layout="fill" priority="true"/>
         </div>
         </div>
         </SwiperSlide>
    <SwiperSlide>
         <div className={home.BottomInner}>
         <div className={home.imageBottom}>
-        <Image src={img7} alt="img7" layout="fill"/>
+        <Image src={img7} alt="img7" layout="fill" priority="true"/>
         </div>
         </div>
         </SwiperSlide>
    <SwiperSlide>
         <div className={home.BottomInner}>
         <div className={home.imageBottom}>
-        <Image src={img8} alt="img8" layout="fill"/>
+        <Image src={img8} alt="img8" layout="fill" priority="true"/>
         </div>
         </div>
         </SwiperSlide>
    <SwiperSlide>
         <div className={home.BottomInner}>
         <div className={home.imageBottom}>
-        <Image src={img9} alt="img9" layout="fill"/>
+        <Image src={img9} alt="img9" layout="fill" priority="true"/>
         </div>
         </div>
         </SwiperSlide>
    <SwiperSlide>
         <div className={home.BottomInner}>
         <div className={home.imageBottom}>
-        <Image src={img10} alt="img10" layout="fill"/>
+        <Image src={img10} alt="img10" layout="fill" priority="true"/>
         </div>
         </div>
         </SwiperSlide>
    <SwiperSlide>
         <div className={home.BottomInner}>
         <div className={home.imageBottom}>
-        <Image src={img11} alt="img11" layout="fill"/>
+        <Image src={img11} alt="img11" layout="fill" priority="true"/>
         </div>
         </div>
         </SwiperSlide>
    <SwiperSlide>
         <div className={home.BottomInner}>
         <div className={home.imageBottom}>
-        <Image src={img12} alt="img12" layout="fill"/>
+        <Image src={img12} alt="img12" layout="fill" priority="true"/>
         </div>
         </div>
         </SwiperSlide>

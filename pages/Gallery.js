@@ -3,11 +3,10 @@ import Header from "../Components/Header";
 import Footer from "../Components/Footer";
 import Styles from "../styles/admin.module.css";
 import gallery from "../styles/Gallery.module.css";
-import Link from 'next/link'
 import { Swiper, SwiperSlide } from "swiper/react";
 import Image from "next/image";
 import { BsArrowsFullscreen } from 'react-icons/bs';
-import { useEffect,useState } from "react";
+import { useState } from "react";
 
 import GalleryData from "../Data/Gallery";
 // Import Swiper styles
@@ -48,7 +47,7 @@ setStart(number-1)
  
  </div>
  <div className={gallery.imgs}>
- <Image src={item.ImagePath} alt="img1" height={200} width={400} />
+ <Image src={item.ImagePath} alt="img1" height={200} width={400} priority="true"/>
  </div>
  <div className={gallery.data}>
 {item.title}

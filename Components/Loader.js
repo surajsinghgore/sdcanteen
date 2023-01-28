@@ -11,7 +11,7 @@ export default function Loader({loader}) {
     <div className="bg">
     <div className="loader">
     <Image src={LoaderImage} layout='fill'
-    objectFit='contain' alt="loader" className="image"/>
+    objectFit='contain' alt="loader" className="image" priority="true"/>
         </div>
         </div>
         </div> : ""}

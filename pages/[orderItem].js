@@ -1250,11 +1250,12 @@ setShareState(!shareState)
           <div className={style.topSection}>
             <div className={style.left}>
               <Image
-                src={`/FoodItemImages/${data[0].Image}`}
+                src={data[0].Image}
                 alt="image"
                 width={"480px"}
                 height={"400px"}
                 objectFit="cover"
+                priority="true"
               />
             </div>
             <div className={style.right}>
@@ -1591,11 +1592,12 @@ setShareState(!shareState)
           <div className={style.topSection}>
             <div className={style.left}>
               <Image
-                src={`/CoffeeItemImages/${data[0].Image}`}
+                src={data[0].Image}
                 alt="image"
                 width={"480px"}
                 height={"400px"}
                 objectFit="cover"
+                priority="true"
               />
             </div>
             <div className={style.right}>
@@ -1925,11 +1927,11 @@ setShareState(!shareState)
           <div className={style.topSection}>
             <div className={style.left}>
               <Image
-                src={`/DrinkItemImages/${data[0].Image}`}
+                src={data[0].Image}
                 alt="image"
                 width={"440px"}
                 height={"400px"}
-           
+           priority="true"
               />
             </div>
             <div className={style.right}>
@@ -2258,11 +2260,11 @@ setShareState(!shareState)
           <div className={style.topSection}>
             <div className={style.left}>
               <Image
-                src={`/JuiceItemImages/${data[0].Image}`}
+                src={data[0].Image}
                 alt="image"
                 width={"350px"}
                 height={"400px"}
-               
+               priority="true"
               />
             </div>
             <div className={style.right}>

@@ -95,7 +95,7 @@ navigation={true}
         <SwiperSlide>
         <div className="div1">
 <div className="imgs-section">
-<Image src={Img5} alt="img1" height={559} width={1366}/>
+<Image src={Img5} alt="img1" height={559} width={1366} priority="true"/>
 </div>
 <div className="details">
 <h1 id="hh1">Since I had my first sip of coke, life was never the same again.</h1>

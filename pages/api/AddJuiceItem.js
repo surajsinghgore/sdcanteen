@@ -59,7 +59,7 @@ let randomImageNameGen=crypto.randomBytes(16).toString('hex')+req.file.originaln
 let imageDbUrl=`JuiceItemImages/${randomImageNameGen}`;
 const params = {
   Bucket: buketName, 
-  Key: `JuiceItemImages/${randomImageNameGen}`, 
+  Key: `https://sdcanteenspace.nyc3.cdn.digitaloceanspaces.com/JuiceItemImages/${randomImageNameGen}`, 
   Body:ImageGetFromClient,
   ACL: "public-read"
 };

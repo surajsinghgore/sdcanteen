@@ -8,6 +8,11 @@ images: {
         hostname: 'sdcanteenspace.nyc3.cdn.digitaloceanspaces.com',
        
       },
+         {
+        protocol: 'https',
+        hostname: 'sdcanteenspace.nyc3.digitaloceanspaces.com',
+       
+      },
     ],
   },
 }

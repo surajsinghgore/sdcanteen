@@ -248,7 +248,7 @@ localStorage.setItem("itemOrder",itm._id)
   
      <div className={Style.card} key={item.item._id} loading="lazy">
    <div className={Style.Img}>
-  <Link href={`/${item.item.DrinkName}`}><a> <Image src={`  ${ImagePath}/DrinkItemImages/${item.item.Image}`} alt={item.item.Image} width={385} height={250} loading="lazy" /></a></Link>
+  <Link href={`/${item.item.DrinkName}`}><a> <Image src={item.item.Image} alt={item.item.Image} width={385} height={250} priority="true"/></a></Link>
    </div>
    <div className={Style.deatils}>
    <Link href={`/${item.item.DrinkName}`}><a><h1>{item.item.DrinkName}</h1></a></Link>

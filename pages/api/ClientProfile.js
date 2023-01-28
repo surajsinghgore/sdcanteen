@@ -1,11 +1,16 @@
 import DbConnection from "./Middleware/DbConnection";
-import ClientRegistrationTemporary from "./Schema/ClientRegistrationTemp";
 import ClientData from "./Schema/ClientData";
-import multer from 'multer'
 import VerifyClientUser from "./Middleware/ClientVerifyMiddleware";
+import crypto from 'crypto'
+import multer from "multer";
+import { S3Client,PutObjectCommand } from "@aws-sdk/client-s3";
+let buketName=process.env.NEXT_PUBLIC_BUCKETNAME;
+let secretID=process.env.NEXT_PUBLIC_AWS_ACCESS_KEY_ID;
+let secretKey=process.env.NEXT_PUBLIC_AWS_SECRET_ACCESS_KEY;
 
 import nextConnect from "next-connect";
 const handler = nextConnect();
+
 
 export const config = {
   api: {
@@ -13,16 +18,7 @@ export const config = {
   },
 };
 
-const storage = multer.diskStorage({
-  destination: "./public/ClientImages/",
-  filename: function (req, file, cb) {
-    cb(
-      null,
-      new Date().toISOString().replace(/:/g, "-") + "-" + file.originalname
-    );
-  },
-});
-
+const storage = multer.memoryStorage()
 const fileFilter = (req, file, cb) => {
   if (
     file.mimetype === "image/jpeg" ||
@@ -35,7 +31,7 @@ const fileFilter = (req, file, cb) => {
   }
 };
 
-const uploard = multer({
+const upload = multer({
   storage: storage,
   limits: {
     fileSize: 1024 * 1024 * 5,
@@ -43,25 +39,43 @@ const uploard = multer({
   fileFilter: fileFilter,
 });
 
- handler.use(uploard.single("Profile"));
+const s3=new S3Client({
+endpoint: process.env.NEXT_PUBLIC_ENDPOINT,
+ forcePathStyle: false, 
+    region: process.env.NEXT_PUBLIC_S3_REGION,
+credentials:{
+accessKeyId:secretID,
+secretAccessKey:secretKey
+},
+})
+
+ handler.use(upload.single("Profile"));
+
+
 handler.post(async(req, res) => {
   try {
     DbConnection();
      await VerifyClientUser(req, res); 
       let _id = req.cookies.clinetId;
-    const Profile = req.file.filename;
     if (!_id) {
-      res.status(401).json({ message: "Please Provide Id" });
+      res.status(401).json({ message: "Please Login with Valid Credentails" });
     }
-    if (!Profile) {
-      res.status(400).json({ message: "Please Upload Profile Photo" });
-    } 
+   let ImageGetFromClient=req.file.buffer;
+let randomImageNameGen=crypto.randomBytes(16).toString('hex')+req.file.originalname;
+let imageDbUrl=`https://sdcanteenspace.nyc3.cdn.digitaloceanspaces.com/ClientImages/${randomImageNameGen}`;
+const params = {
+  Bucket: buketName, 
+  Key: `ClientImages/${randomImageNameGen}`, 
+  Body:ImageGetFromClient,
+  ACL: "public-read"
+};
 
-const ress=await ClientData.findByIdAndUpdate(_id, { Profile: Profile }).select('-Password');
+
+
+const ress=await ClientData.findByIdAndUpdate(_id, { Profile: imageDbUrl }).select('-Password');
     if(ress){
-
-
-return res.status(201).json({data:ress,message:"Verification Otp is Send To Email",status:"201"})
+  await s3.send(new PutObjectCommand(params));
+return res.status(201).json({data:ress})
     
     }
    
