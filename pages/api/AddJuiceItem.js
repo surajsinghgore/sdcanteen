@@ -56,10 +56,10 @@ handler.post(async (req, res) => {
     DbConnection();
    let ImageGetFromClient=req.file.buffer;
 let randomImageNameGen=crypto.randomBytes(16).toString('hex')+req.file.originalname;
-let imageDbUrl=`JuiceItemImages/${randomImageNameGen}`;
+let imageDbUrl=`https://sdcanteenspace.nyc3.cdn.digitaloceanspaces.com/JuiceItemImages/${randomImageNameGen}`;
 const params = {
   Bucket: buketName, 
-  Key: `https://sdcanteenspace.nyc3.cdn.digitaloceanspaces.com/JuiceItemImages/${randomImageNameGen}`, 
+  Key: `JuiceItemImages/${randomImageNameGen}`, 
   Body:ImageGetFromClient,
   ACL: "public-read"
 };

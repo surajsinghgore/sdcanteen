@@ -130,6 +130,7 @@ localStorage.setItem('adminlogin',"true")
             alt="login banner image"
             width={800}
             height={550}
+            priority="true"
           />
         </div>
       </div>
@@ -140,6 +141,7 @@ localStorage.setItem('adminlogin',"true")
             alt="login banner image"
             width={800}
             height={800}
+             priority="true"
           />
         </div>
         <h1>Sign in to Admin Panel</h1>

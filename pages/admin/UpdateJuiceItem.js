@@ -160,11 +160,11 @@ const [progress, setProgress] = useState(0);
                     <div className={ShowStyles.card} key={index}>
                       <li className={ShowStyles.Image_Section}>
                         <Image
-                          src={`/JuiceItemImages/${item.Image}`}
+                        src={item.Image}
                           alt={item.Image}
                           height="550"
                           width="800"
-                          loading="lazy"
+                          priority="true"
                         />
                       </li>
                       <li className={ShowStyles.Item_Name}>
