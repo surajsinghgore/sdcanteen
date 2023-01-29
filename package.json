@@ -12,7 +12,6 @@
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.259.0",
-    "@aws-sdk/s3-request-presigner": "^3.259.0",
     "@emotion/react": "^11.10.0",
     "@emotion/styled": "^11.10.0",
     "@formspree/react": "^2.4.0",
