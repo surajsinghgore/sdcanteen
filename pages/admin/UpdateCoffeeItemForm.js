@@ -38,14 +38,15 @@ const handleChanges=()=>{
 
 
  const send=()=>{
-   if (filterCoffeeItemsData.datas==undefined) {
-          function back(){
+ function check(){
+ 
+   if (filterCoffeeItemsData.datas==undefined) {  
     router.push('/admin/UpdateCoffeeItem')
-          }
-    setTimeout(back,1500);
-   
+    return ;
 }
-    else  {
+ }
+    setTimeout(check,1500);
+  
       setCoffeeName(filterCoffeeItemsData.datas.CoffeeName);
       setQtys(filterCoffeeItemsData.datas.Qty);
       setCategory(filterCoffeeItemsData.datas.Category);
@@ -68,7 +69,7 @@ if(filterCoffeeItemsData.small!=null){setSmallPrice(parseInt(filterCoffeeItemsDa
 setSmallPrice("")
 }
 
-    }
+    
   }
   useEffect(() => {
  

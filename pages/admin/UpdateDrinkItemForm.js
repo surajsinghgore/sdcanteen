@@ -38,14 +38,14 @@ const handleChanges=()=>{
 
 
  const send=()=>{
-   if (filterDrinkItemsData.datas==undefined) {
-          function back(){
+   function check(){
+        if (filterDrinkItemsData.datas==undefined) {  
     router.push('/admin/UpdateDrinkItem')
-          }
-    setTimeout(back,1500);
+          return;}
    
 }
-    else  {
+    setTimeout(check,1500);
+    
       setDrinkName(filterDrinkItemsData.datas.DrinkName);
       setQtys(filterDrinkItemsData.datas.Qty);
       setCategory(filterDrinkItemsData.datas.Category);
@@ -68,7 +68,7 @@ if(filterDrinkItemsData.small!=null){setSmallPrice(parseInt(filterDrinkItemsData
 setSmallPrice("")
 }
 
-    }
+    
   }
   useEffect(() => {
  

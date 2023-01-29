@@ -35,14 +35,14 @@ const [normalPriceName,setNormalPriceName]=useState("Normal Price")
   const [description, setDescription] = useState("");
   
   const send=()=>{
-   if (filterFoodItemsData.datas==undefined) {
-          function back(){
+   function check(){
+      if (filterFoodItemsData.datas==undefined) {  
     router.push('/admin/UpdateFoodItem')
-          }
-    setTimeout(back,1500);
-   
+        return;
+      }
 }
-    else  {
+    setTimeout(check,1500);
+  
       setFoodName(filterFoodItemsData.datas.FoodName);
       setQtys(filterFoodItemsData.datas.Qty);
       setCategory(filterFoodItemsData.datas.Category);
@@ -65,7 +65,7 @@ if(filterFoodItemsData.small!=null){setSmallPrice(parseInt(filterFoodItemsData.s
 setSmallPrice("")
 }
 
-    }
+    
   }
   useEffect(() => {
  

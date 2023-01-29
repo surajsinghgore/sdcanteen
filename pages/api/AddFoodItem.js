@@ -76,25 +76,25 @@ const params = {
     let Active = req.body.Active;
     let Description = req.body.Description;
     let normalPrice;
-    let smallPrice;
+    let halfPrice;
     let mediumPrice;
     let largePrice;
 
-    if (req.body.largePriceName) {
-      largePrice = parseInt(req.body.largePriceName);
+    if (req.body.largePrice) {
+      largePrice = parseInt(req.body.largePrice);
       array.push({ sizeName: "largeSize", Price: largePrice });
     }
     if (req.body.normalPriceName) {
       normalPrice = parseInt(req.body.normalPriceName);
       array.push({ sizeName: "normalSize", Price: normalPrice });
     }
-    if (req.body.mediumPriceName) {
-      mediumPrice = parseInt(req.body.mediumPriceName);
+    if (req.body.mediumPrice) {
+      mediumPrice = parseInt(req.body.mediumPrice);
       array.push({ sizeName: "mediumSize", Price: mediumPrice });
     }
-    if (req.body.smallPriceName) {
-      smallPrice = parseInt(req.body.smallPriceName);
-      array.push({ sizeName: "smallSize", Price: smallPrice });
+    if (req.body.halfPrice) {
+      halfPrice = parseInt(req.body.halfPrice);
+      array.push({ sizeName: "halfPrice", Price: halfPrice });
     }
     if (FoodName==undefined) {
       return res.status(400).json({ message: "Please Enter Food Name" });
