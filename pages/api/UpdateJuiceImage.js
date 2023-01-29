@@ -71,13 +71,11 @@ let verify=await VerifyAdmin(req, res);
 
        let find=await JuiceItemSchema.findById(_id);
      
+    const oldImage = find.Image;
     if (oldImage==undefined||oldImage==null) {
     return  res.status(400).json({ message: "Please Provide Old Image" });
     }
-    const oldImage = find.Image;
-    if (oldImage==undefined) {
-      res.status(400).json({ message: "Please Provide Old Image" });
-    }
+  
 
 let randomImageNameGen=crypto.randomBytes(16).toString('hex')+req.file.originalname;
 let imageDbUrl=`JuiceItemImages/${randomImageNameGen}`;
@@ -96,6 +94,7 @@ const DelParams = {
   Key: oldImage, 
 };
 await s3.send(new PutObjectCommand(params));
+await s3.send(new DeleteObjectCommand(DelParams));
 await JuiceItemSchema.findByIdAndUpdate(_id, { Image: imageDbUrl });
 
               return res.status(201).json({ message:'Juice Item Successfully Update' });

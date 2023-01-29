@@ -71,16 +71,12 @@ let verify=await VerifyAdmin(req, res);
     }
 
        let find=await FoodItemSchema.findById(_id);
+    const oldImage = find.Image;
        
     if (oldImage==undefined||oldImage==null) {
     return  res.status(400).json({ message: "Please Provide Old Image" });
     }
-    const oldImage = find.Image;
 
-
-    if (oldImage==undefined) {
-      res.status(400).json({ message: "Please Provide Old Image" });
-    }
 
 let randomImageNameGen=crypto.randomBytes(16).toString('hex')+req.file.originalname;
 let imageDbUrl=`FoodItemImages/${randomImageNameGen}`;
