@@ -135,7 +135,7 @@ setOrderView(true)
    <Link href="/OrderComplete"><a><h6>Order Cooking</h6></a></Link>
     <button title='Hide' onClick={()=>hide()}>x</button>
      <Link href="/OrderComplete"><a> <div className="cookImage">
-    <Image src={cooking} layout="responsive" alt="cooking image" />
+    <Image src={cooking} layout="responsive" alt="cooking image" priority="true"/>
     </div></a></Link>
         </div>
     </div>

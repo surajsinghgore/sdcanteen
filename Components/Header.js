@@ -16,6 +16,8 @@ import { AiOutlineShoppingCart } from 'react-icons/ai';
 import { useState } from 'react';
 import {  useCart } from "react-use-cart";
 import router from 'next/router'
+let ImagePath=process.env.NEXT_PUBLIC_IMAGESPACEPATH;
+
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 let boyProfile = 'https://sdcanteenspace.nyc3.cdn.digitaloceanspaces.com/ExtraImages/men.png'
@@ -51,7 +53,7 @@ const res = await fetch(`${HOST}/api/ShowClientDetails`, {
     });
 
 let data=await res.json();
-console.log(data)
+
 if(data!=undefined){
 
 if(res.status==404){
@@ -98,7 +100,7 @@ if(data.data.Profile==""){
 router.push('/ClientProfileUpload')
 }
 if(data.data.Profile!==""){
-setImgs(data.data.Profile)
+setImgs(`${ImagePath}/${data.data.Profile}`)
 }
 
 if(data.data.FullName){

@@ -15,7 +15,7 @@ let HOST = process.env.NEXT_PUBLIC_API_URL;
 import LoadingBar from "react-top-loading-bar";
 import VerifyAdminLogin from './VerifyAdminLogin';
 
-
+let ImagePath=process.env.NEXT_PUBLIC_IMAGESPACEPATH;
 export default function UpdateDrinkItem() {const [progress, setProgress] = useState(0);
   const { updateDrinkItem } = useContext(AllContext);
   const [drinkNameSearch, setDrinkNameSearch] = useState("");
@@ -156,7 +156,7 @@ export default function UpdateDrinkItem() {const [progress, setProgress] = useSt
                     <div className={ShowStyles.card} key={index}>
                       <li className={ShowStyles.Image_Section}>
                         <Image
-                         src={item.Image}
+                      src={`${ImagePath}/${item.Image}`}
                           alt={item.Image}
                           height="550"
                           width="800"

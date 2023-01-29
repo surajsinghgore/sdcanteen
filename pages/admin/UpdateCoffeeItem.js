@@ -14,7 +14,7 @@ import { AllContext } from "../../context/AllContext";
 let HOST = process.env.NEXT_PUBLIC_API_URL;
 import VerifyAdminLogin from './VerifyAdminLogin';
 import LoadingBar from "react-top-loading-bar";
-
+let ImagePath=process.env.NEXT_PUBLIC_IMAGESPACEPATH;
 export default function UpdateCoffeeItem() {const [progress, setProgress] = useState(0);
   const { updateCoffeeItem } = useContext(AllContext);
   
@@ -161,7 +161,7 @@ export default function UpdateCoffeeItem() {const [progress, setProgress] = useS
                     <div className={ShowStyles.card} key={index}>
                       <li className={ShowStyles.Image_Section}>
                         <Image
-                          src={item.Image}
+                          src={`${ImagePath}/${item.Image}`}
                           alt={item.Image}
                           height="550"
                           width="800"

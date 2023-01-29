@@ -85,7 +85,7 @@ return <div className={home.card} key={items._id}>
 {(items.FoodName)?<Link href={`/${items.FoodName}`}><a>
 <div>
 <div className={home.img}>
-<Image src={`${ImagePath}/FoodItemImages/${items.Image}`} alt="food" height={260} width={380} />
+<Image src={`${ImagePath}/${items.Image}`} alt="food" height={260} width={380} />
 </div> 
 <div className={home.data}>
 <h4>{items.FoodName}</h4>
@@ -112,7 +112,7 @@ return <div className={home.card} key={items._id}>
 {(items.FoodName)?<Link href={`/${items.FoodName}`}><a>
 <div>
 <div className={home.img}>
-<Image src={`${ImagePath}/FoodItemImages/${items.Image}`} alt="food" height={260} width={380} />
+<Image src={`${ImagePath}/${items.Image}`} alt="food" height={260} width={380} />
 </div> 
 <div className={home.data}>
 <h4>{items.FoodName}</h4>

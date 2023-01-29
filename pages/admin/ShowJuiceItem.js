@@ -137,7 +137,7 @@ export default function ShowJuiceItem({ datas }) {
                     <div className={ShowStyles.card} key={index}>
                       <li className={ShowStyles.Image_Section}>
                         <Image
-                          src={item.Image}
+                          src={`${ImagePath}/${item.Image}`}
                           alt={item.Image}
                           height="550"
                           width="800"

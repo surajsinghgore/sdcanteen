@@ -8,6 +8,8 @@ import style from "../styles/SearchBar.module.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 let HOST = process.env.NEXT_PUBLIC_API_URL;
+let ImagePath=process.env.NEXT_PUBLIC_IMAGESPACEPATH;
+
 import { IoMdShareAlt } from 'react-icons/io';
 import {
 
@@ -1250,7 +1252,7 @@ setShareState(!shareState)
           <div className={style.topSection}>
             <div className={style.left}>
               <Image
-                src={data[0].Image}
+                src={`${ImagePath}/${data[0].Image}`}
                 alt="image"
                 width={"480px"}
                 height={"400px"}
@@ -1592,7 +1594,7 @@ setShareState(!shareState)
           <div className={style.topSection}>
             <div className={style.left}>
               <Image
-                src={data[0].Image}
+                src={`${ImagePath}/${data[0].Image}`}
                 alt="image"
                 width={"480px"}
                 height={"400px"}
@@ -1927,7 +1929,7 @@ setShareState(!shareState)
           <div className={style.topSection}>
             <div className={style.left}>
               <Image
-                src={data[0].Image}
+                src={`${ImagePath}/${data[0].Image}`}
                 alt="image"
                 width={"440px"}
                 height={"400px"}
@@ -2260,7 +2262,7 @@ setShareState(!shareState)
           <div className={style.topSection}>
             <div className={style.left}>
               <Image
-                src={data[0].Image}
+                src={`${ImagePath}/${data[0].Image}`}
                 alt="image"
                 width={"350px"}
                 height={"400px"}

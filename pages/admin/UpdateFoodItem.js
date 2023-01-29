@@ -14,7 +14,7 @@ import LoadingBar from "react-top-loading-bar";
 import router from "next/router";
 import { AllContext } from "../../context/AllContext";
 let HOST = process.env.NEXT_PUBLIC_API_URL;
-
+let ImagePath=process.env.NEXT_PUBLIC_IMAGESPACEPATH;
 export default function UpdateFoodItem() {const [progress, setProgress] = useState(0);
   const { updateFoodItem } = useContext(AllContext);
   const [foodNameSearch, setFoodNameSearch] = useState();
@@ -149,7 +149,7 @@ export default function UpdateFoodItem() {const [progress, setProgress] = useSta
                     <div className={ShowStyles.card} key={index}>
                       <li className={ShowStyles.Image_Section}>
                         <Image
-                        src={item.Image}
+                      src={`${ImagePath}/${item.Image}`}
                           alt={item.Image}
                           height="550"
                           width="800"

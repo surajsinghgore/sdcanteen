@@ -2,10 +2,14 @@ import DbConnection from "./Middleware/DbConnection";
 import nextConnect from "next-connect";
 import ClientData from "./Schema/ClientData";
 import VerifyClientUser from "./Middleware/ClientVerifyMiddleware";
-var fs = require("fs");
 const handler = nextConnect();
-
 import multer from "multer";
+import { S3Client,PutObjectCommand, DeleteObjectCommand } from "@aws-sdk/client-s3";
+let buketName=process.env.NEXT_PUBLIC_BUCKETNAME;
+let secretID=process.env.NEXT_PUBLIC_AWS_ACCESS_KEY_ID;
+let secretKey=process.env.NEXT_PUBLIC_AWS_SECRET_ACCESS_KEY;
+import crypto from 'crypto'
+
 
 export const config = {
   api: {
@@ -13,16 +17,7 @@ export const config = {
   },
 };
 
-const storage = multer.diskStorage({
-  destination: "./public/ClientImages/",
-  filename: function (req, file, cb) {
-    cb(
-      null,
-      new Date().toISOString().replace(/:/g, "-") + "-" + file.originalname
-    );
-  },
-});
-
+const storage = multer.memoryStorage()
 const fileFilter = (req, file, cb) => {
   if (
     file.mimetype === "image/jpeg" ||
@@ -35,7 +30,7 @@ const fileFilter = (req, file, cb) => {
   }
 };
 
-const uploard = multer({
+const upload = multer({
   storage: storage,
   limits: {
     fileSize: 1024 * 1024 * 5,
@@ -43,7 +38,17 @@ const uploard = multer({
   fileFilter: fileFilter,
 });
 
- handler.use(uploard.single("Profile"));
+const s3=new S3Client({
+endpoint: process.env.NEXT_PUBLIC_ENDPOINT,
+ forcePathStyle: false, 
+    region: process.env.NEXT_PUBLIC_S3_REGION,
+credentials:{
+accessKeyId:secretID,
+secretAccessKey:secretKey
+},
+})
+
+ handler.use(upload.single("Profile"));
 
 handler.post(async (req, res) => {
   try {
@@ -52,34 +57,45 @@ handler.post(async (req, res) => {
     let verify=await VerifyClientUser(req, res);
     let id=verify.id;
 let find=await ClientData.findById(id);
-    const Image = req.file.filename;
+if(find==null||find==undefined){
+       return res.status(400).json({message:"User Not Exits with this Id"})
+       }
     const oldImage = find.Profile;
-   var filePath = `./public/ClientImages/${Image}`;
+
  if(verify==undefined){
- await fs.unlinkSync(filePath);
     return res.status(401).json({ message: "Please login with client account" });
     }
 
-    if (!oldImage) {
+    if (oldImage==undefined) {
       res.status(400).json({ message: "Please Provide Old Image" });
     }
-    if (!Image) {
-      res.status(400).json({ message: "Please Enter Item Image" });
-    }
-    var filePaths = `./public/ClientImages/${oldImage}`;
+    
 
-    let ress = await ClientData.findByIdAndUpdate(id, { Profile: Image });
-    if (ress) {
-      await fs.unlinkSync(filePaths);
-      res.status(201).json({ ress, status: "201" });
-    }
-     else{
-     await fs.unlinkSync(filePath);
-    return res.status(401).json({ message: "Please login with client credentails" });
-    }
+let randomImageNameGen=crypto.randomBytes(16).toString('hex')+req.file.originalname;
+let imageDbUrl=`ClientImages/${randomImageNameGen}`;
+       let ImageGetFromClient=req.file.buffer;
+    
+        
+     const params = {
+  Bucket: buketName, 
+  Key: `ClientImages/${randomImageNameGen}`, 
+  Body:ImageGetFromClient,
+  ACL: "public-read"
+};
+
+    const DelParams = {
+  Bucket: buketName, 
+  Key: oldImage, 
+};
+await s3.send(new PutObjectCommand(params));
+await s3.send(new DeleteObjectCommand(DelParams));
+ await ClientData.findByIdAndUpdate(id, { Profile: imageDbUrl });
+return res.status(201).json({ message:"successfully upload profile"});
+    
+   
   } catch (e) {
     console.log(e);
-    res.status(501).json({ message: "Internal Server Error", status: "201" });
+    res.status(501).json({ message: "Internal Server Error" });
   }
 });
 

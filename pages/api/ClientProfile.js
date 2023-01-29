@@ -62,7 +62,7 @@ handler.post(async(req, res) => {
     }
    let ImageGetFromClient=req.file.buffer;
 let randomImageNameGen=crypto.randomBytes(16).toString('hex')+req.file.originalname;
-let imageDbUrl=`https://sdcanteenspace.nyc3.cdn.digitaloceanspaces.com/ClientImages/${randomImageNameGen}`;
+let imageDbUrl=`ClientImages/${randomImageNameGen}`;
 const params = {
   Bucket: buketName, 
   Key: `ClientImages/${randomImageNameGen}`, 

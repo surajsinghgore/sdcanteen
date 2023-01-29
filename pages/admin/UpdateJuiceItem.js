@@ -10,7 +10,7 @@ import { FiEdit } from "react-icons/fi";
 import Image from "next/image";
 import VerifyAdminLogin from './VerifyAdminLogin';
 import LoadingBar from "react-top-loading-bar";
-
+let ImagePath=process.env.NEXT_PUBLIC_IMAGESPACEPATH;
 import "react-toastify/dist/ReactToastify.css";
 import router from "next/router";
 import { AllContext } from "../../context/AllContext";
@@ -160,7 +160,7 @@ const [progress, setProgress] = useState(0);
                     <div className={ShowStyles.card} key={index}>
                       <li className={ShowStyles.Image_Section}>
                         <Image
-                        src={item.Image}
+                  src={`${ImagePath}/${item.Image}`}
                           alt={item.Image}
                           height="550"
                           width="800"

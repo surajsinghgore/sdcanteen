@@ -3,12 +3,17 @@ import JuiceItemSchema from "./Schema/JuiceItemSchema";
 import nextConnect from "next-connect";
 import VerifyAdmin from "./Middleware/MiddlewareAdminVerify";
 
-import Path from "path";
-var fs = require("fs");
+import { S3Client,PutObjectCommand , DeleteObjectCommand } from "@aws-sdk/client-s3";
+let buketName=process.env.NEXT_PUBLIC_BUCKETNAME;
+let secretID=process.env.NEXT_PUBLIC_AWS_ACCESS_KEY_ID;
+let secretKey=process.env.NEXT_PUBLIC_AWS_SECRET_ACCESS_KEY;
+import crypto from 'crypto'
+
 
 const handler = nextConnect();
 
 import multer from "multer";
+
 
 export const config = {
   api: {
@@ -16,16 +21,7 @@ export const config = {
   },
 };
 
-const storage = multer.diskStorage({
-  destination: "./public/JuiceItemImages/",
-  filename: function (req, file, cb) {
-    cb(
-      null,
-      new Date().toISOString().replace(/:/g, "-") + "-" + file.originalname
-    );
-  },
-});
-
+const storage = multer.memoryStorage()
 const fileFilter = (req, file, cb) => {
   if (
     file.mimetype === "image/jpeg" ||
@@ -38,51 +34,77 @@ const fileFilter = (req, file, cb) => {
   }
 };
 
-const uploard = multer({
+const upload = multer({
   storage: storage,
   limits: {
     fileSize: 1024 * 1024 * 5,
   },
   fileFilter: fileFilter,
 });
+const s3=new S3Client({
+endpoint: process.env.NEXT_PUBLIC_ENDPOINT,
+ forcePathStyle: false, 
+    region: process.env.NEXT_PUBLIC_S3_REGION,
+credentials:{
+accessKeyId:secretID,
+secretAccessKey:secretKey
+},
+})
 
-handler.use(uploard.single("Image"));
+handler.use(upload.single("Image"));
 handler.post(async (req, res) => {
   try {
     DbConnection();
-  
-
-    let _id = req.body._id;
-    const oldImage = req.body.oldImage;
-    const Image = req.file.filename;
-      var filePath = `./public/JuiceItemImages/${oldImage}`;
+    
 let verify=await VerifyAdmin(req, res);
  if(verify==undefined){
- await fs.unlinkSync(filePath);
+
     return res.status(401).json({ message: "Please login with admin credentails" });
     }
-    if (!_id) {
+
+    let _id = req.body._id;
+
+    
+    if (_id==undefined) {
       res.status(400).json({ message: "Please Provide Id" });
     }
-    if (!oldImage) {
+
+       let find=await JuiceItemSchema.findById(_id);
+     
+    if (oldImage==undefined||oldImage==null) {
+    return  res.status(400).json({ message: "Please Provide Old Image" });
+    }
+    const oldImage = find.Profile;
+    if (oldImage==undefined) {
       res.status(400).json({ message: "Please Provide Old Image" });
     }
-    if (!Image) {
-      res.status(400).json({ message: "Please Enter Item Image" });
-    }
-  
 
-    let ress = await JuiceItemSchema.findByIdAndUpdate(_id, { Image: Image });
-    if (ress) {
-      await fs.unlinkSync(filePath);
-      res.status(201).json({ ress, status: "201" });
-    } else{
-     await fs.unlinkSync(filePath);
-     return res.status(401).json({ message: "Please login with admin credentails" });
-    }
+let randomImageNameGen=crypto.randomBytes(16).toString('hex')+req.file.originalname;
+let imageDbUrl=`ClientImages/${randomImageNameGen}`;
+       let ImageGetFromClient=req.file.buffer;
+
+
+  
+             const params = {
+  Bucket: buketName, 
+ Key: `JuiceItemImages/${randomImageNameGen}`, 
+  Body:ImageGetFromClient,
+  ACL: "public-read"
+};
+const DelParams = {
+  Bucket: buketName, 
+  Key: oldImage, 
+};
+await s3.send(new PutObjectCommand(params));
+await JuiceItemSchema.findByIdAndUpdate(_id, { Image: imageDbUrl });
+
+              return res.status(201).json({ message:'Juice Item Successfully Update' });
+
+     
+   
   } catch (e) {
     console.log(e);
-    res.status(501).json({ message: "Internal Server Error", status: "201" });
+    res.status(501).json({ message: "Internal Server Error" });
   }
 });
 

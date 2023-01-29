@@ -8,6 +8,8 @@ import "react-toastify/dist/ReactToastify.css";
 import Loader from "../Components/Loader";
 import { useEffect ,useState} from "react";
 import Link from 'next/link'
+import LoadingBar from "react-top-loading-bar";
+
 import { AiOutlineCloudUpload } from 'react-icons/ai';
 import router from 'next/router'
 let ImagePath=process.env.NEXT_PUBLIC_IMAGESPACEPATH;
@@ -23,6 +25,7 @@ import { RiLockPasswordLine } from 'react-icons/ri';
 import { MdEdit } from 'react-icons/md';
 
 export default function ClientManage() {
+const [progress, setProgress] = useState(0);
  const [imgs, setImgs] = useState(boyProfile);
   const [files, setFiles] = useState("");
 const [loader,setLoader]=useState(false);
@@ -46,12 +49,14 @@ const getDataClient=async()=>{
 setLoader(true)
 if(localStorage.getItem('login')!=undefined){
 const getData=async()=>{
+setProgress(40)
 const res = await fetch(`${HOST}/api/ShowClientDetails`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",
       }
     });
+setProgress(100)
 
 let data=await res.json();
 setLoader(false)
@@ -92,7 +97,7 @@ return ;
 
 if(data.data!==undefined){
 setData(data.data)
-setImgs(data.data.Profile)
+setImgs(`${ImagePath}/${data.data.Profile}`)
 setFullName(data.data.FullName)
 setAge(data.data.Age)
 setEmail(data.data.Email)
@@ -135,7 +140,10 @@ setUprofile(true)
 const lagout=()=>{
 
 const getData=async()=>{
+setProgress(40)
 const res = await fetch(`${HOST}/api/LogoutClient`);
+setProgress(100)
+
 await res.json();
 if(res.status==201){
 toast.success('User Logout Successfully', {
@@ -244,8 +252,9 @@ if(!address){
     });
 }
 
+setProgress(40)
 
-setLoader(true)
+
 const res = await fetch(`${HOST}/api/UpdateClientDetails`, {
       method: "POST",
       headers: {
@@ -255,26 +264,11 @@ const res = await fetch(`${HOST}/api/UpdateClientDetails`, {
         FullName:fullname,Age:age,Email:email,Mobile:mobile,Gender:gender,FullAddress:address
       }),
     });
- setLoader(false)
-    let datass=await res.json();
-if(datass.status=="400"){
-for(let i=0;i<datass.errors.length;i++){
-if(i<1){
-  toast.warn(`${datass.errors[i].msg}`, {
-position: "bottom-right",
-autoClose: 5000,
-hideProgressBar: false,
-closeOnClick: true,
-pauseOnHover: true,
-draggable: true,
-progress: undefined,
-});
 
-continue;
-}
-}
-return ;
-}
+setProgress(100)
+
+    let datass=await res.json();
+
 if(res.status==401){
 toast.warn("Please Login with Client Account", {
       position: "bottom-right",
@@ -341,10 +335,13 @@ return ;
 }
 const data = new FormData();
     data.append("Profile", files);
+setProgress(40)
+
  let res = await fetch(`${HOST}/api/UpdateClientProfile`, {
       method: "POST",
       body: data,
     });
+setProgress(100)
 
     let datas=await res.json();
     if(res.status==400){
@@ -525,7 +522,13 @@ return ;
 
 }
   return (
-    <><Loader loader={loader}/>
+    <><LoadingBar
+        color="rgb(255 82 0)"
+        height={3.5}
+        waitingTime={400}
+        progress={progress}
+        transitionTime={100}
+      />  <Loader loader={loader}/>
       <div className={Styles.admin}>
      <HeadTag title="Client Panel" />
    <Header />
