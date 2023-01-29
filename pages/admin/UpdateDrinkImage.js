@@ -25,7 +25,7 @@ export default function UpdateDrinkImage() {const [progress, setProgress] = useS
   const [files, setFiles] = useState("");
 useEffect(()=>{
 if(filterDrinkItemsData.datas!=undefined){
-setImgs(` ${ImagePath}/DrinkItemImages/${filterDrinkItemsData.datas.Image}`)
+setImgs(` ${ImagePath}/${filterDrinkItemsData.datas.Image}`)
 }
  else{
     router.push('/admin/UpdateDrinkItem')
@@ -46,7 +46,6 @@ setImgs(` ${ImagePath}/DrinkItemImages/${filterDrinkItemsData.datas.Image}`)
 
     const dataImage = new FormData();
     dataImage.append("_id", filterDrinkItemsData.datas._id);
-    dataImage.append("oldImage", filterDrinkItemsData.datas.Image);
     dataImage.append("Image", files);
 
     if (!files) {
@@ -94,7 +93,7 @@ setImgs(` ${ImagePath}/DrinkItemImages/${filterDrinkItemsData.datas.Image}`)
       return ;
     }
     let datas = await response.json();
-    if (datas.status == "501") {
+    if (response.status == 501) {
       toast.error(`${datas.message}`, {
         position: "bottom-right",
         autoClose: 1200,
@@ -106,7 +105,7 @@ setImgs(` ${ImagePath}/DrinkItemImages/${filterDrinkItemsData.datas.Image}`)
       });
       return ;
     }
-    if (datas.status == "400") {
+    if (response.status == 400) {
       toast.warn(`${datas.message}`, {
         position: "bottom-right",
         autoClose: 1200,
@@ -119,7 +118,7 @@ setImgs(` ${ImagePath}/DrinkItemImages/${filterDrinkItemsData.datas.Image}`)
       return ;
     }
 
-    if (datas.status == "201") {
+    if (response.status == 201) {
       toast.success(
         `${filterDrinkItemsData.datas.DrinkName} Image Successfully Updated`,
         {

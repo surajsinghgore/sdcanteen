@@ -24,7 +24,7 @@ export default function UpdateJuiceImage() {const [progress, setProgress] = useS
 
 useEffect(()=>{
 if(filterJuiceItemsData.datas!=undefined){
-setImgs(` ${ImagePath}/JuiceItemImages/${filterJuiceItemsData.datas.Image}`)
+setImgs(` ${ImagePath}/${filterJuiceItemsData.datas.Image}`)
 } else{
     router.push('/admin/UpdateJuiceItem')
 }
@@ -44,7 +44,7 @@ setImgs(` ${ImagePath}/JuiceItemImages/${filterJuiceItemsData.datas.Image}`)
 
     const dataImage = new FormData();
     dataImage.append("_id", filterJuiceItemsData.datas._id);
-    dataImage.append("oldImage", filterJuiceItemsData.datas.Image);
+  
     dataImage.append("Image", files);
 
     if (!files) {
@@ -92,7 +92,7 @@ setImgs(` ${ImagePath}/JuiceItemImages/${filterJuiceItemsData.datas.Image}`)
       return ;
     }
     let datas = await response.json();
-    if (datas.status == "501") {
+    if (response.status == 501) {
       toast.error(`${datas.message}`, {
         position: "bottom-right",
         autoClose: 1200,
@@ -104,7 +104,7 @@ setImgs(` ${ImagePath}/JuiceItemImages/${filterJuiceItemsData.datas.Image}`)
       });
       return ;
     }
-    if (datas.status == "400") {
+    if (response.status == 400) {
       toast.warn(`${datas.message}`, {
         position: "bottom-right",
         autoClose: 1200,
@@ -117,7 +117,7 @@ setImgs(` ${ImagePath}/JuiceItemImages/${filterJuiceItemsData.datas.Image}`)
       return ;
     }
 
-    if (datas.status == "201") {
+    if (response.status == 201) {
       toast.success(
         `${filterJuiceItemsData.datas.JuiceName} Image Successfully Updated`,
         {

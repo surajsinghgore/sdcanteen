@@ -19,6 +19,7 @@ import VerifyAdminLogin from './VerifyAdminLogin';
 import LoadingBar from "react-top-loading-bar";
 let ImagePath=process.env.NEXT_PUBLIC_IMAGESPACEPATH;
 
+
 export default function DeleteJuiceItem({ datas }) {
   const [useEffectCall, setUseEffectCall] = useState(false);
   const [juiceNameSearch, setJuiceNameSearch] = useState("");
@@ -261,7 +262,7 @@ const [progress, setProgress] = useState(0);
                     <div className={ShowStyles.card} key={index}>
                       <li className={ShowStyles.Image_Section}>
                         <Image
-                          src={`  ${ImagePath}/JuiceItemImages/${item.Image}`}
+                          src={`  ${ImagePath}/${item.Image}`}
                           alt={item.Image}
                           height="550"
                           width="800"

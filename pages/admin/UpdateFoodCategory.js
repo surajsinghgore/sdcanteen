@@ -114,11 +114,21 @@ setProgress(40)
   };
 
   useEffect(() => {
-    if (filterAllFoodCategoriesData!=undefined) {
+
+
+function check(){
+    if ((filterAllFoodCategoriesData[0]==undefined)||(filterAllFoodCategoriesData.length==0)) {
+   router.push('/admin/UpdateFoodCategory')
+    
+    }
+    
+    
+    else  {
       setFoodCategoryName(filterAllFoodCategoriesData[0].FoodCategoryName);
-    } else{
-    router.push('/admin/UpdateFoodCategory')
+    }
 }
+   
+setTimeout(check(),1200)
   }, [filterAllFoodCategoriesData]);
 
   return (

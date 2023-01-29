@@ -5,9 +5,20 @@ import FoodItemSchema from "./Schema/FoodItemSchema";
 import ItemRatings from './Schema/ItemRating'
 import TopSearchSchema from './Schema/NumberOfSearch'
 
+import { S3Client, DeleteObjectCommand } from "@aws-sdk/client-s3";
+let buketName=process.env.NEXT_PUBLIC_BUCKETNAME;
+let secretID=process.env.NEXT_PUBLIC_AWS_ACCESS_KEY_ID;
+let secretKey=process.env.NEXT_PUBLIC_AWS_SECRET_ACCESS_KEY;
 
-
-var fs = require("fs");
+const s3=new S3Client({
+endpoint: process.env.NEXT_PUBLIC_ENDPOINT,
+ forcePathStyle: false, 
+    region: process.env.NEXT_PUBLIC_S3_REGION,
+credentials:{
+accessKeyId:secretID,
+secretAccessKey:secretKey
+},
+})
 
 export default async function DeleteFoodItem(req, res) {
   if (req.method == "DELETE") {
@@ -19,20 +30,14 @@ export default async function DeleteFoodItem(req, res) {
     return res.status(401).json({ message: "Please login with admin credentails" });
     }
       let _id = req.body._id;
-      let imagePath = req.body.imagePath;
-      var filePath = `./public/FoodItemImages/${imagePath}`;
-
+     
       // not get id
       if (!_id) {
         return res
           .status(400)
           .json({ message: "Please Provide Id", status: "400" });
       }
-      if (!imagePath) {
-        return res
-          .status(400)
-          .json({ message: "Please Provide Image", status: "400" });
-      }
+    
 
       // match weather same Food name is not entered
       let match = await FoodItemSchema.findById(_id);
@@ -42,11 +47,17 @@ export default async function DeleteFoodItem(req, res) {
 
 
       if (match) {
+      let ImageToDelete=match.Image;
+      const DelParams = {
+  Bucket: buketName, 
+  Key: ImageToDelete, 
+};
+await s3.send(new DeleteObjectCommand(DelParams));
         await FoodItemSchema.findByIdAndDelete(_id);
          await ItemRatings.findOneAndDelete({ProductId:_id})
 await TopSearchSchema.findOneAndDelete({ItemName:match.FoodName})
-        await fs.unlinkSync(filePath);
-        res
+      
+      return  res
           .status(201)
           .json({ message: "successfully Deleted", status: "201" });
       } else {

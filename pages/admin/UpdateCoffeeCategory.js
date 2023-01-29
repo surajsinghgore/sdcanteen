@@ -116,12 +116,22 @@ const [progress, setProgress] = useState(0);
   };
 
   useEffect(() => {
-    if ((filterAllFoodCategoriesData[0]!=undefined)||(filterAllFoodCategoriesData.length!=0)) {
+
+function check(){
+    if ((filterAllFoodCategoriesData[0]==undefined)||(filterAllFoodCategoriesData.length==0)) {
+    router.push('/admin/UpdateCoffeeCategory')
+    
+    }
+    
+    
+    else  {
       setCoffeeCategoryName(filterAllFoodCategoriesData[0].CoffeeCategoryName);
     }
-    else{
-    router.push('/admin/UpdateCoffeeCategory')
 }
+   
+setTimeout(check(),1200)
+
+
   }, [filterAllFoodCategoriesData]);
 
   return (

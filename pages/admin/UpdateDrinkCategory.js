@@ -117,11 +117,21 @@ function UpdateDrinkCategory() {const [progress, setProgress] = useState(0);
   };
 
   useEffect(() => {
-    if (filterAllFoodCategoriesData!=undefined) {
+
+
+function check(){
+    if ((filterAllFoodCategoriesData[0]==undefined)||(filterAllFoodCategoriesData.length==0)) {
+ router.push('/admin/UpdateDrinkCategory')
+    
+    }
+    
+    
+    else  {
       setDrinkCategoryName(filterAllFoodCategoriesData[0].DrinkCategoryName);
-    } else{
-    router.push('/admin/UpdateDrinkCategory')
+    }
 }
+   
+setTimeout(check(),1200)
   }, [filterAllFoodCategoriesData]);
 
   return (

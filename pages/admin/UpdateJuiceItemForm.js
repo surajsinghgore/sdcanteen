@@ -41,12 +41,14 @@ const [normalPriceName,setNormalPriceName]=useState("Normal Price")
 
   const send=()=>{
      function check(){
-   if (filterJuiceItemsData.datas==undefined) {  
+       if (filterJuiceItemsData.datas==undefined||filterJuiceItemsData.datas==null) {  
+
     router.push('/admin/UpdateJuiceItem')
            return;}
    
 }
-    setTimeout(check,1500);
+    setTimeout(check(),1500);
+       if (filterJuiceItemsData.datas!=undefined||filterJuiceItemsData.datas!=null) {  
     
       setJuiceName(filterJuiceItemsData.datas.JuiceName);
       setQtys(filterJuiceItemsData.datas.Qty);
@@ -69,7 +71,7 @@ setLargePrice("")
 if(filterJuiceItemsData.small!=null){setSmallPrice(parseInt(filterJuiceItemsData.small))}else{
 setSmallPrice("")
 }
-
+       }
     
   }
   useEffect(() => {

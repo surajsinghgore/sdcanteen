@@ -56,7 +56,7 @@ handler.post(async (req, res) => {
     DbConnection();
    let ImageGetFromClient=req.file.buffer;
 let randomImageNameGen=crypto.randomBytes(16).toString('hex')+req.file.originalname;
-let imageDbUrl=`${randomImageNameGen}`;
+let imageDbUrl=`JuiceItemImages/${randomImageNameGen}`;
 const params = {
   Bucket: buketName, 
   Key: `JuiceItemImages/${randomImageNameGen}`, 

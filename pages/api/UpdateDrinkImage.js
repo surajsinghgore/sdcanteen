@@ -77,7 +77,7 @@ let verify=await VerifyAdmin(req, res);
        if(find==null||find==undefined){
        return res.status(400).json({message:"Item With This Id Not Found"})
        }
-    const oldImage = find.Profile;
+    const oldImage = find.Image;
 
     if (oldImage==undefined||oldImage==null) {
     return  res.status(400).json({ message: "Please Provide Old Image" });
@@ -85,7 +85,7 @@ let verify=await VerifyAdmin(req, res);
   
 
 let randomImageNameGen=crypto.randomBytes(16).toString('hex')+req.file.originalname;
-let imageDbUrl=`ClientImages/${randomImageNameGen}`;
+let imageDbUrl=`DrinkItemImages/${randomImageNameGen}`;
        let ImageGetFromClient=req.file.buffer;
 
 

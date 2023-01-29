@@ -24,7 +24,7 @@ const [progress, setProgress] = useState(0);
 useEffect(()=>{
 
 if(filterFoodItemsData.datas!=undefined){
-setImgs(` ${ImagePath}/FoodItemImages/${filterFoodItemsData.datas.Image}`)
+setImgs(` ${ImagePath}/${filterFoodItemsData.datas.Image}`)
 }
  else{
     router.push('/admin/UpdateFoodItem')
@@ -45,7 +45,6 @@ setImgs(` ${ImagePath}/FoodItemImages/${filterFoodItemsData.datas.Image}`)
 
     const dataImage = new FormData();
     dataImage.append("_id", filterFoodItemsData.datas._id);
-    dataImage.append("oldImage", filterFoodItemsData.datas.Image);
     dataImage.append("Image", files);
 
     if (!files) {
@@ -92,7 +91,7 @@ setImgs(` ${ImagePath}/FoodItemImages/${filterFoodItemsData.datas.Image}`)
       return ;
     }
     let datas = await response.json();
-    if (datas.status == "501") {
+    if (response.status == 501) {
       toast.error(`${datas.message}`, {
         position: "bottom-right",
         autoClose: 1200,
@@ -104,7 +103,7 @@ setImgs(` ${ImagePath}/FoodItemImages/${filterFoodItemsData.datas.Image}`)
       });
       return ;
     }
-    if (datas.status == "400") {
+    if (response.status == 400) {
       toast.warn(`${datas.message}`, {
         position: "bottom-right",
         autoClose: 1200,
@@ -117,7 +116,7 @@ setImgs(` ${ImagePath}/FoodItemImages/${filterFoodItemsData.datas.Image}`)
       return ;
     }
 
-    if (datas.status == "201") {
+    if (response.status == 201) {
       toast.success(
         `${filterFoodItemsData.datas.FoodName} Image Successfully Updated`,
         {
