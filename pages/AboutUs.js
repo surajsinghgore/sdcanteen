@@ -49,7 +49,7 @@ export default function AboutUS() {
 <div className={about.FullCard}>
 <div className={about.left}>
 <div className={about.imgs}>
-<Image src={food} layout="responsive" alt="food" />
+<Image src={food} width={500} height={400} alt="food" />
 </div>
 </div>
 <div className={about.right}>
@@ -68,7 +68,7 @@ It’s a mistake to design a space for students to sit and eat. Students visit f
 <div className={about.FullCard1}>
 <div className={about.left}>
 <div className={about.imgs}>
-<Image src={coffee} layout="responsive" alt="food" />
+<Image src={coffee} width={500} height={400} alt="food" />
 </div>
 </div>
 <div className={about.right}>
@@ -82,7 +82,7 @@ By setting up and running a coffee stand, students can actually benefit from han
 <div className={about.FullCard}>
 <div className={about.left}>
 <div className={about.imgs}>
-<Image src={juice} layout="responsive" alt="food" />
+<Image src={juice} width={500} height={400} alt="food" />
 </div>
 </div>
 <div className={about.right}>
@@ -108,7 +108,7 @@ However, there no scientific evidence that extracted juices are healthier than t
 {/* crew section */}
 <div className={about.crew}>
 <div className={about.crewImg}>
-<Image src={crew} alt="creq" layout="responsive"/>
+<Image src={crew} alt="creq" width={900} height={500}/>
 </div>
 
 </div>

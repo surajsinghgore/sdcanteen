@@ -42,7 +42,7 @@ router.push("/JuiceItem")
   
   <div className={order.food} onClick={foodRedirect}>
   <div className={order.imgs}>
-  <Image src={food} alt="food" height="300" width="300" />
+  <Image src={food} alt="food" height="300" width="300" priority="true" />
   </div>
   <h1>Food Items</h1>
   </div>
@@ -50,7 +50,7 @@ router.push("/JuiceItem")
 
   <div className={order.food} onClick={coffeeRedirect}>
   <div className={order.imgs}>
-  <Image src={coffee} alt="food" height="300" width="300" />
+  <Image src={coffee} alt="food" height="300" width="300"priority="true" />
   </div>
   <h1>Coffee Items</h1>
   </div>
@@ -58,14 +58,14 @@ router.push("/JuiceItem")
 
    <div className={order.food} onClick={juiceRedirect}>
   <div className={order.imgs} style={{paddingLeft:"5%",paddingTop:"4%",paddingBottom:"5%"}}>
-  <Image src={juice} alt="food" height="270" width="260" />
+  <Image src={juice} alt="food" height="270" width="260" priority="true" />
   </div>
   <h1 style={{paddingTop:"1%"}}>Juice Items</h1>
   </div>
 
  <div className={order.food} onClick={drinkRedirect}>
   <div className={order.imgs}>
-  <Image src={drink} alt="food" height="300" width="300" />
+  <Image src={drink} alt="food" height="300" width="300" priority="true" />
   </div>
   <h1>Drink Items</h1>
   </div>
