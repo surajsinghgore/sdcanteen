@@ -59,11 +59,11 @@ if(filterFoodItemsData.small!=null){setSmallPrice(parseInt(filterFoodItemsData.s
 setSmallPrice("")
 }
    }
-    else{
-      router.push('/admin/UpdateFoodItem')
-        return;
+    // else{
+    //   router.push('/admin/UpdateFoodItem')
+    //     return;
     
-    }
+    // }
   }
   useEffect(() => {
  

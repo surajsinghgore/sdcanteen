@@ -65,13 +65,13 @@ if(filterJuiceItemsData.small!=null){setSmallPrice(parseInt(filterJuiceItemsData
 setSmallPrice("")
 }
        }
-    else{
+    // else{
     
     
-    router.push('/admin/UpdateJuiceItem')
-           return;
+    // router.push('/admin/UpdateJuiceItem')
+    //        return;
     
-    }
+    // }
   }
   useEffect(() => {
  

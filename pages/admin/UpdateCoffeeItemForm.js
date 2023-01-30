@@ -61,11 +61,13 @@ setLargePrice("")
 if(filterCoffeeItemsData.small!=null){setSmallPrice(parseInt(filterCoffeeItemsData.small))}else{
 setSmallPrice("")
 }
-}else{
- router.push('/admin/UpdateCoffeeItem')
-    return ;
-
 }
+
+// else{
+//  router.push('/admin/UpdateCoffeeItem')
+//     return ;
+
+// }
     
   }
   useEffect(() => {

@@ -62,12 +62,12 @@ if(filterDrinkItemsData.small!=null){setSmallPrice(parseInt(filterDrinkItemsData
 setSmallPrice("")
 }
     }
-    else{
+    // else{
     
     
-     router.push('/admin/UpdateDrinkItem')
-    return ;
-    }
+    //  router.push('/admin/UpdateDrinkItem')
+    // return ;
+    // }
   }
   useEffect(() => {
  
