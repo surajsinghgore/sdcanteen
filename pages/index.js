@@ -200,7 +200,7 @@ return <div className={home.card} key={items._id}>
 <div className={home.icons}>
 <div className={home.img}>
 
-<Image src={p2} alt="accept"  height={260} width={380}   blurDataURL={blurDataUrl14} placeholder="blur" />
+<Image src={p2} alt="accept"  height={260} width={380}   blurDataURL={blurDataUrl14} placeholder="blur" priority="true"/>
 </div>
 
 </div>
@@ -209,7 +209,7 @@ We Accept Online Payment
 </div>
 <div className={home.accecpt}>
 <div className={home.img}>
-<Image src={p1} alt="accept"  height={260} width={380}  blurDataURL={blurDataUrl13} placeholder="blur" />
+<Image src={p1} alt="accept"  height={260} width={380}  blurDataURL={blurDataUrl13} placeholder="blur" priority="true"/>
 </div>
 </div>
 </div>
