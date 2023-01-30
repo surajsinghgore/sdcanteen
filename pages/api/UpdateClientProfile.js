@@ -70,7 +70,11 @@ if(find==null||find==undefined){
     if (oldImage==undefined) {
       res.status(400).json({ message: "Please Provide Old Image" });
     }
-    
+        const DelParams = {
+  Bucket: buketName, 
+  Key: oldImage, 
+};
+await s3.send(new DeleteObjectCommand(DelParams));
 
 let randomImageNameGen=crypto.randomBytes(16).toString('hex')+req.file.originalname;
 let imageDbUrl=`ClientImages/${randomImageNameGen}`;
@@ -88,11 +92,7 @@ let imageDbUrl=`ClientImages/${randomImageNameGen}`;
 
 };
 
-    const DelParams = {
-  Bucket: buketName, 
-  Key: oldImage, 
-};
-await s3.send(new DeleteObjectCommand(DelParams));
+
 await s3.send(new PutObjectCommand(params));
 
  await ClientData.findByIdAndUpdate(id, { Profile: imageDbUrl });
