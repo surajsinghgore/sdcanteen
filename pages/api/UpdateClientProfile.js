@@ -55,33 +55,28 @@ handler.post(async (req, res) => {
     DbConnection();
 
     let verify=await VerifyClientUser(req, res);
-    let id=verify.id;
-let find=await ClientData.findById(id);
-if(find==null||find==undefined){
-       return res.status(400).json({message:"User Not Exits with this Id"})
-       }
-    const oldImage = find.Profile;
-
- if(verify==undefined){
+     if(verify==undefined){
     return res.status(401).json({ message: "Please login with client account" });
     }
-
-    if (oldImage==undefined) {
+ 
+let find=await ClientData.findById(verify.id);
+if(find==undefined){
+       return res.status(400).json({message:"User Not Exits with this Id"})
+       }
+  
+    if (find.Profile==undefined) {
       res.status(400).json({ message: "Please Provide Old Image" });
     }
     
 
 let randomImageNameGen=crypto.randomBytes(16).toString('hex')+req.file.originalname;
 let imageDbUrl=`ClientImages/${randomImageNameGen}`;
-       let ImageGetFromClient=req.file.buffer;
-    let fileType=req.file.mimetype;
-      
-     const params = {
+          const params = {
   Bucket: buketName, 
   Key: `ClientImages/${randomImageNameGen}`, 
-  Body:ImageGetFromClient,
+  Body:req.file.buffer,
   ACL: "public-read",
-   ContentType: fileType,
+   ContentType: req.file.mimetype,
      ContentEncoding: 'base64',
             ContentDisposition: 'inline',
 
@@ -89,12 +84,13 @@ let imageDbUrl=`ClientImages/${randomImageNameGen}`;
 
     const DelParams = {
   Bucket: buketName, 
-  Key: oldImage, 
+  Key: find.Profile, 
 };
-await s3.send(new DeleteObjectCommand(DelParams));
-await s3.send(new PutObjectCommand(params));
 
+await s3.send(new PutObjectCommand(params));
  await ClientData.findByIdAndUpdate(id, { Profile: imageDbUrl });
+await s3.send(new DeleteObjectCommand(DelParams));
+
 return res.status(201).json({ message:"successfully upload profile"});
     
    
