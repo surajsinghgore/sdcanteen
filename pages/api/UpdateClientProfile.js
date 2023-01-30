@@ -74,21 +74,26 @@ if(find==null||find==undefined){
 let randomImageNameGen=crypto.randomBytes(16).toString('hex')+req.file.originalname;
 let imageDbUrl=`ClientImages/${randomImageNameGen}`;
        let ImageGetFromClient=req.file.buffer;
-    
-        
+    let fileType=req.file.mimetype;
+      
      const params = {
   Bucket: buketName, 
   Key: `ClientImages/${randomImageNameGen}`, 
   Body:ImageGetFromClient,
-  ACL: "public-read"
+  ACL: "public-read",
+   ContentType: fileType,
+     ContentEncoding: 'base64',
+            ContentDisposition: 'inline',
+
 };
 
     const DelParams = {
   Bucket: buketName, 
   Key: oldImage, 
 };
-await s3.send(new PutObjectCommand(params));
 await s3.send(new DeleteObjectCommand(DelParams));
+await s3.send(new PutObjectCommand(params));
+
  await ClientData.findByIdAndUpdate(id, { Profile: imageDbUrl });
 return res.status(201).json({ message:"successfully upload profile"});
     

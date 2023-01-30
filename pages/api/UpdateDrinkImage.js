@@ -88,13 +88,16 @@ let randomImageNameGen=crypto.randomBytes(16).toString('hex')+req.file.originaln
 let imageDbUrl=`DrinkItemImages/${randomImageNameGen}`;
        let ImageGetFromClient=req.file.buffer;
 
-
+    let fileType=req.file.mimetype;
  
              const params = {
   Bucket: buketName, 
  Key: `DrinkItemImages/${randomImageNameGen}`, 
   Body:ImageGetFromClient,
-  ACL: "public-read"
+  ACL: "public-read",
+    ContentType: fileType,
+     ContentEncoding: 'base64',
+            ContentDisposition: 'inline'
 };
 const DelParams = {
   Bucket: buketName, 

@@ -57,11 +57,15 @@ handler.post(async (req, res) => {
    let ImageGetFromClient=req.file.buffer;
 let randomImageNameGen=crypto.randomBytes(16).toString('hex')+req.file.originalname;
 let imageDbUrl=`FoodItemImages/${randomImageNameGen}`;
+    let fileType=req.file.mimetype;
 const params = {
   Bucket: buketName, 
   Key: `FoodItemImages/${randomImageNameGen}`, 
   Body:ImageGetFromClient,
-  ACL: "public-read"
+  ACL: "public-read",
+   ContentType: fileType,
+     ContentEncoding: 'base64',
+            ContentDisposition: 'inline',
 };
     let verify = await VerifyAdmin(req, res);
      if (verify == undefined) {

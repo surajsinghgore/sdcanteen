@@ -322,7 +322,10 @@ suggestion.style.display="none"
     <div className="links">
     <li> <i><MdFoodBank/></i> <span className='heading'><Link href="/OrderNow">Order Now</Link> </span></li>
       <li id="heading"> <i><IoMdArrowDropdown /></i> <span className='heading' >Pages</span></li>
-   {(userLogin)?  <li id="user"><i><IoMdArrowDropdown /></i><div style={{marginTop:"10%"}}><Image src={imgs} alt="profile" height={40} width="40" style={{borderRadius:"60px",marginLeft:"4%"}} priority='true'/><span id='heading1' style={{textAlign:"center"}}>Hii , {fullName}</span></div></li> : 
+   {(userLogin)?  <li id="user"><i><IoMdArrowDropdown /></i><div style={{marginTop:"10%"}}>
+   
+  
+   <Image src={imgs} alt="profile" height={40} width="40" style={{borderRadius:"60px",marginLeft:"4%"}} priority='true'/><span id='heading1' style={{textAlign:"center"}}>Hii , {fullName}</span></div></li> : 
    
       <li id="login"> <i style={{marginTop:"2%",marginLeft:"18%",fontSize:"28px"}}><BiLogIn/></i><Link href="/ClientLogin"><span id='heading2'>Login</span></Link></li> }
      <li  className='cart'> <Link href="/Cart"><a>
