@@ -3,6 +3,7 @@ import home from "../styles/Home.module.css";
 import HeadTag from "../Components/Head";
 import Header from "../Components/Header";
 import Footer from "../Components/Footer";
+import useNextBlurhash from "use-next-blurhash";
 let ImagePath=process.env.NEXT_PUBLIC_IMAGESPACEPATH;
 import Carousel from "../Components/Carousel";
 import Image from "next/image";
@@ -37,6 +38,24 @@ import { MdOutlineAccountBox } from 'react-icons/md';
 
 import Link from "next/link";
 const Home = () => {
+
+
+const [blurDataUrl1] = useNextBlurhash("LnPsFhNfyYs+-?t7sle.yZRjMxax");
+const [blurDataUrl2] = useNextBlurhash("LiM?I~WB-;Rj~qoeNKoJK7kCVss:");
+const [blurDataUrl3] = useNextBlurhash("LWLC-4jGJArq}?NFX5xYBpnhw]WA");
+const [blurDataUrl4] = useNextBlurhash("LGFp]MKj1J+^|t5-K4}X0~J7}s=x");
+const [blurDataUrl5] = useNextBlurhash("LAOwoy~9#m=x-AID9et69LI=%1kD");
+const [blurDataUrl6] = useNextBlurhash("L8GH@#ITx80f1n4nZ|OY02%3IE^j");
+const [blurDataUrl7] = useNextBlurhash("LCOdHst~QU-mLJH[#S~AL,0P,H}X");
+const [blurDataUrl8] = useNextBlurhash("LMKJ#$?J.9L0]M$,ogFwc[$kt6Na");
+const [blurDataUrl9] = useNextBlurhash("LEG8y3RPR[ou~pslx^J8B.sC$jJ6");
+const [blurDataUrl10] = useNextBlurhash("LTH-JI~UNyEL-:t6M|smo%o#WXxZ");
+const [blurDataUrl11] = useNextBlurhash("LnPY^+?vtSW??va#aKV@yZRiV@sR");
+const [blurDataUrl12] = useNextBlurhash("LMJ7%XjFKkpx%LnNk?s;PqWBivw[");
+const [blurDataUrl13] = useNextBlurhash("LRRV^Pj[%hxao#M|V@t6_MNGMdoe");
+const [blurDataUrl14] = useNextBlurhash("LJQA29J7?b=y-pD%oz%g~VR6IUpI");
+
+
 const [countOn,setCountOn]=useState(false)
 const [loader,setLoader]=useState(false);
 const [topSearchData,setTopSearchData]=useState([])
@@ -181,7 +200,7 @@ return <div className={home.card} key={items._id}>
 <div className={home.icons}>
 <div className={home.img}>
 
-<Image src={p2} alt="accept"  height={260} width={380} />
+<Image src={p2} alt="accept"  height={260} width={380}   blurDataURL={blurDataUrl14} placeholder="blur" />
 </div>
 
 </div>
@@ -190,7 +209,7 @@ We Accept Online Payment
 </div>
 <div className={home.accecpt}>
 <div className={home.img}>
-<Image src={p1} alt="accept"  height={260} width={380} />
+<Image src={p1} alt="accept"  height={260} width={380}  blurDataURL={blurDataUrl13} placeholder="blur" />
 </div>
 </div>
 </div>
@@ -211,21 +230,21 @@ We Accept Online Payment
         <SwiperSlide>
         <div className={home.BottomInner}>
         <div className={home.imageBottom}>
-        <Image src={img1} alt="img1" layout="fill"  />
+        <Image src={img1} alt="img1" layout="fill"  blurDataURL={blurDataUrl1} placeholder="blur"  />
         </div>
         </div>
         </SwiperSlide>
      <SwiperSlide>
         <div className={home.BottomInner}>
         <div className={home.imageBottom}>
-        <Image src={img2} alt="img2" layout="fill" />
+        <Image src={img2} alt="img2" layout="fill"  blurDataURL={blurDataUrl2} placeholder="blur" />
         </div>
         </div>
         </SwiperSlide>
            <SwiperSlide>
         <div className={home.BottomInner}>
         <div className={home.imageBottom}>
-        <Image src={img3} alt="img3" layout="fill" />
+        <Image src={img3} alt="img3" layout="fill"  blurDataURL={blurDataUrl3} placeholder="blur" />
         </div>
         </div>
         </SwiperSlide>
@@ -233,63 +252,63 @@ We Accept Online Payment
    <SwiperSlide>
         <div className={home.BottomInner}>
         <div className={home.imageBottom}>
-        <Image src={img4} alt="img4" layout="fill" />
+        <Image src={img4} alt="img4" layout="fill"  blurDataURL={blurDataUrl4} placeholder="blur" />
         </div>
         </div>
         </SwiperSlide>
    <SwiperSlide>
         <div className={home.BottomInner}>
         <div className={home.imageBottom}>
-        <Image src={img5} alt="img5" layout="fill" />
+        <Image src={img5} alt="img5" layout="fill" blurDataURL={blurDataUrl5} placeholder="blur"  />
         </div>
         </div>
         </SwiperSlide>
    <SwiperSlide>
         <div className={home.BottomInner}>
         <div className={home.imageBottom}>
-        <Image src={img6} alt="img6" layout="fill" />
+        <Image src={img6} alt="img6" layout="fill"  blurDataURL={blurDataUrl6} placeholder="blur" />
         </div>
         </div>
         </SwiperSlide>
    <SwiperSlide>
         <div className={home.BottomInner}>
         <div className={home.imageBottom}>
-        <Image src={img7} alt="img7" layout="fill" />
+        <Image src={img7} alt="img7" layout="fill" blurDataURL={blurDataUrl7} placeholder="blur"  />
         </div>
         </div>
         </SwiperSlide>
    <SwiperSlide>
         <div className={home.BottomInner}>
         <div className={home.imageBottom}>
-        <Image src={img8} alt="img8" layout="fill" />
+        <Image src={img8} alt="img8" layout="fill"  blurDataURL={blurDataUrl8} placeholder="blur" />
         </div>
         </div>
         </SwiperSlide>
    <SwiperSlide>
         <div className={home.BottomInner}>
         <div className={home.imageBottom}>
-        <Image src={img9} alt="img9" layout="fill" />
+        <Image src={img9} alt="img9" layout="fill"  blurDataURL={blurDataUrl9} placeholder="blur" />
         </div>
         </div>
         </SwiperSlide>
    <SwiperSlide>
         <div className={home.BottomInner}>
         <div className={home.imageBottom}>
-        <Image src={img10} alt="img10" layout="fill" />
+        <Image src={img10} alt="img10" layout="fill"  blurDataURL={blurDataUrl10} placeholder="blur" />
         </div>
         </div>
         </SwiperSlide>
    <SwiperSlide>
         <div className={home.BottomInner}>
         <div className={home.imageBottom}>
-        <Image src={img11} alt="img11" layout="fill" />
+        <Image src={img11} alt="img11" layout="fill"  blurDataURL={blurDataUrl11} placeholder="blur" />
         </div>
         </div>
         </SwiperSlide>
    <SwiperSlide>
         <div className={home.BottomInner}>
         <div className={home.imageBottom}>
-        <Image src={img12} alt="img12" layout="fill" />
+        <Image src={img12} alt="img12" layout="fill" blurDataURL={blurDataUrl12} placeholder="blur"  />
         </div>
         </div>
         </SwiperSlide>

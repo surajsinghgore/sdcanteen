@@ -17,7 +17,7 @@ import { useState } from 'react';
 import {  useCart } from "react-use-cart";
 import router from 'next/router'
 let ImagePath=process.env.NEXT_PUBLIC_IMAGESPACEPATH;
-
+import useNextBlurhash from "use-next-blurhash";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 let boyProfile = 'https://sdcanteenspace.nyc3.cdn.digitaloceanspaces.com/ExtraImages/men.png'
@@ -26,7 +26,8 @@ import { AllContext } from "../context/AllContext";
 import { useContext } from "react";
 
 export default function Header() {
-
+const [blurDataUrl] = useNextBlurhash("LCPZ1F?F~C9^,:f--=i^rWWq%MRi");
+const [blurDataUrl1] = useNextBlurhash("LFH-#}OA1*XPLg#Rr=WB?vR*IUsA");
   const { setUserData } = useContext(AllContext);
 const [search,setSearch]=useState('');
 const [searchData,setSerachData]=useState([]);
@@ -308,7 +309,7 @@ suggestion.style.display="none"
   return (
     <header>
     <div className="logo" id="Header">
-    <Link href={"/"}><a><Image src={sdLogo} alt="sd logo " height="60px" width="180px" priority="true"/></a></Link> </div>
+    <Link href={"/"}><a><Image src={sdLogo} alt="sd logo " height="60px" width="180px" priority="true"  blurDataURL={blurDataUrl} placeholder="blur"/></a></Link> </div>
 
         <div className="search">
         <i> <AiOutlineSearch/></i>
@@ -325,7 +326,7 @@ suggestion.style.display="none"
    {(userLogin)?  <li id="user"><i><IoMdArrowDropdown /></i><div style={{marginTop:"10%"}}>
    
   
-   <Image src={imgs} alt="profile" height={40} width="40" style={{borderRadius:"60px",marginLeft:"4%"}} priority='true'/><span id='heading1' style={{textAlign:"center"}}>Hii , {fullName}</span></div></li> : 
+   <Image src={imgs} alt="profile" height={40} width="40" style={{borderRadius:"60px",marginLeft:"4%"}}  blurDataURL={blurDataUrl1} placeholder="blur" /><span id='heading1' style={{textAlign:"center"}}>Hii , {fullName}</span></div></li> : 
    
       <li id="login"> <i style={{marginTop:"2%",marginLeft:"18%",fontSize:"28px"}}><BiLogIn/></i><Link href="/ClientLogin"><span id='heading2'>Login</span></Link></li> }
      <li  className='cart'> <Link href="/Cart"><a>
