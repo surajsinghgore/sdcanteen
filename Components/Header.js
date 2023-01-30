@@ -26,7 +26,6 @@ import { AllContext } from "../context/AllContext";
 import { useContext } from "react";
 
 export default function Header() {
-const [blurDataUrl] = useNextBlurhash("LCPZ1F?F~C9^,:f--=i^rWWq%MRi");
 const [blurDataUrl1] = useNextBlurhash("LFH-#}OA1*XPLg#Rr=WB?vR*IUsA");
   const { setUserData } = useContext(AllContext);
 const [search,setSearch]=useState('');
@@ -309,7 +308,7 @@ suggestion.style.display="none"
   return (
     <header>
     <div className="logo" id="Header">
-    <Link href={"/"}><a><Image src={sdLogo} alt="sd logo " height="60px" width="180px" priority="true"  blurDataURL={blurDataUrl} placeholder="blur"/></a></Link> </div>
+    <Link href={"/"}><a><Image src={sdLogo} alt="sd logo " height="60px" width="180px" priority="true"  /></a></Link> </div>
 
         <div className="search">
         <i> <AiOutlineSearch/></i>
