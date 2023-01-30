@@ -38,14 +38,7 @@ const handleChanges=()=>{
 
 
  const send=()=>{
-  function check(){
- 
-  if (filterDrinkItemsData.datas==undefined||filterDrinkItemsData.datas==null) {  
-    router.push('/admin/UpdateDrinkItem')
-    return ;
-}
- }
-    setTimeout(check(),1500);
+
 if (filterDrinkItemsData.datas!=undefined||filterDrinkItemsData.datas!=null) {  
       setDrinkName(filterDrinkItemsData.datas.DrinkName);
       setQtys(filterDrinkItemsData.datas.Qty);
@@ -69,7 +62,12 @@ if(filterDrinkItemsData.small!=null){setSmallPrice(parseInt(filterDrinkItemsData
 setSmallPrice("")
 }
     }
+    else{
     
+    
+     router.push('/admin/UpdateDrinkItem')
+    return ;
+    }
   }
   useEffect(() => {
  
