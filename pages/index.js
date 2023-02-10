@@ -66,7 +66,7 @@ const [totalItems,setTotalItems]=useState("")
 const [allOrders,setAllOrders]=useState("")
 useEffect(()=>{
 const getAll=async()=>{
-setLoader(true)
+// setLoader(true)
 const res=await fetch(`${HOST}/api/HomePageAnaylsis`);
 let HomeData=await res.json()
 setLoader(false)

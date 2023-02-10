@@ -304,87 +304,73 @@ color: rgb(50, 50, 50);
 header .clinetOption div:hover h1{
 color: rgb(50, 50, 50);
 }
+
+
+
+
+
+
+
+
+
+
+
 /* carsouel */
 .div1{
-box-sizing: border-box;
 position: relative;
-margin-top: 5%;
-width: 100%;
-height: 557px;
+ width: 100%;
+  height:auto;
 z-index: 10;
 }
 .div1 .imgs-section{
-position: absolute;
-top: 0;
-left: 0;
-z-index: -1;
-width: 100%;
-height: 625px;
-filter: blur(0.8px);
+   width: 100vw;
+  height: 98vh;
+    position: relative;
 }
 
+
+
 .div1 .details{
-position: relative;
+position: absolute;
+bottom:0%;
+left: 0;
 color: rgb(255, 255, 255);
 z-index: 1;
-width: auto;
+width: 100%;
 background:none;
 overflow: hidden;
 text-align: center;
 }
 .div1 .details #hh1{
-padding-top: 12%;
-width: 70%;
-text-align: center;
-margin-left: 15%;
-font-size: 52px;
-text-shadow: 1px 2px 20px rgb(34, 34, 34);
+padding-top: 0%;
+width: 80%;
+margin-left: 10%;
+font-size: 3.8vw;
+text-shadow: 1px 2px 20px rgb(2, 2, 2);
 transition: all 0.3s;
 }
 .div1 .details button{
 width: auto;
-margin-bottom: 5%;
+margin-bottom: 3%;
 padding: 1% 4% 1% 4%;
 cursor: pointer;
 color: white;
-font-size: 18px;
+font-size: 1.4vw;
 border: none;
 margin-top: 1%;
 margin-left: 2%;
 border-radius: 4px;
 background-color:rgb(255, 38, 0);
 transition: all 0.3s;
-box-shadow: 0px 0px 20px 7px black;
+box-shadow: 0px 0px 20px 7px rgb(56, 56, 56);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /* swiper customized */
 
 #mySwiper .swiper-button-next {
   color: rgb(0, 0, 0);
   right: -1.1%;
-  height: 60px;
-  width: 90px;
+  height: 10vh;
+  width: 6.8vw;
   transform: rotate(90deg);
   border-bottom-left-radius: 60px;
   border-bottom-right-radius: 60px;
@@ -399,8 +385,8 @@ box-shadow: 0px 0px 20px 7px black;
 #mySwiper .swiper-button-prev {
 color: rgb(0, 0, 0);
   left: -1%;
-  height: 60px;
-  width: 90px;
+  height: 10vh;
+  width: 6.8vw;
   transform: rotate(90deg);
   border-top-left-radius: 60px;
   border-top-right-radius: 60px;
@@ -421,15 +407,19 @@ color: white;
 #mySwiper .swiper-button-next::before{
     content: "NEXT";
     margin-top: -16%;
-    font-size: 20px;
+    font-size: 1.4vw;
   word-spacing: 2cm;
 }
  #mySwiper .swiper-button-prev::before {
     content: "PREV";
     margin-top: 16%;
-    font-size: 20px;
+       font-size: 1.4vw;
+
   word-spacing: 2cm;
 }
+
+
+
 
 
 
@@ -702,3 +692,134 @@ color: white;
 
 
 
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+
+
+/* carsouel */
+header{
+
+display: none;
+
+}
+.div1{
+clear: both;
+position: relative;
+
+}
+.div1 .imgs-section {
+    width: 100vw;
+    height: auto;
+    position: relative;
+  }
+.div1 .imgs-section img{
+    width: 100vw;
+    height: auto;
+    position: relative;
+  }
+
+
+.div1 .details{
+position: absolute;
+bottom:0%;
+left: 0;
+color: rgb(255, 255, 255);
+z-index: 1;
+width: 100%;
+background:none;
+overflow: hidden;
+text-align: center;
+}
+
+/* swiper customized */
+
+#mySwiper .swiper-button-next {
+  
+  right: -1.7%;
+  height: 8vh;
+  width: 10vw;
+  margin-top: 3%;
+
+}
+
+
+
+
+#mySwiper .swiper-button-prev {
+
+  left: -1.7%;
+  height: 8vh;
+  width: 10vw;
+  margin-top: 3%;
+ 
+
+}
+
+
+#mySwiper .swiper-button-next::before{
+
+    margin-top: -16%;
+    font-size: 1.8vw;
+
+}
+ #mySwiper .swiper-button-prev::before {
+  
+    margin-top: 16%;
+       font-size: 1.8vw;
+
+}
+
+.div1 .details{
+position: absolute;
+bottom:10%;
+left: 0;
+color: rgb(255, 255, 255);
+z-index: 1;
+width: 100%;
+background:none;
+overflow: hidden;
+text-align: center;
+}
+.div1 .details #hh1{
+padding-top: 0%;
+width: 80%;
+margin-left: 10%;
+text-transform: uppercase;
+font-size: 4vw;
+
+}
+
+.div1 .details button{
+width: auto;
+margin-bottom: 3%;
+padding: 2% 5% 2% 5%;
+cursor: pointer;
+color: white;
+text-transform: uppercase;
+font-size: 2.5vw;
+border: none;
+margin-top: 0%;
+margin-left: 2%;
+border-radius: 4px;
+background-color:rgb(255, 38, 0);
+transition: all 0.3s;
+box-shadow: 0px 0px 20px 7px rgb(56, 56, 56);
+}
+
+
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {}

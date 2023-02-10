@@ -234,7 +234,7 @@ setState(!state)
 return(
 <div className={CartStyle.data} key={item.id}>
 <div className={CartStyle.pics}>
-<Image src={item.Image} alt={item.Image} height={180} width={340} priority="true"/>
+<Image src={`${ImagePath}/${item.Image}`} alt={item.Image} height={180} width={340} priority="true"/>
 </div>
 <div className={CartStyle.names}><p> {item.FoodName}</p></div>
 <div className={CartStyle.price}> <p>{item.price}</p> </div>
@@ -258,7 +258,7 @@ return(
 return(
 <div className={CartStyle.data} key={item.id}>
 <div className={CartStyle.pics} style={{paddingLeft:"3%"}}>
-<Image src={item.Image} alt={item.Image} height={180} width={170} priority="true"/>
+<Image src={`${ImagePath}/${item.Image}`} alt={item.Image} height={180} width={170} priority="true"/>
 </div>
 <div className={CartStyle.names}><p> {item.CoffeeName}</p></div>
 <div className={CartStyle.price}> <p>{item.price}</p> </div>
@@ -282,7 +282,7 @@ return(
 return(
 <div className={CartStyle.data} key={item.id}>
 <div className={CartStyle.pics} style={{paddingLeft:"3%"}}>
-<Image src={item.Image} alt={item.Image} height={180} width={170} />
+<Image src={`${ImagePath}/${item.Image}`} alt={item.Image} height={180} width={170} />
 </div>
 <div className={CartStyle.names}><p> {item.DrinkName}</p></div>
 <div className={CartStyle.price}> <p>{item.price}</p> </div>
@@ -306,7 +306,7 @@ return(
 return(
 <div className={CartStyle.data} key={item.id}>
 <div className={CartStyle.pics} style={{paddingLeft:"3%"}}>
-<Image src={item.Image} alt={item.Image} height={180} width={170} />
+<Image src={`${ImagePath}/${item.Image}`} alt={item.Image} height={180} width={170} />
 </div>
 <div className={CartStyle.names}><p> {item.JuiceName}</p></div>
 <div className={CartStyle.price}> <p>{item.price}</p> </div>
