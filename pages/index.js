@@ -66,10 +66,10 @@ const [totalItems,setTotalItems]=useState("")
 const [allOrders,setAllOrders]=useState("")
 useEffect(()=>{
 const getAll=async()=>{
-setLoader(true)
+
 const res=await fetch(`${HOST}/api/HomePageAnaylsis`);
 let HomeData=await res.json()
-setLoader(false)
+
 if(res.status==201){
 setTopSearchData(HomeData.TopTrendingItems)
 setTopRateData(HomeData.TopRatedFoodData)
