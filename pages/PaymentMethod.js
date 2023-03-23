@@ -66,9 +66,9 @@ if(cartData.items[j].id==arrays[i].id){
 
 
   useEffect(() => {
-  if(localStorage.getItem("react-use-cart")!=undefined){
+
 tempringSave();
-    }
+    
   }, []);
 
   useEffect(() => {
