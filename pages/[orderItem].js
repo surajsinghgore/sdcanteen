@@ -510,7 +510,7 @@ setTimeout(redirect,1500);
       if ((productId != undefined) && (localStorage.getItem('login'))) {
         let fetchRate = await fetch(`${HOST}/api/ShowRatingOfClient?productId=${productId}`);
         const dataRess = await fetchRate.json();
-        console.log(dataRess)
+ 
         if(dataRess.data.length!=0){
         if(dataRess.data[0].ItemsReviwers.length!=0){
         setClient(dataRess.data[0])
