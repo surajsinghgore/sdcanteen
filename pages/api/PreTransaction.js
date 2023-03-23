@@ -21,6 +21,7 @@ let CustomerId=res1.id;
       if(!findClientData){
     res.status(404).json({status:"404",message:"Record Not Find with this User Id"})
       }
+  
 let TokenId=req.body.orderId;
 let amount=req.body.amount;
 const Email=findClientData.Email;
@@ -49,7 +50,6 @@ OrderTimes=currentDate.getHours()+"-"+m+" AM";
       const PickUpTime2=parseFloat(req.body.PickUpTime1).toFixed(2);
       const PaymentMethod="online";
       const UserId=CustomerId;
-      const TotalAmount=req.body.TotalAmount;
       const OrderTime=OrderTimes;
       const OrderDate=`${day}.${month}.${year}`;
 
@@ -114,9 +114,9 @@ PaytmChecksum.generateSignature(JSON.stringify(paytmParams.body), `${mkey}`).the
         "signature"    : checksum
     };
 
-    var post_data = JSON.stringify(paytmParams);
+    let post_data = JSON.stringify(paytmParams);
 
-    var options = {
+    let options = {
 
         /* for Staging */
         hostname: 'securegw-stage.paytm.in',
@@ -142,6 +142,7 @@ PaytmChecksum.generateSignature(JSON.stringify(paytmParams.body), `${mkey}`).the
         post_res.on('end', function(){
           
 let token=JSON.parse(response);
+
 return res.status(200).json(token)
         });
     });

@@ -183,6 +183,8 @@ return;
 const InitiatePayment=async()=>{
 setProgress(20)
 // get token for transcation
+         
+
 let ress = await fetch(`${HOST}/api/PreTransaction`, {
                 method: "POST",
                 headers: {
@@ -199,6 +201,24 @@ let ress = await fetch(`${HOST}/api/PreTransaction`, {
 
 setProgress(40)
               let datas=await ress.json();
+             
+              if(datas.body.extraParamsMap===null){
+                  toast.error(
+                  "Payment Portal is under maintenance",
+                  {
+                    position: "bottom-right",
+                    autoClose: 1000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                  }
+                );
+               setProgress(100)
+                return ;
+
+              }
               TxnToken=datas.body.txnToken;
          
 setProgress(60);
