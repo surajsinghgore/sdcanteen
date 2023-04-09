@@ -4,9 +4,8 @@ import Footer from "../Components/Footer";
 import LoadingBar from "react-top-loading-bar";
 import Image from 'next/image'
 import Link from 'next/link'
-let ImagePath=process.env.NEXT_PUBLIC_IMAGESPACEPATH;
 
-let LoginImage = `${ImagePath}/ExtraImages/login.webp`
+let LoginImage = `https://res.cloudinary.com/dnxv21hr0/image/upload/v1681014242/login_ii8bvb.webp`
 import Styles from "../styles/admin.module.css";
 import ClientStyle from "../styles/ClinetLogin.module.css";
 import { MdOutlineAlternateEmail } from 'react-icons/md';
