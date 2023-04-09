@@ -1,0 +1,31 @@
+.notFound{
+position: relative;
+background-color:#fafafa;
+width: 100%;
+height: 100vh;
+overflow: hidden;
+}
+
+.notFound .imgsSection{
+width: 50%;
+margin-top: 5%;
+margin-left: 25%;
+}
+.notFound button{
+width: 180px;
+position: absolute;
+top: 72%;
+border:1px solid white;
+padding: 1% 1%;
+height:auto;
+color: rgb(255, 255, 255);
+cursor: pointer;
+font-size: 18px;
+left: 44%;
+
+    background-color: rgb(238, 147, 146);
+}
+.notFound button:hover{
+border: none;
+box-shadow: 0px 0px 12px rgb(214, 214, 214);
+}

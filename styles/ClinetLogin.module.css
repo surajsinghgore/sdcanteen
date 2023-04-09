@@ -1,0 +1,108 @@
+
+.clientLogin{
+width: 100%;
+height: auto;
+margin-top: 6%;
+padding-bottom: 6%;
+display: flex;
+}
+.clientLogin .form{
+width: 60%;
+position: relative;
+}
+.clientLogin .form p{
+position: absolute;
+bottom: 21%;
+color:red;
+font-weight: 600;
+cursor: pointer;
+right: 20%;
+}
+.clientLogin .form h3{
+text-align: center;
+padding-top: 5%;
+color: rgb(243, 41, 14);
+font-size: 30px;
+}
+
+.clientLogin .form li{
+margin-left: 10%;
+position: relative;
+box-sizing: border-box;
+width: 80%;
+padding-top: 8%;
+padding-bottom: 2%;
+list-style: none;
+}
+
+.clientLogin .form li h6{
+position: absolute;
+top: -15%;
+color: rgb(104, 104, 104);
+left: 10%;
+font-size: 18px;
+}
+.clientLogin .form li .icon{
+position: absolute;
+top: 60%;
+color: rgb(68, 68, 68);
+right: 13%;
+font-size: 22px;
+}
+.clientLogin .form li input{
+width: 80%;
+font-size: 18px;
+padding-left: 2%;
+border: 1px solid rgb(187, 187, 187);
+height: 45px;
+margin-left: 10%;
+outline: none;
+}
+.clientLogin .form li input:focus{
+border: 1px solid rgb(231, 48, 2);
+
+}
+.clientLogin .form button{
+margin-left: 35%;
+width: auto;
+height: auto;
+margin-top: 3%;
+border: none;
+padding: 1.5% 10% 1.5% 10%;
+border-radius: 30px;
+outline: none;
+cursor: pointer;
+font-size: 20px;
+color: white;
+background-color: rgb(17, 144, 248);
+transition: all 0.4s;
+}
+.clientLogin .form button:hover{
+box-shadow: 0px 0px 12px 2px rgb(194, 194, 194);
+}
+.clientLogin .form .path{
+width: 100%;
+display: flex;
+padding-left: 19%;
+padding-top: 1%;
+}
+
+.clientLogin .form .path h4{
+margin-right: 29%;
+cursor: pointer;
+color: rgb(247, 108, 1);
+transition: all 0.4s;
+}
+
+.clientLogin .form .path h4:hover{
+color: rgb(44, 42, 42);
+}
+
+
+
+.clientLogin .image{
+width: 40%;
+padding-top: 8%;
+padding-left: 6%;
+}
+

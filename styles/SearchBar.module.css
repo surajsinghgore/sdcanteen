@@ -1,0 +1,578 @@
+.searchSection {
+  width: 100%;
+  height: auto;
+}
+
+.searchSection .topSection {
+  margin-top: 7%;
+  width: 100%;
+  display: flex;
+  height: auto;
+  padding-top: 1%;
+  padding-bottom: 1%;
+}
+
+.searchSection .topSection .left {
+  width: 50%;
+  margin-left: 4%;
+  padding-top: 4%;
+  padding-bottom: 4%;
+  width: 45%;
+  text-align: center;
+  user-select: none;
+  border-radius: 15px;
+}
+.searchSection .topSection .left .coffeImage,
+.searchSection .topSection .left .drinkImage,
+.searchSection .topSection .left .juiceImage {
+  width: 400px;
+  height: 400px;
+  user-select: none;
+}
+
+/* right section */
+.searchSection .topSection .right {
+  width: 50%;
+  padding-top: 1%;
+  position: relative;
+}
+
+.searchSection .topSection .right h1 {
+  font-size: 40px;
+  position: relative;
+  padding-left: 13%;
+  text-transform: uppercase;
+  font-size: 40px;
+}
+.searchSection .topSection .right h1 .shareBtn{
+cursor: pointer;
+position: absolute;
+top: 0;
+right: 9%;
+color: rgb(251, 15, 27);
+padding-left: 18%;
+transition: all 0.5s;
+}
+.searchSection .topSection .right h1 .shareBtn:hover{
+color: rgb(2, 123, 16);
+
+}
+.searchSection .topSection .right h1 .activeBtn{
+cursor: pointer;
+color: rgb(170, 170, 170);
+padding-left: 18%;position: absolute;
+top: 0;
+right: 9%;
+transition: all 0.5s;
+}
+.searchSection .topSection .right h1 .activeBtn:hover{
+color: rgb(251, 15, 27);
+
+}
+
+.searchSection .topSection .right .shareContainer{
+position: absolute;
+top: 19%;
+z-index: 99;
+right: 1%;
+width: 300px;
+display: flex;
+list-style: none;
+padding-bottom: 1.2%;
+height: auto;
+background-color: #fff;
+box-shadow: 0px 0px 30px rgb(80, 80, 80);
+}
+.searchSection .topSection .right .shareContainer .shape{
+clip-path: polygon(50.1% 0%, 100% 100%, 0% 100%);
+background-color: #fff;
+box-shadow: 0px 0px 30px rgb(8, 8, 8);
+height: 35px;
+width: 35px;
+position: absolute;
+z-index: -9;
+top: -23%;
+right: 19%;
+}
+.searchSection .topSection .right .shareContainer  li {
+
+padding-top: 3%;
+padding-left: 2.8%;
+}
+
+
+/* star */
+.searchSection .topSection .right .star .startSection {
+  display: flex;
+  padding-left: 12%;
+  margin-bottom: 6%;
+  width: 100%;
+}
+.searchSection .topSection .right .star .startSection .startIcon {
+  font-size: 28px;
+  color: orange;
+}
+.searchSection .topSection .right .star .startSection h5 {
+  font-size: 20px;
+  text-align: left;
+  margin-top: 1%; user-select: none;
+  margin-left: -12%;
+}
+
+.searchSection .topSection .right h3 {
+  font-size: 29px;
+  padding-left: 14%;
+  margin-top: -4%;
+  color: red; user-select: none;
+}
+
+.searchSection .topSection .right .subSection {
+  height: auto;
+  width: 77%;
+  display: flex;
+  padding-bottom: 3%;
+  margin-left: 13%; user-select: none;
+  list-style: none;
+}
+
+.searchSection .topSection .right .subSection .subHeading {
+  font-size: 16px;
+  columns: rgb(101, 101, 101);
+  padding-top: 1%;
+ 
+}
+.searchSection .topSection .right .subSection .subData {
+  color: rgb(5, 5, 5);
+  font-size: 19px;
+  font-weight: 500;
+  padding-left: 2%;
+  padding-right: 4%;
+}
+
+.searchSection .topSection .right hr {
+  width: 75%;
+  margin-left: 14%;
+  color: rgb(227, 227, 227);
+}
+
+.searchSection .topSection .right h4 {
+  font-size: 29px;
+  padding-left: 14%;
+  margin-top: 4%;
+  color: rgb(76, 76, 76);
+  font-weight: 400;
+}
+.searchSection .topSection .right h5 {
+  font-size: 29px;
+  padding-left: 14%;
+  margin-top: -2%;
+  color: rgb(76, 76, 76);
+  font-weight: 400;
+}
+
+.searchSection .topSection .right .filterItem {
+  width: 77%;
+  margin-left: 13%;
+  margin-bottom: 4%;
+  height: auto;
+}
+.searchSection .topSection .right .filterItem h1 {
+  font-size: 16px;
+  margin-left: -11%;
+  color: rgb(74, 74, 74);
+}
+.searchSection .topSection .right .filterItem .form {
+  font-size: 20px;
+  display: flex;
+  margin-top: -3%;
+  list-style: none;
+}
+.searchSection .topSection .right .filterItem .form .radioCard {
+  width: 20%;
+  margin-top: 2%;
+  display: flex;
+}
+.searchSection .topSection .right .filterItem .form li {
+  padding-top: 4%;
+}
+
+.searchSection .topSection .right .filterItem .form li span:hover {
+  cursor: pointer;
+  color: red;
+}
+
+.searchSection .topSection .right .btn1 {
+  margin-left: 14%;
+  font-size: 25px;
+  padding-top: 1%;
+  padding-bottom: 1%;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  color: white;
+  background-color: rgb(4, 133, 246);
+  width: 250px;
+}
+.searchSection .topSection .right .btn2 {
+  font-size: 25px;
+  margin-left: 2%;
+  padding-top: 1%;
+  padding-bottom: 1%;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  color: white;
+  background-color: rgb(244, 4, 52);
+  width: 250px;
+}
+
+.searchSection .topSection .right .btn3 {
+  margin-left: 14%;
+  font-size: 25px;
+  padding: 1% 5% 1% 5%;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  color: white;
+  background-color: rgb(154, 4, 247);
+}
+
+/* description */
+.description {
+  clear: both;
+  height: auto;
+  width: 85%;
+  font-size: 20px;
+  margin-left: 9%;
+  padding-bottom: 4%;
+}
+.reviews {
+  clear: both;
+  height: auto;
+  width: 86%;
+  font-size: 20px;
+  margin-left: 9%;
+  margin-bottom: 5%;
+}
+.reviews .heading {
+  width: 20%;
+  padding-top: 1%;
+  padding-bottom: 1%;
+  color: white;
+  background-color: rgb(251, 113, 1);
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+  font-size: 26px;
+  text-align: center;
+}
+.reviews .box {
+  width: 100%;
+  padding-bottom: 3%;
+  border: 1px solid rgb(191, 191, 191);
+}
+.reviews .box .top {
+  display: flex;
+}
+.reviews .box .top .avgRate,
+.reviews .box .top .totalStar {
+  width: 44%;
+  margin-top: 3%;
+  margin-left: 4%;
+  height: 200px;
+  border-radius: 4px;
+  display: flex;
+  border: 1px solid rgb(126, 126, 126);
+}
+.reviews .box .top .avgRate h1 {
+  padding-left: 12%;
+  text-align: center;
+  padding-top: 12%;
+  font-size: 25px;
+  color: rgb(105, 105, 105);
+}
+.reviews .box .top .avgRate h1::first-letter {
+  color: rgb(76, 76, 76);
+}
+.reviews .box .top .avgRate .rates {
+  width: 70%;
+  padding-top: 10%;
+  font-size: 16px;
+  padding-left: 10%;
+}
+.reviews .box .top .avgRate .rates p {
+  padding-left: 3%;
+}
+.reviews .box .top .totalStar {
+  display: block;
+  overflow: hidden;
+}
+
+.reviews .box .top .totalStar li {
+  width: 100%;
+  display: flex;
+  margin-top: 4%;
+  height: 40px;
+  position: relative;
+  list-style: none;
+}
+.reviews .box .top .totalStar li .headings {
+  color: red;
+  font-size: 20px;
+  width: 18%;
+  text-align: left;
+  padding-left: 5%;
+}
+.reviews .box .top .totalStar li .progress {
+  width: 60%;
+  border-radius: 10px;
+  height: 8px;
+  margin-top: 2%;
+  margin-left: 5%;
+  box-shadow: 0px 0px 10px 2px rgb(220, 220, 220);
+  /* background-color: rgb(0, 152, 217); */
+  border: 1px solid rgb(0, 152, 217);
+  position: relative;
+  top: 0;
+  left: 0;
+}
+.reviews .box .top .totalStar li .progress .pro {
+  height: 100%;
+  background-color: rgb(0, 152, 217);
+}
+.reviews .box .top .totalStar li .percent {
+  text-align: center;
+  color: rgb(52, 52, 52);
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 17%;
+}
+
+.reviews .box .filterReview {
+  width: 92%;
+  margin-top: 2%;
+  margin-left: 4%;
+  border: 3px;
+  background-color: rgb(246, 246, 246);
+  height: 60px;
+  display: flex;
+}
+
+.reviews .box .filterReview .titles {
+  width: 50%;
+  padding-top: 1.5%;
+  padding-left: 2%;
+}
+.reviews .box .filterReview .filterSection {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  padding-left: 6%;
+}
+
+.reviews .box .filterReview .filterSection .sections {
+  width: 44%;
+  display: flex;
+  margin-left: 2%;
+}
+.reviews .box .filterReview .filterSection .sections h1 {
+  font-size: 18px;
+  padding-top: 4%;
+  color: rgb(66, 66, 66);
+}
+.reviews .box .filterReview .filterSection .sections select {
+  text-align: center;
+  color: rgb(87, 87, 87);
+  height: 30px;
+  margin-left: 5%;
+  outline: none;
+  border: none;
+  margin-top: 8%;
+  width: 110px;
+  box-shadow: 0px 0px 12px 2px rgb(187, 187, 187);
+}
+
+.reviews .box .reviewsSectionField {
+  overflow: hidden;
+}
+
+.reviews .box .reviewsSectionField .childs {
+  width: 92%;
+  margin-left: 4%;
+  height: 400px;
+  padding-bottom: 2%;
+  border-bottom: 1px solid rgb(99, 99, 99);
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+.reviews .box .reviewsSectionField .childs::-webkit-scrollbar {
+  display: none;
+}
+
+/* user review style */
+.reviews .box .reviewsSectionField .reviewSection {
+  width: 100%;
+    background-color: #f7f7f7;
+  height: auto;
+  margin-top: -6.4%;
+  position: relative;
+  border-radius: 3px;
+  margin-bottom: 4%;
+  padding-bottom: 1%;
+}
+.reviews .box .reviewsSectionField .reviewSection .topSection {
+  display: flex;
+  padding-left: 2%;
+  width: 100%;
+  padding-top: 1%;
+}
+
+.reviews .box .reviewsSectionField .reviewSection .topSection .starSection {
+  padding-top: -1%;
+  padding-left: 1%;
+  display: flex;
+  text-align: center;
+  width: 26%;
+}
+
+.reviews .box .reviewsSectionField .reviewSection .topSection .starSection p {
+  padding-left: 5%;
+  font-size: 18px;
+  margin-top: 1%;
+}
+.reviews .box .reviewsSectionField .reviewSection .topSection .userDetails {
+  width: 50%;
+}
+.reviews .box .reviewsSectionField .reviewSection .topSection .userDetails h2 {
+  font-size: 18px;
+  color: rgb(94, 94, 94);
+  margin-top: 0.1%;
+text-align: center;
+}
+.reviews .box .reviewsSectionField .reviewSection .topSection .icons {
+  text-align: center;
+  display: flex;
+  width:40%;
+  padding-left: 7%;
+  padding-top: 1%;
+}
+.reviews .box .reviewsSectionField .reviewSection .topSection .icons .icon {
+  font-size: 20px;
+  color: rgb(255, 72, 0);
+}
+.reviews .box .reviewsSectionField .reviewSection .topSection .icons p {
+  padding-left: 1%;
+  padding-right: 5%;
+  color: rgb(19, 19, 19);
+  margin-top: 0.1%;
+  font-size: 15px;
+}
+
+.reviews .box .reviewsSectionField .reviewSection .commentStyle {
+  width: 94%;
+  height: auto;
+  margin-top: -1%;
+margin-left: 3%;
+}
+
+.reviews .box .reviewsSectionField .reviewSection .commentStyle p {
+  font-size: 20px;
+  text-transform: capitalize;
+  color: #3e3e3e;
+}
+.reviews .box .reviewsSectionField .reviewSection .reportBtn {
+color: rgb(255, 0, 0);
+position: absolute;
+cursor: pointer;
+top: 4%;
+font-size: 22px;
+right: 1%;
+transition: all 0.5s;
+}
+.reviews .box .reviewsSectionField .reviewSection .reportBtn:hover{
+box-shadow: -3px 10px 50px rgb(14, 14, 14);
+color: rgb(3, 27, 246);
+}
+
+.reviews .box .clientReview {
+  margin-left: 4%;
+  background-color: rgb(233, 233, 233);
+  height: auto;
+  width: 92%;
+  padding-bottom: 2%;
+  margin-top: 3%;
+}
+.reviews .box .clientReview h1 {
+  color: rgb(62, 62, 62);
+  font-size: 25px;
+  width: 100%;
+  padding-top: 5%;
+  padding-left: 3%;
+  padding-bottom: 2%;
+}
+.reviews .box .clientReview form input {
+  width: 92%;
+  padding-top: 1%;
+  padding-bottom: 1%;
+  padding-left: 2%;
+  margin-left: 3%;
+  outline: none;
+  border: none;
+  font-size: 21px;
+}
+.reviews .box .clientReview form textarea {
+  width: 92%;
+  padding-top: 1%;
+  padding-bottom: 17%;
+  padding-left: 2%;
+  margin-left: 3%;
+  outline: none;
+  border: none;
+  margin-top: 1%;
+  resize: none;
+  margin-bottom: 4%;
+  font-size: 21px;
+}
+.reviews .box .clientReview form .rateSection {
+  width: 92%;
+  display: flex;
+  margin-left: 3%;
+  position: relative;
+  height: auto;
+}
+.reviews .box .clientReview form .rateSection h2 {
+  font-size: 17px;
+}
+
+.reviews .box .clientReview form .rateSection .rateClient {
+  margin-left: 3%;
+  margin-top: 1.2%;
+  position: absolute;
+  top: 0;
+  left: 22%;
+}
+.reviews .box .clientReview form .rateSection .rateClient .tool {
+  font-size: 10px;
+}
+.reviews .box .clientReview form .rateSection .rateClient .sizesofStar {
+  font-size: 2px;
+}
+.reviews .box .clientReview button {
+  width: 200px;
+  margin-top: 6%;
+  padding-top: 1%;
+  padding-bottom: 1%;
+  font-size: 20px;
+  cursor: pointer;
+  border-radius: 30px;
+  margin-bottom: 3%;
+  margin-left: 3%;
+  border: none;
+  box-shadow: 0px 0px 12px 2px rgb(44, 40, 40);
+  transition: all 0.5s;
+}
+.reviews .box .clientReview button:hover {
+  background-color: rgb(255, 94, 0);
+  color: white;
+  box-shadow: 0px 0px 12px 2px rgb(252, 180, 180);
+}

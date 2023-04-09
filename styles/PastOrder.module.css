@@ -1,0 +1,236 @@
+.AllOrder h4{
+padding-left: 1%;
+font-size: 20px;
+color: red;
+}
+.AllOrder{
+width: 98%;
+margin-top: 7%;
+height: auto;
+margin-left: 1%;
+border: 2px solid rgb(234, 234, 234);
+margin-bottom: 2%;
+}
+.AllOrder .topSection{
+height: auto;
+display: flex;
+background-color: white;
+}
+.AllOrder .topSection h1{
+padding-left: 3%;
+width: 70%;font-size: 28px;
+color: rgb(76, 76, 76);
+}
+.AllOrder .topSection h2{
+width: 30%;
+text-align: right;
+padding-right: 3%;
+color: rgb(110, 110, 110);
+
+}
+.AllOrder .topSection h2 span{
+color: rgb(243, 99, 9);
+}
+
+.AllOrder .filter{
+width: 96%;
+border-bottom: 1px solid rgb(204, 204, 204);
+list-style: none;
+margin-left: 2%;
+margin-top: 2%;
+padding-bottom: 1%;
+display: flex;
+    }
+.AllOrder .filter li{
+font-size: 18px;
+padding-left: 1%;
+position: relative;
+font-weight: 600;
+color: rgb(112, 112, 112);
+}
+.AllOrder .filter li:hover{
+color: red;
+cursor: pointer;
+}
+.AllOrder .filter .active{
+color: red;
+}
+.AllOrder .filter .active hr{
+width: 100%;
+position: absolute;
+bottom: -100%;
+left: 7%;
+border: none;
+height: 4px;
+background-color: rgb(237, 7, 7);
+}
+
+.AllOrder .search{
+width: 96%;
+margin-left: 2%;
+background-color: rgb(246, 246, 246);
+height: 60px;
+padding-bottom: 5%;
+margin-top: 1%;
+}
+.AllOrder .search .searchBox{
+position: relative;
+width: 100%;
+padding-top: 1%;
+
+}
+.AllOrder .search .searchBox input{
+width: 90%;
+margin-left: 2%;
+padding: 0.5% 0.5% 0.5% 0.5%;
+font-size: 18px;
+padding-left: 6%;
+border-radius: 2px;
+
+outline: none;
+border: 2px solid rgb(184, 184, 184);
+}
+.AllOrder .search .searchBox input:focus{
+box-shadow: 0px 0px 12px rgb(95, 95, 95);
+}
+
+.AllOrder .search .searchBox .sicon{
+
+position: absolute;
+top: 40%;
+color: rgb(68, 68, 68);
+left: 3.5%;
+font-size: 22px;
+}
+
+
+.AllOrder .data{
+height: auto;
+width: 96%;
+margin-top: 1.5%;
+margin-left: 2%;
+
+}
+
+.AllOrder .data .headings{
+width: 100%;
+list-style: none;
+height: auto;
+padding-bottom: 1%;
+margin-bottom: 1%;
+display: flex;
+background-color: rgb(237, 237, 237);
+
+}
+.AllOrder .data .headings li{
+width: 16.67%;
+font-weight: 500;
+margin-top: 1%;
+padding-left: 3%;
+}
+
+.AllOrder .data .allItems{
+border:1px solid rgb(209, 209, 209);
+margin-bottom: 2%;
+}
+.AllOrder .data .hdatas{
+width: 100%;
+list-style: none;
+font-size: 16px;
+padding-bottom: 0.7%;
+height: auto;
+border:1px solid rgb(209, 209, 209);
+display: flex;
+}
+.AllOrder .data .hdatas li{
+width: 16.67%;
+font-weight: 500;
+margin-top: 1%;
+padding-left: 3%;
+color: rgb(87, 87, 87);
+}
+.AllOrder .data .hdatas .token{
+text-transform: uppercase;
+color: rgb(0, 68, 255);
+}
+.AllOrder .data .hdatas .status .complete{
+width: 70%;
+margin-top: -3%;
+padding: 3% 1% 4% 1%;
+border-radius: 60px;
+font-size: 20px;color:white;
+text-align: center;
+border: 2px solid rgb(80, 240, 56);
+font-size: 15px;
+background-color: rgb(3, 179, 58);
+}
+.AllOrder .data .hdatas .status .reject{
+width: 70%;
+margin-top: -3%;
+padding: 3% 1% 4% 1%;
+border-radius: 60px;
+font-size: 20px;color:white;
+text-align: center;
+border: 2px solid rgb(202, 30, 30);
+font-size: 15px;
+background-color: rgb(227, 73, 73);
+}
+.AllOrder .data .hdatas .status .pending{
+width: 70%;
+margin-top: -3%;
+padding: 3% 1% 4% 1%;
+border-radius: 60px;
+font-size: 20px;color:white;
+text-align: center;
+border: 2px solid rgb(211, 67, 5);
+font-size: 15px;
+background-color: rgb(234, 114, 49);
+}
+
+.AllOrder .data h6{
+padding-left: 2%;
+margin-top: 0.2%;
+padding-top: 0.4%;
+padding-bottom: 0.4%;
+width: 100%;
+background-color: rgb(216, 216, 216);
+font-size:16px;
+}
+.AllOrder .data .items{
+/* margin-top: -3%; */
+
+}
+
+.AllOrder .data  .iheading{
+margin-top: -3%;
+
+}
+.AllOrder .data  .itemsHeading{
+width: 100%;
+height: auto;
+list-style: none;
+display: flex;
+border-bottom:1px solid rgb(209, 209, 209);
+background-color: rgb(238, 238, 238);
+}
+.AllOrder .data  .itemsHeading li{
+padding-left: 4%;
+padding-top: 1%;
+padding-bottom: 1%;
+width: 20%;
+}
+.AllOrder .data .items .itemsMenu{
+width: 100%;
+height: auto;
+
+list-style: none;
+display: flex;
+border-bottom:1px solid rgb(209, 209, 209);
+background-color: rgb(252, 252, 252);
+}
+.AllOrder .data .items .itemsMenu li{
+padding-left: 4%;
+padding-top: 1%;
+padding-bottom: 1%;
+width: 20%;
+}

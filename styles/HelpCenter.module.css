@@ -1,0 +1,180 @@
+
+
+.help{
+width: 100%;
+
+}
+.help .searchSection{
+width: 100%;
+position: relative;
+}
+.help .searchSection .suggestions{
+position: absolute;
+top: 104%;
+list-style: none;
+left: 22%;
+box-shadow: 0px 6px 12px rgb(220, 220, 220);
+height: 200px;
+background-color: rgb(255, 255, 255);
+width: 56%;
+overflow-y: auto;
+overflow-x: hidden;
+}
+.help .searchSection .suggestions li{
+padding-top: 1%;
+font-size: 19px;
+margin-top: 0.4%;
+border-radius: 10px;
+padding-left: 2%;
+text-transform: capitalize;
+padding-bottom: 1%;
+width: 100%;
+}
+.help .searchSection .suggestions li:hover{
+cursor: pointer;
+background-color: rgb(235, 235, 235);
+
+}
+
+.help .searchSection input{
+font-size: 18px;
+width: 60%;
+outline: none;
+margin-top: 3%;
+margin-left: 20%;
+border: none;
+box-shadow: 0px 0px 10px rgb(236, 236, 236);
+border-radius: 60px;
+padding: 1.5% 2% 1.5% 2%
+}
+.help .searchSection .icons{
+width: 35px;
+position: absolute;
+top: 45%;
+right: 22%;
+height: 35px;color: rgb(255, 255, 255);
+font-size: 20px;
+line-height: 35px;
+border-radius: 50px;
+text-align: center;
+background-color: rgb(255, 81, 0);
+}
+.help p{
+text-align: center;
+margin-top: 5%;
+}
+
+
+
+
+.articles{
+width: 100%;
+display: flexbox;
+justify-content: center;
+}
+.articles h1{
+color: rgb(54, 54, 54);
+padding-top: 5%;
+}
+.articles .article{
+width: 70%;
+padding-top: 3%;
+margin-left: 15%;
+}
+.articles .article .title{
+width: 100%;
+position: relative;
+font-size: 20px;
+padding: 1% 2%;
+text-transform: uppercase;
+border: 2px solid rgb(134, 134, 134);
+border-radius: 10px;
+font-weight: 600;
+color: rgb(0, 157, 255);
+user-select: none;
+cursor: pointer;
+}
+
+
+.articles  .article .title1{
+width: 100%;
+position: relative;
+font-size: 20px;
+padding: 1% 2%;
+text-transform: uppercase;
+border: 2px solid rgb(134, 134, 134);
+border-radius: 10px;
+font-weight: 600;
+color: rgb(0, 157, 255);
+user-select: none;
+cursor: pointer;
+box-shadow: 0px 0px 22px rgb(77, 77, 77);
+}
+
+
+.articles .article .title:hover,.articles .article .title1:hover{
+box-shadow: 0px 0px 20px rgb(203, 203, 203);
+}
+.articles .article .title .sign1, .articles .article .title1 .sign1{
+position: absolute;
+top: 18%;
+right: 2%;
+width: 25px;
+color: white;
+border-radius: 60px;
+text-align: center;
+line-height: 25px;
+height: 25px;
+background-color: rgb(133, 206, 252);
+display: none;
+}
+.articles .article .title .sign, .articles .article .title1 .sign{
+position: absolute;
+top: 18%;
+right: 2%;
+width: 25px;
+color: white;
+border-radius: 60px;
+text-align: center;
+line-height: 25px;
+height: 25px;
+background-color: rgb(133, 206, 252);
+} 
+.articles .article .solution{
+border: 2px solid rgb(134, 134, 134);
+height: auto;
+padding-bottom: 1%;
+border-top: none;
+display: none;
+box-sizing: border-box;
+}
+.articles .article .solution h5{
+margin-top: 0;
+font-size: 18px;
+padding-top:2%;
+text-align: center;
+color: rgb(0, 0, 0);
+text-transform: capitalize;
+}
+.articles .article .solution h6{
+color: red;
+margin-top: 0;
+padding-left: 4%;
+font-size: 16px;
+width: 96%;
+}
+.articles .article .solution h3{
+font-size: 17px;
+padding-left: 30%;
+}
+.articles .article .solution h4{
+color: rgb(65, 65, 65);
+margin-top: 0;
+width: 95%;
+padding-left: 5%;
+font-size: 15px;
+}
+.articles .article .solution .link{
+color: blue;
+cursor: pointer;
+}

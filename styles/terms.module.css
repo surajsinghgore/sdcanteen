@@ -1,0 +1,29 @@
+.term{
+width: 80%;
+margin-left: 10%;
+margin-top: 6%;
+padding-bottom: 3%;
+}
+.term h1{
+font-size: 40px;
+color: rgb(74, 74, 74);
+text-align: center;}
+
+.term p{
+margin-top: -1%;
+font-size: 18px;
+text-align: left;
+color: rgb(74, 74, 74);
+}
+
+.term h3{
+font-size: 25px;
+text-align: left;
+color: rgb(74, 74, 74);
+}
+
+.term h5{
+font-size: 20px;
+text-align: left;
+color: rgb(74, 74, 74);
+}

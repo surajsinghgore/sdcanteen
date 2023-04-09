@@ -1,0 +1,67 @@
+.mainComments{
+width: 100%;
+height: auto;
+margin-top: 10%;
+}
+.mainComments h1{
+text-align: center;
+color: rgb(90, 90, 90);
+margin-top: 30%;
+}
+
+.mainComments .section{
+margin-left: 15%;
+height: auto;
+box-shadow: 0px 0px 12px rgb(228, 228, 228);
+padding-bottom: 3%;
+width: 70%;
+}
+.mainComments .section h3{
+padding-left: 4%;
+padding-top: 3%;
+}
+.mainComments .section h3 span{
+color: red;
+}
+.mainComments .section .comment{
+width: 92%;
+margin-left: 4%;
+padding-left: 2%;
+font-size: 20px;
+padding-top: 1%;
+padding-bottom: 2%;
+border: 2px solid rgb(230, 230, 230);
+}
+.mainComments .section .options{
+width: 100%;
+display: flex;
+margin-top: 5%;
+}
+.mainComments .section .options .div1,.mainComments .section .options .div2{
+text-align: center;
+width: 50%;
+}
+
+.mainComments .section .options .div1 button{
+border: none;
+outline: none;
+border-radius: 5px;
+padding: 2% 21%;
+cursor: pointer;
+color: white;
+background-color: red;
+font-size: 20px;
+}
+.mainComments .section .options .div2 button{
+border: none;
+cursor: pointer;
+outline: none;
+border-radius: 5px;
+padding: 2% 18%;
+color: white;
+background-color: rgb(3, 161, 40);
+font-size: 20px;
+}
+.mainComments .section .options .div2 button:hover,.mainComments .section .options .div1 button:hover{
+box-shadow: 0px 0px 20px rgb(198, 198, 198);
+}

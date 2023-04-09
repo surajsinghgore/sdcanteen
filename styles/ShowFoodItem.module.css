@@ -1,0 +1,236 @@
+.display_List{
+width: 90%;
+margin-left: 5%;
+height: auto;
+border-radius: 2px;
+box-shadow:0px 0px 12px 6px rgb(245, 245, 245)
+}
+
+
+
+.display_List .top{
+width: 100%;
+height: 90px;
+display: flex;
+background-color: #fff;
+}
+
+/* deatils */
+.display_List .top .deatils{
+width: 30%;
+}
+.display_List .top .deatils h1{
+font-size: 25px;
+margin-left: 5%;
+}
+.display_List .top .deatils p{
+font-size: 16px;
+margin-left: 5%;
+}
+
+/* search */
+
+
+.display_List .top .search{
+width: 70%;
+}
+
+.display_List .top input{
+width: 44%;
+font-size: 18px;
+outline: none;
+border: 1px solid rgb(223, 223, 223);
+padding-left: 2%;
+margin-top: 4%;
+height: 40px;
+margin-left: 3%;
+transition: all 0.4s;
+}
+
+.display_List .top select{
+width: 44%;
+font-size: 18px;
+outline: none;
+border: 1px solid rgb(223, 223, 223);
+padding-left: 1%;
+margin-top: 4%;text-align: center;
+height: 40px;
+margin-left: 3%;
+background: none;
+transition: all 0.4s;
+}
+
+
+
+.display_List .top input:focus{
+border: 1px solid rgb(235, 7, 7);
+
+}
+
+.display_List .top input[type=search]::-ms-clear { display: none; width : 0; height: 0; }
+.display_List .top input[type=search]::-ms-reveal { display: none; width : 0; height: 0; }
+
+.display_List .top input[type="search"]::-webkit-search-decoration,
+.display_List .top input[type="search"]::-webkit-search-cancel-button,
+.display_List .top input[type="search"]::-webkit-search-results-button,
+.display_List .top input[type="search"]::-webkit-search-results-decoration { display: none; }
+
+
+
+
+
+
+
+.display_List .card_container{
+z-index: -99;
+width: 100%;
+height: auto;
+margin-top: 4%;
+display: block;
+padding-bottom: 2%;
+}
+
+
+
+.display_List .card_container .cards{
+display: flex;
+z-index: -99;
+user-select: none;
+margin-top: 2%;
+margin-left: 1%;
+padding-bottom: 2%;
+list-style: none;
+box-sizing: border-box;
+width: 98%;
+border: 2px solid rgb(195, 195, 195);
+}
+.display_List .card_container .cards .Image_Section{
+width: 20%;
+margin-top: 1%;
+font-size: 20px;
+text-align: center;
+
+}
+.display_List .card_container .cards .Item_Name{
+width: 30%;
+font-size: 20px;
+text-align: center;
+margin-top: 1%;
+
+}
+.display_List .card_container .cards .Item_Price{
+width: 20%;
+padding-left: 2%;
+font-size: 20px;
+margin-top: 1%;
+color: rgb(51, 51, 51);
+}
+
+.display_List .card_container .cards .Item_Qty{
+width: 10%;
+font-size: 20px;
+margin-top: 1%;
+text-align: center;
+color: rgb(79, 79, 79);
+}
+.display_List .card_container .cards .Item_Visibilty{
+width: 12%;
+font-size: 20px;
+margin-top: 1%;
+text-align: center;
+color: rgb(79, 79, 79);
+}
+.display_List .card_container .cards .Item_Category{
+width: 20%;
+margin-top: 1%;
+font-size: 20px;
+text-align: center;
+color: rgb(79, 79, 79);
+}
+
+
+
+
+.display_List .card_container .card{
+display: flex;
+list-style: none;
+user-select: none;
+margin-top: 1%;
+width: 96%;
+margin-left: 2%;
+padding-bottom: 1%;
+border-bottom: 2px solid rgb(224, 224, 224);
+}
+.display_List .card_container .card .Image_Section{
+width: 20%;
+}
+.display_List .card_container .card .Item_Name{
+width: 30%;
+font-size: 20px;
+text-align: center;
+word-wrap: normal;
+padding-top: 2.5%;
+font-weight: 700;
+}
+
+.display_List .card_container .card .Item_Price{
+width: 20%;
+font-size: 18px;
+color: rgb(51, 51, 51);
+text-transform: capitalize;
+padding-left: 1.5%;
+}
+.display_List .card_container .card .Item_Price .One{
+padding-top: 13%;
+}
+.display_List .card_container .card .Item_Price .Many{
+padding-top: 0.1%;
+}
+
+.display_List .card_container .card .Item_Price b{
+font-weight: 500;
+}
+.display_List .card_container .card .Item_Qty{
+width: 10%;
+font-size: 18px;
+text-align: center;
+color: rgb(79, 79, 79);
+padding-top: 2.5%;
+}
+
+
+.display_List .card_container .card .Item_Visibilty{
+width: 12%;
+font-size: 20px;
+text-align: center;
+padding-top: 2.5%;
+color: rgb(79, 79, 79);
+}
+.display_List .card_container .card .Item_Category{
+width: 20%;
+font-size: 18px;
+padding-top: 2.5%;
+text-align: center;
+color: rgb(79, 79, 79);
+}
+.display_List .card_container .card .Item_Visibilty .ON{
+background-color: rgb(5, 117, 255);
+border-radius: 30px;
+padding-top: 1%;
+padding-bottom: 3%;
+margin-top: 15%;
+width: 80%;
+margin-left: 20%;
+color: white;
+}
+.display_List .card_container .card .Item_Visibilty .OFF{
+background-color: rgb(253, 5, 5);
+border-radius: 30px;
+padding-top: 1%;
+padding-bottom: 3%;
+margin-top: 15%;
+width: 80%;
+margin-left: 20%;
+color: white;
+}
+

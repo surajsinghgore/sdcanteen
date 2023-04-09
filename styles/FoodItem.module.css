@@ -1,0 +1,334 @@
+.Status{
+position: relative;
+width: 100%;
+height: auto;
+
+}
+.Status .banner{
+z-index: -1;
+
+}
+.Status .path{
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+}
+.Status .path h1{
+padding-top: 10%;
+font-size: 60px;
+text-align: right;
+padding-right: 30%;
+text-shadow: 0px 0px 10px rgb(70, 70, 70);
+color: rgb(255, 255, 255);
+}
+.Status .path p{
+margin-top: -2%;
+font-size: 25px;
+text-align: right;
+padding-right: 26%;
+text-shadow: 0px 0px 5px rgb(40, 40, 40);
+color: rgb(211, 211, 211);
+}
+.Status .path p span{
+color: rgb(255, 106, 0);
+}
+.Status .path p a{
+transition: all 0.3s;
+}
+.Status .path p a:hover{
+color: rgb(255, 106, 0);
+
+}
+
+.main_food{
+position: relative;
+top: 0;
+left: 0;
+width: 100%;
+height: auto;
+display: flex;
+margin-bottom: 2%;
+}
+
+/* left */
+.main_food .left{
+width:25%;
+margin-top: 2%;
+
+}
+.main_food .left h2{
+font-size: 30px;
+padding-left: 10%;
+}
+
+.main_food .left hr{
+height: 2px;
+width: 80%;
+margin-left: 10%;
+border: 2px dotted rgb(60, 60, 60);
+}
+.main_food .left .menu{
+width: 80%;
+margin-left: 10%;
+list-style: none;
+margin-top: 6%;
+}
+.main_food .left .menu li{
+position: relative;
+width: 100%;
+height: auto;
+font-size: 20px;
+padding-top: 4%;
+text-transform: capitalize;
+padding-bottom: 4%;
+border-bottom: 1px solid rgb(138, 138, 138);
+}
+.main_food .left .menu .heading{
+transition: all 0.4s;
+cursor: pointer;
+}
+.main_food .left .menu li:hover .heading{
+color: rgb(255, 60, 0);
+padding-left: 1%;
+}
+.main_food .left .menu .length{
+position: absolute;
+top: 20%;
+right: 0;
+}
+
+/* right */
+.main_food .right{
+width: 75%;
+margin-top: 2%;
+margin-bottom: 3%;
+
+}
+.main_food .right .top{
+position: relative;
+width: 90%;
+margin-left: 5%;
+height: auto;
+border-bottom: 1px solid rgb(203, 203, 203);
+}
+
+
+.main_food .right .top h4{
+padding-left: 3%;
+font-size: 20px;
+width: 40%;
+
+}
+.main_food .right .top .search{
+position: absolute;
+ top: -14%;
+ width: 50%;
+ right: 0;
+}
+.main_food .right .top .search input{
+width: 100%;
+height: 40px;
+outline:none;
+padding-left: 3%;
+color: rgb(69, 69, 69);
+font-size: 18px;
+border: 1px solid rgb(194, 194, 194);
+}
+.main_food .right .top .btn{
+position: absolute;
+ top: 8%;
+ font-size: 18px;
+ color: white;
+ padding: 1% 2% 1% 2%;
+ width: auto;
+ border-radius: 5px;
+ background-color: red;
+ right: 1%;
+}
+.main_food .right .cards{
+width: 100%;
+}
+
+.main_food .right .cards .card{
+width: 30%;
+height: auto;
+user-select: none;
+margin-top: 2%;
+border-radius: 10px;
+float: left;
+margin-left: 2.6%;
+border: 2px solid rgb(217, 217, 217);
+transition: all 0.3s;
+}
+.main_food .right .cards .card:hover{
+box-shadow: 0px 0px 12px 3px rgb(222, 222, 222);
+}
+.main_food .right .cards .card .Img{
+width: 97%;
+padding-top: 3%;
+height: auto;cursor: pointer;
+padding-left: 3%;
+}
+.main_food .right .cards .card .deatils{
+width: 100%;
+height: auto;
+}
+.main_food .right .cards .card .deatils h1{
+text-align: left;
+padding-left: 4%;
+margin-top: 1%;cursor: pointer;
+text-transform: capitalize;
+font-size: 24px;
+color: rgb(84, 84, 84);
+transition: all 0.4s;
+}
+.main_food .right .cards .card .deatils h1:hover{
+color: red;
+}
+.main_food .right .cards .card .deatils h3{
+padding-left: 4%;
+font-size: 18px;
+margin-top: -2%;
+color: rgb(62, 62, 62);
+font-weight: 500;
+}
+.main_food .right .cards .card .deatils h3 span{
+color: rgb(7, 66, 117);
+padding-left: 5%;
+}
+
+
+
+.main_food .right .cards .card .deatils h6{
+padding-left: 4%;
+font-size: 18px;
+margin-top: -4%;
+color: rgb(62, 62, 62);
+font-weight: 500;
+}
+.main_food .right .cards .card .deatils h6 span{
+color: rgb(7, 66, 117);
+padding-left: 5%;
+}
+.main_food .right .cards .card .deatils .sizes{
+width: 100%;
+height: auto;
+margin-bottom: 1%;
+position: relative;
+margin-top: -1%;
+display: flex;
+}
+.main_food .right .cards .card .deatils .sizes .dropBtn{
+margin-left: 5%;
+position: relative;
+width: 60%;
+border: 1px solid rgb(171, 171, 171);
+border-radius: 40px;
+overflow: hidden;
+height: 35px;cursor: pointer;
+}
+.main_food .right .cards .card .deatils .sizes .dropBtn .span{
+text-align: center;
+font-size: 22px;
+user-select: none;
+padding-right: 20%;
+margin-top: -1%;
+}
+.main_food .right .cards .card .deatils .sizes .dropBtn .arrow{
+position: absolute;
+top: 0;
+right: 0;
+height: 100%;
+width: 23%;
+background-color: rgb(250, 155, 2);
+}
+.main_food .right .cards .card .deatils .sizes .dropBtn .arrow .arrowIcon{
+color: white;
+font-size: 40px;
+text-align: center;
+margin-top: -8%;
+}
+.main_food .right .cards .card .deatils .sizes .listPopUp{
+width: 55%;
+height: auto;
+background-color: rgb(254, 141, 41);
+position: absolute;
+padding-top: 3%;
+padding-bottom: 3%;
+bottom: 100%;
+border-top-left-radius: 30px;
+list-style: none;
+border-top-right-radius: 30px;
+left: 8%;
+}
+.main_food .right .cards .card .deatils .sizes .listPopUp li{
+text-align: center;
+background-color: white;
+user-select: none;
+width: 90%;
+margin-top: 4%;
+margin-left: 5%;
+border-radius: 30px;
+text-transform: capitalize;
+cursor: pointer;
+height: auto;
+padding: 3% 0% 3% 0%;
+transition: all 0.6s;
+}
+.main_food .right .cards .card .deatils .sizes .listPopUp li:hover{
+background-color: black;
+color: white;
+}
+
+.main_food .right .cards .card .deatils .sizes .listPopUp .Active{
+background-color: black;
+color: white;
+}
+.main_food .right .cards .card .deatils .sizes .price{
+margin-top: -12%;
+margin-left: 5%;
+font-size: 25px;
+color: red;
+}
+
+.main_food .right .cards .card .deatils .btnSection{
+display: flex;
+width: 100%;
+}
+.main_food .right .cards .card .deatils .btnSection button{
+width: 43%;
+border: none;
+outline: none;
+height: auto;
+float: left;
+margin-left: 4%;
+margin-bottom: 6%;
+text-align: center;
+font-size: 16px;
+padding: 2% 2% 2% 2%;
+border-radius: 60px;
+margin-top: -3%;
+background: #fff;
+cursor: pointer;
+border: 1px solid rgb(187, 187, 187);
+transition: all 0.6s;
+}
+
+.main_food .right .cards .card .deatils button:hover{
+background: rgb(241, 28, 28);
+border: none;
+box-shadow: 0px 0px 12px 2px rgb(203, 203, 203);
+color: white;
+
+
+}
+.main_food .right .cards .card .deatils .buy{
+border: 1px solid rgb(0, 156, 247);
+color: rgb(0, 156, 247);
+}
+
+.main_food .right .cards .match{
+color: red;
+text-align: center;
+font-size: 20px;}
