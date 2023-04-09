@@ -92,20 +92,20 @@ if(data.data){
 status=data.data[0].Status;
 }
 if(status=="true"){}else{
-let d=await Timing.filter((time)=>{
-return time.time>=times;
-})
-setTime(d);
-// setTime(Timing);
+// let d=await Timing.filter((time)=>{
+// return time.time>=times;
+// })
+// setTime(d);
+setTime(Timing);
 }
 }
 // zero is for sunday
-if(parseInt(date.getDay())!=0){
+// if(parseInt(date.getDay())!=0){
 // from 7 am to 6 pm allowed
-if((h>=7)&&(h<=17)){
+// if((h>=7)&&(h<=17)){
 fetchData();
-}
-}
+// }
+// }
 
 },[realTime])
 
