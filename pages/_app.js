@@ -15,6 +15,7 @@ const router=useRouter();
  const [orderView,setOrderView]=useState(false);
  const [checkCooking,setCheckCooking]=useState(false);
 const hide=()=>{
+sessionStorage.setItem('cooking','false');
 setOrderView(false)
 }
 const checks=async()=>{
@@ -108,10 +109,19 @@ setProgress(70)
 setProgress(80)
 setProgress(90)
 setProgress(100)
-
 if(checkCooking){
-setOrderView(true)
+if(sessionStorage.getItem('cooking')=="false"){
+setOrderView(false)
+console.log('false')
 }
+else{
+setOrderView(true)
+console.log('true')
+
+}
+}
+
+
 
 })
  // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -134,7 +144,7 @@ setOrderView(true)
    <Link href="/OrderComplete"><a><h6>Order Cooking</h6></a></Link>
     <button title='Hide' onClick={()=>hide()}>x</button>
      <Link href="/OrderComplete"><a> <div className="cookImage">
-    <Image src={cooking} layout="fill" alt="cooking image" priority="true"/>
+    <Image src={cooking} width={150} height={139} alt="cooking image" priority="true"/>
     </div></a></Link>
         </div>
     </div>

@@ -51,7 +51,6 @@ const Home = () => {
   const [blurDataUrl12] = useNextBlurhash("LMJ7%XjFKkpx%LnNk?s;PqWBivw[");
   const [blurDataUrl13] = useNextBlurhash("LRRV^Pj[%hxao#M|V@t6_MNGMdoe");
   const [blurDataUrl14] = useNextBlurhash("LJQA29J7?b=y-pD%oz%g~VR6IUpI");
-
   const [countOn, setCountOn] = useState(false);
   const [loader, setLoader] = useState(false);
   const [topSearchData, setTopSearchData] = useState([]);
@@ -60,6 +59,7 @@ const Home = () => {
   const [happyClient, setHappyClient] = useState("");
   const [totalItems, setTotalItems] = useState("");
   const [allOrders, setAllOrders] = useState("");
+  // fetching facts
   useEffect(() => {
     const getAll = async () => {
       const res = await fetch(`${HOST}/api/HomePageAnaylsis`);
@@ -107,6 +107,7 @@ const Home = () => {
                               alt={items.ImageName}
                               height={260}
                               width={380}
+                              priority
                             />
                           </div>
                           <div className={home.data}>
@@ -146,6 +147,7 @@ const Home = () => {
                               alt={items.ImageName}
                               height={260}
                               width={380}
+                              priority
                             />
                           </div>
                           <div className={home.data}>
@@ -210,7 +212,7 @@ const Home = () => {
             </div>
             <h5> Happy clients</h5>
             <p>
-              {" "}
+             
               {countOn && <CountUp start={0} end={happyClient} duration={2} />}
             </p>
           </div>
@@ -227,7 +229,7 @@ const Home = () => {
               width={380}
               blurDataURL={blurDataUrl14}
               placeholder="blur"
-              priority="true"
+              priority
             />
           </div>
         </div>
@@ -241,7 +243,7 @@ const Home = () => {
               width={380}
               blurDataURL={blurDataUrl13}
               placeholder="blur"
-              priority="true"
+              priority
             />
           </div>
         </div>
@@ -268,6 +270,7 @@ const Home = () => {
                   layout="fill"
                   blurDataURL={blurDataUrl1}
                   placeholder="blur"
+                   priority
                 />
               </div>
             </div>
@@ -281,6 +284,7 @@ const Home = () => {
                   layout="fill"
                   blurDataURL={blurDataUrl2}
                   placeholder="blur"
+                  priority
                 />
               </div>
             </div>
@@ -294,6 +298,7 @@ const Home = () => {
                   layout="fill"
                   blurDataURL={blurDataUrl3}
                   placeholder="blur"
+                   priority
                 />
               </div>
             </div>
@@ -308,6 +313,7 @@ const Home = () => {
                   layout="fill"
                   blurDataURL={blurDataUrl4}
                   placeholder="blur"
+                   priority
                 />
               </div>
             </div>
@@ -321,6 +327,7 @@ const Home = () => {
                   layout="fill"
                   blurDataURL={blurDataUrl5}
                   placeholder="blur"
+                   priority
                 />
               </div>
             </div>
@@ -334,6 +341,7 @@ const Home = () => {
                   layout="fill"
                   blurDataURL={blurDataUrl6}
                   placeholder="blur"
+                   priority
                 />
               </div>
             </div>
@@ -347,6 +355,7 @@ const Home = () => {
                   layout="fill"
                   blurDataURL={blurDataUrl7}
                   placeholder="blur"
+                   priority
                 />
               </div>
             </div>
@@ -360,6 +369,7 @@ const Home = () => {
                   layout="fill"
                   blurDataURL={blurDataUrl8}
                   placeholder="blur"
+                   priority
                 />
               </div>
             </div>
@@ -373,6 +383,7 @@ const Home = () => {
                   layout="fill"
                   blurDataURL={blurDataUrl9}
                   placeholder="blur"
+                   priority
                 />
               </div>
             </div>
@@ -386,6 +397,7 @@ const Home = () => {
                   layout="fill"
                   blurDataURL={blurDataUrl10}
                   placeholder="blur"
+                   priority
                 />
               </div>
             </div>
@@ -399,6 +411,7 @@ const Home = () => {
                   layout="fill"
                   blurDataURL={blurDataUrl11}
                   placeholder="blur"
+                   priority
                 />
               </div>
             </div>
@@ -412,6 +425,7 @@ const Home = () => {
                   layout="fill"
                   blurDataURL={blurDataUrl12}
                   placeholder="blur"
+                   priority
                 />
               </div>
             </div>

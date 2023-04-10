@@ -308,7 +308,7 @@ suggestion.style.display="none"
   return (
     <header>
     <div className="logo" id="Header">
-    <Link href={"/"}><a><Image src={sdLogo} alt="sd logo " height="60px" width="180px" priority="true"  /></a></Link> </div>
+    <Link href={"/"}><a><Image src={sdLogo} alt="sd logo " height="60px" width="180px" priority={true}  /></a></Link> </div>
 
         <div className="search">
         <i> <AiOutlineSearch/></i>

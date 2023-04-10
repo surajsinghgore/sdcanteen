@@ -27,6 +27,7 @@ const [email,setEmail]=useState("")
 const [password,setPassword]=useState("")
 
 const Login=async(e)=>{
+console.log('gg')
 e.preventDefault();
 if(email===""){
 toast.warn("Please Fill Email/Mobile Field", {
@@ -210,7 +211,7 @@ router.push("/")
 <div className={ClientStyle.clientLogin}>
 <div className={ClientStyle.form}>
 <h3>SD CANTEEN</h3>
-<form>
+<form onSubmit={Login}>
 <li>
 <h6>Enter Email/Mobile To Login</h6>
 <input type="text" name="" placeholder="Email / Mobile" value={email} onChange={(e)=>setEmail(e.target.value)}  autoComplete="new-password"  />
@@ -222,8 +223,8 @@ router.push("/")
 <RiLockPasswordLine className={ClientStyle.icon} />
 </li>
 <p><Link href="/ForgetPassword">Forget Password ?</Link></p>
-</form>
 <button onClick={Login}>Login</button>
+</form>
 <div className={ClientStyle.path}>
 <h4><Link href="/Signup">Register New User?</Link></h4>
 <h4><Link href="/admin/Login">Admin Login </Link></h4>
