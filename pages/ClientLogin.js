@@ -226,7 +226,7 @@ router.push("/")
 <button onClick={Login}>Login</button>
 <div className={ClientStyle.path}>
 <h4><Link href="/Signup">Register New User?</Link></h4>
-<h4><Link href="/admin">Admin Login </Link></h4>
+<h4><Link href="/admin/Login">Admin Login </Link></h4>
 </div>
 </div>
 

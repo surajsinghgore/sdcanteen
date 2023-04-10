@@ -26,8 +26,8 @@ setYear(date.getFullYear())
 <li><Link href="/Items/sandwich"><a><IoMdArrowDropright /> Sandwich</a></Link></li>
 <li><Link href="/Items/cold coffee"><a><IoMdArrowDropright /> Cold Coffee</a></Link></li>
 <li><Link href="/Items/fast food"><a><IoMdArrowDropright /> Fast Food</a></Link></li>
-<li><Link href="/Items/juices"><a><IoMdArrowDropright /> Juices</a></Link></li>
-<li><Link href="/Items/cold drinks"><a><IoMdArrowDropright />Cold Drink</a></Link></li>
+<li><Link href="/JuiceItem"><a><IoMdArrowDropright /> Juices</a></Link></li>
+<li><Link href="/CoffeeItem"><a><IoMdArrowDropright />Cold Drink</a></Link></li>
 </div>
 
 
