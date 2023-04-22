@@ -89,7 +89,7 @@ const Home = () => {
 
       {/* cards */}
 
-      <div className={home.homeCards}>
+      <div className={home.homeCards} >
         {topSearchData.length != 0 ? (
           <>
             <h1>Top 5 Trending Food Items</h1>
