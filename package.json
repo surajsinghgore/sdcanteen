@@ -2,7 +2,9 @@
   "name": "sdcanteenwebsite",
   "version": "0.1.0",
   "private": true,
-
+  "engines": {
+    "node": "16.x"
+  },
   "scripts": {
     "dev": "next",
     "build": "next build",
