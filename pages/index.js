@@ -6,7 +6,6 @@ import Footer from "../Components/Footer";
 import useNextBlurhash from "use-next-blurhash";
 import Carousel from "../Components/Carousel";
 import Image from "next/image";
-let HOST = process.env.NEXT_PUBLIC_API_URL;
 import CountUp from "react-countup";
 import ScrollTrigger from "react-scroll-trigger";
 // swiper bottom
@@ -36,7 +35,7 @@ import { RiNumbersFill } from "react-icons/ri";
 import { MdOutlineAccountBox } from "react-icons/md";
 
 import Link from "next/link";
-const Home = () => {
+const Home = ({HomeData}) => {
   const [blurDataUrl1] = useNextBlurhash("LnPsFhNfyYs+-?t7sle.yZRjMxax");
   const [blurDataUrl2] = useNextBlurhash("LiM?I~WB-;Rj~qoeNKoJK7kCVss:");
   const [blurDataUrl3] = useNextBlurhash("LWLC-4jGJArq}?NFX5xYBpnhw]WA");
@@ -61,20 +60,17 @@ const Home = () => {
   const [allOrders, setAllOrders] = useState("");
   // fetching facts
   useEffect(() => {
-    const getAll = async () => {
-      const res = await fetch(`${HOST}/api/HomePageAnaylsis`);
-      let HomeData = await res.json();
-      if (res.status == 201) {
-        setTopSearchData(HomeData.TopTrendingItems);
+
+    if(HomeData){
+            setTopSearchData(HomeData.TopTrendingItems);
         setTopRateData(HomeData.TopRatedFoodData);
         setAllOrders(HomeData.orderDataCount);
         setTotalItems(HomeData.allItemsCount);
         setVisitor(HomeData.visitorDataCount);
         setHappyClient(HomeData.HappyClients);
-      }
-    };
-    getAll();
-  }, []);
+    }
+
+  }, [HomeData]);
   return (
     <>
       <Loader loader={loader} />
@@ -90,7 +86,7 @@ const Home = () => {
       {/* cards */}
 
       <div className={home.homeCards} >
-        {topSearchData.length != 0 ? (
+        {topSearchData!=undefined ? (
           <>
             <h1>Top 5 Trending Food Items</h1>
             {topSearchData.map((items) => {
@@ -130,7 +126,7 @@ const Home = () => {
       </div>
       {/* top rated items */}
       <div className={home.homeCards}>
-        {topRateData.length != 0 ? (
+        {topRateData !=undefined ? (
           <>
             <h1> Five Best Rated Foods Items</h1>
             {topRateData.map((items) => {
@@ -184,7 +180,7 @@ const Home = () => {
             </div>
             <h5>Delicacy Of Items</h5>
             <p>
-              {countOn && <CountUp start={0} end={totalItems} duration={2} />}
+              {countOn && <CountUp start={0} end={totalItems} duration={1} />}
             </p>
           </div>
 
@@ -193,7 +189,7 @@ const Home = () => {
               <MdOutlineAccountBox />
             </div>
             <h5>Total Visits </h5>
-            <p>{countOn && <CountUp start={0} end={visitor} duration={2} />}</p>
+            <p>{countOn && <CountUp start={0} end={visitor} duration={1} />}</p>
           </div>
 
           <div className={home.fact}>
@@ -202,7 +198,7 @@ const Home = () => {
             </div>
             <h5>Orders Placed</h5>
             <p>
-              {countOn && <CountUp start={0} end={allOrders} duration={2} />}
+              {countOn && <CountUp start={0} end={allOrders} duration={1} />}
             </p>
           </div>
 
@@ -213,7 +209,7 @@ const Home = () => {
             <h5> Happy clients</h5>
             <p>
              
-              {countOn && <CountUp start={0} end={happyClient} duration={2} />}
+              {countOn && <CountUp start={0} end={happyClient} duration={1} />}
             </p>
           </div>
         </div>
@@ -438,3 +434,17 @@ const Home = () => {
 };
 
 export default Home;
+
+
+
+
+export async function getServerSideProps(context) {
+let HOST = process.env.NEXT_PUBLIC_API_URL;
+      const res = await fetch(`${HOST}/api/HomePageAnaylsis`);
+      let HomeData = await res.json();
+      
+
+  return {
+    props: {HomeData}, // will be passed to the page component as props
+  }
+}
