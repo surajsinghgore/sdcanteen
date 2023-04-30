@@ -42,7 +42,7 @@ TopRatedFoodDatas.push(fooddata)
 
 let TopRatedFoodData=TopRatedFoodDatas.slice(0,5);
 let TopTrendingItems=TopTrendingFoodItem.slice(0,5)
-   return res.status(201).json({TopTrendingItems,TopRatedFoodData,visitorDataCount,orderDataCount,HappyClients,allItemsCount})
+   return res.status(200).json({TopTrendingItems,TopRatedFoodData,visitorDataCount,orderDataCount,HappyClients,allItemsCount})
   } catch (error) {
     console.log(error)
       res.status(501).json({ message: error });

@@ -1,3 +1,9 @@
+.loading{
+margin: 10% 0%;
+text-align: center;
+color: rgb(245, 81, 10);
+}
+
 .homeCards{
 clear: both;
 width: 100%;

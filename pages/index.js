@@ -1,7 +1,10 @@
 import dynamic from 'next/dynamic'
+let HOST = process.env.NEXT_PUBLIC_API_URL;
+
 const Styles = dynamic(() => import('../styles/admin.module.css'))
-// const home = dynamic(() => import('../styles/Home.module.css'))
 import home from "../styles/Home.module.css";
+
+
 
 const HeadTag = dynamic(() => import('../Components/Head'))
 const Header = dynamic(() => import('../Components/Header'))
@@ -32,11 +35,13 @@ let p1 = `https://res.cloudinary.com/dnxv21hr0/image/upload/v1681014245/p1_pvhtm
 let p2 = `https://res.cloudinary.com/dnxv21hr0/image/upload/v1681014246/p2_g5k0gk.svg`;
 import { Autoplay } from "swiper";
 import TopFoodItems from '../Components/TopFoodItems';
+import { useEffect } from 'react';
 
 
 
 
-const Home = ({HomeData}) => {
+const Home = () => {
+
   const [blurDataUrl1] = useNextBlurhash("LnPsFhNfyYs+-?t7sle.yZRjMxax");
   const [blurDataUrl2] = useNextBlurhash("LiM?I~WB-;Rj~qoeNKoJK7kCVss:");
   const [blurDataUrl3] = useNextBlurhash("LWLC-4jGJArq}?NFX5xYBpnhw]WA");
@@ -52,8 +57,7 @@ const Home = ({HomeData}) => {
   const [blurDataUrl13] = useNextBlurhash("LRRV^Pj[%hxao#M|V@t6_MNGMdoe");
   const [blurDataUrl14] = useNextBlurhash("LJQA29J7?b=y-pD%oz%g~VR6IUpI");
 
-  // fetching facts
-  
+ 
   return (
     <>
          <div className={Styles.admin}>
@@ -65,7 +69,7 @@ const Home = ({HomeData}) => {
       </div>
 
 
-<TopFoodItems HomeData={HomeData}/>
+<TopFoodItems />
 
 
 
@@ -294,21 +298,20 @@ const Home = ({HomeData}) => {
 
 
 
-export const getStaticProps = async () => {
-let HOST = process.env.NEXT_PUBLIC_API_URL;
-  const res =  await fetch(`${HOST}/api/HomePageAnaylsis`)
-let HomeData = await res.json();
-  if (!HomeData) {
-    return {
-      notFound: true,
-    }
-  }
+// export const getStaticProps = async () => {
+//   const res =  await fetch(`${HOST}/api/HomePageAnaylsis`)
+// let HomeData = await res.json();
+//   if (!HomeData) {
+//     return {
+//       notFound: true,
+//     }
+//   }
 
-  return {
-    props: { HomeData }, // will be passed to the page component as props
-  }
+//   return {
+//     props: { HomeData }, // will be passed to the page component as props
+//   }
   
-}
+// }
 
 export default Home;
 

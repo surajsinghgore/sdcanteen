@@ -8,9 +8,10 @@ import { MdOutlineAccountBox } from "react-icons/md";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import home from "../styles/Home.module.css";
+let HOST = process.env.NEXT_PUBLIC_API_URL;
 
   
-const TopFoodItems = ({ HomeData }) => {
+const TopFoodItems = () => {
   const [countOn, setCountOn] = useState(false);
   const [topSearchData, setTopSearchData] = useState([]);
   const [topRateData, setTopRateData] = useState([]);
@@ -18,9 +19,12 @@ const TopFoodItems = ({ HomeData }) => {
   const [happyClient, setHappyClient] = useState("");
   const [totalItems, setTotalItems] = useState("");
   const [allOrders, setAllOrders] = useState("");
-useEffect(() => {
-console.log(HomeData)
-    if(HomeData){
+
+
+  const getData=async()=>{
+const res=await fetch(`${HOST}/api/HomePageAnaylsis`);
+const HomeData=await res.json();
+ if(HomeData){
             setTopSearchData(HomeData.TopTrendingItems);
         setTopRateData(HomeData.TopRatedFoodData);
         setAllOrders(HomeData.orderDataCount);
@@ -29,12 +33,17 @@ console.log(HomeData)
         setHappyClient(HomeData.HappyClients);
     }
 
-  }, [HomeData]);
+}
+
+useEffect(() => {
+
+   getData()
+
+  }, []);
     return (
         <>
               {/* top trending items cards */}
-
-      <div className={home.homeCards} >
+{(topSearchData.length==0)? <h1 className={home.loading}>Loading ....</h1>: <div className={home.homeCards} >
         {topSearchData!=undefined ? (
           <>
             <h1>Top 5 Trending Food Items</h1>
@@ -72,9 +81,9 @@ console.log(HomeData)
         ) : (
           ""
         )}
-      </div>
-      {/* top rated items */}
-      <div className={home.homeCards}>
+      </div>}
+     
+     {(topRateData.length===0)?<h1 className={home.loading}>Loading...</h1>:     <div className={home.homeCards}>
         {topRateData !=undefined ? (
           <>
             <h1> Five Best Rated Foods Items</h1>
@@ -112,7 +121,9 @@ console.log(HomeData)
         ) : (
           ""
         )}
-      </div>
+      </div>}
+      {/* top rated items */}
+ 
 
       {/* facts */}
       <div className={home.f}>
