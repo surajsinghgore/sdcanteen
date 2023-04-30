@@ -433,12 +433,9 @@ const Home = ({HomeData}) => {
   );
 };
 
-export default Home;
 
 
-
-
-export const getServerSideProps = async () => {
+export async function getServerSideProps() {
 let HOST = process.env.NEXT_PUBLIC_API_URL;
       const res = await fetch(`${HOST}/api/HomePageAnaylsis`);
       let HomeData = await res.json();
@@ -448,3 +445,8 @@ let HOST = process.env.NEXT_PUBLIC_API_URL;
     props: {HomeData}, // will be passed to the page component as props
   }
 }
+
+export default Home;
+
+
+
