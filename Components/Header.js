@@ -16,7 +16,7 @@ import { AiOutlineShoppingCart } from 'react-icons/ai';
 import { useState } from 'react';
 import {  useCart } from "react-use-cart";
 import router from 'next/router'
-let ImagePath=process.env.NEXT_PUBLIC_IMAGESPACEPATH;
+
 import useNextBlurhash from "use-next-blurhash";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";

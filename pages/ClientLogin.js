@@ -25,9 +25,11 @@ const router = useRouter()
   const { setUserData } = useContext(AllContext);
 const [email,setEmail]=useState("")
 const [password,setPassword]=useState("")
+const [disbaleBtn,setDisableBtn]=useState(false);
 
 const Login=async(e)=>{
-console.log('gg')
+setDisableBtn(true)
+
 e.preventDefault();
 if(email===""){
 toast.warn("Please Fill Email/Mobile Field", {
@@ -39,6 +41,8 @@ pauseOnHover: true,
 draggable: true,
 progress: undefined,
 });
+setDisableBtn(false)
+
 return ;
 }
 if(password===""){
@@ -50,7 +54,7 @@ closeOnClick: true,
 pauseOnHover: true,
 draggable: true,
 progress: undefined,
-});
+});setDisableBtn(false)
 return ;
 }
 
@@ -68,7 +72,7 @@ const res=await fetch(`${HOST}/api/ClientLogin`,{
         Email:email,Password:password
     })
 });
-
+setDisableBtn(false)
 let data=await res.json();
 setProgress(60)
 if(res.status==501){
@@ -133,6 +137,7 @@ const res=await fetch(`${HOST}/api/ClientLogin`,{
         Mobile,Password:password
     })
 });
+
 let data=await res.json();
 setProgress(60)
 if(res.status==501){
@@ -146,7 +151,7 @@ draggable: true,
 progress: undefined,
 });
 setProgress(100)
-
+setDisableBtn(false)
 return ;
 }
 if(res.status==400){
@@ -160,7 +165,7 @@ draggable: true,
 progress: undefined,
 });
 setProgress(100)
-
+setDisableBtn(false)
 return ;
 }
 
@@ -223,7 +228,9 @@ router.push("/")
 <RiLockPasswordLine className={ClientStyle.icon} />
 </li>
 <p><Link href="/ForgetPassword">Forget Password ?</Link></p>
-<button onClick={Login}>Login</button>
+
+{(disbaleBtn)?<button disabled style={{cursor:'not-allowed'}}>Waiting...</button>:<button onClick={Login}>Login</button>}
+
 </form>
 <div className={ClientStyle.path}>
 <h4><Link href="/Signup">Register New User?</Link></h4>

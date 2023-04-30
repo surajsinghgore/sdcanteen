@@ -30,6 +30,7 @@ images: {
       },
     ],
   },
+  runtime: 'nodejs'
 }
 
 module.exports = nextConfig

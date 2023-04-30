@@ -13,7 +13,7 @@ import { AiOutlineMail } from 'react-icons/ai';
 import { GoDeviceMobile } from 'react-icons/go';
 import { BsGenderFemale } from 'react-icons/bs';
 import { BsPersonBoundingBox } from 'react-icons/bs';
-import { useState ,useEffect} from "react";
+import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import router from 'next/router'
@@ -29,11 +29,13 @@ export default function Signup() {
  const [password,setPassword]=useState("");
  const [cpassword,setCpassword]=useState("");
 
+const [disbaleBtn,setDisableBtn]=useState(false);
 
 
 
  const sendData=async (e)=>{
  e.preventDefault();
+setDisableBtn(true)
 
 if(!fullName){
  toast.warn(`Please Enter FullName`, {
@@ -44,7 +46,7 @@ if(!fullName){
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
-    });
+    });setDisableBtn(false)
     return ;
 }
 if(!age){
@@ -56,7 +58,8 @@ if(!age){
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
-    });  return ;
+    }); setDisableBtn(false)
+     return ;
 }
 if(!email){
  toast.warn(`Please Enter Email`, {
@@ -67,7 +70,8 @@ if(!email){
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
-    });  return ;
+    }); setDisableBtn(false)
+     return ;
 }
 if(!mobile){
  toast.warn(`Please Enter Mobile`, {
@@ -78,7 +82,9 @@ if(!mobile){
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
-    });  return ;
+    }); 
+    setDisableBtn(false)
+     return ;
 }
 if(!gender){
  toast.warn(`Please Enter Gender`, {
@@ -89,7 +95,9 @@ if(!gender){
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
-    });  return ;
+    });  
+    setDisableBtn(false)
+    return ;
 }
 if(!address){
  toast.warn(`Please Enter Address`, {
@@ -101,6 +109,8 @@ if(!address){
       draggable: true,
       progress: undefined,
     });
+    setDisableBtn(false)
+    return;
 }
 if(!password){
  toast.warn(`Please Enter Password`, {
@@ -111,7 +121,9 @@ if(!password){
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
-    });  return ;
+    }); 
+    setDisableBtn(false)
+     return ;
 }
 if(!cpassword){
  toast.warn(`Please Enter Confirm Password`, {
@@ -123,6 +135,7 @@ if(!cpassword){
       draggable: true,
       progress: undefined,
     });
+    setDisableBtn(false)
       return ;
 }
 if(password!==cpassword){
@@ -134,7 +147,7 @@ if(password!==cpassword){
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
-    });
+    });setDisableBtn(false)
       return ;
 }
 setProgress(30)
@@ -147,6 +160,7 @@ const res = await fetch(`${HOST}/api/ClientRegister`, {
         FullName:fullName,Age:age,Email:email,Mobile:mobile,Gender:gender,FullAddress:address,Password:password
       }),
     });
+    
 let data=await res.json();
 setProgress(100)
 if(res.status==501){
@@ -160,6 +174,8 @@ pauseOnHover: true,
 draggable: true,
 progress: undefined,
 });
+setDisableBtn(false)
+return 
 }
 else{
  toast.warn('Internal Server Error', {
@@ -171,9 +187,11 @@ pauseOnHover: true,
 draggable: true,
 progress: undefined,
 });
+setDisableBtn(false)
 }
+return 
 
-return ;
+
 }
 
 if(data.otpError){
@@ -185,7 +203,7 @@ closeOnClick: true,
 pauseOnHover: true,
 draggable: true,
 progress: undefined,
-});
+});setDisableBtn(false)
 return ;
 }
 
@@ -202,6 +220,7 @@ progress: undefined,
 });
 continue;
 }
+setDisableBtn(false)
 return ;
 }
 if(res.status==400){
@@ -214,7 +233,7 @@ pauseOnHover: true,
 draggable: true,
 progress: undefined,
 });
-
+setDisableBtn(false)
 return ;
 }
 if(res.status==201){
@@ -303,7 +322,8 @@ localStorage.setItem('clientRegistrationEmail',data.data.Email)
 <input type="password" name="confirmpassword" placeholder="Confirm Password" value={cpassword} onChange={(e)=>setCpassword(e.target.value)} required/>
 <RiLockPasswordLine className={ClientStyle.icon} />
 </li>
-<button style={{marginLeft:"35%"}} onClick={sendData}>Create Account</button>
+
+{(disbaleBtn)?<button disabled style={{cursor:'not-allowed'}}>Waiting...</button>:<button style={{marginLeft:"35%"}} onClick={sendData}>Create Account</button>}
 </form>
 <div className={ClientStyle.path}>
 <h4><Link href="/ClientLogin">Already Registered ?</Link></h4>

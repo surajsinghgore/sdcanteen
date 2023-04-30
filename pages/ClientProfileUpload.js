@@ -21,6 +21,7 @@ export default function ClientProfileUpload() {
   const [imgs, setImgs] = useState(boyProfile);
   const [files, setFiles] = useState("");
  const [progress, setProgress] = useState(0);
+const [disbaleBtn,setDisableBtn]=useState(false);
 
 
 useEffect(()=>{
@@ -100,6 +101,7 @@ getData();
 
 const uploadProfileImage=async(e)=>{
 e.preventDefault();
+setDisableBtn(true)
 
 if(!files){
 toast.warn('Please Upload Profile Photo', {
@@ -110,7 +112,7 @@ closeOnClick: true,
 pauseOnHover: true,
 draggable: true,
 progress: undefined,
-});   
+});   setDisableBtn(false)
 return ;
 }
 setProgress(40)
@@ -132,7 +134,7 @@ closeOnClick: true,
 pauseOnHover: true,
 draggable: true,
 progress: undefined,
-});   
+});   setDisableBtn(false)
 return ;
     } 
  
@@ -145,7 +147,7 @@ closeOnClick: true,
 pauseOnHover: true,
 draggable: true,
 progress: undefined,
-});   
+});   setDisableBtn(false)
 return ;
     } 
     if(res.status==201){
@@ -194,7 +196,8 @@ progress: undefined,
    <AiOutlineCloudUpload className={ProfileStyles.upload_icon} /> Select Profile
 </label>
 </div>
-<button onClick={uploadProfileImage}>Upload Profile</button>
+
+{(disbaleBtn)?<button disabled style={{cursor:'not-allowed'}}>Waiting...</button>:<button onClick={uploadProfileImage}>Upload Profile</button>}
 </div>
 
 

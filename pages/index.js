@@ -10,8 +10,7 @@ const Carousel = dynamic(() => import('../Components/Carousel'))
 
 import useNextBlurhash from "use-next-blurhash";
 import Image from "next/image";
-import CountUp from "react-countup";
-import ScrollTrigger from "react-scroll-trigger";
+
 // swiper bottom
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
@@ -28,16 +27,11 @@ let img9 = `https://res.cloudinary.com/dnxv21hr0/image/upload/v1681014802/9_nqr9
 let img10 = `https://res.cloudinary.com/dnxv21hr0/image/upload/v1681014800/10_aopxta.jpg`;
 let img11 = `https://res.cloudinary.com/dnxv21hr0/image/upload/v1681014800/11_ufuqlf.jpg`;
 let img12 = `https://res.cloudinary.com/dnxv21hr0/image/upload/v1681014801/12_wlbp1e.jpg`;
-import { useEffect, useState } from "react";
+
 let p1 = `https://res.cloudinary.com/dnxv21hr0/image/upload/v1681014245/p1_pvhtmu.png`;
 let p2 = `https://res.cloudinary.com/dnxv21hr0/image/upload/v1681014246/p2_g5k0gk.svg`;
 import { Autoplay } from "swiper";
-import Loader from "../Components/Loader";
-import { BiFoodMenu } from "react-icons/bi";
-import { BiHappy } from "react-icons/bi";
-import { RiNumbersFill } from "react-icons/ri";
-import { MdOutlineAccountBox } from "react-icons/md";
-import Link from "next/link";
+import TopFoodItems from '../Components/TopFoodItems';
 
 
 
@@ -57,32 +51,12 @@ const Home = ({HomeData}) => {
   const [blurDataUrl12] = useNextBlurhash("LMJ7%XjFKkpx%LnNk?s;PqWBivw[");
   const [blurDataUrl13] = useNextBlurhash("LRRV^Pj[%hxao#M|V@t6_MNGMdoe");
   const [blurDataUrl14] = useNextBlurhash("LJQA29J7?b=y-pD%oz%g~VR6IUpI");
-  const [countOn, setCountOn] = useState(false);
-  const [loader, setLoader] = useState(false);
-  const [topSearchData, setTopSearchData] = useState([]);
-  const [topRateData, setTopRateData] = useState([]);
-  const [visitor, setVisitor] = useState("");
-  const [happyClient, setHappyClient] = useState("");
-  const [totalItems, setTotalItems] = useState("");
-  const [allOrders, setAllOrders] = useState("");
+
   // fetching facts
-  useEffect(() => {
-
-    if(HomeData){
-            setTopSearchData(HomeData.TopTrendingItems);
-        setTopRateData(HomeData.TopRatedFoodData);
-        setAllOrders(HomeData.orderDataCount);
-        setTotalItems(HomeData.allItemsCount);
-        setVisitor(HomeData.visitorDataCount);
-        setHappyClient(HomeData.HappyClients);
-    }
-
-  }, [HomeData]);
+  
   return (
     <>
-      <Loader loader={loader} />
-
-      <div className={Styles.admin}>
+         <div className={Styles.admin}>
         <HeadTag title="Home" />
         <Header />
 
@@ -90,137 +64,14 @@ const Home = ({HomeData}) => {
         <Carousel />
       </div>
 
-      {/* cards */}
 
-      <div className={home.homeCards} >
-        {topSearchData!=undefined ? (
-          <>
-            <h1>Top 5 Trending Food Items</h1>
-            {topSearchData.map((items) => {
-              return (
-                <div className={home.card} key={items._id}>
-                  {/* foodName */}
-                  {items.FoodName ? (
-                    <Link href={`/${items.FoodName}`}>
-                      <a>
-                        <div>
-                          <div className={home.img}>
-                            <Image
-                              src={items.Image}
-                              alt={items.ImageName}
-                              height={260}
-                              width={380}
-                              priority
-                            />
-                          </div>
-                          <div className={home.data}>
-                            <h4>{items.FoodName}</h4>
-                            <p>{items.Description.substring(0, 220)}</p>
-                          </div>
-                        </div>
-                      </a>
-                    </Link>
-                  ) : (
-                    ""
-                  )}
-                </div>
-              );
-            })}
-          </>
-        ) : (
-          ""
-        )}
-      </div>
-      {/* top rated items */}
-      <div className={home.homeCards}>
-        {topRateData !=undefined ? (
-          <>
-            <h1> Five Best Rated Foods Items</h1>
-            {topRateData.map((items) => {
-              return (
-                <div className={home.card} key={items._id}>
-                  {/* foodName */}
-                  {items.FoodName ? (
-                    <Link href={`/${items.FoodName}`}>
-                      <a>
-                        <div>
-                          <div className={home.img}>
-                            <Image
-                              src={items.Image}
-                              alt={items.ImageName}
-                              height={260}
-                              width={380}
-                              priority
-                            />
-                          </div>
-                          <div className={home.data}>
-                            <h4>{items.FoodName}</h4>
-                            <p>{items.Description.substring(0, 220)}</p>
-                          </div>
-                        </div>
-                      </a>
-                    </Link>
-                  ) : (
-                    ""
-                  )}
-                </div>
-              );
-            })}
-          </>
-        ) : (
-          ""
-        )}
-      </div>
+<TopFoodItems HomeData={HomeData}/>
 
-      {/* facts */}
-      <div className={home.f}>
-        <h1> FUN FACTS </h1>
-      </div>
-      <ScrollTrigger
-        onEnter={() => setCountOn(true)}
-        onExit={() => setCountOn(false)}
-      >
-        <div className={home.facts}>
-          <div className={home.fact}>
-            <div className={home.icons}>
-              <BiFoodMenu />
-            </div>
-            <h5>Delicacy Of Items</h5>
-            <p>
-              {countOn && <CountUp start={0} end={totalItems} duration={1} />}
-            </p>
-          </div>
 
-          <div className={home.fact}>
-            <div className={home.icons}>
-              <MdOutlineAccountBox />
-            </div>
-            <h5>Total Visits </h5>
-            <p>{countOn && <CountUp start={0} end={visitor} duration={1} />}</p>
-          </div>
 
-          <div className={home.fact}>
-            <div className={home.icons}>
-              <RiNumbersFill />
-            </div>
-            <h5>Orders Placed</h5>
-            <p>
-              {countOn && <CountUp start={0} end={allOrders} duration={1} />}
-            </p>
-          </div>
 
-          <div className={home.fact}>
-            <div className={home.icons}>
-              <BiHappy />
-            </div>
-            <h5> Happy clients</h5>
-            <p>
-             
-              {countOn && <CountUp start={0} end={happyClient} duration={1} />}
-            </p>
-          </div>
-        </div>
-      </ScrollTrigger>
+
+
       {/* payment accept design */}
       <div className={home.payment}>
         <div className={home.icons}>
@@ -443,8 +294,26 @@ const Home = ({HomeData}) => {
 
 
 
+export const getStaticProps = async () => {
+ try {
+let HOST = process.env.NEXT_PUBLIC_API_URL;
+  const res =  await fetch(`${HOST}/api/HomePageAnaylsis`)
+let HomeData = await res.json();
+console.log(HomeData)
+ if (errors || !HomeData) {
+      return { notFound: true };
+    }
+    else{
+     return {
+    props: {HomeData}, // will be passed to the page component as props
+  }
+    }
+} catch (e) {
+    return { notFound: true };
+  }
+  
+}
 
 export default Home;
-
 
 

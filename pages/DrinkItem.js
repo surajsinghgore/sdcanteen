@@ -75,14 +75,14 @@ AllDataFetch();
 
 const filterWithCategory=async(items)=>{
 setCate(true)
- setLoader(true)
+
 counts=10;
 localStorage.setItem("names",items[0].DrinkCategoryName)
 let itemSend=items[0].DrinkCategoryName;
 let ressFood = await fetch(`${HOST}/api/ShowDrinkClient?itemName=${itemSend}&counts=${counts}`);
 setCounts(counts+10)
   let data = await ressFood.json();
-   setLoader(false)
+
 setFoodDatas(data.data)
 setLens(data.allLen)
 }

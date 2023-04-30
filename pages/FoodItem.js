@@ -96,11 +96,11 @@ setLens(data.allLen)
 }
 
 const fetchData = async() => {
- setLoader(true)
+
 let ressFood = await fetch(`${HOST}/api/ShowFoodItemClient?count=${count}`);
 setCount(count+10)
   let data = await ressFood.json();
-   setLoader(false)
+
 setLen(data.allLen)
 setFoodDatas(data.data)
   };

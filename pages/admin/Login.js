@@ -13,6 +13,8 @@ import { useEffect } from "react";
 import Link from "next/link";
 
 const Login = () => {
+const [disbaleBtn,setDisableBtn]=useState(false);
+
 
 const [progress, setProgress] = useState(0);
   const [secret, setSecret] = useState("");
@@ -25,7 +27,7 @@ router.push('/admin')
 },[])
   const LoginFunction = async (e) => {
     e.preventDefault();
-
+setDisableBtn(true)
     // check field empty or not
     if (!secret) {
       toast.warn("Please enter Secret ID", {
@@ -37,7 +39,7 @@ router.push('/admin')
         draggable: true,
         progress: undefined,
       });
-
+setDisableBtn(false)
       return;
     }
     if (!password) {
@@ -50,6 +52,8 @@ router.push('/admin')
         draggable: true,
         progress: undefined,
       });
+setDisableBtn(false)
+
       return;
     }
 
@@ -65,6 +69,8 @@ router.push('/admin')
         password,
       }),
     });
+
+
     let data = await res.json();
 
  setProgress(100)
@@ -78,7 +84,7 @@ router.push('/admin')
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-      });
+      });setDisableBtn(false)
       return;
     }
     if (data.status == "501") {
@@ -90,7 +96,7 @@ router.push('/admin')
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-      });
+      });setDisableBtn(false)
       return;
     }
 
@@ -139,7 +145,7 @@ localStorage.setItem('adminlogin',"true")
             alt="login banner image"
             width={800}
             height={800}
-             priority="true"
+             priority
           />
         </div>
         <h1>Sign in to Admin Panel</h1>
@@ -163,8 +169,8 @@ localStorage.setItem('adminlogin',"true")
               onChange={(e) => setPassword(e.target.value)}
              autoComplete="new-password"
             />
-
-            <button onClick={LoginFunction}>Click to login</button>
+{(disbaleBtn)?<button disabled style={{cursor:'not-allowed'}}>Waiting...</button>:<button onClick={LoginFunction}>Click to login</button>}
+            
            <Link href="/"><h6>Click Here To Main Website</h6></Link> 
           </form>
         </div>

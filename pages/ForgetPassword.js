@@ -17,9 +17,11 @@ export default function ForgetPassword() {
 const [email,setEmail]=useState("");
  const [progress, setProgress] = useState(0);
 const [otp,setOtp]=useState("")
+const [disbaleBtn,setDisableBtn]=useState(false);
 const [npass,seNpass]=useState("")
 const [cnpass,setCnpass]=useState("")
 const [st,setSt]=useState(false);
+const [st1,setSt1]=useState(false);
 useEffect(()=>{
 if((sessionStorage.getItem("reset")!=undefined)){
 Router.push("/")
@@ -28,8 +30,11 @@ if((sessionStorage.getItem("login")!=undefined)){
 Router.push("/")
 }
 },[])
+
+
 const otpSend=async(e)=>{
 e.preventDefault();
+setSt1(true)
 setProgress(40)
 const res = await fetch(`${HOST}/api/EmailCheckForgetPassword`, {
       method: "POST",
@@ -42,6 +47,7 @@ const res = await fetch(`${HOST}/api/EmailCheckForgetPassword`, {
     });
     let datass=await res.json();
 setProgress(100)
+
 
 if(datass.status=="400"){
 for(let i=0;i<datass.errors.length;i++){
@@ -59,6 +65,8 @@ progress: undefined,
 continue;
 }
 }
+   setSt1(false)
+
 return ;
 }
 
@@ -71,7 +79,9 @@ toast.warn(`${datass.message}`, {
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
-    });  return ;
+    }); 
+   setSt1(false)
+     return ;
 }
 if(res.status==201){
 toast.success("OTP successfully send", {
@@ -84,6 +94,7 @@ toast.success("OTP successfully send", {
       progress: undefined,
     }); 
 setSt(true)
+setSt1(true)
 sessionStorage.setItem("vEmail",email);
 }
 
@@ -91,6 +102,7 @@ sessionStorage.setItem("vEmail",email);
 
 const resetPassword=async(e)=>{
 e.preventDefault();
+setDisableBtn(true)
 if(!npass){
 toast.warn('New Password field not be Empty', {
 position: "bottom-right",
@@ -101,6 +113,7 @@ pauseOnHover: true,
 draggable: true,
 progress: undefined,
 });   
+setDisableBtn(false)
 return ;
 }
 if(!cnpass){
@@ -113,6 +126,7 @@ pauseOnHover: true,
 draggable: true,
 progress: undefined,
 });   
+setDisableBtn(false)
 return ;
 }
 if(npass!=cnpass){
@@ -125,6 +139,7 @@ pauseOnHover: true,
 draggable: true,
 progress: undefined,
 });   
+setDisableBtn(false)
 return ;
 }
 
@@ -152,7 +167,7 @@ closeOnClick: true,
 pauseOnHover: true,
 draggable: true,
 progress: undefined,
-});   
+});   setDisableBtn(false)
 return ;
     }
     if(res.status==400){
@@ -164,7 +179,7 @@ closeOnClick: true,
 pauseOnHover: true,
 draggable: true,
 progress: undefined,
-});   
+});   setDisableBtn(false)
 return ;
     }
     if(res.status==403){
@@ -181,6 +196,7 @@ sessionStorage.removeItem("vEmail")
 setTimeout(() => {
 Router.push("/ClientLogin");
 }, 1500);
+setDisableBtn(false)
 return;
     }
   
@@ -233,8 +249,9 @@ return ;
 {(st)? <input type="email" value={email} readOnly/>:<input type="email" value={email} onChange={(e)=>setEmail(e.target.value)} placeholder="Enter Email Id to Reset Password"/> }
 
 </div>
-{(st)? <button disabled className={forget.disabled}>Send Otp</button>: <button onClick={otpSend}>Send Otp</button>}
 
+
+{(st1)?'':<button onClick={otpSend}>Send Otp</button>}
 </div>
 
 
@@ -243,7 +260,7 @@ return ;
 <div className={forget.otp}>
 <div className={forget.email}>
 <BiMessageCheck className={forget.icons}/>
-<input type="Number" value={otp} onChange={(e)=>setOtp(e.target.value)} placeholder="Enter 6 Digit Otp send to email id"/>
+<input type="Number" value={otp} onChange={(e)=>setOtp(e.target.value)} placeholder="Enter 6 Digit Otp send to email id" maxLength={6}/>
 </div>
 </div>
 
@@ -258,7 +275,8 @@ return ;
 <input type="password" value={cnpass} onChange={(e)=>setCnpass(e.target.value)} placeholder="Re-Enter Confirm Password"/>
 
 </div>
-<button onClick={resetPassword}>Change Password</button>
+
+{(disbaleBtn)?<button disabled style={{cursor:'not-allowed'}}>Waiting...</button>:<button onClick={resetPassword}>Change Password</button>}
 </div>
 </>: ""}
 

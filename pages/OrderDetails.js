@@ -239,7 +239,7 @@ value={`${time.time1.toFixed(2)}-${(time.time>=12)?'PM':'AM'}`} />
 
 <div style={style2}>
 {(time.length==0)?
-<div className={Style1.message}>Order is Not allowed to Placed after <span>5.51 PM</span> from <span>Monday</span> To <span>Saturday</span> and also Closed On <span>Holidays</span></div>
+<div className={Style1.message}>Order is Not allowed to Placed after <span>5.51 PM</span> from <span>Monday</span> To <span>Saturday.</span>  Closed On <span>Sunday</span> and on  <span>Holidays</span></div>
 :""}</div>
 {(time.length!=0)?
 <h4 style={{textAlign:"center",fontSize:"28px",color:"red"}}>Note-: Order Can&#39;t Cancelled Once Placed.</h4>

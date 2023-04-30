@@ -17,6 +17,7 @@ const [resend,setResend]=useState(true);
   const [email, setEmail] = useState("");
   const [otp, setOtp] = useState("");
  const [progress, setProgress] = useState(0);
+const [disbaleBtn,setDisableBtn]=useState(false);
 
 
 
@@ -32,6 +33,8 @@ const [resend,setResend]=useState(true);
 
   const VerifyUser = async (e) => {
     e.preventDefault();
+setDisableBtn(true)
+
     if (!otp) {
       toast.warn("Please Enter OTP", {
         position: "bottom-right",
@@ -41,7 +44,7 @@ const [resend,setResend]=useState(true);
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-      });
+      });setDisableBtn(false)
       return ;
     }
 
@@ -62,7 +65,7 @@ const [resend,setResend]=useState(true);
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-      });
+      });setDisableBtn(false)
       return ;
     }
 setProgress(40)
@@ -89,7 +92,7 @@ setProgress(60)
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-      });
+      });setDisableBtn(false)
 setProgress(100)
 
       return ;
@@ -112,7 +115,7 @@ setProgress(100)
       setTimeout(Redirect, 1500);
       function Redirect() {
         router.push("/Signup");
-      }
+      }setDisableBtn(false)
       return ;
     }
     if (data.status == 403) {
@@ -129,7 +132,7 @@ setProgress(100)
       setTimeout(Redirect, 1500);
       function Redirect() {
         router.push("/Signup");
-      }
+      }setDisableBtn(false)
       return ;
     }
     if (data.status == 501) {
@@ -141,7 +144,7 @@ setProgress(100)
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-      });
+      });setDisableBtn(false)
       return ;
     }
     if (data.status == 201) {
@@ -174,7 +177,7 @@ setProgress(100)
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-      });
+      });setDisableBtn(false)
       return ;
     }
 
@@ -254,10 +257,13 @@ setTimeout(resendOtps, 300000);
               />
               <TbDeviceMobileMessage className={ClientStyle.icon} />
             </li>
-            <button style={{ marginLeft: "36%" }} onClick={VerifyUser}>
-              {" "}
+       
+       
+
+            {(disbaleBtn)?<button disabled style={{cursor:'not-allowed',marginLeft: "36%"}}>Waiting...</button>:     <button style={{ marginLeft: "36%" }} onClick={VerifyUser}>
+     
               Verify User
-            </button>
+            </button>}
             <div className={ClientStyle.path}>
            
               {(resend)? <h4 onClick={resendOtp}>Resend Otp Again 
