@@ -438,7 +438,7 @@ export default Home;
 
 
 
-export async function getStaticProps(context) {
+export const getServerSideProps = async () => {
 let HOST = process.env.NEXT_PUBLIC_API_URL;
       const res = await fetch(`${HOST}/api/HomePageAnaylsis`);
       let HomeData = await res.json();
