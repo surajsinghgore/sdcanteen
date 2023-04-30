@@ -435,7 +435,7 @@ const Home = ({HomeData}) => {
 
 
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
 let HOST = process.env.NEXT_PUBLIC_API_URL;
       const res = await fetch(`${HOST}/api/HomePageAnaylsis`);
       let HomeData = await res.json();
