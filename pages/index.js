@@ -1,10 +1,14 @@
-import Styles from "../styles/admin.module.css";
+import dynamic from 'next/dynamic'
+const Styles = dynamic(() => import('../styles/admin.module.css'))
+// const home = dynamic(() => import('../styles/Home.module.css'))
 import home from "../styles/Home.module.css";
-import HeadTag from "../Components/Head";
-import Header from "../Components/Header";
-import Footer from "../Components/Footer";
+
+const HeadTag = dynamic(() => import('../Components/Head'))
+const Header = dynamic(() => import('../Components/Header'))
+const Footer = dynamic(() => import('../Components/Footer'))
+const Carousel = dynamic(() => import('../Components/Carousel'))
+
 import useNextBlurhash from "use-next-blurhash";
-import Carousel from "../Components/Carousel";
 import Image from "next/image";
 import CountUp from "react-countup";
 import ScrollTrigger from "react-scroll-trigger";
@@ -33,8 +37,11 @@ import { BiFoodMenu } from "react-icons/bi";
 import { BiHappy } from "react-icons/bi";
 import { RiNumbersFill } from "react-icons/ri";
 import { MdOutlineAccountBox } from "react-icons/md";
-
 import Link from "next/link";
+
+
+
+
 const Home = ({HomeData}) => {
   const [blurDataUrl1] = useNextBlurhash("LnPsFhNfyYs+-?t7sle.yZRjMxax");
   const [blurDataUrl2] = useNextBlurhash("LiM?I~WB-;Rj~qoeNKoJK7kCVss:");
@@ -435,16 +442,7 @@ const Home = ({HomeData}) => {
 
 
 
-export async function getStaticProps() {
-let HOST = process.env.NEXT_PUBLIC_API_URL;
-      const res = await fetch(`${HOST}/api/HomePageAnaylsis`);
-      let HomeData = await res.json();
-      
 
-  return {
-    props: {HomeData}, // will be passed to the page component as props
-  }
-}
 
 export default Home;
 
