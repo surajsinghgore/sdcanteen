@@ -295,21 +295,17 @@ const Home = ({HomeData}) => {
 
 
 export const getStaticProps = async () => {
- try {
 let HOST = process.env.NEXT_PUBLIC_API_URL;
   const res =  await fetch(`${HOST}/api/HomePageAnaylsis`)
 let HomeData = await res.json();
-console.log(HomeData)
- if (errors || !HomeData) {
-      return { notFound: true };
+  if (!HomeData) {
+    return {
+      notFound: true,
     }
-    else{
-     return {
-    props: {HomeData}, // will be passed to the page component as props
   }
-    }
-} catch (e) {
-    return { notFound: true };
+
+  return {
+    props: { HomeData }, // will be passed to the page component as props
   }
   
 }
