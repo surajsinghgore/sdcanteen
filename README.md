@@ -1,34 +1,54 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+# SD CANTEEN
 
-First, run the development server:
+allow students to book college food items online from their college cafeteria
+
+
+## Demo
+
+https://sdcanteen.onrender.com
+
+
+## Screenshots
+
+![App Screenshot](https://res.cloudinary.com/dnxv21hr0/image/upload/v1698147307/sdcanteen/coyemfanikf9hbbja5vz.png)
+![App Screenshot](https://res.cloudinary.com/dnxv21hr0/image/upload/v1698147308/sdcanteen/dy4irseg9kvhyr5esuz7.png)
+![App Screenshot](https://res.cloudinary.com/dnxv21hr0/image/upload/v1698147304/sdcanteen/ltejnn0joer5z7j7div6.png)
+![App Screenshot](https://res.cloudinary.com/dnxv21hr0/image/upload/v1698147301/sdcanteen/ocxvc3d3wz6ytooqkaby.png)
+![App Screenshot](https://res.cloudinary.com/dnxv21hr0/image/upload/v1698147301/sdcanteen/wji3j4weuqbfnc49do31.png)
+![App Screenshot](https://res.cloudinary.com/dnxv21hr0/image/upload/v1698147308/sdcanteen/kfhx8btbwmkna9360pw8.png)
+![App Screenshot](https://res.cloudinary.com/dnxv21hr0/image/upload/v1698147302/sdcanteen/kkn40k3s30jkvnelisez.png)
+
+
+
+## Test Locally
+
+Setup Project Locally
 
 ```bash
-npm run dev
-# or
-yarn dev
+  git clone https://github.com/surajsinghgore/sdcanteenworking.git
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Install packages
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+```bash
+cd sdcanteenworking
+npm install
+```
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+Run Script
+```bash
+npm run dev
+```
+## Environment Variables
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+To run this project, you will need to add the following environment variables to your .env file
 
-## Learn More
+Please Contact Author for .local.env files
 
-To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Authors
 
-## Deploy on Vercel
+- [@surajsingh](https://www.linkedin.com/in/surajsinghgore)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
